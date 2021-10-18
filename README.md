@@ -1,2 +1,2 @@
-# WO-Web-FE
+# WO-FE
 Frontend Repository for Web
