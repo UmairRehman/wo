@@ -1,0 +1,32 @@
+.full-height{
+    height: 100vh !important;
+}
+.intro-para{
+    line-height: 2 !important;
+    width: 80%;
+}
+.intro-heading{
+    font-size: 50px !important;
+}
+.intro-para{
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+.fixed-button{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 600px) {
+    .mobile-responsive{
+        display: none;
+    }
+}
+  
+@media only screen and (max-width: 600px) {
+    .mobile-responsive{
+        display: none;
+    }
+}
+  

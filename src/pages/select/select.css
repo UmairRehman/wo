@@ -1,0 +1,26 @@
+.orange{
+    background: #FD6700;
+    height: 450px;
+    border-radius: 30px;
+    margin: 10px;
+    background-image: url('../../assets/images/boy.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+.green{
+    background: #27B824;
+    border-radius: 30px;
+    height: 450px;
+    margin: 10px;
+    background-image: url('../../assets/images/boy1.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+.selection-image{
+    position: absolute;
+    bottom: 0;
+    left: 50%; transform: translate(-50%,0); 
+    /* left: 0;
+    right: 0;
+    margin: auto; */
+}

@@ -1,0 +1,21 @@
+.gray-background{
+    background: #F5F5F5;
+}
+.following-card{
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 20px;
+}
+
+.react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px);
+}
+
+.react-multiple-carousel__arrow--right{
+    right: calc(1% + 1px);
+}
+
+
+
+

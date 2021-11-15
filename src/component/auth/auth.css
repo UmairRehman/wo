@@ -1,0 +1,53 @@
+.gray-background{
+    background: #FAFAFA;
+}
+.custom-card{
+    margin: 50px !important;
+}
+.login-field{
+    height: 50px;
+    border-radius: 50px;
+    background: #F8F8F8;
+}
+.login-field .ant-input{
+    background: #F8F8F8;
+}
+.login-fonts{
+    font-size: 20px;
+    color: black;
+}
+.login-checkBox{
+    font-size: 12px !important;
+    margin: 0;
+}
+.login-checkBox .ant-checkbox-checked .ant-checkbox-inner::after {
+    border: 2px solid black !important;
+    border-top: 0 !important;
+    border-left: 0 !important;
+}
+.login-checkBox .ant-checkbox-checked .ant-checkbox-inner {
+    background-color:white !important;
+    border-color: black !important;
+}
+.login-form-forgot{
+    font-size: 12px;
+    color: #27B824;
+    padding-top: 5px !important;
+}
+
+.login-form-forgot:hover{
+    font-size: 12px;
+    color: #27B824;
+}
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.responsive-card{
+    height: 80vh;
+    margin-top: 10vh;
+}
+

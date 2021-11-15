@@ -1,38 +1,336 @@
-.App {
-  text-align: center;
+@import 'antd/dist/antd.css';
+
+html{
+    --antd-wave-shadow-color: #3978BD ;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+}
+h1,h2,h3,h4,h5{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold !important;
+}
+h5{
+  font-size:45px !important;
+}
+h1{
+  font-size: 40px !important;
+}
+h2{
+  font-size: 32px !important;
+}
+h3{
+  font-size: 28px !important;
+}
+h4{
+  font-size: 24px !important;
+}
+h5{
+  font-size: 20px !important;
+}
+p{
+  font-size: 20px !important;
+}
+.ant-form label{
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 100 !important;
+  font-size: 12px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.color-white{
+  color: white !important;   
+}
+.text-center{
+  text-align: center !important;
+}
+.blue-color{
+  color: #3978BD !important;
+}
+.w-100{
+  width: 100% !important;
+}
+.p-0 {
+  padding: 0 !important;
+}
+.m-0 {
+  margin: 0 !important;
+}
+.m-auto {
+  margin: auto !important;
+}
+.ml-1 {
+  margin-left: 10px;
+}
+.ml-2 {
+  margin-left: 15px;
+}
+.ml-3 {
+  margin-left: 20px;
+}
+.ml-4 {
+  margin-left: 25px;
+}
+.ml-5 {
+  margin-left: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.mr-1 {
+  margin-right: 10px;
+}
+.mr-2 {
+  margin-right: 15px;
+}
+.mr-3 {
+  margin-right: 20px;
+}
+.mr-4 {
+  margin-right: 25px;
+}
+.mr-5 {
+  margin-right: 30px;
+}
+.mt-1 {
+  margin-top: 10px !important;
+}
+.mt-2 {
+  margin-top: 15px !important;
+}.mt-3 {
+  margin-top: 20px !important;
+}.mt-4 {
+  margin-top: 25px !important;
+}.mt-5 {
+  margin-top: 30px !important;
+}
+.mb-1{
+  margin-bottom: 10px;
+}
+.mb-2{
+  margin-bottom: 15px;
+}.mb-3{
+  margin-bottom: 20px;
+}.mb-4{
+  margin-bottom: 25px;
+}.mb-5{
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.font-weight-bold {
+  font-weight: 600;
+}
+.font-12{
+  font-size: 12px;
+}
+.font-14{
+  font-size: 14px;
+}
+.font-16{
+  font-size: 16px;
+}
+.font-18{
+  font-size: 18px;
+}
+.font-20 {
+  font-size: 20px;
+}
+.font-22{
+  font-size: 22px;
+}
+.font-24 {
+  font-size: 24px;
+}
+.font-26 {
+  font-size: 26px;
+}.font-28 {
+  font-size: 28px;
+}
+.font-30 {
+  font-size: 30px !important;
+}
+.w-100 {
+  width: 100%;
+}
+.w-50 {
+  width: 50%;
+}
+.border-radius-20{
+  border-radius:20px
+}
+.position-relative{
+  position: relative;
+}
+.position-absolute{
+  position: absolute;
+}
+.font-weight-bold{
+  font-weight: bold;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.loader {
+  position: absolute;
+  height: 100%;
+  width: 100%;    
+  z-index: 1;
+  background: #fafafa;
+  opacity: .6;
+}
+.loader .ant-spin-dot{
+  top:48%
+}
+.loader-component{
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  display: flex;
+}
+.g-color{
+  color: #27B824;
+}
+.g-b-color{
+  background: #27B824;
+}
+.border-none{
+  border: none !important;
+}
+.b-color{
+  color: #000000 !important;
+}
+.fade-button{
+  border: none !important;
+  background :#F8F8F8;
+  color: black;
+  border-radius: 20px;
+  height: 50px;
+  width: 200px;
+  font-size: 20px !important;
+}
+.fade-button:hover{
+  border: none !important;
+  background :#F8F8F8;
+  color: black;
+  border-radius: 20px;
+  height: 50px;
+  width: 200px;
+  font-size: 20px !important;
+}
+.button{
+  border: none !important;
+  background :#27B824;
+  border-radius: 20px;
+  height: 50px;
+  width: 200px;
+  font-size: 20px !important;
+}
+.faceook-button{
+  border: none !important;
+  background :#1976D2;
+  border-radius: 20px;
+  height: 50px;
+  width: 200px;
+  font-size: 20px !important;
+}
+.gmail-icon{
+  border: none !important;
+  background :white;
+  color: black;
+  border-radius: 20px;
+  height: 50px;
+  width: 200px;
+  box-shadow: 6px 6px 20px -2px rgba(112,112,112,0.75);
+  font-size: 20px !important;
+}
+.gmail-icon:hover{
+  border: none !important;
+  background :white;
+  color: black;
+  border-radius: 20px;
+  height: 50px;
+  width: 200px;
+  box-shadow: 6px 6px 20px -2px rgba(112,112,112,0.75);
+  font-size: 20px !important;
+}
+.button:hover{
+  background: white;
+  color:#27B824;
+  border: 1px solid #27B824 !important;
+}
+.padding-auto{
+  padding: 4%;
+}
+.d-flex{
+  display: flex;
+}
+.justify-content-center{
+  justify-content: center;
+}
+.justify-content-right{
+  justify-content: end;
+}
+.m-auto{
+  margin: auto;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #27B824 !important;
+}
+.ant-tabs-ink-bar {
+  background: #27B824 !important;
+}
+.ant-tabs-tab:hover {
+  color: #27B824 !important;
+}
+.ant-input:hover {
+  border-color: #27B824 !important;
+}
+::selection {
+  color: #fff;
+  background: #27B824 !important;
+}
+html {
+  --antd-wave-shadow-color: #27B824 !important;
+}
+.content{
+  position:absolute; 
+  top:100px;
+  width: 100%;
+}
+.title-center{
+  text-align: center;
+  width: 100%;
+}
+.text-white{
+  color: white !important;
+}
+.w-75{
+  width: 75% !important;
 }
 
-.App-link {
-  color: #61dafb;
+
+/* animation in page change */
+
+.animation{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  animation: mymove .50s ;
+}
+.animation2{
+  width: 100%;
+  position: relative;
+  animation: mymove .50s ;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes mymove {
+  from {left: 220px;}
+  to {left: 0px;}
 }
+
+/* End animation in page change */
+
+.ant-menu-light .ant-menu-item:hover, .ant-menu-light .ant-menu-item-active, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover {
+  color: #27B824 !important;
+}
+::selection {
+  color: #fff;
+  background: #27B824 !important;
+}
+

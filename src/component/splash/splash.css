@@ -1,0 +1,15 @@
+.splashScreen{
+    background: black;
+    height: 100vh;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+.splashImage{
+    justify-content: center;
+    flex: 1;
+}
+
+
+
