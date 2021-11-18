@@ -30,11 +30,11 @@ function ForgetPassword() {
 
     return (
         <div style={{height:'100vh', position:'relative'}} className="gray-background">
-            <Row>
+            <Row style={{height:'100vh', position:'relative'}}>
                 <Col md={8} xs={24} >
                     
                 </Col>
-                <Col className="position-relative" md={8} xs={24} >
+                <Col  style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
                     <Card  bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Reset Password</Title>
                         <Paragraph style={{textAlign:'center'}}>Enter the email or phone number associated with your account and we'll send you code to reset your password</Paragraph>

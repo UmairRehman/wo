@@ -34,7 +34,7 @@ function FollowingCard() {
 
     return (
         <div>
-            <div style={{ width: '90%', margin: 'auto', position: 'relative' }}>
+            <div>
                 <Carousel responsive={responsive}>
                   
                     <Card className='following-card gray-background'>

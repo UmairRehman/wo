@@ -1,0 +1,249 @@
+import React from 'react'
+
+import {
+    DownOutlined
+} from '@ant-design/icons';
+
+import { Layout, Dropdown, Image, Row, Col, Typography, Card, Button, Menu, message, Form, Input } from 'antd';
+import SuggestIcon from '../../assets/images/suggest.png'
+import Sidebar from '../../component/sidebar/sidebar';
+import Header from '../../component/header/header';
+import FollowingCard from '../../component/following/followingCard';
+import { Link } from 'react-router-dom';
+import Option from '../../assets/images/option.png'
+import Bell from '../../assets/images/bell.jpg'
+import Line from '../../assets/images/line.png'
+import Cover from '../../assets/images/cover.png'
+import smallLogo from '../../assets/images/smallLogo.png'
+import './myProfile.css'
+import Services from '../../component/services/services';
+
+
+
+function MyProfile() {
+
+    const { Content } = Layout;
+    const { Title, Text, Paragraph } = Typography;
+
+    function handleMenuClick(e) {
+        message.info('Click on menu item.');
+        console.log('click', e);
+    }
+
+    const onFinish = (values: any) => {
+        console.log('Success:', values);
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const followingDropdown = (
+        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="2">
+                    <Paragraph style={{ marginBottom: '0px' }}>Block</Paragraph>
+            </Menu.Item>
+         
+        </Menu>
+    );
+
+    const shareDropdowm = (
+        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <Paragraph style={{ marginBottom: '10px' }}>Share profile via</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="3">
+                <Link to='./signup-form'>
+                    <Paragraph style={{ marginBottom: '0px' }}>Edit Profile</Paragraph>
+                </Link>
+            </Menu.Item>
+        </Menu>
+    );
+
+
+    const menu = (
+        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '0px' }}>Delete</Paragraph>
+                <Paragraph className="fade-text">Delete this notification</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <Paragraph style={{ marginBottom: '0px' }}>Stop only this alert</Paragraph>
+                <Paragraph className="fade-text">Remove from my alerts</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="3">
+                <Paragraph style={{ marginBottom: '0px' }}>Turn off</Paragraph>
+                <Paragraph className="fade-text">Stop receiving notifications like this</Paragraph>
+            </Menu.Item>
+        </Menu>
+    );
+
+    const profileBellIcon = (
+        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '0px' }}>Receive On Notifications </Paragraph>
+                <Paragraph className="fade-text">Start receiving notifications when this person is ON</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <Paragraph style={{ marginBottom: '0px' }}>Receive Off Notifications </Paragraph>
+                <Paragraph className="fade-text">Stop receiving notifications  when this person is Off</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="3">
+                <Paragraph style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="4">
+                <Paragraph style={{ marginBottom: '0px' }}>Turn Off all notifications for this person</Paragraph>
+            </Menu.Item>
+        </Menu>
+    );
+
+    const optionDropDown = (
+        <Menu className="notification-dropdown"
+            onClick={handleMenuClick} >
+            <Menu.Item key="1" >
+                <Paragraph style={{ marginBottom: '10px' }} > Block </Paragraph>
+            </Menu.Item >
+            <Menu.Item key="2" >
+                <Paragraph style={{ marginBottom: '10px' }} > Unfollow </Paragraph>
+            </Menu.Item >
+            <Menu.Item key="3" >
+                <Paragraph style={{ marginBottom: '10px' }} > Copy profile URL </Paragraph>
+            </Menu.Item >
+            <Menu.Item key="4" >
+                <Paragraph style={{ marginBottom: '0px' }} > Share this profile  </Paragraph>
+            </Menu.Item >
+        </Menu>
+    );
+
+
+
+    return (
+        <div className="animation2 " >
+            <div className="test" >
+                <Header />
+            </div>
+
+            <div className="content ant-page- " >
+
+                <Row>
+                    <Col className="full-image" md={24}>
+                        <Image height={300} preview={false} src={Cover} />
+                    </Col>
+                </Row>
+
+                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5" >
+                    <Col md={3} xs={6} >
+                        <Image className="border-50" preview={false} src={SuggestIcon} />
+                    </Col>
+
+                    <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
+                        {/* <Row>
+                            <Paragraph className="follower-counter" > 40 </Paragraph>
+                        </Row>
+                        <Row>
+                            <Paragraph className="follower-heading" > Followers </Paragraph>
+                        </Row > */}
+                    </Col>
+
+                    <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
+
+                    </Col>
+
+                    <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
+                        <Dropdown style={{ border: 'none' }}
+                            overlay={profileBellIcon}
+                            placement="bottomRight" >
+                            <Button style={{ border: 'none' }} >
+                                <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
+                            </Button>
+                        </Dropdown>
+                    </Col>
+
+                </Row>
+
+                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="" >
+                    <Row className='w-100'>
+                        <Title level={5}>Kelly Morgan</Title>
+                    </Row>
+                    <Row className='w-100'>
+                        <Paragraph>Barber</Paragraph>
+                    </Row>
+                </Row >
+
+                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} >
+                    <Row className='w-100'>
+
+                        <Col md={12} xs={24}>
+                            <Paragraph className="m-0" style={{ color: '#A8A8A8' }}>Public Account</Paragraph>
+                            <Paragraph>38 Street Polly park Florida, USA</Paragraph>
+                            <Paragraph>Kellymorgan@who'son.com</Paragraph>
+                            <Paragraph>+1 890 498 369</Paragraph>
+
+                            <Title level={5} >Dashboard</Title>
+                            <Row>
+
+
+                                <div className="follow-card">
+                                    <Row style={{ color: '#FD6700' }}>
+                                        21
+                                    </Row>
+                                    <Row>
+                                        Following
+                                    </Row>
+                                </div>
+
+                                <div className="follow-card">
+                                    <Row style={{ color: '#FD6700' }}>
+                                        302
+                                    </Row>
+                                    <Row>
+                                        Followers
+                                    </Row>
+                                </div>
+
+                            </Row>
+
+                        </Col>
+                        <Col className="justify-content-end mt-3" md={12} xs={24}>
+                            <Button style={{ border: 'none', popsition: 'relative' }} className="gray-background mr-2 following-dropdown-button">I'm on <span style={{ position: 'absolute', right: '10px', top: '12px' }}> <Image preview={false} src={smallLogo} /> </span> </Button>
+
+                            <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
+                                <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
+                            </Dropdown>
+
+                        </Col>
+                    </Row>
+
+                    <Row className="mt-5">
+                        <Row>
+                            <Title level={5}>About</Title>
+                        </Row>
+
+                        <Row>
+                            <Paragraph>
+                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                            </Paragraph>
+                        </Row>
+
+                    </Row>
+                </Row >
+
+                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="d-flex justify-content-center mt-5 w-100">
+                    <Image className="w-100" src={Line} preview={false} />
+                </Row>
+
+                <Services />
+
+
+            </div>
+        </div>
+    )
+}
+
+export default MyProfile

@@ -21,20 +21,20 @@ function PasswordVarified() {
 
     return (
         <div style={{height:'100vh', position:'relative'}}>
-            <Row>
+            <Row style={{height:'100vh'}}>
                 <Col md={8} xs={24} >
                     
                 </Col>
-                <Col className="position-relative" md={8} xs={24} >
-                    <Card  bordered={false} className="custom-card responsive-card position-relative">
+                <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
+                    <Card  bordered={false} className="position-relative">
                         <Row className="d-flex justify-content-center">
-                            <Image src={Varified} />
+                            <Image src={Varified} preview={false} />
                         </Row>
                         
                         <Title className="d-flex justify-content-center" level={5}>Password verified</Title>
                         <Paragraph style={{textAlign:'center'}}>Congratulations, your new password has been verified. You can now start using the app.</Paragraph>
                         
-                        <Link className="mt-5" to="/varified">
+                        <Link className="mt-5" to="/login">
                             <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
                             Sign in
                             </Button>

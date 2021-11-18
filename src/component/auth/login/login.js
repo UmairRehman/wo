@@ -21,11 +21,11 @@ function Login() {
 
     return (
         <div style={{height:'100vh', position:'relative'}} className="gray-background">
-            <Row>
+            <Row  style={{height:'100vh', position:'relative'}}>
                 <Col md={8} xs={24} >
                     
                 </Col>
-                <Col className="position-relative" md={8} xs={24} >
+                <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
                     <Card  bordered={false} className="custom-card responsive-card">
                         {/* <Title level={5}></Title> */}
                         <Form

@@ -13,7 +13,7 @@ import '../auth.css'
 
 const { Title, Paragraph } = Typography;
 
-function ForgetConfirmation() {
+function UserName() {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -27,8 +27,8 @@ function ForgetConfirmation() {
                 </Col>
                 <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
                     <Card  bordered={false} className="custom-card responsive-card">
-                        <Title className="d-flex justify-content-center" level={5}>Enter confirmation code</Title>
-                        <Paragraph style={{textAlign:'center'}}>Enter the confirmation code we sent to who'son@gmail.com.</Paragraph>
+                        <Title className="d-flex justify-content-center" level={5}>Confirm username</Title>
+                        <Paragraph style={{textAlign:'center'}}>Use a name you'd like your friends to find you with</Paragraph>
 
                         <Form
                             name="normal_login"
@@ -38,13 +38,28 @@ function ForgetConfirmation() {
                         >
                             <Form.Item
                                 name="ConfirmationCode"
+                                rules={[{ required: true, message: 'Please input your First Name!' }]}
+                            >
+                                <Input className="login-field" placeholder="First Name" />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="ConfirmationCode"
+                                rules={[{ required: true, message: 'Please input your Last Name!' }]}
+                            >
+                                <Input className="login-field" placeholder="Last Name" />
+                            </Form.Item>
+
+                            
+                            <Form.Item
+                                name="ConfirmationCode"
                                 rules={[{ required: true, message: 'Please input your Username!' }]}
                             >
-                                <Input className="login-field" placeholder="Varification Code" />
+                                <Input className="login-field" placeholder="User Name" />
                             </Form.Item>
     
                             <Form.Item className="position-relative">
-                                <Link to="/create-new-password">
+                                <Link to="/create-password">
                                     <Button
                                     type="primary" htmlType="submit" className="button mt-5 w-100" >
                                     Next
@@ -52,7 +67,6 @@ function ForgetConfirmation() {
                                 </Link>
                             </Form.Item>
                         </Form>
-                        <p style={{position:'absolute', bottom:'0px',left:'0px' , width:'100%'}} className="d-flex justify-content-center g-color">Resend Code</p>
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >
@@ -63,4 +77,4 @@ function ForgetConfirmation() {
     )
 }
 
-export default ForgetConfirmation;
+export default UserName;

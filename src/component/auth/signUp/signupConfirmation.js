@@ -13,7 +13,7 @@ import '../auth.css'
 
 const { Title, Paragraph } = Typography;
 
-function ForgetConfirmation() {
+function SignupConfirmation() {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -28,7 +28,7 @@ function ForgetConfirmation() {
                 <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
                     <Card  bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Enter confirmation code</Title>
-                        <Paragraph style={{textAlign:'center'}}>Enter the confirmation code we sent to who'son@gmail.com.</Paragraph>
+                        <Paragraph style={{textAlign:'center'}}>Enter the confirmation code we sent to +1 8** *** 369</Paragraph>
 
                         <Form
                             name="normal_login"
@@ -44,7 +44,7 @@ function ForgetConfirmation() {
                             </Form.Item>
     
                             <Form.Item className="position-relative">
-                                <Link to="/create-new-password">
+                                <Link to="/signup-confirmation-email">
                                     <Button
                                     type="primary" htmlType="submit" className="button mt-5 w-100" >
                                     Next
@@ -63,4 +63,4 @@ function ForgetConfirmation() {
     )
 }
 
-export default ForgetConfirmation;
+export default SignupConfirmation;

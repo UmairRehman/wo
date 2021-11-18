@@ -11,6 +11,7 @@ function Splash() {
         <div className="splashScreen" >
             <p className="text-center w-100">
                 <Image
+                    preview={false}
                     width={200}
                     className="splashImage"
                     src={SplashImage}

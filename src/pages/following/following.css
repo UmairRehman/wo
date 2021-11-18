@@ -1,0 +1,19 @@
+.border-50{
+    border-radius: 50%;
+}
+.width-inherit{
+    width: inherit;
+}
+.follow-button{
+    background: white;
+    border: 1px solid white;
+    color: black;
+    border-radius: 10px;
+}
+.follow-button:hover{
+    border: 1px solid #27B824;
+    background: #27B824;
+    color: white !important; 
+}
+
+

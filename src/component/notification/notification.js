@@ -65,9 +65,8 @@ function Notification(props) {
 
         <Col className="self-align-center" span={2}>
           <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
-            {/* <Image style={{ width: 'inherit' }} preview={false} style={{ paddingTop: '5px' }} src={Option}/> */}
             <Dropdown style={{border:'none'}} overlay={menu} placement="bottomRight">
-              <Button style={{border:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
+              <Button style={{border:'none', background:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
             </Dropdown>
           </Row>
         </Col>
@@ -98,7 +97,7 @@ function Notification(props) {
           <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
             {/* <Image style={{ width: 'inherit' }} preview={false} style={{ paddingTop: '5px' }} src={Option}/> */}
             <Dropdown style={{border:'none'}} overlay={menu} placement="bottomRight">
-              <Button style={{border:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
+              <Button style={{border:'none', background:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
             </Dropdown>
           </Row>
         </Col>
@@ -129,7 +128,7 @@ function Notification(props) {
           <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
             {/* <Image style={{ width: 'inherit' }} preview={false} style={{ paddingTop: '5px' }} src={Option}/> */}
             <Dropdown style={{border:'none'}} overlay={menu} placement="bottomRight">
-              <Button style={{border:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
+              <Button style={{border:'none', background:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
             </Dropdown>
           </Row>
         </Col>
@@ -160,7 +159,7 @@ function Notification(props) {
           <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
             {/* <Image style={{ width: 'inherit' }} preview={false} style={{ paddingTop: '5px' }} src={Option}/> */}
             <Dropdown style={{border:'none'}} overlay={menu} placement="bottomRight">
-              <Button style={{border:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
+              <Button style={{border:'none', background:'none'}} >  <Image style={{ width: 'inherit' }} preview={false} src={Option}/> </Button>
             </Dropdown>
           </Row>
         </Col>

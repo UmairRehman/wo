@@ -47,7 +47,97 @@
     transform: translateY(-50%);
 }
 .responsive-card{
-    height: 80vh;
-    margin-top: 10vh;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
 }
+.custom-date-of-birth{
+    background: #F5F5F5;
+    height: 50px;
+    border-radius: 20px;
+}
+.ant-picker-focused{
+    border-color: #27B824 !important;
+}
+.ant-picker-focused:hover{
+    border-color: #27B824 !important;
+}
+.add-profile-picture{
+    background: #27B824 !important;
+    height: 50px;
+    width: 55px;
+    border-radius: 50%;
+    border: 1px solid white !important;
+    background: #27B824;
+    color: white !important;
+    font-size: 22px;
+    font-weight: bold;
+}
+.add-profile-picture:hover{
+    background: white;
+    height: 50px;
+    width: 55px;
+    border-radius: 50%;
+    border: 1px solid #27B824 !important;
+    background: white !important;
+    color: #27B824 !important;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.custom-position-button{
+    bottom: 0;
+    right: 0;
+}
+.form-dropdown{
+    border: none !important;
+}
+.form-dropdown .ant-select-selector{
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #707070 !important;
+    font-size: 16px !important;
+}
+.fancy-border{
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #707070 !important;
+}
+.padding-20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .padding-20{
+        padding-left: 0px;
+        padding-right: 0px;
+    }    
+}
+.ant-input:focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
+    box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
+}
+@media only screen and (max-width: 600px) {
+    .mobile-center-align{
+        width: 100%;
+        justify-content: center;
+    }    
+}
+.follow-card{
+    background: #F8F8F8;
+    padding: 10px;
+    border-radius: 10px;
+    width: 120px;
+    margin-right: 10px;
+}
+.manage-Background-color div div{
+    background: white !important;
+    background-color: white !important;
+}
+
+
+
 

@@ -23,6 +23,21 @@ import Selection from '../component/selection/selection.js';
 import Notification from '../pages/notification/notification';
 import FollowingCard from '../component/following/followingCard.js';
 import Following from '../pages/following/following.js';
+import Suggest from '../pages/suggest/suggest.js';
+import Profile from '../pages/profile/profile.js';
+import UserListing from '../pages/userListing/userListing.js';
+import PhoneAndEmail from '../component/auth/signUp/phoneAndEmail.js';
+import SignupConfirmation from '../component/auth/signUp/signupConfirmation.js';
+import SignupConfirmationEmail from '../component/auth/signUp/signupConfirmationEmail.js';
+import UserName from '../component/auth/signUp/username.js';
+import EnterPassword from '../component/auth/signUp/enterPassword.js';
+import DateOfBirth from '../component/auth/signUp/dateOfBirth.js';
+import AddProfilePicture from '../component/auth/signUp/profilePicture.js';
+import ProfilePictureView from '../component/auth/signUp/profilePictureView.js';
+import SignupForm from '../component/auth/signUp/signupForm.js';
+import MyProfile from '../pages/myProfile/myProfile.js';
+import UploadProfile from '../component/uploadProfile.js/uploadProfile.js';
+
 
 
 function router() {
@@ -46,6 +61,48 @@ function router() {
                     <Route path='/forget-password'>
                         <ForgetPassword  />
                     </Route>
+
+                    {/* SignUp  */}
+
+                    <Route path='/signup-1'>
+                        <PhoneAndEmail  />
+                    </Route>
+
+                    <Route path='/signup-confirmation'>
+                        <SignupConfirmation  />
+                    </Route>
+
+                    <Route path='/signup-confirmation-email'>
+                        <SignupConfirmationEmail  />
+                    </Route>
+
+                    <Route path='/username'>
+                        <UserName  />
+                    </Route>
+
+                    <Route path='/create-password'>
+                        <EnterPassword />
+                    </Route>
+
+                    <Route path='/date-of-birth'>
+                        <DateOfBirth />
+                    </Route>
+
+                    <Route path='/profile-picture'>
+                        <AddProfilePicture />
+                    </Route>
+
+                    <Route path='/view-profile-picture'>
+                        <ProfilePictureView />
+                    </Route>
+
+                    <Route path='/signup-form'>
+                        <SignupForm />
+                    </Route>
+
+                    
+
+                    {/* SignUP end  */}
 
                     <Route exact path='/'>
                         <Splash  />
@@ -79,10 +136,6 @@ function router() {
                         <PasswordVarified />
                     </Route>
 
-                    <Route path='/sidebar'>
-                        <Sidebar />
-                    </Route>
-
                     <Route path='/header'>
                         <Header />
                     </Route>
@@ -103,11 +156,24 @@ function router() {
                         <Following />
                     </Route>
 
+                    <Route path='/users'>
+                        <UserListing />
+                    </Route>
 
+                    {/* This needs to be correct  */}
+                    <Route path='/suggest'>
+                        <Suggest />
+                    </Route>
 
+                    <Route path='/profile'>
+                        <Profile />
+                    </Route>
 
+                    <Route path='/profile-1'>
+                        <MyProfile />
+                    </Route>
 
-
+                    {/* This needs to be correct from here */}
 
                     {/* import Component  */}
                     
@@ -115,6 +181,11 @@ function router() {
                         <FollowingCard />
                     </Route>
 
+                    <Route path='/test'>
+                        <UploadProfile />
+                    </Route>
+
+                    {/* import Component End  */}
 
 
 

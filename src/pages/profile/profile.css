@@ -1,0 +1,47 @@
+.follower-counter {
+    color: #FD6700;
+    font-size: 18px;
+    margin: 0px !important;
+}
+
+.follower-heading {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .follower-counter {
+        font-size: 12px;
+        justify-content: center;
+        padding-left: 5px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .follower-heading {
+        font-size: 14px;
+        padding-left: 5px;
+    }
+}
+.following-dropdown{
+    border: none;
+    font-size: 16px;
+}
+.following-dropdown-button{
+    height: 50px;
+    width: 150px;
+    border-radius: 20px;
+}
+
+.following-dropdown-button-2{
+    height: 50px;
+    width: 60px;
+    border-radius: 20px;
+    padding-top: 10px;
+}
+.anchor:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+

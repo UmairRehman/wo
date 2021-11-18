@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, Image } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, DatePicker, Image } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -13,22 +13,26 @@ import '../auth.css'
 
 const { Title, Paragraph } = Typography;
 
-function ForgetConfirmation() {
+function DateOfBirth() {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
-      };
+    };
+
+    function onChange(date, dateString) {
+        console.log(date, dateString);
+    }
 
     return (
-        <div style={{height:'100vh', position:'relative'}} className="gray-background">
-            <Row style={{height:'100vh', position:'relative'}}>
+        <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
-                    
+
                 </Col>
-                <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
-                    <Card  bordered={false} className="custom-card responsive-card">
-                        <Title className="d-flex justify-content-center" level={5}>Enter confirmation code</Title>
-                        <Paragraph style={{textAlign:'center'}}>Enter the confirmation code we sent to who'son@gmail.com.</Paragraph>
+                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                    <Card bordered={false} className="custom-card responsive-card">
+                        <Title className="d-flex justify-content-center" level={5}>Add your date of birth</Title>
+                        <Paragraph style={{ textAlign: 'center' }}>This won't be part of your public profile. Why do i need to provide my date of birth?</Paragraph>
 
                         <Form
                             name="normal_login"
@@ -38,29 +42,29 @@ function ForgetConfirmation() {
                         >
                             <Form.Item
                                 name="ConfirmationCode"
-                                rules={[{ required: true, message: 'Please input your Username!' }]}
+                                rules={[{ required: true, message: 'Please enter your data of birth!' }]}
                             >
-                                <Input className="login-field" placeholder="Varification Code" />
+                                <DatePicker format={'MMMM Do YYYY'} className="w-100 custom-date-of-birth" onChange={onChange} />
+
                             </Form.Item>
-    
+
                             <Form.Item className="position-relative">
-                                <Link to="/create-new-password">
+                                <Link to="/profile-picture">
                                     <Button
-                                    type="primary" htmlType="submit" className="button mt-5 w-100" >
-                                    Next
+                                        type="primary" htmlType="submit" className="button mt-5 w-100">
+                                        Next
                                     </Button>
                                 </Link>
                             </Form.Item>
                         </Form>
-                        <p style={{position:'absolute', bottom:'0px',left:'0px' , width:'100%'}} className="d-flex justify-content-center g-color">Resend Code</p>
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >
-                
+
                 </Col>
             </Row>
         </div>
     )
 }
 
-export default ForgetConfirmation;
+export default DateOfBirth;

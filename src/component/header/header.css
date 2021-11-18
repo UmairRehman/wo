@@ -29,6 +29,7 @@
 .custom-sidebar{
     z-index: 1;
     margin-top: -30px;
+    height: 100vh;
 }
 
 

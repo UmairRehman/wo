@@ -37,7 +37,7 @@ function Introduction4() {
                 </Row>
 
                 <Row className="d-flex fixed-button ">
-                    <Button className="fade-button mt-5"  type="primary">Sign up</Button>
+                <Link  to="./signup-1"><Button className="fade-button mt-5"  type="primary">Sign up</Button></Link>
                     <Link  to="./login"> <Button className="button mt-5"  type="primary">Sign in</Button></Link>
                 </Row>
 

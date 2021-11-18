@@ -13,7 +13,7 @@ import '../auth.css'
 
 const { Title, Paragraph } = Typography;
 
-function NewPassword() {
+function EnterPassword() {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -37,7 +37,13 @@ function NewPassword() {
                         >
                              <Form.Item
                                 name="password"
-                                rules={[{ required: true, message: 'Please input your Password!' }]}
+                                rules={[
+                                    {
+                                      required: true,
+                                      message: 'Please input your password!',
+                                    },
+                                  ]}
+                                  hasFeedback
                             >
                                 <Input
                                 className="login-field"
@@ -48,7 +54,21 @@ function NewPassword() {
                             </Form.Item>
                             <Form.Item
                                 name="confirmPassword"
-                                rules={[{ required: true, message: 'Please input your Password!' }]}
+                                dependencies={['password']}
+                                rules={[
+                                    {
+                                      required: true,
+                                      message: 'Please confirm your password!',
+                                    },
+                                    ({ getFieldValue }) => ({
+                                      validator(rule, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                          return Promise.resolve();
+                                        }
+                                        return Promise.reject('The two passwords that you entered do not match!');
+                                      },
+                                    }),
+                                  ]}
                             >
                                 <Input
                                 className="login-field"
@@ -67,9 +87,9 @@ function NewPassword() {
                                 </Col>
                             </Row>
                             <Form.Item>
-                                <Link to="/varified">
+                                <Link to="/date-of-birth">
                                     <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
-                                    Sign in
+                                    Confirm Password
                                     </Button>
                                 </Link>
                             </Form.Item>
@@ -86,4 +106,4 @@ function NewPassword() {
     )
 }
 
-export default NewPassword;
+export default EnterPassword;
