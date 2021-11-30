@@ -50,7 +50,7 @@ function router() {
                         <Dashboard  />
                     </Route>
 
-                    <Route exact path='/'>
+                    <Route path='/splash'>
                         <Splash  />
                     </Route>
 
@@ -101,14 +101,9 @@ function router() {
                     </Route>
 
                     
-
                     {/* SignUP end  */}
 
                     <Route exact path='/'>
-                        <Splash  />
-                    </Route>
-
-                    <Route path='/instruction-1'>
                         <Introduction1 />
                     </Route>
 
