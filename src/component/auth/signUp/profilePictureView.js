@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Typography, notification, Input, Button, DatePicker, Image } from 'antd';
 import moment from 'moment';
-import { FacebookOutlined } from '@ant-design/icons';
-import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
     Link
 } from "react-router-dom";
@@ -40,6 +38,8 @@ function ProfilePictureView() {
 
     const [loader, setLoader] = useState(false)
 
+    const [error, setError] = useState(false)
+
     let date = localStorage.getItem('dateofBirth')
     
     async function onFinish() {
@@ -47,7 +47,7 @@ function ProfilePictureView() {
         let data = {
             firstName: localStorage.getItem('firstName'),
             lastName: localStorage.getItem('lastName'),
-            dob:  moment( date , "MM DD YYYY"),
+            dob:  date ,
             username: localStorage.getItem('userName'),
         }
 
@@ -62,24 +62,28 @@ function ProfilePictureView() {
             let resultHandle = await SubmitSignup(data)
 
             if (resultHandle?.success == true) {
+                
                 if (resultHandle?.success == true) {
                     setLoader(false)
                     history.push('./login')
-
-
                 }
+
                 else {
                     validateMessages(resultHandle);
                     console.log(resultHandle)
                     setLoader(false)
                 }
+
             }
             else {
+
                 console.log("error")
                 validateMessages(resultHandle);
                 setLoader(false)
+            
             }
         }
+
         catch (err) {
             console.log(err)
         }

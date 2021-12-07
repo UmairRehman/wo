@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, Tabs } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, notification, Tabs } from 'antd';
 import { PhoneOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -10,6 +10,10 @@ import { useHistory } from "react-router-dom";
 
 // import CSS 
 import '../auth.css'
+import { ForgetPhone } from '../../../services/apiInteraction';
+
+
+import { ForgetEmail } from '../../../services/apiInteraction';
 
 const { Title, Paragraph } = Typography;
 
@@ -17,81 +21,168 @@ const { TabPane } = Tabs;
 
 function callback(key) {
     console.log(key);
-  }
+}
+
+
+const validateMessages = (data) => {
+    console.log(data)
+    const args = {
+        message: 'Error',
+        description:
+            `${data.message}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
+
 
 function ForgetPassword() {
 
-    const onFinish = (values) => {
+    let history = useHistory();
+
+    const [loader, setLoader] = useState(false)
+
+    const [error, setError] = useState(false)
+
+    const onFinish = async (values) => {
         console.log('Received values of form: ', values);
+
+
+        let data = {
+            phoneNumber: values.phoneNumber
+        }
+
+        try {
+
+            let resultHandle = await ForgetPhone(data)
+
+            if (resultHandle?.success == true) {
+
+                if (resultHandle?.success == true) {
+                    setLoader(false)
+                    localStorage.setItem('token', resultHandle?.message?.accessToken)
+                    history.push('./forget-confirmation')
+                }
+
+                else {
+                    validateMessages(resultHandle);
+                    console.log(resultHandle)
+                    setLoader(false)
+                }
+
+            }
+
+            else {
+            
+                console.log("error")
+                validateMessages(resultHandle);
+                setLoader(false)
+         
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
     };
-    const onFinishEmail = (values) => {
+
+
+
+    const onFinishEmail = async (values) => {
         console.log('Received values of form: ', values);
+
+        let data = {
+            emailAddress: values.email
+        }
+
+        try {
+
+            let resultHandle = await ForgetEmail(data)
+
+            if (resultHandle?.success == true) {
+                if (resultHandle?.success == true) {
+                    setLoader(false)
+                    localStorage.setItem('token', resultHandle?.message?.accessToken)
+                    history.push('./forget-confirmation')
+                }
+                else {
+                    validateMessages(resultHandle);
+                    console.log(resultHandle)
+                    setLoader(false)
+                }
+            }
+            else {
+                console.log("error")
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+
     };
 
     return (
-        <div style={{height:'100vh', position:'relative'}} className="gray-background">
-            <Row style={{height:'100vh', position:'relative'}}>
+        <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
-                    
+
                 </Col>
-                <Col  style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
-                    <Card  bordered={false} className="custom-card responsive-card">
+                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                    <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Reset Password</Title>
-                        <Paragraph style={{textAlign:'center'}}>Enter the email or phone number associated with your account and we'll send you code to reset your password</Paragraph>
-                        
+                        <Paragraph style={{ textAlign: 'center' }}>Enter the email or phone number associated with your account and we'll send you code to reset your password</Paragraph>
+
                         <Tabs defaultActiveKey="1" onChange={callback} centered>
                             <TabPane tab="Phone Number" key="1">
                                 <Form
-                                name="normal_login"
-                                className="login-form mt-5"
-                                initialValues={{ remember: true }}
-                                onFinish={onFinish}
+                                    name="normal_login"
+                                    className="login-form mt-5"
+                                    initialValues={{ remember: true }}
+                                    onFinish={onFinish}
                                 >
-                                 <Form.Item
-                                name="username"
-                                rules={[{ required: true, message: 'Please input your Username!' }]}
-                                >
-                                    <Input className="login-field" prefix={<PhoneOutlined className="login-fonts" />} placeholder="Phone Number" />
-                                </Form.Item>
-                                <Form.Item>
-                                    <Link to="/forget-confirmation"> 
+                                    <Form.Item
+                                        name="phoneNumber"
+                                        rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                    >
+                                        <Input className="login-field" prefix={<PhoneOutlined className="login-fonts" />} placeholder="Phone Number" />
+                                    </Form.Item>
+                                    <Form.Item>
                                         <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
                                             Next
                                         </Button>
-                                    </Link>
-                                </Form.Item>
+                                    </Form.Item>
                                 </Form>
-                                <Paragraph className="mt-5" style={{textAlign:'center'}}>You may receive SMS updates from WHO'S ON and can opt out any time.</Paragraph>
+                                <Paragraph className="mt-5" style={{ textAlign: 'center' }}>You may receive SMS updates from WHO'S ON and can opt out any time.</Paragraph>
 
                             </TabPane>
                             <TabPane tab="Email Address" key="2">
-                            <Form
-                                name="normal_login"
-                                className="login-form mt-5"
-                                initialValues={{ remember: true }}
-                                onFinish={onFinishEmail}
+                                <Form
+                                    name="normal_login"
+                                    className="login-form mt-5"
+                                    initialValues={{ remember: true }}
+                                    onFinish={onFinishEmail}
                                 >
-                               <Form.Item
-                                name="Email"
-                                rules={[{ required: true, message: 'Please input your Username!' }]}
-                                >
-                                <Input className="login-field" prefix={<MdOutlineEmail className="login-fonts" />} placeholder="Username" />
-                                </Form.Item>
-                                <Form.Item>
-                                    <Link to="">
+                                    <Form.Item
+                                        name="email"
+                                        rules={[{ required: true, message: 'Please input your Email address!' }]}
+                                    >
+                                        <Input className="login-field" prefix={<MdOutlineEmail className="login-fonts" />} placeholder="Email Address" />
+                                    </Form.Item>
+                                    <Form.Item>
                                         <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
-                                        Next
+                                            Next
                                         </Button>
-                                    </Link>
-                                </Form.Item>
+                                    </Form.Item>
                                 </Form>
-                                <Paragraph className="mt-5" style={{textAlign:'center'}}>You may receive code on your email address.</Paragraph>
+                                <Paragraph className="mt-5" style={{ textAlign: 'center' }}>You may receive code on your email address.</Paragraph>
                             </TabPane>
                         </Tabs>
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >
-                
+
                 </Col>
             </Row>
         </div>

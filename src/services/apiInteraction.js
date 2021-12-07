@@ -99,6 +99,28 @@ export async function ResendOTP(obj) {
 };
 
 
+// Resend OTP  
+export async function ForgetResendOTP(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/resend/otp`,
+    {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+
+};
+
+
 
 
 // userName  
@@ -140,6 +162,91 @@ export async function SubmitSignup(obj) {
     });
 
   return await ErrorHandling(result)
+};
+
+
+
+// forget Phone
+export async function ForgetPhone(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  // headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/send/otp`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+// forget Email
+export async function ForgetEmail(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  // headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/send/otp`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+
+// forget varification
+export async function ForgetVarification(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/verify/otp`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+
+
+// forget confirm password 
+export async function ForgetConfirmPassword(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/change/password`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
 };
 
 
