@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, Image } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, notification } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -8,27 +8,104 @@ import {
 
 import { useHistory } from "react-router-dom";
 
+import { ResendOTP } from '../../../services/apiInteraction';
+
+import { VarifyPhoneOTP } from '../../../services/apiInteraction';
+
 // import CSS 
 import '../auth.css'
 
 const { Title, Paragraph } = Typography;
 
+
+const validateMessages = (data) => {
+    console.log(data)
+    const args = {
+        message: 'Error',
+        description:
+            `${data.message}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
+
 function SignupConfirmation() {
 
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-      };
+    let history = useHistory();
+
+    const [error, setError] = useState(false)
+
+    const [loader, setLoader] = useState(false)
+
+    const onFinish = async (values) => {
+
+        let data = {
+            OTP: values.ConfirmationCode,
+        }
+
+        try {
+
+            let resultHandle = await VarifyPhoneOTP(data)
+
+            if (resultHandle.success == true) {
+                if (resultHandle.success == true) {
+                    setLoader(false)
+                    history.push("./username");
+                }
+                else {
+                    validateMessages(resultHandle);
+                    console.log(resultHandle)
+                    setLoader(false)
+                }
+            }
+            else {
+                console.log("error")
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    };
+
+
+
+    async function Resend() {
+
+        try {
+
+            let resultHandle = await ResendOTP()
+
+            if (resultHandle.success == true) {
+                if (resultHandle.success == true) {
+                    setLoader(false)
+                }
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
+            }
+            else {
+                setLoader(false)
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
 
     return (
-        <div style={{height:'100vh', position:'relative'}} className="gray-background">
-            <Row style={{height:'100vh', position:'relative'}}>
+        <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
-                    
+
                 </Col>
-                <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
-                    <Card  bordered={false} className="custom-card responsive-card">
+                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                    <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Enter confirmation code</Title>
-                        <Paragraph style={{textAlign:'center'}}>Enter the confirmation code we sent to +1 8** *** 369</Paragraph>
+                        <Paragraph style={{ textAlign: 'center' }}>Enter the confirmation code we sent to +1 8** *** 369</Paragraph>
 
                         <Form
                             name="normal_login"
@@ -38,25 +115,25 @@ function SignupConfirmation() {
                         >
                             <Form.Item
                                 name="ConfirmationCode"
-                                rules={[{ required: true, message: 'Please input your Username!' }]}
+                                rules={[{ required: true, message: 'Please input your OTP!' }]}
                             >
                                 <Input className="login-field" placeholder="Varification Code" />
                             </Form.Item>
-    
+
                             <Form.Item className="position-relative">
-                                <Link to="/signup-confirmation-email">
-                                    <Button
+                                {/* <Link to="/username"> */}
+                                <Button
                                     type="primary" htmlType="submit" className="button mt-5 w-100" >
                                     Next
-                                    </Button>
-                                </Link>
+                                </Button>
+                                {/* </Link> */}
                             </Form.Item>
                         </Form>
-                        <p style={{position:'absolute', bottom:'0px',left:'0px' , width:'100%'}} className="d-flex justify-content-center g-color">Resend Code</p>
+                        <p onClick={Resend} style={{ position: 'absolute', bottom: '0px', left: '0px', width: '100%', cursor: 'pointer' }} className="d-flex justify-content-center g-color">Resend Code</p>
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >
-                
+
                 </Col>
             </Row>
         </div>

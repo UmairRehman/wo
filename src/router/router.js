@@ -37,6 +37,7 @@ import ProfilePictureView from '../component/auth/signUp/profilePictureView.js';
 import SignupForm from '../component/auth/signUp/signupForm.js';
 import MyProfile from '../pages/myProfile/myProfile.js';
 import UploadProfile from '../component/uploadProfile.js/uploadProfile.js';
+import Signup from '../component/auth/signUp/signup1.js';
 
 
 
@@ -63,6 +64,10 @@ function router() {
                     </Route>
 
                     {/* SignUp  */}
+
+                    <Route path='/signup-0'>
+                        <Signup  />
+                    </Route>
 
                     <Route path='/signup-1'>
                         <PhoneAndEmail  />
@@ -99,7 +104,6 @@ function router() {
                     <Route path='/signup-form'>
                         <SignupForm />
                     </Route>
-
                     
                     {/* SignUP end  */}
 

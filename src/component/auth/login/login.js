@@ -66,11 +66,11 @@ function Login() {
                                 </Col>
                             </Row>
                             <Form.Item>
-                                {/* <Link to="./select"> */}
+                                <Link to="./select">
                                     <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
                                     Sign in
                                     </Button>
-                                {/* </Link> */}
+                                </Link>
                             </Form.Item>
 
                             <Form.Item>

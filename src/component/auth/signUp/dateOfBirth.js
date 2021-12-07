@@ -15,12 +15,24 @@ const { Title, Paragraph } = Typography;
 
 function DateOfBirth() {
 
+    let history = useHistory();
+
+    const [dateofBirth, setDateofBirth] = useState('')
+
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+
+        let data = {
+            dateofBirth
+        }
+
+        localStorage.setItem('dateofBirth', dateofBirth)
+        history.push('/profile-picture')
+
     };
 
     function onChange(date, dateString) {
-        console.log(date, dateString);
+        console.log(dateString);
+        setDateofBirth(dateString)
     }
 
     return (
@@ -49,12 +61,10 @@ function DateOfBirth() {
                             </Form.Item>
 
                             <Form.Item className="position-relative">
-                                <Link to="/profile-picture">
-                                    <Button
-                                        type="primary" htmlType="submit" className="button mt-5 w-100">
-                                        Next
-                                    </Button>
-                                </Link>
+                                <Button
+                                    type="primary" htmlType="submit" className="button mt-5 w-100">
+                                    Next
+                                </Button>
                             </Form.Item>
                         </Form>
                     </Card>
