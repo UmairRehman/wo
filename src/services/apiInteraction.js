@@ -252,6 +252,29 @@ export async function ForgetConfirmPassword(obj) {
 
 
 
+// Login   
+export async function Login(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  // headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/login`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+
+
 
 
 

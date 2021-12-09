@@ -1,4 +1,3 @@
-import { AuthTypes } from "../actions/authActions";
 
 const initialState = {
     login: {
@@ -6,15 +5,18 @@ const initialState = {
         password: '',
     },
 
-    loginSubmit: false
+    loggedIn: false
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case AuthTypes.LOGIN:
-            console.log("login")
-            return 0;
 
+        case "LOGIN_USER":
+            return {
+                ...state,
+                
+                loggedIn: true,
+              };
         default:
             return "not login"
     }
