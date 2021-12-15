@@ -17,6 +17,11 @@ h5 {
   font-weight: bold !important;
 }
 
+.ant-btn-primary:focus{
+  background: #27B824 !important;
+  color: white !important;
+}
+
 h5 {
   font-size: 45px !important;
 }
@@ -231,6 +236,14 @@ p {
 .cursor-pointer {
   cursor: pointer;
 }
+.loader {
+  position: absolute;
+  height: 100%;
+  width: 100%;    
+  z-index: 1;
+  background: #fafafa;
+  opacity: .6;
+}
 
 .loader {
   position: absolute;
@@ -293,6 +306,7 @@ p {
 .button {
   border: none !important;
   background: #27B824;
+  color:white;
   border-radius: 20px;
   height: 50px;
   width: 200px;
@@ -463,7 +477,7 @@ html {
 }
 
 .ant-btn:hover {
-  color: #27B824 !important;
+  /* color: #27B824 !important; */
 
 }
 

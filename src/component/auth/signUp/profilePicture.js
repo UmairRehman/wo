@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, message, Upload, Image } from 'antd';
+import { Row, Col, Card, Typography, notification, Input, Button, message, Upload, Image } from 'antd';
 import Avatar from 'react-avatar-edit'
 import { PlusOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
@@ -17,6 +17,21 @@ import '../auth.css'
 
 const { Title, Paragraph } = Typography;
 
+
+const validateMessages = (data) => {
+    console.log(data)
+    const args = {
+        message: 'Error',
+        description:
+            `${data.message}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
+
+
+
+
 function ProfilePicture(props) {
 
     let history = useHistory();
@@ -30,6 +45,8 @@ function ProfilePicture(props) {
     const [buttonDisable, setButtonDisable] = useState(false)
 
     const [error, setError] = useState('')
+
+    const [loader, setLoader] = useState(false)
 
     function onBeforeFileLoad(elem) {
         if (elem.target.files[0].size > 7168000000) {
@@ -62,9 +79,12 @@ function ProfilePicture(props) {
     function onUpload(file) {
     }
 
-    function submitImage() {
+    async function submitImage() {
+
         localStorage.setItem("profileImage", profileImage)
+
         history.push('/view-profile-picture')
+
     }
 
     useEffect(() => {
@@ -104,7 +124,7 @@ function ProfilePicture(props) {
                                 disabled={buttonDisable}
                                 onClick={submitImage}
                                 type="primary" htmlType="submit" className="button mt-5 ">
-                                Next
+                                Next / Skip
                             </Button>
                         </Row>
                     </Card>

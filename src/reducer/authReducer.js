@@ -1,22 +1,27 @@
-import { AuthTypes } from "../actions/authActions";
 
 const initialState = {
     login: {
         userName: '',
         password: '',
+        payload: null || {}
     },
 
-    loginSubmit: false
+
+    loggedIn: false
 }
 
 const authReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case AuthTypes.LOGIN:
-            console.log("login")
-            return 0;
-
-        default:
-            return "not login"
+    console.log(action)
+    if (action.type == "LOGIN_USER") {
+        console.log("login")
+        return {
+            ...state,
+            payload: action.payload, 
+            loggedIn: true,
+        };
+    }
+    else{
+        return "not login"
     }
 }
 

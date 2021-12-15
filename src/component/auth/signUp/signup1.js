@@ -8,7 +8,7 @@ import {
 
 import { useHistory } from "react-router-dom";
 
-import { ForgetConfirmPassword } from '../../../services/apiInteraction';
+import { SignupApi } from '../../../services/apiInteraction';
 
 import { patterns } from '../../Regix';
 
@@ -16,79 +16,93 @@ import { patterns } from '../../Regix';
 // import CSS 
 import '../auth.css'
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Text } = Typography;
+
 
 const validateMessages = (data) => {
-    console.log(data)
     const args = {
         message: 'Error',
         description:
-            `${data.message}`,
+            `${data?.message}`,
         duration: 5,
     };
     notification.error(args);
 };
 
-
-function NewPassword() {
+function Signup() {
 
     let history = useHistory();
 
-    const [loader, setLoader] = useState(false)
-
     const [passwordError, setPasswordError] = useState(false)
 
-    const onFinish = async (values) => {
+    const [error, setError] = useState(false)
 
-        console.log('Received values of form: ', values);
+    const [loader, setLoader] = useState(false)
+
+    const onFinish = async (values) => {
+        setLoader(true)
 
         let password = values.password.match(patterns.password)
 
         let data = {
+            emailAddress: values.email,
             password: values.password,
-            Cpassword: values.Cpassword
+            Cpassword: values.confirmPassword
         }
 
         if (password) {
+
             try {
-                setLoader(true)
-                let resultHandle = await ForgetConfirmPassword(data)
+                let resultHandle = await SignupApi(data)
+                console.log(resultHandle)
 
-                if (resultHandle?.success == true) {
+                if (resultHandle.success == true) {
+                    if (resultHandle.success == true) {
 
-                    if (resultHandle?.success == true) {
                         setLoader(false)
-                        localStorage.setItem('token' , resultHandle.message.accessToken)
-                        history.push('./varified')
+                        console.log(data)
+                        localStorage.setItem('email', data.emailAddress)
+                        localStorage.setItem('token', resultHandle.message.accessToken)
+                        setLoader(false)
+
+                        history.push("/signup-1");
+
                     }
 
                     else {
                         validateMessages(resultHandle);
-                        console.log(resultHandle)
                         setLoader(false)
+
                     }
-
                 }
-                else {
 
-                    console.log("error")
+                else {
                     validateMessages(resultHandle);
                     setLoader(false)
 
                 }
+
             }
             catch (err) {
+
+                setLoader(false)
                 console.log(err)
+
             }
+
+
         }
+
         else {
             setPasswordError(true)
         }
 
     };
 
+
+
     return (
-        <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+        <div style={{ height: '100vh', position: 'relative' }} className="gray-background position-relative">
             <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
@@ -96,8 +110,7 @@ function NewPassword() {
                 </Col>
                 <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
-                        <Title className="d-flex justify-content-center" level={5}>Create new password</Title>
-                        <Paragraph style={{ textAlign: 'center' }}>Your new password must be different from previous used password.</Paragraph>
+                        {/* <Title level={5}></Title> */}
                         <Form
                             name="normal_login"
                             className="login-form"
@@ -105,8 +118,21 @@ function NewPassword() {
                             onFinish={onFinish}
                         >
                             <Form.Item
+                                name="email"
+                                rules={[{ type: 'email', required: true, message: 'Please input your valid email!' }]}
+                            >
+                                <Input className="login-field" prefix={<MdOutlineEmail className="login-fonts" />} placeholder="Email" />
+                            </Form.Item>
+
+                            <Form.Item
                                 name="password"
-                                rules={[{ required: true, message: 'Please input your Password!' }]}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                                hasFeedback
                             >
                                 <Input
                                     className="login-field"
@@ -115,8 +141,10 @@ function NewPassword() {
                                     placeholder="Password"
                                 />
                             </Form.Item>
+
                             <Form.Item
-                                name="Cpassword"
+                                name="confirmPassword"
+                                dependencies={['password']}
                                 rules={[
                                     {
                                         required: true,
@@ -153,13 +181,30 @@ function NewPassword() {
                                     </Form.Item>
                                 </Col>
                             </Row>
+
                             <Form.Item>
+                                {/* <Link to="./signup-1"> */}
                                 <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
-                                    Sign in
+                                    Sign up
+                                </Button>
+                                {/* </Link> */}
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" className="gmail-icon mt-5 w-100" >
+                                    Sign in with Google
                                 </Button>
                             </Form.Item>
 
 
+                            <Form.Item className="position-relative">
+                                <Button
+                                    // icon={<Image preview={false} 
+                                    // src={Facebook} />}
+                                    type="primary" htmlType="submit" className="faceook-button mt-5 w-100" >
+                                    Sign in with Facebook
+                                </Button>
+                            </Form.Item>
                         </Form>
                     </Card>
                 </Col>
@@ -171,4 +216,4 @@ function NewPassword() {
     )
 }
 
-export default NewPassword;
+export default Signup;

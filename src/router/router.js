@@ -37,6 +37,8 @@ import ProfilePictureView from '../component/auth/signUp/profilePictureView.js';
 import SignupForm from '../component/auth/signUp/signupForm.js';
 import MyProfile from '../pages/myProfile/myProfile.js';
 import UploadProfile from '../component/uploadProfile.js/uploadProfile.js';
+import Signup from '../component/auth/signUp/signup1.js';
+import Complete from '../pages/complete/complete.js';
 
 
 
@@ -45,39 +47,43 @@ function router() {
         <div>
             <Router>
                 <Switch>
-                    
+
                     <Route exact path='/dashboard'>
-                        <Dashboard  />
+                        <Dashboard />
                     </Route>
 
                     <Route path='/splash'>
-                        <Splash  />
+                        <Splash />
                     </Route>
 
                     <Route path='/login'>
-                        <Login  />
+                        <Login />
                     </Route>
 
                     <Route path='/forget-password'>
-                        <ForgetPassword  />
+                        <ForgetPassword />
                     </Route>
 
                     {/* SignUp  */}
 
+                    <Route path='/signup-0'>
+                        <Signup />
+                    </Route>
+
                     <Route path='/signup-1'>
-                        <PhoneAndEmail  />
+                        <PhoneAndEmail />
                     </Route>
 
                     <Route path='/signup-confirmation'>
-                        <SignupConfirmation  />
+                        <SignupConfirmation />
                     </Route>
 
                     <Route path='/signup-confirmation-email'>
-                        <SignupConfirmationEmail  />
+                        <SignupConfirmationEmail />
                     </Route>
 
                     <Route path='/username'>
-                        <UserName  />
+                        <UserName />
                     </Route>
 
                     <Route path='/create-password'>
@@ -100,7 +106,6 @@ function router() {
                         <SignupForm />
                     </Route>
 
-                    
                     {/* SignUP end  */}
 
                     <Route exact path='/'>
@@ -129,6 +134,10 @@ function router() {
 
                     <Route path='/varified'>
                         <PasswordVarified />
+                    </Route>
+
+                    <Route path='/completed'>
+                        <Complete />
                     </Route>
 
                     <Route path='/header'>
@@ -171,7 +180,7 @@ function router() {
                     {/* This needs to be correct from here */}
 
                     {/* import Component  */}
-                    
+
                     <Route path='/following-card'>
                         <FollowingCard />
                     </Route>
