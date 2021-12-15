@@ -27,7 +27,7 @@ function Select() {
                         </Link>
                     </Col>
                     <Col md={12} xs={24}>
-                        <Link to='./intrest'>
+                        <Link to='./signup-form'>
                             <Row className="green position-relative">
                                 <div className="w-100">
                                     <Title className="title-center mt-5 text-white" level={2}>I'm On</Title>

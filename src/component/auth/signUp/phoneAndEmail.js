@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, notification, Tabs } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, notification, Tabs, Spin } from 'antd';
 import { PhoneOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -51,6 +51,7 @@ function PhoneAndEmail() {
         let phone = values.phone.match(patterns.phoneNumber)
 
         if (phone) {
+            setLoader(true)
 
             let data = {
 
@@ -111,6 +112,8 @@ function PhoneAndEmail() {
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Spin className="loader" spinning={loader} size="large" />
+
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 

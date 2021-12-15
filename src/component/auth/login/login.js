@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification, Spin } from 'antd';
 import { connect } from "react-redux";
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
@@ -44,14 +44,16 @@ function Login({ authActions }) {
         }
 
         try {
-            console.log(data);
+
+            setLoader(true)
             let resultHandle = await authActions.LoginUser(data);
 
             if (resultHandle?.success == true) {
 
                 setLoader(false)
                 console.log(data)
-                localStorage.setItem('email', data.emailAddress)
+                console.log(resultHandle.message.user[0])
+                localStorage.setItem('email', resultHandle.message.user[0].emailAddress)
                 localStorage.setItem('token', resultHandle.message.accessToken)
                 history.push("/select");
 
@@ -72,6 +74,7 @@ function Login({ authActions }) {
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 

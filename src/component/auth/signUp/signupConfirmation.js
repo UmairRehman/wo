@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, notification } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, notification, Spin } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -38,6 +38,8 @@ function SignupConfirmation() {
     const [loader, setLoader] = useState(false)
 
     const onFinish = async (values) => {
+        
+        setLoader(true)
 
         let data = {
             OTP: values.ConfirmationCode,
@@ -98,6 +100,7 @@ function SignupConfirmation() {
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 

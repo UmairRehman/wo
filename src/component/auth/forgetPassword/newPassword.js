@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification, Spin } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -51,7 +51,7 @@ function NewPassword() {
 
         if (password) {
             try {
-
+                setLoader(true)
                 let resultHandle = await ForgetConfirmPassword(data)
 
                 if (resultHandle?.success == true) {
@@ -89,6 +89,7 @@ function NewPassword() {
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 

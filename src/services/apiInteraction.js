@@ -273,6 +273,52 @@ export async function Login(obj) {
 };
 
 
+// Login   
+export async function CreateProfile(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/create/profile`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+
+
+
+
+// get profession   
+export async function GetProfession() {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/profession`,
+    {
+      method: 'GET',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
 
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, notification, Tabs } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, notification, Tabs, Spin } from 'antd';
 import { PhoneOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -45,8 +45,7 @@ function ForgetPassword() {
     const [error, setError] = useState(false)
 
     const onFinish = async (values) => {
-        console.log('Received values of form: ', values);
-
+        setLoader(true)
 
         let data = {
             phoneNumber: values.phoneNumber
@@ -88,8 +87,7 @@ function ForgetPassword() {
 
 
     const onFinishEmail = async (values) => {
-        console.log('Received values of form: ', values);
-
+        setLoader(true)
         let data = {
             emailAddress: values.email
         }
@@ -125,6 +123,7 @@ function ForgetPassword() {
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 

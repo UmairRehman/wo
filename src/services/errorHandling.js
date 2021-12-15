@@ -1,15 +1,11 @@
 async function ErrorHandling(result) {
 
     try {
-        console.log(result)
-
         if (result.status == 200) {
             result = await result.json()
-            console.log(result)
             if (!result) {
                 throw new Error("No stats record found ")
             }
-            console.log('Result Data', result.data);
             // return result
             return {
                 success: true,
@@ -28,7 +24,6 @@ async function ErrorHandling(result) {
         }
 
     } catch (error) {
-        console.log("error")
         console.log(error)
     }
 

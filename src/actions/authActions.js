@@ -12,15 +12,14 @@ export const LoginUser = (data) => {
 
   return async (dispatch) => {
     try {
-      dispatch({ type: "LOGIN", payload: true });
+      // dispatch({ type: "LOGIN", payload: true });
       let resultHandle = await Login(data);
-      console.log(resultHandle.success)
+      console.log(resultHandle)
 
       if (resultHandle.success == true) {
 
-        // localStorage.setItem('token', resultHandle.message.accessToken)
-        dispatch({ type: "LOGIN_USER", payload: resultHandle });
-        dispatch({ type: "SET_LOADING_USERS", payload: false });
+        dispatch({ type: "LOGIN_USER", payload: resultHandle.message });
+        // dispatch({ type: "SET_LOADING_USERS", payload: false });
         return resultHandle = {
           success: true,
           message: resultHandle.message
@@ -33,7 +32,6 @@ export const LoginUser = (data) => {
           success: false,
           message: resultHandle.message
         }
-        // notification({ message: resultHandle.message });
       }
 
     } catch (err) {

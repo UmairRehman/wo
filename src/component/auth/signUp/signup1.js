@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification, Spin } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -40,6 +40,7 @@ function Signup() {
     const [loader, setLoader] = useState(false)
 
     const onFinish = async (values) => {
+        setLoader(true)
 
         let password = values.password.match(patterns.password)
 
@@ -52,7 +53,6 @@ function Signup() {
         if (password) {
 
             try {
-
                 let resultHandle = await SignupApi(data)
                 console.log(resultHandle)
 
@@ -63,6 +63,8 @@ function Signup() {
                         console.log(data)
                         localStorage.setItem('email', data.emailAddress)
                         localStorage.setItem('token', resultHandle.message.accessToken)
+                        setLoader(false)
+
                         history.push("/signup-1");
 
                     }
@@ -83,12 +85,14 @@ function Signup() {
             }
             catch (err) {
 
+                setLoader(false)
                 console.log(err)
 
             }
 
 
         }
+
         else {
             setPasswordError(true)
         }
@@ -98,7 +102,8 @@ function Signup() {
 
 
     return (
-        <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+        <div style={{ height: '100vh', position: 'relative' }} className="gray-background position-relative">
+            <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 

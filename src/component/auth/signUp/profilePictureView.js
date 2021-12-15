@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, notification, Input, Button, DatePicker, Image } from 'antd';
+import { Row, Col, Card, Typography, notification, Input, Button, Spin, Image } from 'antd';
 import moment from 'moment';
 import {
     Link
@@ -43,6 +43,7 @@ function ProfilePictureView() {
     let date = localStorage.getItem('dateofBirth')
     
     async function onFinish() {
+        setLoader(true)
 
         let data = {
             firstName: localStorage.getItem('firstName'),
@@ -99,6 +100,7 @@ function ProfilePictureView() {
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
+            <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 
@@ -119,7 +121,7 @@ function ProfilePictureView() {
                             </Link>
                         }
                         <Row style={{ position: 'absolute', bottom: '20px', left: '5%', width: '90%' }} >
-                            <Button onClick={onFinish} style={{ color: 'white' }} className="justify-content-center button w-100">Create Account</Button>
+                            <Button onClick={onFinish} className="justify-content-center button w-100">Create Account</Button>
                         </Row>
 
                     </Card>
