@@ -31,8 +31,26 @@
     margin-top: -30px;
     height: 100vh;
 }
+.add-picture{
+    position: absolute;
+    bottom: 7px;
+    font-size: 24px;
+    right: 100px;
+    color: black;
+    background: white;
+    border-radius: 50%;
+}
+.add-picture-camera{
+    position: absolute;
+    bottom: 7px;
+    font-size: 30px;
+    right: 100px;
+    color: white;
+}
 
-
+.change-profile-modal .ant-modal-content{
+    border-radius: 20px;
+}
 
 
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification, Spin } from 'antd';
-import { connect } from "react-redux";
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -8,10 +7,9 @@ import {
 } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
+import { Login as LoginUser} from '../../../services/apiInteraction';
 
-import * as AuthActions from "../../../actions/authActions";
 
-import { bindActionCreators } from "redux";
 
 // import CSS 
 import '../auth.css'
@@ -30,7 +28,7 @@ const validateMessages = (data) => {
 };
 
 
-function Login({ authActions }) {
+function Login() {
 
     const [loader, setLoader] = useState(false)
 
@@ -46,12 +44,15 @@ function Login({ authActions }) {
         try {
 
             setLoader(true)
-            let resultHandle = await authActions.LoginUser(data);
+            let resultHandle = await LoginUser(data);
+
+            console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                console.log(data)
+
+                localStorage.setItem('user', JSON.stringify(resultHandle.message.user[0]))
                 console.log(resultHandle.message.user[0])
                 localStorage.setItem('email', resultHandle.message.user[0].emailAddress)
                 localStorage.setItem('token', resultHandle.message.accessToken)
@@ -154,10 +155,4 @@ function Login({ authActions }) {
 }
 
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-    authActions: bindActionCreators(AuthActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

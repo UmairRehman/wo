@@ -1,10 +1,10 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
 import {
-    DownOutlined
+    DownOutlined,
+    CameraOutlined
 } from '@ant-design/icons';
-
-import { Layout, Dropdown, Image, Row, Col, Typography, Card, Button, Menu, message, Form, Input } from 'antd';
+import Avatar from 'react-avatar-edit'
+import { Layout, Dropdown, Image, Row, Col, Typography, Spin, Button, Menu, message, notification, Modal } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Sidebar from '../../component/sidebar/sidebar';
 import Header from '../../component/header/header';
@@ -17,6 +17,22 @@ import Cover from '../../assets/images/cover.png'
 import smallLogo from '../../assets/images/smallLogo.png'
 import './myProfile.css'
 import Services from '../../component/services/services';
+import { GetProfile } from '../../services/apiInteraction';
+import './myProfile.css'
+
+
+import { ChangeProfileImage } from '../../services/apiInteraction';
+
+const validateMessages = (data) => {
+    const args = {
+        message: 'Error',
+        description:
+            `${data?.message}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
+
 
 
 
@@ -24,6 +40,13 @@ function MyProfile() {
 
     const { Content } = Layout;
     const { Title, Text, Paragraph } = Typography;
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
 
     function handleMenuClick(e) {
         message.info('Click on menu item.');
@@ -44,9 +67,9 @@ function MyProfile() {
                 <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
             </Menu.Item>
             <Menu.Item key="2">
-                    <Paragraph style={{ marginBottom: '0px' }}>Block</Paragraph>
+                <Paragraph style={{ marginBottom: '0px' }}>Block</Paragraph>
             </Menu.Item>
-         
+
         </Menu>
     );
 
@@ -122,9 +145,173 @@ function MyProfile() {
     );
 
 
+    const [loader, setLoader] = useState(false)
+
+    const [getProfile, setGetProfile] = useState({})
+
+
+    useEffect(async () => {
+        try {
+            setLoader(true)
+            let resultHandle = await GetProfile();
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                console.log(resultHandle?.message?.foundUser[0])
+                setGetProfile(resultHandle?.message?.foundUser[0])
+
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }, [])
+
+    const [preview, setPreview] = useState()
+
+
+    function onClose() {
+        // setPreview(UserImage)
+    }
+
+    function onCrop(preview) {
+        setProfileImage(preview)
+        // console.log(profileImage)
+    }
+
+    function onUpload(file) {
+    }
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const [buttonDisable, setButtonDisable] = useState(false)
+
+
+    const [profileImage, setProfileImage] = useState('')
+
+
+    async function submitImage() {
+
+        console.log(profileImage)
+
+        localStorage.setItem("profileImage", profileImage)
+
+        let data = {
+
+            type: 2,
+            image: profileImage
+
+        }
+
+        try {
+            setLoader(true)
+
+            let resultHandle = await ChangeProfileImage(data);
+
+            console.log(resultHandle)
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+
+                setIsModalVisible(false)
+                window.location.reload(false);
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+                setIsModalVisible(false)
+
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            setLoader(false)
+            setIsModalVisible(false)
+
+        }
+
+    }
+
+    function submit(file) {
+
+        console.log(file)
+
+    }
+
+    function onBeforeFileLoad(elem) {
+        if (elem.target.files[0].size > 7168000000) {
+            alert("File is too big!");
+            elem.target.value = "";
+        }
+    }
+
+
 
     return (
         <div className="animation2 " >
+
+
+
+            <Modal
+                // title="Basic Modal"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={null}
+                className='change-profile-modal'
+            >
+                <Row className="justify-content-center manage-Background-color" >
+
+                    <Avatar
+                        width={300}
+                        height={300}
+                        onCrop={onCrop}
+                        cropRadius={20}
+                        minCropRadius={10}
+                        onClose={onClose}
+                        onFileLoad={submit}
+                        onBeforeFileLoad={onBeforeFileLoad}
+                        onFileLoad={onUpload}
+                        label={`Choose Image`}
+                        imageWidth={300}
+                        imageHeight={400}
+                        mimeTypes={'image/jpeg,image/png'}
+                    />
+                   
+
+                </Row>
+                <Row className="justify-content-center ">
+                    <Button
+                        disabled={buttonDisable}
+                        onClick={submitImage}
+                        type="primary" htmlType="submit" className="button-profile-image mt-5 ">
+                        Change
+                    </Button>
+                </Row>
+            </Modal>
+
+
+
+
+
+            <Spin className="loader" spinning={loader} size="large" />
+
             <div className="test" >
                 <Header />
             </div>
@@ -133,13 +320,15 @@ function MyProfile() {
 
                 <Row>
                     <Col className="full-image" md={24}>
-                        <Image height={300} preview={false} src={Cover} />
+                        <Image height={300} preview={false} src={getProfile?.backgroundPicUrl} />
+                        {/* <CameraOutlined onClick={showModal} className='add-picture-camere' /> */}
+
                     </Col>
                 </Row>
 
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5" >
                     <Col md={3} xs={6} >
-                        <Image className="border-50" preview={false} src={SuggestIcon} />
+                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl} />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
@@ -169,11 +358,13 @@ function MyProfile() {
 
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="" >
                     <Row className='w-100'>
-                        <Title level={5}>Kelly Morgan</Title>
+                        <Title level={5}>{getProfile?.firstName} {getProfile?.lastName} </Title>
                     </Row>
-                    <Row className='w-100'>
-                        <Paragraph>Barber</Paragraph>
-                    </Row>
+                    {getProfile?.imOnProfile ?
+                        <Row className='w-100'>
+                            <Paragraph>{getProfile?.imOnProfile?.firstName}</Paragraph>
+                        </Row>
+                        : null}
                 </Row >
 
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} >
@@ -181,9 +372,11 @@ function MyProfile() {
 
                         <Col md={12} xs={24}>
                             <Paragraph className="m-0" style={{ color: '#A8A8A8' }}>Public Account</Paragraph>
-                            <Paragraph>38 Street Polly park Florida, USA</Paragraph>
-                            <Paragraph>Kellymorgan@who'son.com</Paragraph>
-                            <Paragraph>+1 890 498 369</Paragraph>
+                            {getProfile?.imOnProfile ?
+                                <Paragraph>{getProfile?.imOnProfile?.address}</Paragraph>
+                                : null}
+                            <Paragraph>{getProfile?.emailAddress}</Paragraph>
+                            <Paragraph>{getProfile?.phoneNumber}</Paragraph>
 
                             <Title level={5} >Dashboard</Title>
                             <Row>
@@ -211,34 +404,39 @@ function MyProfile() {
 
                         </Col>
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
-                            <Button style={{ border: 'none', popsition: 'relative' }} className="gray-background mr-2 following-dropdown-button">I'm on <span style={{ position: 'absolute', right: '10px', top: '12px' }}> <Image preview={false} src={smallLogo} /> </span> </Button>
-
+                            {getProfile?.imOnProfile ?
+                                <Button style={{ border: 'none', popsition: 'relative' }} className="gray-background mr-2 following-dropdown-button">I'm on <span style={{ position: 'absolute', right: '10px', top: '12px' }}> <Image preview={false} src={smallLogo} /> </span> </Button>
+                                : null}
                             <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
                             </Dropdown>
 
                         </Col>
                     </Row>
+                    {getProfile?.imOnProfile ?
+                        <Row className="mt-5">
+                            <Row className="w-100">
+                                <Title level={5}>About</Title>
+                            </Row>
 
-                    <Row className="mt-5">
-                        <Row>
-                            <Title level={5}>About</Title>
+                            <Row>
+                                <Paragraph>
+                                    {getProfile?.imOnProfile?.about}
+                                </Paragraph>
+                            </Row>
+
                         </Row>
-
-                        <Row>
-                            <Paragraph>
-                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-                            </Paragraph>
-                        </Row>
-
-                    </Row>
+                        : null}
                 </Row >
 
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="d-flex justify-content-center mt-5 w-100">
                     <Image className="w-100" src={Line} preview={false} />
                 </Row>
+                {getProfile?.imOnProfile ?
 
-                <Services />
+                    <Services services={getProfile?.imOnProfile?.services} />
+
+                    : null}
 
 
             </div>

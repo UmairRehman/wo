@@ -102,7 +102,7 @@ function router() {
                         <ProfilePictureView />
                     </Route>
 
-                    <Route path='/signup-form'>
+                    <Route path='/signup-form' >
                         <SignupForm />
                     </Route>
 

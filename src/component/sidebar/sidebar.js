@@ -7,7 +7,8 @@ import {
     MessageOutlined,
     NotificationOutlined,
     ProfileOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    PlusCircleOutlined
 } from '@ant-design/icons';
 
 import './sidebar.css'
@@ -34,6 +35,7 @@ function Sidebar() {
                 <Menu className="sidebar-menu" theme="light" mode="inline"
                 // defaultSelectedKeys={['1']}
                 >
+
                     <Link to="./users">
                         <Menu.Item icon={<UsergroupAddOutlined className="font-30" />} key="1" >
                             Followers / Following
