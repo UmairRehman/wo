@@ -52,5 +52,9 @@
     border-radius: 20px;
 }
 
+.sidebar-menu{
+    height: 100vh !important;
+}
+
 
 

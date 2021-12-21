@@ -293,7 +293,7 @@ function MyProfile() {
                         imageHeight={400}
                         mimeTypes={'image/jpeg,image/png'}
                     />
-                   
+
 
                 </Row>
                 <Row className="justify-content-center ">
@@ -404,7 +404,7 @@ function MyProfile() {
 
                         </Col>
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
-                            {getProfile?.imOnProfile ?
+                            {getProfile?.imOnProfile?.firstName ?
                                 <Button style={{ border: 'none', popsition: 'relative' }} className="gray-background mr-2 following-dropdown-button">I'm on <span style={{ position: 'absolute', right: '10px', top: '12px' }}> <Image preview={false} src={smallLogo} /> </span> </Button>
                                 : null}
                             <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
@@ -413,7 +413,7 @@ function MyProfile() {
 
                         </Col>
                     </Row>
-                    {getProfile?.imOnProfile ?
+                    {getProfile?.imOnProfile?.firstName ?
                         <Row className="mt-5">
                             <Row className="w-100">
                                 <Title level={5}>About</Title>
@@ -432,9 +432,9 @@ function MyProfile() {
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="d-flex justify-content-center mt-5 w-100">
                     <Image className="w-100" src={Line} preview={false} />
                 </Row>
-                {getProfile?.imOnProfile ?
+                {getProfile?.imOnProfile?.firstName ?
 
-                    <Services services={getProfile?.imOnProfile?.services} />
+                    <Services  services={getProfile?.imOnProfile?.services} />
 
                     : null}
 

@@ -372,3 +372,95 @@ export async function ChangeProfileImage(obj) {
 
 
 
+// get followers   
+export async function GetFollowers() {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower`,
+    {
+      method: 'GET',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+// get following   
+export async function GetFollowing() {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/following`,
+    {
+      method: 'GET',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+
+// get Profie By iD   
+export async function GetProfileByID(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+  console.log(obj)
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/${obj.id}`,
+    {
+      method: 'GET',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+
+// userActions  
+export async function userActions(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+  console.log(obj)
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/follow/status`,
+    {
+      method: 'PUT',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+
+

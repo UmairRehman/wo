@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
-import { Login as LoginUser} from '../../../services/apiInteraction';
+import { Login as LoginUser } from '../../../services/apiInteraction';
 
 
 
@@ -29,6 +29,10 @@ const validateMessages = (data) => {
 
 
 function Login() {
+
+    useEffect(() => {
+    }, [])
+
 
     const [loader, setLoader] = useState(false)
 

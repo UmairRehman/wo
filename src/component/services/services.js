@@ -18,11 +18,15 @@ function Services(props) {
 
     return (
         <div>
-            <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5">
+            <Row 
+            // style={{ paddingLeft: '5%', paddingRight: '5%' }} 
+            className="mt-5">
                 <Title level={4}>Services</Title>
             </Row>
 
-            <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-3">
+            <Row
+                // style={{ paddingLeft: '5%', paddingRight: '5%' }}
+                className="mt-3">
                 {services.map((s) =>
                     <Col key={s} md={12} xs={24} >
 

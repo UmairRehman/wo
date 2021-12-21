@@ -111,8 +111,6 @@ function Header() {
 
             let resultHandle = await ChangeProfileImage(data);
 
-            console.log(resultHandle)
-
             if (resultHandle?.success == true) {
 
                 setLoader(false)
@@ -150,7 +148,6 @@ function Header() {
 
             if (resultHandle?.success == true) {
                 setGetProfile(resultHandle?.message?.foundUser[0])
-                console.log(resultHandle?.message?.foundUser[0])
                 setLoader(false)
 
             }
