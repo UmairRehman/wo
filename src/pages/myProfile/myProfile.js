@@ -433,12 +433,12 @@ function MyProfile() {
                     <Image className="w-100" src={Line} preview={false} />
                 </Row>
                 {getProfile?.imOnProfile?.firstName ?
+                    <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className=" mt-5 w-100">
 
-                    <Services  services={getProfile?.imOnProfile?.services} />
+                        <Services services={getProfile?.imOnProfile?.services} />
 
+                    </Row>
                     : null}
-
-
             </div>
         </div>
     )
