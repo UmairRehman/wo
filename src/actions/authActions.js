@@ -44,4 +44,14 @@ export const LoginUser = (data) => {
   };
 };
 
+export const getLogin = () => {
+  return async (dispatch) => {
+
+    let user = dispatch({ type: "GET_LOGIN_USER" });
+    if (user) {
+      return user
+    }
+  }
+}
+
 

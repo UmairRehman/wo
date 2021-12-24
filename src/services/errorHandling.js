@@ -10,15 +10,13 @@ async function ErrorHandling(result) {
             return {
                 success: true,
                 message: result,
-                data: result.data
             }
         }
         else {
             result = await result.json()
             return {
                 success: false,
-                message: result?.message,
-                data: result?.data
+                message: result?.message,      
             }
             throw new Error(result?.message);
         }

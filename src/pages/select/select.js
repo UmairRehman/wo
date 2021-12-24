@@ -1,14 +1,46 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Row, Col, Typography, Image  } from 'antd';
 import Boy from '../../assets/images/boy.png'
 import { Link } from 'react-router-dom';
-
+import { useHistory } from "react-router-dom";
 import './select.css'
 
 
 const { Title, Text } = Typography;
 
+
+
 function Select() {
+
+    let history = useHistory();
+
+    const [userHistory, setuserHistory] = useState({})
+
+    useEffect(() => {
+        let user = localStorage.getItem("user")
+    
+        let userObject = JSON.parse(user)
+
+        setuserHistory(userObject)
+    
+    
+    }, [])
+
+
+    function onClickAction(){
+        
+
+        console.log(userHistory.imOnProfile)
+        if(userHistory.imOnProfile){
+            history.push("/profile-1");
+        }
+        else{
+            history.push("/signup-form");
+        }
+
+
+    }
+
     return (
         <div className="animation2" style={{padding:'10%'}}>
             <Row>
@@ -16,7 +48,7 @@ function Select() {
                     <Row>
                     <Col md={12} xs={24}>
                         <Link to='./intrest'>
-                            <Row className="orange position-relative"  >
+                            <Row className="orange position-relative cursor-pointer"  >
                                 <div className="w-100">
                                     <Title className="title-center mt-5 text-white" level={2}>Who's On</Title>
                                     <Row>
@@ -27,8 +59,7 @@ function Select() {
                         </Link>
                     </Col>
                     <Col md={12} xs={24}>
-                        <Link to='./signup-form'>
-                            <Row className="green position-relative">
+                            <Row onClick={onClickAction} className="green cursor-pointer position-relative">
                                 <div className="w-100">
                                     <Title className="title-center mt-5 text-white" level={2}>I'm On</Title>
                                     <Row>
@@ -36,7 +67,6 @@ function Select() {
                                     </Row>
                                 </div>
                             </Row>
-                        </Link>
                     </Col>
                     </Row>
                 </Col>

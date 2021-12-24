@@ -31,29 +31,28 @@ const validateMessages = (data) => {
     };
     notification.error(args);
 };
-function SignupForm(user) {
+const SignupForm = (user) => {
 
     const { Content } = Layout;
     const { Title, Text, Paragraph } = Typography;
     const { Option } = Select;
     let history = useHistory();
     const [userHistory, setUserHistory] = useState({})
-    // const [email, setEmail] = useState('')
-    // const [phone, setPhone] = useState('')
     const [accountType, setAccountType] = useState('')
     const [profession, setProfession] = useState('')
     const [services, setServices] = useState([{ name: "", price: "" }]);
     const [loader, setLoader] = useState(false)
 
     const [getProfession, setGetProfession] = useState([])
-
+ 
 
     useEffect(async () => {
+       
+        let user = localStorage.getItem("user")
 
-        // console.log(user);
-        // console.log(userHistory?.user?.user[0]?.emailAddress)
-        setUserHistory(user)
+        let userObject = JSON.parse(user)
 
+        setUserHistory(userObject)
 
         try {
 
@@ -76,7 +75,9 @@ function SignupForm(user) {
             console.log(err)
         }
 
-    }, [user])
+        console.log(userHistory)
+
+    }, [])
 
 
 
@@ -84,11 +85,11 @@ function SignupForm(user) {
 
         let data = {
             private: accountType,
-            firstName: userHistory?.user?.user[0]?.firstName,
-            lastName: userHistory?.user?.user[0]?.lastName,
-            address: userHistory?.user?.user[0]?.emailAddress,
-            phoneNumber: userHistory?.user?.user[0]?.phoneNumber,
-            emailAddress: userHistory?.user?.user[0]?.emailAddress,
+            firstName: userHistory?.firstName,
+            lastName: userHistory?.lastName,
+            address: userHistory?.emailAddress,
+            phoneNumber: userHistory?.phoneNumber,
+            emailAddress: userHistory?.emailAddress,
             professionId: profession,
             about: values.about,
             services: [
@@ -131,7 +132,7 @@ function SignupForm(user) {
     }
 
 
-    function handleChangeAccountType(value){
+    function handleChangeAccountType(value) {
         setAccountType(value)
     }
 
@@ -213,7 +214,7 @@ function SignupForm(user) {
                                     name={['user', 'email']}
                                     rules={[{ type: 'email' }]}
                                 >
-                                    <Input placeholder={userHistory?.user?.user[0]?.emailAddress} disabled className="fancy-border" />
+                                    <Input placeholder={userHistory?.emailAddress} disabled className="fancy-border" />
                                 </Form.Item>
 
                             </Col>
@@ -226,7 +227,7 @@ function SignupForm(user) {
                                     name={['firstName']}
                                 // rules={[{ required: true }]}
                                 >
-                                    <Input placeholder={userHistory?.user?.user[0]?.firstName} disabled className="fancy-border" />
+                                    <Input placeholder={userHistory?.firstName} disabled className="fancy-border" />
                                 </Form.Item>
                             </Col>
 
@@ -250,7 +251,7 @@ function SignupForm(user) {
                                 // rules={[{ required: true }]}
                                 >
 
-                                    <Input placeholder={userHistory?.user?.user[0]?.lastName} disabled className="fancy-border" />
+                                    <Input placeholder={userHistory?.lastName} disabled className="fancy-border" />
 
                                 </Form.Item>
                             </Col>
@@ -319,7 +320,7 @@ function SignupForm(user) {
 
 
                                 <Row>
-                                    <Button onClick={handleAddClick}>Add more</Button>
+                                    {/* <Button onClick={handleAddClick}>Add more</Button> */}
                                 </Row>
 
                             </Col>
@@ -350,15 +351,4 @@ function SignupForm(user) {
     )
 }
 
-
-const mapStateToProps = (state) => {
-    return {
-        user: state.authReducer.payload
-    };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    authActions: bindActionCreators(AuthActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+export default SignupForm;

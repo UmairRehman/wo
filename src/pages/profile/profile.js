@@ -1,28 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
     DownOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, Card, Button, Menu, message, Form, Input } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, message, Form, Input } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
-import Sidebar from '../../component/sidebar/sidebar';
 import Header from '../../component/header/header';
-import FollowingCard from '../../component/following/followingCard';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
+
 import Option from '../../assets/images/option.png'
 import Bell from '../../assets/images/bell.jpg'
 import Line from '../../assets/images/line.png'
-
+import { GetProfileByID } from '../../services/apiInteraction';
+import Services from '../../component/services/services';
 
 
 import './profile.css'
+
+
+const validateMessages = (data) => {
+    const args = {
+        message: 'Error',
+        description:
+            `${data?.message}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
 
 
 function Profile() {
 
     const { Content } = Layout;
     const { Title, Text, Paragraph } = Typography;
+    const location = useLocation();
+
+
+
+    let id = location?.state
 
     function handleMenuClick(e) {
         message.info('Click on menu item.');
@@ -43,10 +59,16 @@ function Profile() {
                 <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
             </Menu.Item>
             <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '0px' }}>Block</Paragraph>
+                <Paragraph style={{ marginBottom: '0px' }} onClick={onClickBlock} >Block</Paragraph>
             </Menu.Item>
         </Menu>
     );
+
+    function onClickBlock(){
+
+        console.log(profile?.imOnProfile?.profession_data[0]?._id)
+    
+    }
 
     const shareDropdowm = (
         <Menu className="notification-dropdown" onClick={handleMenuClick}>
@@ -115,6 +137,42 @@ function Profile() {
     );
 
 
+    const [loader, setLoader] = useState(false)
+
+    const [profile, setProfile] = useState([])
+
+    useEffect(async () => {
+
+        console.log(":umair")
+
+        let data = {
+            id: id
+        }
+
+        try {
+
+            setLoader(true)
+            let resultHandle = await GetProfileByID(data);
+
+            console.log(resultHandle)
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                setProfile(resultHandle?.message.foundUser[0])
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }, [])
 
     return (
         <div className="animation2 " >
@@ -125,12 +183,12 @@ function Profile() {
             <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- " >
                 <Row className="mt-5" >
                     <Col md={3} xs={6} >
-                        <Image className="border-50" src={SuggestIcon} />
+                        <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl} />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
-                            <Paragraph className="follower-counter" > 40 </Paragraph>
+                            <Paragraph className="follower-counter" > {profile?.follower || 0} </Paragraph>
                         </Row>
                         <Row>
                             <Paragraph className="follower-heading" > Followers </Paragraph>
@@ -139,7 +197,7 @@ function Profile() {
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row >
-                            <Paragraph className="follower-counter" > 32 </Paragraph>
+                            <Paragraph className="follower-counter" > {profile?.following || 0} </Paragraph>
                         </Row >
                         <Row>
                             <Paragraph className="follower-heading" > Following </Paragraph>
@@ -163,19 +221,25 @@ function Profile() {
                 </Row>
                 <Row className="" >
                     <Row className='w-100'>
-                        <Title level={5}>Kelly Morgan</Title>
+                        <Title level={5}>{profile?.firstName}</Title>
                     </Row>
-                    <Row className='w-100'>
-                        <Paragraph>Barber</Paragraph>
-                    </Row>
+                    {profile?.imOnProfile &&
+                        <Row className='w-100'>
+                            <Paragraph>{profile?.imOnProfile?.profession_data[0]?.name}</Paragraph>
+                        </Row>
+                    }
                 </Row >
 
-                <Row >
+                <Row>
+
                     <Row className='w-100'>
                         <Col md={12} xs={24}>
-                            <Paragraph>Lorem ipsum dolor sit amet, consetetur pscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Paragraph>
+                            {profile?.imOnProfile &&
+                                <Paragraph>{profile?.imOnProfile?.about}</Paragraph>
+                            }
                             <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph>
                         </Col>
+
                         <Col className="justify-content-end" md={12} xs={24}>
                             <Dropdown className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button">Following <DownOutlined /></Button>
@@ -196,73 +260,14 @@ function Profile() {
                 </Row>
 
                 <Row className="mt-5">
-                    <Title level={4}>Services</Title>
+                    {profile?.imOnProfile?.firstName ?
+
+                        <Services services={profile?.imOnProfile?.services} />
+
+                        : null}
+
                 </Row>
 
-                <Row className="mt-3">
-                    <Col md={12} xs={24} >
-
-                        <Row>
-                            <Col span={6}>
-                                <Paragraph className="font-18">Shave</Paragraph>
-                            </Col>
-                            <Col span={6}>
-                                <Image src={Line} preview={false} />
-                            </Col>
-                            <Col span={6} className="justify-content-end">
-                                <Paragraph className="font-18" strong={true}>100$</Paragraph>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col span={6}>
-                                <Paragraph className="font-18">Hair Cut</Paragraph>
-                            </Col>
-                            <Col span={6}>
-                                <Image src={Line} preview={false} />
-                            </Col>
-                            <Col span={6} className="justify-content-end">
-                                <Paragraph className="font-18" strong={true}>50$</Paragraph>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col span={6}>
-                                <Paragraph className="font-18">Facial</Paragraph>
-                            </Col>
-                            <Col span={6}>
-                                <Image src={Line} preview={false} />
-                            </Col>
-                            <Col span={6} className="justify-content-end">
-                                <Paragraph className="font-18" strong={true}>22$</Paragraph>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col span={6}>
-                                <Paragraph className="font-18">Hair Color</Paragraph>
-                            </Col>
-                            <Col span={6}>
-                                <Image src={Line} preview={false} />
-                            </Col>
-                            <Col span={6} className="justify-content-end">
-                                <Paragraph className="font-18" strong={true}>25$</Paragraph>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col span={6}>
-                                <Paragraph className="font-18">Hair styling</Paragraph>
-                            </Col>
-                            <Col span={6}>
-                                <Image src={Line} preview={false} />
-                            </Col>
-                            <Col span={6} className="justify-content-end">
-                                <Paragraph className="font-18" strong={true}>10$</Paragraph>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
 
                 <Row className="mt-5">
                     <Title level={5}>Add a note</Title>
@@ -280,12 +285,12 @@ function Profile() {
                         className="w-100"
                     >
                         <Form.Item name={['user', 'introduction']}>
-                            <Input.TextArea style={{border:'none', borderRadius:'10px', padding:'10px'}} rows={5} className="gray-background" placeholder="Type Text Here"/>
+                            <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
                         </Form.Item>
 
                         <Form.Item >
-                            <Button type="primary" htmlType="submit" className="button-normal" > 
-                            Send follow request
+                            <Button type="primary" htmlType="submit" className="button-normal" >
+                                Send follow request
                             </Button>
                         </Form.Item>
                     </Form>
