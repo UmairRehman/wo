@@ -5,3 +5,8 @@ export const statusConstant = {
     UNFOLLOW : 4,
     BLOCK :5
 }
+
+export const notificationMessage = {
+    2: 'is on',
+
+}

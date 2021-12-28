@@ -454,7 +454,7 @@ export async function userActions(obj) {
     {
       method: 'PUT',
       headers,
-      // body: JSON.stringify(obj),
+      body: JSON.stringify(obj),
     });
 
   return await ErrorHandling(result)

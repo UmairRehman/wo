@@ -3,7 +3,7 @@ import {
     DownOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, message, Form, Input, Select } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select } from 'antd';
 import Sidebar from '../../../component/sidebar/sidebar';
 import Header from '../../../component/header/header';
 import { Link } from 'react-router-dom';
@@ -44,10 +44,10 @@ const SignupForm = (user) => {
     const [loader, setLoader] = useState(false)
 
     const [getProfession, setGetProfession] = useState([])
- 
+
 
     useEffect(async () => {
-       
+
         let user = localStorage.getItem("user")
 
         let userObject = JSON.parse(user)
@@ -63,16 +63,19 @@ const SignupForm = (user) => {
 
                 console.log(resultHandle?.message?.Profession)
                 setGetProfession(resultHandle?.message?.Profession)
+                setLoader(false)
 
             }
 
             else {
+                setLoader(false)
                 validateMessages(resultHandle);
             }
 
         }
         catch (err) {
             console.log(err)
+            setLoader(false)
         }
 
         console.log(userHistory)
@@ -159,6 +162,7 @@ const SignupForm = (user) => {
 
     return (
         <div className="animation2 " >
+      <Spin className="loader" spinning={loader} size="large" />
 
             <div style={{ paddingLeft: '5%', paddingRight: '5%', paddingTop: '5%' }} className="" >
 

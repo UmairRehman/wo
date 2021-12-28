@@ -300,8 +300,6 @@ function MyProfile() {
         <div className="animation2 " >
             <Spin className="loader" spinning={loader} size="large" />
 
-
-
             <Modal
                 // title="Basic Modal"
                 visible={isModalVisible}
@@ -341,24 +339,11 @@ function MyProfile() {
             </Modal>
 
 
-
-
-
-            <Spin className="loader" spinning={loader} size="large" />
-
             <div className="test" >
                 <Header />
             </div>
 
             <div className="content ant-page- " >
-
-                <Row>
-                    <Col className="full-image" md={24}>
-                        <Image height={300} preview={false} src={getProfile?.backgroundPicUrl} />
-                        {/* <CameraOutlined onClick={showModal} className='add-picture-camere' /> */}
-
-                    </Col>
-                </Row>
 
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5" >
                     <Col md={3} xs={6} >
