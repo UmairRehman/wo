@@ -15,11 +15,13 @@ import Bell from '../../assets/images/bell.jpg'
 import Line from '../../assets/images/line.png'
 import Cover from '../../assets/images/cover.png'
 import smallLogo from '../../assets/images/smallLogo.png'
+import whiteLogo from '../../assets/images/logo-white.png'
+
 import './myProfile.css'
 import Services from '../../component/services/services';
-import { GetProfile } from '../../services/apiInteraction';
+import { GetProfile, IMON } from '../../services/apiInteraction';
 import './myProfile.css'
-
+import DefaultImage from '../../assets/images/default.png'
 
 import { ChangeProfileImage } from '../../services/apiInteraction';
 
@@ -149,6 +151,7 @@ function MyProfile() {
 
     const [getProfile, setGetProfile] = useState({})
 
+    const [status, setStatus] = useState(false)
 
     useEffect(async () => {
         try {
@@ -172,7 +175,7 @@ function MyProfile() {
         catch (err) {
             console.log(err)
         }
-    }, [])
+    }, [status])
 
     const [preview, setPreview] = useState()
 
@@ -262,9 +265,40 @@ function MyProfile() {
     }
 
 
+    async function onClickStatus() {
+
+        try {
+
+            setLoader(true)
+            let resultHandle = await IMON();
+
+            console.log(resultHandle)
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                setStatus(!status)
+
+                // validateMessages(resultHandle);
+
+                // setProfile(resultHandle?.message.foundUser[0])
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
 
     return (
         <div className="animation2 " >
+            <Spin className="loader" spinning={loader} size="large" />
 
 
 
@@ -328,7 +362,7 @@ function MyProfile() {
 
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5" >
                     <Col md={3} xs={6} >
-                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl} />
+                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl  || DefaultImage } />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
@@ -377,14 +411,14 @@ function MyProfile() {
                                 : null}
                             <Paragraph>{getProfile?.emailAddress}</Paragraph>
                             <Paragraph>{getProfile?.phoneNumber}</Paragraph>
-
+                            {console.log(getProfile)}
                             <Title level={5} >Dashboard</Title>
                             <Row>
 
 
                                 <div className="follow-card">
                                     <Row style={{ color: '#FD6700' }}>
-                                        21
+                                    {getProfile?.following || 0}
                                     </Row>
                                     <Row>
                                         Following
@@ -393,7 +427,7 @@ function MyProfile() {
 
                                 <div className="follow-card">
                                     <Row style={{ color: '#FD6700' }}>
-                                        302
+                                    {getProfile?.follower || 0}
                                     </Row>
                                     <Row>
                                         Followers
@@ -404,11 +438,25 @@ function MyProfile() {
 
                         </Col>
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
-                            {getProfile?.imOnProfile?.firstName ?
-                                <Button style={{ border: 'none', popsition: 'relative' }} className="gray-background mr-2 following-dropdown-button">I'm on <span style={{ position: 'absolute', right: '10px', top: '12px' }}> <Image preview={false} src={smallLogo} /> </span> </Button>
-                                : null}
+                            {getProfile?.imOnProfile?.On == true ?
+
+                                <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}>I'm On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                :
+                                <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+
+                            }
+
+
+
                             <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
-                                <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
+                                <Button style={{
+                                    border: 'none', popsition: 'relative',
+                                    border: 'none',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    padding: '10px'
+                                }} className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
                             </Dropdown>
 
                         </Col>

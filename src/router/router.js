@@ -39,6 +39,7 @@ import MyProfile from '../pages/myProfile/myProfile.js';
 import UploadProfile from '../component/uploadProfile.js/uploadProfile.js';
 import Signup from '../component/auth/signUp/signup1.js';
 import Complete from '../pages/complete/complete.js';
+import Search from '../pages/search/search.js';
 
 
 
@@ -175,6 +176,10 @@ function router() {
 
                     <Route path='/profile-1'>
                         <MyProfile />
+                    </Route>
+
+                    <Route path='/search'>
+                        <Search />
                     </Route>
 
                     {/* This needs to be correct from here */}

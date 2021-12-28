@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react'
 
 import {
-    DownOutlined
+    DownOutlined,
+    CheckOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, message, Form, Input } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Header from '../../component/header/header';
 import { useLocation } from 'react-router-dom'
-
+import Swal from 'sweetalert2'
 import Option from '../../assets/images/option.png'
 import Bell from '../../assets/images/bell.jpg'
 import Line from '../../assets/images/line.png'
-import { GetProfileByID } from '../../services/apiInteraction';
+import { checkFollow, GetProfileByID, StatusChange, unFollow } from '../../services/apiInteraction';
 import Services from '../../component/services/services';
-
+import { FollowReqest } from '../../services/apiInteraction';
+import DefaultImage from '../../assets/images/default.png'
+import { statusConstant } from '../../constant/status'
 
 import './profile.css'
 
+
+const {
+    REQUEST,
+    ACCEPT,
+    REJECT,
+    UNFOLLOW,
+    BLOCK
+} = statusConstant;
 
 const validateMessages = (data) => {
     const args = {
@@ -30,44 +41,193 @@ const validateMessages = (data) => {
 };
 
 
+const validateMessagesFollow = (data) => {
+    const args = {
+        message: 'Notification',
+        description:
+            `${data}`,
+        duration: 5,
+    };
+    notification.success(args);
+};
+
+
 function Profile() {
 
     const { Content } = Layout;
     const { Title, Text, Paragraph } = Typography;
     const location = useLocation();
-
+    const Swal = require('sweetalert2')
 
 
     let id = location?.state
+    console.log(id)
+
+
+    const [loader, setLoader] = useState(false)
+
+    const [profile, setProfile] = useState([])
+
+    const [isFollow, setIsFollow] = useState(false)
+
+    const [reload, setReload] = useState(false)
+    const [followStatus, setFollowStatus] = useState(0)
 
     function handleMenuClick(e) {
         message.info('Click on menu item.');
         console.log('click', e);
     }
 
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
+
+    const onFinish = async (values: any) => {
+
+        let data = {
+            "followee": id,
+            "message": values.message
+        }
+
+        try {
+            setLoader(true)
+            let resultHandle = await FollowReqest(data);
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                validateMessagesFollow("Successfully Followed");
+                setReload(!reload)
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+                setReload(!reload)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
+
+    function handleStatus(e) {
+        if (e.key == 1) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to unfollow?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#27B824',
+                cancelButtonColor: '#27B824',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(async(result) => {
+                if (result.isConfirmed) {
+                    
+                    let data = {
+                        followee : id
+                    }
+
+                    try {
+
+                        setLoader(true)
+                        let resultHandle = await unFollow(data);
+            
+                        console.log(resultHandle)
+            
+                        if (resultHandle?.success == true) {
+            
+                            setLoader(false)
+                            setReload(!reload)
+                            // setProfile(resultHandle?.message.foundUser[0])
+                        }
+            
+                        else {
+                            validateMessages(resultHandle);
+                            setLoader(false)
+                        }
+            
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+
+
+
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to Block This Person?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#27B824',
+                cancelButtonColor: '#27B824',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+
+                    let data = {
+                        followee: id,
+                        status : 5
+                    }
+
+                    try {
+
+                        setLoader(true)
+                        let resultHandle = await StatusChange(data);
+
+                        console.log(resultHandle)
+
+                        if (resultHandle?.success == true) {
+
+                            setLoader(false)
+                            setReload(!reload)
+                        }
+
+                        else {
+                            validateMessages(resultHandle);
+                            setLoader(false)
+                        }
+
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+
+
+
+                }
+            })
+        }
+    }
+
+    // console.log(statusConstant)
+
     const followingDropdown = (
-        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+        <Menu className="notification-dropdown" onClick={handleStatus}>
+
             <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
             </Menu.Item>
+
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }} onClick={onClickBlock} >Block</Paragraph>
             </Menu.Item>
+
         </Menu>
     );
 
-    function onClickBlock(){
+    function onClickBlock() {
 
         console.log(profile?.imOnProfile?.profession_data[0]?._id)
-    
+
     }
 
     const shareDropdowm = (
@@ -137,13 +297,8 @@ function Profile() {
     );
 
 
-    const [loader, setLoader] = useState(false)
-
-    const [profile, setProfile] = useState([])
 
     useEffect(async () => {
-
-        console.log(":umair")
 
         let data = {
             id: id
@@ -172,10 +327,54 @@ function Profile() {
             console.log(err)
         }
 
-    }, [])
+    }, [reload])
+
+
+    useEffect(async () => {
+
+        try {
+
+            let data = {
+                followee: id
+            }
+
+            setLoader(true)
+            let resultHandle = await checkFollow(data);
+
+            console.log(resultHandle)
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                console.log(resultHandle?.message?.followUser)
+                if (resultHandle?.message?.followUser) {
+                    setIsFollow(true)
+                    setFollowStatus(resultHandle?.message?.followUser?.status);
+                    console.log(resultHandle?.message?.followUser?.status)
+                }
+                else {
+                    setIsFollow(false)
+                }
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }, [reload])
 
     return (
         <div className="animation2 " >
+
+            <Spin className="loader" spinning={loader} size="large" />
+
+
             <div className="test" >
                 <Header />
             </div>
@@ -183,7 +382,7 @@ function Profile() {
             <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- " >
                 <Row className="mt-5" >
                     <Col md={3} xs={6} >
-                        <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl} />
+                        <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl || DefaultImage} />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
@@ -221,7 +420,7 @@ function Profile() {
                 </Row>
                 <Row className="" >
                     <Row className='w-100'>
-                        <Title level={5}>{profile?.firstName}</Title>
+                        <Title level={5}>{profile?.firstName + " " + profile?.lastName}</Title>
                     </Row>
                     {profile?.imOnProfile &&
                         <Row className='w-100'>
@@ -237,13 +436,18 @@ function Profile() {
                             {profile?.imOnProfile &&
                                 <Paragraph>{profile?.imOnProfile?.about}</Paragraph>
                             }
+                            {console.log(profile)}
                             <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph>
                         </Col>
 
                         <Col className="justify-content-end" md={12} xs={24}>
+                            {followStatus == ACCEPT ?
                             <Dropdown className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button">Following <DownOutlined /></Button>
                             </Dropdown>
+                            : followStatus == REQUEST ?
+                            <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sent <CheckOutlined /> </Button>
+                            :null} 
 
                             <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button>
 
@@ -284,12 +488,12 @@ function Profile() {
                         autoComplete="off"
                         className="w-100"
                     >
-                        <Form.Item name={['user', 'introduction']}>
+                        <Form.Item name={['message']} rules={[{ required: true, message: 'Please enter mesage' }]}>
                             <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
                         </Form.Item>
 
                         <Form.Item >
-                            <Button type="primary" htmlType="submit" className="button-normal" >
+                            <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
                                 Send follow request
                             </Button>
                         </Form.Item>
@@ -297,7 +501,7 @@ function Profile() {
                 </Row>
 
             </div>
-        </div>
+        </div >
     )
 }
 

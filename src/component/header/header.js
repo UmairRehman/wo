@@ -15,6 +15,9 @@ import Paragraph from 'antd/lib/skeleton/Paragraph';
 import { ChangeProfileImage } from '../../services/apiInteraction';
 
 import { GetProfile } from '../../services/apiInteraction';
+import { useHistory } from "react-router-dom";
+import DefaultImage from '../../assets/images/default.png'
+
 
 
 const validateMessages = (data) => {
@@ -28,7 +31,7 @@ const validateMessages = (data) => {
 };
 
 
-function Header() {
+function Header(props) {
 
     const [collapsed, setCollapsed] = useState(true)
 
@@ -38,6 +41,9 @@ function Header() {
 
     const [preview, setPreview] = useState()
 
+    const [searchField, setSearchField] = useState('')
+
+    let history = useHistory();
 
     const { Sider } = Layout;
 
@@ -93,7 +99,7 @@ function Header() {
     const [loader, setLoader] = useState(false)
 
 
-    async function submitImage() {
+    async function submitImage(props) {
 
         console.log(profileImage)
 
@@ -183,16 +189,46 @@ function Header() {
     };
 
     function submit(file) {
-
         console.log(file)
+    }
+
+    const [test, setTest] = useState(false)
+
+    function submitSearch() {
+        console.log(props.page)
+        // window.location.href = '/search';
+        if (searchField) {
+            history.push({
+                pathname: '/search',
+                state: searchField
+            });
+            setTest(!test)
+        }
+
+        else {
+            console.log("empty")
+        }
 
     }
 
+    function test2(e) {
+        if (e.key === 'Enter') {
+            if (searchField) {
+                history.push({
+                    pathname: '/search',
+                    state: searchField
+                });
+                setTest(!test)
+            }
+    
+            else {
+                console.log("empty")
+            }
+        }
+    }
 
     return (
         <div>
-            <Spin className="loader" spinning={loader} size="large" />
-
             <Modal
                 // title="Basic Modal"
                 visible={isModalVisible}
@@ -241,14 +277,13 @@ function Header() {
                     title={<Image style={{ cursor: 'pointer' }} src={MenuIcon} preview={false} onClick={toggle} />}
 
 
-                    // title={<MenuIcon  onClick={toggle} />}
                     ghost={false}
                     extra={[
-                        // <Input classNa   me="search-bar-custom" placeholder="Search" suffix={<SearchOutlined style={{fontSize:'20px'}} />} />,
+                        <Input className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
 
                         <Dropdown.Button className="notifications-custom" style={{ paddingTop: '20px' }} overlay={menu} placement="bottomCenter" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
                         </Dropdown.Button>,
-                        <Image className="mt-3" preview={false} src={UserImage} width={30} height={30} />
+                        // <Image className="mt-3" preview={false} src={UserImage} width={30} height={30} />
                     ]}
                 >
                 </PageHeader>
@@ -257,7 +292,7 @@ function Header() {
 
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
-                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl} />
+                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl || DefaultImage} />
                     <PlusOutlined onClick={showModal} className='add-picture' />
                 </Row>
                 <Row className="justify-content-center mt-3">
