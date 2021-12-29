@@ -151,6 +151,7 @@ function Notification(props) {
 
 
       <Title level={4}>Notifications </Title>
+      
       {getNotification.map((data) =>
 
         <Row key={data} className="notification-row mt-5">

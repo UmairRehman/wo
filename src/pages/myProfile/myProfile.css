@@ -49,5 +49,9 @@
     color: white !important;
 }
 
+.imon-button2:focus {
+    background: #FD6700 !important;
+}
+
 
 

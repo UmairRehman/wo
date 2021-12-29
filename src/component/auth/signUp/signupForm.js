@@ -102,10 +102,10 @@ const SignupForm = (user) => {
                 }
             ]
         }
-        console.log(data)
 
         try {
             let resultHandle = await CreateProfile(data)
+            setLoader(true)
 
             if (resultHandle?.success == true) {
 
@@ -120,9 +120,10 @@ const SignupForm = (user) => {
         }
         catch (err) {
             console.log(err)
+            setLoader(false)
+
         }
 
-        console.log(data)
     };
 
     const onFinishFailed = (errorInfo: any) => {

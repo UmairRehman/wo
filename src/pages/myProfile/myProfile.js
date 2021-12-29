@@ -22,6 +22,8 @@ import Services from '../../component/services/services';
 import { GetProfile, IMON } from '../../services/apiInteraction';
 import './myProfile.css'
 import DefaultImage from '../../assets/images/default.png'
+import Load from '../../assets/images/load.gif'
+
 
 import { ChangeProfileImage } from '../../services/apiInteraction';
 
@@ -345,9 +347,17 @@ function MyProfile() {
 
             <div className="content ant-page- " >
 
+                {/* <Row> */}
+                {/* <Col className="full-image" md={24}> */}
+                {/* <Image height={300} preview={false} src={getProfile?.backgroundPicUrl} /> */}
+                {/* <CameraOutlined onClick={showModal} className='add-picture-camere' /> */}
+
+                {/* </Col> */}
+                {/* </Row> */}
+
                 <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5" >
                     <Col md={3} xs={6} >
-                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl  || DefaultImage } />
+                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl || DefaultImage} />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
@@ -403,7 +413,7 @@ function MyProfile() {
 
                                 <div className="follow-card">
                                     <Row style={{ color: '#FD6700' }}>
-                                    {getProfile?.following || 0}
+                                        {getProfile?.following || 0}
                                     </Row>
                                     <Row>
                                         Following
@@ -412,7 +422,7 @@ function MyProfile() {
 
                                 <div className="follow-card">
                                     <Row style={{ color: '#FD6700' }}>
-                                    {getProfile?.follower || 0}
+                                        {getProfile?.follower || 0}
                                     </Row>
                                     <Row>
                                         Followers

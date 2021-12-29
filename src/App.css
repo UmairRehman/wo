@@ -255,6 +255,7 @@ p {
   opacity: .6;
 }
 
+
 .loader .ant-spin-dot {
   top: 48%
 }
@@ -313,12 +314,14 @@ p {
   width: 200px;
   font-size: 20px !important;
 }
+
 .ant-btn:focus {
   color: white !important;
   border-color: #27B824 !important;
   background: #27B824 !important;
 }
-.green-background{
+
+.green-background {
   background: #27B824;
 }
 
