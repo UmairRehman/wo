@@ -56,9 +56,8 @@ function Login() {
 
                 setLoader(false)
 
-                localStorage.setItem('user', JSON.stringify(resultHandle.message.user[0]))
-                console.log(resultHandle.message.user[0])
-                localStorage.setItem('email', resultHandle.message.user[0].emailAddress)
+                localStorage.setItem('user', JSON.stringify(resultHandle.message.user))
+                localStorage.setItem('email', resultHandle.message.user.emailAddress)
                 localStorage.setItem('token', resultHandle.message.accessToken)
                 history.push("/select");
 

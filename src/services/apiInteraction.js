@@ -265,7 +265,11 @@ export async function Login(obj) {
     {
       method: 'POST',
       headers,
-      body: JSON.stringify(obj),
+      body: JSON.stringify({
+        emailAddress : obj.emailAddress,
+        password : obj.password,
+        firebaseToken: localStorage.getItem('firebaseToken') 
+      }),
     });
 
   return await ErrorHandling(result)
@@ -454,12 +458,204 @@ export async function userActions(obj) {
     {
       method: 'PUT',
       headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+// userName  
+export async function SearchApi(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/search`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+
+
+// Follow Request  
+export async function FollowReqest(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+
+// I'm On  
+export async function IMON() {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/status`,
+    {
+      method: 'PUT',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+
+
+
+// check Follow
+export async function checkFollow(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/check`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+// get Profie By iD   
+export async function GetSuggestion() {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/suggestion`,
+    {
+      method: 'GET',
+      headers,
       // body: JSON.stringify(obj),
     });
 
   return await ErrorHandling(result)
 
 };
+
+
+
+// add favourite  
+export async function Favourite(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/favorite`,
+    {
+      method: 'PUT',
+      headers,
+      body:JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+// unFollow  
+export async function unFollow(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow`,
+    {
+      method: 'DELETE',
+      headers,
+      body:JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+// add favourite  
+export async function StatusChange(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/status`,
+    {
+      method: 'PUT',
+      headers,
+      body:JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+};
+
+
+// get notification 
+export async function GetNotification() {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification`,
+    {
+      method: 'GET',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
 
 
 

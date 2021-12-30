@@ -26,12 +26,30 @@
     border: none;
     font-size: 16px;
 }
-.following-dropdown-button{
+.following-dropdown-button,.following-dropdown-button:hover{
+    height: 50px;
+    width: 150px;
+    border-radius: 20px;
+    background: #F5F5F5;
+    color: black;
+}
+.following-dropdown-button:hover{
     height: 50px;
     width: 150px;
     border-radius: 20px;
 }
-
+.following-dropdown-button2{
+    height: 50px;
+    border-radius: 20px;
+    color: white;
+    background: #27B824;
+}
+.following-dropdown-button2:hover{
+    height: 50px;
+    border-radius: 20px;
+    color: white;
+    background: #27B824;
+}
 .following-dropdown-button-2{
     height: 50px;
     width: 60px;

@@ -1,7 +1,8 @@
-.full-image .ant-image{
- min-width: 100%;
+.full-image .ant-image {
+    min-width: 100%;
 }
-.add-picture-camere{
+
+.add-picture-camere {
     position: absolute;
     top: 20px;
     font-size: 30px;
@@ -12,5 +13,45 @@
     width: 60px;
     height: 60px;
     padding: 10px;
-
 }
+
+.imon-button {
+    padding: 10px !important;
+    height: 50px;
+    border-radius: 20px;
+    width: 150px;
+    background: #27B824 !important;
+    border: none !important;
+    color: white !important;
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.imon-button:hover {
+    background: #27B824;
+}
+.imon-button2 {
+    padding: 10px !important;
+    height: 50px;
+    border-radius: 20px;
+    width: 150px;
+    background: #FD6700 !important;
+    border: none !important;
+    color: white !important;
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+}
+.imon-button2:hover {
+    background: #FD6700 !important;
+    border: none !important;
+    color: white !important;
+}
+
+.imon-button2:focus {
+    background: #FD6700 !important;
+}
+
+
+

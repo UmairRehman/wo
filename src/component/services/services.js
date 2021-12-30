@@ -17,7 +17,7 @@ function Services(props) {
 
 
     return (
-        <div>
+        <div style={{paddingBottom:'20px'}}>
             <Row 
             // style={{ paddingLeft: '5%', paddingRight: '5%' }} 
             className="mt-5">
@@ -28,7 +28,7 @@ function Services(props) {
                 // style={{ paddingLeft: '5%', paddingRight: '5%' }}
                 className="mt-3">
                 {services.map((s) =>
-                    <Col key={s} md={12} xs={24} >
+                    <Col key={s} md={24} xs={24} >
 
                         <Row>
                             <Col span={6}>

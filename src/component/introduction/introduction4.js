@@ -8,7 +8,7 @@ import introductionImage from '../../assets/images/introduction4.png'
 
 import './introduction.css'
 
-const { Text, Title  } = Typography;
+const { Text, Title } = Typography;
 
 
 function Introduction4() {
@@ -23,13 +23,15 @@ function Introduction4() {
                     src={introductionImage}
                 />
             </Col>
-            <Col md={12} xs={24} className="padding-auto" style={{height:'100vh'}} span={12}>
+            <Col md={12} xs={24} className="padding-auto" style={{ height: '100vh' }} span={12}>
                 <Row>
-                    <p className="justify-content-right d-flex w-100 g-color">Sign In</p>
+                    <Link to='/login'>
+                        <p className="justify-content-right d-flex w-100 g-color">Sign In</p>
+                    </Link>
                 </Row>
-                
+
                 <Row className="mt-5">
-                    <Title className="intro-heading" >Connecting <br/>people</Title>
+                    <Title className="intro-heading" >Connecting <br />people</Title>
                 </Row>
 
                 <Row>
@@ -37,8 +39,8 @@ function Introduction4() {
                 </Row>
 
                 <Row className="d-flex fixed-button ">
-                    <Link  to="./signup-0"><Button className="fade-button mt-5"  type="primary">Sign up</Button></Link>
-                    <Link  to="./login"> <Button className="button mt-5"  type="primary">Sign in</Button></Link>
+                    <Link to="./signup-0"><Button className="fade-button mt-5" type="primary">Sign up</Button></Link>
+                    <Link to="./login"> <Button className="button mt-5" type="primary">Sign in</Button></Link>
                 </Row>
 
             </Col>

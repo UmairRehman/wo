@@ -24,7 +24,9 @@ function Introduction1() {
             </Col>
             <Col md={12} xs={24} className="padding-auto" style={{height:'100vh'}} span={12}>
                 <Row>
-                    <p className="justify-content-right d-flex w-100 g-color">Sign In</p>
+                    <Link to='/login'>
+                        <p className="justify-content-right d-flex w-100 g-color">Sign In</p>
+                    </Link>
                 </Row>
                 
                 <Row className="mt-5">

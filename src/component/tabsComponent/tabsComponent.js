@@ -18,6 +18,7 @@ import userIcon from '../../assets/images/option.png'
 import { Link } from 'react-router-dom';
 import { GetFollowers, GetFollowing } from '../../services/apiInteraction';
 import { useHistory } from "react-router-dom";
+import DefaultImage from '../../assets/images/default.png'
 
 function TabsComponent() {
 
@@ -69,14 +70,22 @@ function TabsComponent() {
 
     function onClickView(data) {
 
-        // console.log(data.followerDetail[0]._id)
         history.push({
             pathname: "/profile",
-            state: data.followerDetail[0]._id
+            state: data?.follower
         });
 
     }
 
+    
+    function onClickFollowing(data) {
+
+        history.push({
+            pathname: "/profile",
+            state: data?.followee
+        });
+
+    }
 
     const validateMessages = (data) => {
         const args = {
@@ -102,7 +111,6 @@ function TabsComponent() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                console.log(resultHandle?.message)
                 setGetProfile(resultHandle?.message.followUser)
 
             }
@@ -155,21 +163,63 @@ function TabsComponent() {
     return (
         <div>
             <Tabs animated tabPosition="top" centered defaultActiveKey="1" onChange={callback}>
+                {console.log(getProfile)}
 
-                <TabPane tab={<Paragraph className="font-20">35 Followers</Paragraph>} key="1">
+                <TabPane tab={
+                    <Paragraph className="font-20">
+                        {getProfile.length + " "}Follower
+
+                    </Paragraph>} key="1">
+                    <Row>
+                        {getProfile.map((data) =>
+                            <Col md={12}>
+                                <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
+                                    <Row>
+                                        <Col className="mobile-center" md={4} xs={24} >
+                                            <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl || DefaultImage} />
+                                        </Col>
+                                        <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
+                                            <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
+                                                <Title level={4} className="m-0">
+                                                    {data?.followerDetail[0]?.firstName}
+                                                </Title>
+                                            </Row>
+                                            <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
+                                                <Paragraph level={5}>
+                                                    {data?.professionData[0]?.name}
+                                                </Paragraph>
+                                            </Row>
+                                        </Col>
+                                        <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
+                                            <Button onClick={() => onClickView(data)} className="follow-button">
+                                                View Profile
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                        )
+                        }
+                    </Row>
+
+
+                </TabPane>
+
+
+                <TabPane tab={<Paragraph className="font-20">{getFollowing.length + " "} Following</Paragraph>} key="2">
                     <Row>
                         {
-                            getProfile.map((data) =>
+                            getFollowing.map((data) =>
                                 <Col md={12}>
                                     <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
                                         <Row>
                                             <Col className="mobile-center" md={4} xs={24} >
-                                                <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl ? data?.followerDetail[0]?.profilePicUrl : userIcon} />
+                                                <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followeeDetail[0].profilePicUrl} />
                                             </Col>
                                             <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
                                                 <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                     <Title level={4} className="m-0">
-                                                        {data?.followerDetail[0]?.firstName}
+                                                        {data?.followeeDetail[0]?.firstName + ' ' + data?.followeeDetail[0]?.lastName}
                                                     </Title>
                                                 </Row>
                                                 <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
@@ -179,62 +229,15 @@ function TabsComponent() {
                                                 </Row>
                                             </Col>
                                             <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                                <Button onClick={() => onClickFollow(data)} className="follow-button">
-                                                    Follow
-                                                </Button>
-                                                <Button onClick={() => onClickView(data)} className="follow-button">
+                                                <Button onClick={() => onClickFollowing(data)} className="follow-button">
                                                     View Profile
                                                 </Button>
-                                                {/* <Button className="unfollow-button">
-                                            Remove
-                                        </Button> */}
-                                            </Col>
-                                        </Row>
-                                    </Card>
-                                </Col>
-
-
-                            )
-                        }
-                    </Row>
-
-
-
-                </TabPane>
-
-                <TabPane tab={<Paragraph className="font-20">35 Following</Paragraph>} key="2">
-                    <Row>
-                        {
-                            getFollowing.map((data) =>
-                                <Col md={12}>
-                                    <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
-                                        <Row>
-                                            <Col className="mobile-center" md={4} xs={24} >
-                                                <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl} />
-                                            </Col>
-                                            <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
-                                                <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                    <Title level={4} className="m-0">
-                                                        {data?.firstName}
-                                                    </Title>
-                                                </Row>
-                                                <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                    <Paragraph level={5}>
-                                                        {data?.imOnProfile?.profession_data[0]?.name}
-                                                    </Paragraph>
-                                                </Row>
-                                            </Col>
-                                            <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                                <Button onClick={() => onClickFollow(data)} className="follow-button">
-                                                    Follow
-                                                </Button>
                                             </Col>
                                         </Row>
                                     </Card>
                                 </Col>
                             )
                         }
-
                     </Row>
                 </TabPane>
             </Tabs>
