@@ -150,7 +150,7 @@ function Notification(props) {
       <Spin className="loader" spinning={loader} size="large" />
 
 
-      <Title level={4}>Notifications </Title>
+      <Title className='mt-5' level={4}>Notifications </Title>
       
       {getNotification.map((data) =>
 
@@ -163,7 +163,13 @@ function Notification(props) {
           <Col className="position-relative self-align-center" span={14}>
             {data.type == 1 ?
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
-              : null}
+               
+              :data.type == 2 ?
+              <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in Available' : 'User is not Available'}`}</Text>
+              
+              : data.type == 3 ? 
+              <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
+              :null}
           </Col>
 
 

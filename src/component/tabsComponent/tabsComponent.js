@@ -72,11 +72,20 @@ function TabsComponent() {
 
         history.push({
             pathname: "/profile",
-            state: data?.followee
+            state: data?.follower
         });
 
     }
 
+    
+    function onClickFollowing(data) {
+
+        history.push({
+            pathname: "/profile",
+            state: data?.followee
+        });
+
+    }
 
     const validateMessages = (data) => {
         const args = {
@@ -220,7 +229,7 @@ function TabsComponent() {
                                                 </Row>
                                             </Col>
                                             <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                                <Button onClick={() => onClickView(data)} className="follow-button">
+                                                <Button onClick={() => onClickFollowing(data)} className="follow-button">
                                                     View Profile
                                                 </Button>
                                             </Col>

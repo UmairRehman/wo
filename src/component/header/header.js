@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Menu, Image, Row, PageHeader, Button, Input, message, Dropdown, Modal, notification, Spin } from 'antd';
+import { Layout, Menu, Image, Row, PageHeader, Button, Input, message, Dropdown, Modal, notification, Spin, Col, Typography } from 'antd';
 import { SearchOutlined, BellOutlined, UserOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 import User from '../../assets/images/user.png'
 import {
@@ -17,7 +17,9 @@ import { ChangeProfileImage } from '../../services/apiInteraction';
 import { GetProfile } from '../../services/apiInteraction';
 import { useHistory } from "react-router-dom";
 import DefaultImage from '../../assets/images/default.png'
+import { GetNotification } from '../../services/apiInteraction';
 
+const { Title, Text } = Typography;
 
 
 const validateMessages = (data) => {
@@ -82,17 +84,70 @@ function Header(props) {
         console.log('click', e);
     }
 
+    const [getNotification, setGetNotification] = useState([])
+
+
+
+    // firebase messaging/notification
+
+
+  
+
+    useEffect(async () => {
+
+        try {
+
+            setLoader(true)
+            let resultHandle = await GetNotification();
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                setGetNotification(resultHandle?.message?.notify)
+
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            setLoader(false)
+        }
+
+    }, [])
+
     const menu = (
-        <Menu onClick={handleMenuClick}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-                1st menu item
-            </Menu.Item>
-            <Menu.Item key="2" icon={<UserOutlined />}>
-                2nd menu item
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UserOutlined />}>
-                3rd menu item
-            </Menu.Item>
+        <Menu className='notification-menu'>
+            <div>
+                {getNotification.map((data) =>
+                    <Menu.Item key="1">
+                        <Row>
+                            <Col style={{ display: 'flex', alignItems: 'center' }} span={5}>
+                                <Image className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} />
+                            </Col>
+                            <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
+                                {data.type == 1 ?
+                                    <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
+                                    : data.type == 2 ?
+                                        <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? 'User in Available' : 'User is not Available'}`}</Text>
+                                        : data.type == 3 ?
+                                            <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
+                                            : null}
+                            </Col>
+                        </Row>
+                    </Menu.Item>
+                )}
+                <Menu.Item className='no-padding-notification' key="4">
+                    <Link to='./notification'>
+                        <Row className='view-all p-0 m-0'>View All</Row>
+                    </Link>
+                </Menu.Item>
+            </div>
+
         </Menu>
     );
 
@@ -195,7 +250,6 @@ function Header(props) {
     const [test, setTest] = useState(false)
 
     function submitSearch() {
-        console.log(props.page)
         // window.location.href = '/search';
         if (searchField) {
             history.push({
@@ -220,12 +274,13 @@ function Header(props) {
                 });
                 setTest(!test)
             }
-    
+
             else {
                 console.log("empty")
             }
         }
     }
+
 
     return (
         <div>
@@ -281,7 +336,7 @@ function Header(props) {
                     extra={[
                         <Input className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
 
-                        <Dropdown.Button className="notifications-custom" style={{ paddingTop: '20px' }} overlay={menu} placement="bottomCenter" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
+                        <Dropdown.Button className="notifications-custom" style={{ paddingTop: '20px' }} overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
                         </Dropdown.Button>,
                         // <Image className="mt-3" preview={false} src={UserImage} width={30} height={30} />
                     ]}

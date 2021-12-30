@@ -124,7 +124,7 @@ function Profile() {
                 showCancelButton: true,
                 confirmButtonColor: '#27B824',
                 cancelButtonColor: '#27B824',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes!'
             }).then(async(result) => {
                 if (result.isConfirmed) {
                     
@@ -169,7 +169,7 @@ function Profile() {
                 showCancelButton: true,
                 confirmButtonColor: '#27B824',
                 cancelButtonColor: '#27B824',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes!'
             }).then(async (result) => {
                 if (result.isConfirmed) {
 

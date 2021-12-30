@@ -265,7 +265,11 @@ export async function Login(obj) {
     {
       method: 'POST',
       headers,
-      body: JSON.stringify(obj),
+      body: JSON.stringify({
+        emailAddress : obj.emailAddress,
+        password : obj.password,
+        firebaseToken: localStorage.getItem('firebaseToken') 
+      }),
     });
 
   return await ErrorHandling(result)
