@@ -56,6 +56,10 @@
     min-height: 100px;
     width: 100px;
 }
+.dropdown-button:focus{
+    background: none !important;
+    color:none !important
+}
 
 
 

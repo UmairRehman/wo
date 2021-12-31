@@ -165,7 +165,7 @@ function Notification(props) {
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
                
               :data.type == 2 ?
-              <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in Available' : 'User is not Available'}`}</Text>
+              <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in now on' : 'User is now off'}`}</Text>
               
               : data.type == 3 ? 
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
@@ -187,7 +187,7 @@ function Notification(props) {
 
           <Col className="self-align-center" span={2}>
             <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
-              <Dropdown style={{ border: 'none' }} overlay={menu} placement="bottomRight">
+              <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
                 <Button style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
               </Dropdown>
             </Row>

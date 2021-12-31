@@ -87,16 +87,16 @@ function Following() {
             </div>
 
             <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- ">
-                <div>
+                <div className='mt-5'>
                     <FollowingCard />
                 </div>
 
                 {suggest.length > 0 &&
                     <Row className="mt-5 d-flex" >
                         <Col span={20}>
-                            <Title level={3}>Suggested for you</Title>
+                            <Title className='m-0' level={4}>Suggested for you</Title>
                         </Col>
-                        <Col style={{ justifyContent: 'end', display: 'flex' }} span={4}>
+                        <Col style={{ justifyContent: 'end', display: 'flex', alignItems:'center' }} span={4}>
                             <Link to='./suggest' >See All</Link>
                         </Col>
                     </Row>
@@ -109,7 +109,7 @@ function Following() {
                                 <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
                                     <Row>
                                         <Col className="mobile-center" md={4} xs={24} >
-                                            <Image style={{ maxWidth: '120px', maxHeight: '120px' }} preview={false} className="border-50 d-flex justify-content-center" src={suggest?.profilePicUrl || DefaultImage} />
+                                            <Image style={{ maxWidth: '120px', maxHeight: '120px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl || DefaultImage} />
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={16} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>

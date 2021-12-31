@@ -493,8 +493,8 @@ html {
 
 @media only screen and (max-width: 600px) {
   .mobile-center {
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: center !important;
   }
 }
 

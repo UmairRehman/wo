@@ -77,7 +77,7 @@ function TabsComponent() {
 
     }
 
-    
+
     function onClickFollowing(data) {
 
         history.push({
@@ -162,7 +162,7 @@ function TabsComponent() {
 
     return (
         <div>
-            <Tabs animated tabPosition="top" centered defaultActiveKey="1" onChange={callback}>
+            <Tabs animated tabPosition="top" centered defaultActiveKey="1" onChange={callback} className='mt-5'>
                 {console.log(getProfile)}
 
                 <TabPane tab={

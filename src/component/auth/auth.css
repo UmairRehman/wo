@@ -1,44 +1,54 @@
-.gray-background{
+.gray-background {
     background: #FAFAFA;
 }
-.custom-card{
-    margin: 50px !important;
+
+.custom-card {
+    margin: 20px !important;
+    /* padding: 20px !important */
 }
-.login-field{
+
+.login-field {
     height: 50px;
     border-radius: 50px;
     background: #F8F8F8;
 }
-.login-field .ant-input{
+
+.login-field .ant-input {
     background: #F8F8F8;
 }
-.login-fonts{
+
+.login-fonts {
     font-size: 20px;
     color: black;
 }
-.login-checkBox{
+
+.login-checkBox {
     font-size: 12px !important;
     margin: 0;
 }
+
 .login-checkBox .ant-checkbox-checked .ant-checkbox-inner::after {
     border: 2px solid black !important;
     border-top: 0 !important;
     border-left: 0 !important;
 }
+
 .login-checkBox .ant-checkbox-checked .ant-checkbox-inner {
-    background-color:white !important;
+    background-color: white !important;
     border-color: black !important;
 }
-.login-form-forgot{
+
+.login-form-forgot {
     font-size: 12px;
     color: #27B824;
     padding-top: 5px !important;
 }
 
-.login-form-forgot:hover{
+.login-form-forgot:hover {
     font-size: 12px;
     color: #27B824;
 }
+
 .vertical-center {
     margin: 0;
     position: absolute;
@@ -46,22 +56,27 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-.responsive-card{
-    padding-top: 50px !important;
-    padding-bottom: 50px !important;
+
+.responsive-card {
+    /* padding-top: 50px !important;
+    padding-bottom: 50px !important; */
 }
-.custom-date-of-birth{
+
+.custom-date-of-birth {
     background: #F5F5F5;
     height: 50px;
     border-radius: 20px;
 }
-.ant-picker-focused{
+
+.ant-picker-focused {
     border-color: #27B824 !important;
 }
-.ant-picker-focused:hover{
+
+.ant-picker-focused:hover {
     border-color: #27B824 !important;
 }
-.add-profile-picture{
+
+.add-profile-picture {
     background: #27B824 !important;
     height: 50px;
     width: 55px;
@@ -72,7 +87,8 @@
     font-size: 22px;
     font-weight: bold;
 }
-.add-profile-picture:hover{
+
+.add-profile-picture:hover {
     background: white;
     height: 50px;
     width: 55px;
@@ -84,60 +100,64 @@
     font-weight: bold;
 }
 
-.custom-position-button{
+.custom-position-button {
     bottom: 0;
     right: 0;
 }
-.form-dropdown{
+
+.form-dropdown {
     border: none !important;
 }
-.form-dropdown .ant-select-selector{
+
+.form-dropdown .ant-select-selector {
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
     border-bottom: 1px solid #707070 !important;
     font-size: 16px !important;
 }
-.fancy-border{
+
+.fancy-border {
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
     border-bottom: 1px solid #707070 !important;
 }
-.padding-20{
+
+.padding-20 {
     padding-left: 20px;
     padding-right: 20px;
 }
 
 @media only screen and (max-width: 600px) {
-    .padding-20{
+    .padding-20 {
         padding-left: 0px;
         padding-right: 0px;
-    }    
+    }
 }
+
 .ant-input:focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
     box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
 }
+
 @media only screen and (max-width: 600px) {
-    .mobile-center-align{
+    .mobile-center-align {
         width: 100%;
         justify-content: center;
-    }    
+    }
 }
-.follow-card{
+
+.follow-card {
     background: #F8F8F8;
     padding: 10px;
     border-radius: 10px;
     width: 120px;
     margin-right: 10px;
 }
-.manage-Background-color div div{
+
+.manage-Background-color div div {
     background: white !important;
     background-color: white !important;
 }
-
-
-
-

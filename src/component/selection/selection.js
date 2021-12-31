@@ -133,11 +133,9 @@ function Selection() {
             </Row>
 
             <Row className="selection-image-div">
-                {/* <Link to='./following'> */}
                 <Button onClick={onClickNext} type="primary" htmlType="submit" className="button mt-5" >
                     Next
                 </Button>
-                {/* </Link> */}
             </Row>
 
             <Row style={{ paddingBottom: '50px' }} className="selection-image-div">
@@ -146,7 +144,6 @@ function Selection() {
                         Skip
                     </Button>
                 </Link>
-
             </Row>
 
         </div>

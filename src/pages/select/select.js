@@ -46,7 +46,7 @@ function Select() {
             <Row>
                 <Col md={12} xs={24}>
                     <Row>
-                    <Col md={12} xs={24}>
+                    <Col     md={12} xs={24}>
                         <Link to='./intrest'>
                             <Row className="orange position-relative cursor-pointer"  >
                                 <div className="w-100">
@@ -70,7 +70,7 @@ function Select() {
                     </Col>
                     </Row>
                 </Col>
-                <Col md={12}>
+                <Col className='display-none' md={12}>
                     <Row style={{height:"450px"}} className="position-relative"  >
                         <div className="m-auto">
                             <Title className="w-75 b-color" level={1}>Select your preferred mode</Title>
