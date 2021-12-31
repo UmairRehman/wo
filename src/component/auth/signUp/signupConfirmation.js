@@ -111,6 +111,7 @@ function SignupConfirmation() {
                         <Paragraph style={{ textAlign: 'center' }}>Enter the confirmation code we sent to +1 8** *** 369</Paragraph>
 
                         <Form
+                        style={{marginBottom:'50px'}}
                             name="normal_login"
                             className="login-form"
                             initialValues={{ remember: true }}
