@@ -18,6 +18,16 @@ const validateMessages = (data) => {
 };
 
 
+const validateMessagesCustom = (data) => {
+    const args = {
+        message: 'Error',
+        description:
+            `${data}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
+
 function Selection() {
 
     const { Title, Text, Paragraph } = Typography;
@@ -91,24 +101,29 @@ function Selection() {
 
     async function onClickNext() {
         console.log(selectedIntrest)
-        try {
-            setLoader(true)
-            let resultHandle = await Favourite({ favorite: selectedIntrest });
-
-            if (resultHandle?.success == true) {
-
-                setLoader(false)
-                history.push('./following')
+        if(selectedIntrest.length > 0){
+            try {
+                setLoader(true)
+                let resultHandle = await Favourite({ favorite: selectedIntrest });
+    
+                if (resultHandle?.success == true) {
+    
+                    setLoader(false)
+                    history.push('./following')
+                }
+    
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
+    
             }
-
-            else {
-                validateMessages(resultHandle);
-                setLoader(false)
+            catch (err) {
+                console.log(err)
             }
-
         }
-        catch (err) {
-            console.log(err)
+        else{
+            validateMessagesCustom("Please select atleast one intrest or press skip button");
         }
     }
 
@@ -116,7 +131,7 @@ function Selection() {
         <div style={{ width: '100%', margin: 'auto' }} >
             <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ justifyContent: 'center', marginTop: '10px' }}>
-                {intrest.map((data) =>
+                {intrest.slice(0,5).map((data) =>
                     <Col className="w-100 mt-5 d-flex justify-content-center" md={5} >
                         <Row onClick={() => onClickIntrest(data)} className="w-100">
                             <Row className="w-100 justify-content-center">

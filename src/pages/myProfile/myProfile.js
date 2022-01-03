@@ -345,7 +345,7 @@ function MyProfile() {
                 <Header />
             </div>
 
-            <div className="content ant-page- " >
+            <div className="content ant-page- padding-whole-page" >
 
                 {/* <Row> */}
                 {/* <Col className="full-image" md={24}> */}
@@ -355,7 +355,7 @@ function MyProfile() {
                 {/* </Col> */}
                 {/* </Row> */}
 
-                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="mt-5" >
+                <Row className="mt-5" >
                     <Col md={3} xs={6} >
                         <Image className="border-50" preview={false} src={getProfile?.profilePicUrl || DefaultImage} />
                     </Col>
@@ -385,7 +385,7 @@ function MyProfile() {
 
                 </Row>
 
-                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="" >
+                <Row className="" >
                     <Row className='w-100'>
                         <Title level={5}>{getProfile?.firstName} {getProfile?.lastName} </Title>
                     </Row>
@@ -396,7 +396,7 @@ function MyProfile() {
                         : null}
                 </Row >
 
-                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} >
+                <Row  >
                     <Row className='w-100'>
 
                         <Col md={12} xs={24}>
@@ -472,11 +472,11 @@ function MyProfile() {
                         : null}
                 </Row >
 
-                <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className="d-flex justify-content-center mt-5 w-100">
+                <Row className="d-flex justify-content-center mt-5 w-100">
                     <Image className="w-100" src={Line} preview={false} />
                 </Row>
                 {getProfile?.imOnProfile?.firstName ?
-                    <Row style={{ paddingLeft: '5%', paddingRight: '5%' }} className=" mt-5 w-100">
+                    <Row className=" mt-5 w-100">
 
                         <Services services={getProfile?.imOnProfile?.services} />
 

@@ -57,7 +57,7 @@ function UserListing() {
                 <Header />
             </div>
 
-            <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- ">
+            <div className="content ant-page-  padding-whole-page">
 
                 <TabsComponent />
 

@@ -86,6 +86,13 @@ const SignupForm = (user) => {
 
     const onFinish = async (values: any) => {
 
+        let services = [];
+
+        values.service.forEach((key, i) => services[i] = {
+            name : values.service[i],
+            price : values.price[i]
+        });
+
         let data = {
             private: accountType,
             firstName: userHistory?.firstName,
@@ -95,13 +102,10 @@ const SignupForm = (user) => {
             emailAddress: userHistory?.emailAddress,
             professionId: profession,
             about: values.about,
-            services: [
-                {
-                    name: values.service,
-                    price: values.price
-                }
-            ]
+            services
         }
+
+        console.log(data)
 
         try {
             let resultHandle = await CreateProfile(data)
@@ -163,7 +167,7 @@ const SignupForm = (user) => {
 
     return (
         <div className="animation2 " >
-      <Spin className="loader" spinning={loader} size="large" />
+            <Spin className="loader" spinning={loader} size="large" />
 
             <div style={{ paddingLeft: '5%', paddingRight: '5%', paddingTop: '5%' }} className="" >
 
@@ -296,10 +300,11 @@ const SignupForm = (user) => {
                                 {services.map((x, i) => {
                                     return (
                                         <Row>
+
                                             <Col className="padding-20" span={12}>
                                                 <Paragraph className="font-18">Services</Paragraph>
                                                 <Form.Item
-                                                    name={['service']} rules={[{ required: true }]}
+                                                    name={['service', i]} rules={[{ required: true }]}
                                                 >
 
                                                     <Input className="fancy-border" />
@@ -309,13 +314,14 @@ const SignupForm = (user) => {
                                             <Col className="padding-20" span={12}>
                                                 <Paragraph className="font-18">Price</Paragraph>
                                                 <Form.Item
-                                                    name={['price']} rules={[{ required: true }]}
+                                                    name={['price', i]} rules={[{ required: true }]}
                                                 >
 
                                                     <Input className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
+
                                         </Row>
                                     )
                                 })}
@@ -325,7 +331,7 @@ const SignupForm = (user) => {
 
 
                                 <Row>
-                                    {/* <Button onClick={handleAddClick}>Add more</Button> */}
+                                    <Button onClick={handleAddClick}>Add more</Button>
                                 </Row>
 
                             </Col>
