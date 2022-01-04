@@ -18,7 +18,7 @@ function Notification() {
                     <Header />
                 </div>
 
-                <div className="content">
+                <div className="content padding-whole-page">
                     <NotificationComponent data={notificationData} className="w-100"/>
                 </div>
             

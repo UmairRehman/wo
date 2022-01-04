@@ -636,7 +636,7 @@ export async function StatusChange(obj) {
 
 
 // get notification 
-export async function GetNotification() {
+export async function GetNotification(obj) {
 
   let headers = new Headers();
 
@@ -645,7 +645,7 @@ export async function GetNotification() {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification`,
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification?${obj.offset}`,
     {
       method: 'GET',
       headers,

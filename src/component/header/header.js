@@ -88,17 +88,19 @@ function Header(props) {
 
 
 
-    // firebase messaging/notification
-
-
-  
 
     useEffect(async () => {
+
+        let data = {
+
+            offset: 0
+
+        }
 
         try {
 
             setLoader(true)
-            let resultHandle = await GetNotification();
+            let resultHandle = await GetNotification(data);
 
             if (resultHandle?.success == true) {
 
@@ -123,7 +125,7 @@ function Header(props) {
     const menu = (
         <Menu className='notification-menu'>
             <div>
-                {getNotification.map((data) =>
+                {getNotification.slice(0, 4).map((data) =>
                     <Menu.Item key="1">
                         <Row>
                             <Col style={{ display: 'flex', alignItems: 'center' }} span={5}>
@@ -153,6 +155,7 @@ function Header(props) {
 
     const [loader, setLoader] = useState(false)
 
+    const [reload, setReload] = useState(false)
 
     async function submitImage(props) {
 
@@ -177,14 +180,14 @@ function Header(props) {
                 setLoader(false)
 
                 setIsModalVisible(false)
-                window.location.reload(false);
+                // window.location.reload(false);
             }
 
             else {
                 validateMessages(resultHandle);
                 setLoader(false)
                 setIsModalVisible(false)
-
+                setReload(!reload)
             }
 
         }
@@ -197,7 +200,6 @@ function Header(props) {
 
     }
 
-    const [reload, setReload] = useState(false)
 
     const [profile, setGetProfile] = useState({})
 
@@ -226,7 +228,7 @@ function Header(props) {
     }
     useEffect(() => {
         loadprofile();
-    }, [])
+    }, [reload])
 
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -347,8 +349,11 @@ function Header(props) {
 
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
-                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl || DefaultImage} />
+
+                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
+
                     <PlusOutlined onClick={showModal} className='add-picture' />
+
                 </Row>
                 <Row className="justify-content-center mt-3">
                     <Link to='profile-1'>

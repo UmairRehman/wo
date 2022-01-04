@@ -106,7 +106,7 @@ function Search() {
                 <Header page='search' />
             </div>
 
-            <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- ">
+            <div  className="content ant-page- padding-whole-page">
                 {searchUser.length == 0 ?
                     <div>
                         <Row className="mt-5 d-flex" >

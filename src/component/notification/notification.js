@@ -30,6 +30,10 @@ function Notification(props) {
 
   const [isReload, setIsReload] = useState(false)
 
+  const [page, setPage] = useState(0)
+
+  const [lazyLoader, setLazyLoader] = useState(false)
+
   function handleButtonClick(e) {
     message.info('Click on left button.');
     console.log('click left button', e);
@@ -64,7 +68,14 @@ function Notification(props) {
     try {
 
       setLoader(true)
-      let resultHandle = await GetNotification();
+
+      let data = {
+
+        offset : page
+
+      }
+
+      let resultHandle = await GetNotification(data);
 
       console.log(resultHandle)
 
@@ -86,7 +97,13 @@ function Notification(props) {
       setLoader(false)
     }
 
-  }, [isReload])
+  }, [isReload, page])
+
+
+  function loadMore(){
+    setPage(page + 1)
+    console.log(page)
+  }
 
 
   async function acceptRequest(data) {
@@ -95,6 +112,7 @@ function Notification(props) {
       followee: data.from,
       status: 2
     }
+
     try {
       setLoader(true)
       let resultHandle = await StatusChange(obj);
@@ -146,30 +164,30 @@ function Notification(props) {
   }
 
   return (
-    <div style={{ width: '90%', margin: 'auto', }} >
+    <div >
       <Spin className="loader" spinning={loader} size="large" />
 
 
       <Title className='mt-5' level={4}>Notifications </Title>
-      
+
       {getNotification.map((data) =>
 
         <Row key={data} className="notification-row mt-5">
 
-          <Col className="display-in-mobile" span={2}>
+          <Col className="display-in-mobile" span={3}>
             <Image className='min-max-width' style={{ width: 'inherit' }} preview={false} style={{ borderRadius: '50%', marginTop: '10px' }} src={data?.from_data[0]?.profilePicUrl} />
           </Col>
 
-          <Col className="position-relative self-align-center" span={14}>
+          <Col className="position-relative self-align-center" span={13}>
             {data.type == 1 ?
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
-               
-              :data.type == 2 ?
-              <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in now on' : 'User is now off'}`}</Text>
-              
-              : data.type == 3 ? 
-              <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
-              :null}
+
+              : data.type == 2 ?
+                <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in now on' : 'User is now off'}`}</Text>
+
+                : data.type == 3 ?
+                  <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
+                  : null}
           </Col>
 
 
@@ -196,6 +214,16 @@ function Notification(props) {
 
 
       )}
+
+      <Row style={{justifyContent:'end', marginTop:'30px'}}>
+        <Button onClick={loadMore}>Load More</Button>
+      </Row>
+
+      <Row>
+
+        <Spin className="loader" spinning={lazyLoader} size="large" />
+
+      </Row>
 
     </div>
   )

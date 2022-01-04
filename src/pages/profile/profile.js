@@ -379,9 +379,9 @@ function Profile() {
                 <Header />
             </div>
 
-            <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- " >
+            <div className="content ant-page- padding-whole-page" >
                 <Row className="mt-5" >
-                    <Col md={3} xs={6} >
+                    <Col md={4} xs={6} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl || DefaultImage} />
                     </Col>
 
@@ -390,7 +390,7 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.follower || 0} </Paragraph>
                         </Row>
                         <Row>
-                            <Paragraph className="follower-heading" > Followers </Paragraph>
+                            <Paragraph style={{fontSize:'larger'}} className="follower-heading" > Followers </Paragraph>
                         </Row >
                     </Col>
 
@@ -399,11 +399,11 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.following || 0} </Paragraph>
                         </Row >
                         <Row>
-                            <Paragraph className="follower-heading" > Following </Paragraph>
+                            <Paragraph  style={{fontSize:'larger'}}  className="follower-heading" > Following </Paragraph>
                         </Row>
                     </Col>
 
-                    <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
+                    <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
                         <Dropdown style={{ border: 'none' }}
                             overlay={profileBellIcon}
                             placement="bottomRight" >

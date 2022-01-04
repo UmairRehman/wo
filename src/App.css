@@ -511,3 +511,14 @@ html {
 .cursor-pointer {
   cursor: pointer;
 }
+.padding-whole-page{
+  padding-right: 10%;
+  padding-left: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+  .padding-whole-page{
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+}
