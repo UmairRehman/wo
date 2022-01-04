@@ -1,5 +1,5 @@
 export default {
-    base: 'http://3.130.245.90',
-    port: ':80',
+    base: 'https://app.whoson.co/',
+    port: '',
     route: '/api/api'
 };
