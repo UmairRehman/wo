@@ -71,7 +71,7 @@ function Notification(props) {
 
       let data = {
 
-        offset : page
+        offset: page
 
       }
 
@@ -100,7 +100,7 @@ function Notification(props) {
   }, [isReload, page])
 
 
-  function loadMore(){
+  function loadMore() {
     setPage(page + 1)
     console.log(page)
   }
@@ -215,7 +215,7 @@ function Notification(props) {
 
       )}
 
-      <Row style={{justifyContent:'end', marginTop:'30px'}}>
+      <Row style={{ justifyContent: 'end', marginTop: '30px' }}>
         <Button onClick={loadMore}>Load More</Button>
       </Row>
 
