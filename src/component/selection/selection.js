@@ -75,10 +75,19 @@ function Selection() {
     function onClickIntrest(data) {
 
         if (selectedIntrest.includes(data?._id)) {
-            // console.log("Allready added")
+            for(var i = 0 ; i< selectedIntrest.length; i++){
+                if(selectedIntrest[i] == data?.id){
+                    delete selectedIntrest[i];
+                }
+                else{
+                    console.log('works')
+                }
+            }
+            console.log(selectedIntrest)
         }
         else {
             selectedIntrest.push(data?._id)
+            console.log(selectedIntrest)
         }
 
     }
@@ -121,7 +130,6 @@ function Selection() {
         } else {
             document.getElementById(id).style.border = "2px solid #27B824";
             document.getElementById(id).style.borderRadius = "50%";
-            console.log("else")
         }
     }
 

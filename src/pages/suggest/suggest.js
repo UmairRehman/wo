@@ -42,7 +42,7 @@ function Suggest() {
 
         history.push({
             pathname: "/profile",
-            state: data?.followee
+            state: data?._id
         });
 
     }
@@ -58,7 +58,6 @@ function Suggest() {
 
                 setLoader(false)
                 setSuggest(resultHandle?.message?.suggestedUser)
-                console.log(resultHandle?.message.suggestedUser)
             }
 
             else {
@@ -86,7 +85,6 @@ function Suggest() {
                 </Row>
 
                 <div>
-                    {console.log(suggest)}
                     <Row>
                         {suggest.map((data) =>
                             < Col md={12} >
