@@ -70,6 +70,8 @@ function Selection() {
 
     const [selectedIntrest, setSelectedIntrest] = useState([]);
 
+    const [selectedClass, setSelectedClass] = useState(true)
+
     function onClickIntrest(data) {
 
         if (selectedIntrest.includes(data?._id)) {
@@ -81,49 +83,45 @@ function Selection() {
 
     }
 
-    function onClickColorChange(id) {
-
-        // console.log(id)
-        // let a = "1px solid blue"
-        // let b = 'none'
-        // // document.getElementById(id).style.border = a;
-
-        // if(document.getElementById(id).style.border == a) {
-        //     console.log('allready borderd')
-        //     document.getElementById(id).style.border = b;
-        // }
-        // else{
-        //     // document.getElementById(id).style.border = a
-        //     console.log('created')
-        // }
-    }
-
 
     async function onClickNext() {
         console.log(selectedIntrest)
-        if(selectedIntrest.length > 0){
+        if (selectedIntrest.length > 0) {
             try {
                 setLoader(true)
                 let resultHandle = await Favourite({ favorite: selectedIntrest });
-    
+
                 if (resultHandle?.success == true) {
-    
+
                     setLoader(false)
                     history.push('./following')
                 }
-    
+
                 else {
                     validateMessages(resultHandle);
                     setLoader(false)
                 }
-    
+
             }
             catch (err) {
                 console.log(err)
             }
         }
-        else{
+        else {
             validateMessagesCustom("Please select atleast one intrest or press skip button");
+        }
+    }
+
+
+    function colorChangeOnClick(id) {
+        if (document.getElementById(id).style.border == "2px solid rgb(39, 184, 36)") {
+            document.getElementById(id).style.border = "2px solid white";
+            document.getElementById(id).style.borderRadius = "50%";
+
+        } else {
+            document.getElementById(id).style.border = "2px solid #27B824";
+            document.getElementById(id).style.borderRadius = "50%";
+            console.log("else")
         }
     }
 
@@ -131,12 +129,20 @@ function Selection() {
         <div style={{ width: '100%', margin: 'auto' }} >
             <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ justifyContent: 'center', marginTop: '10px' }}>
-                {intrest.slice(0,5).map((data) =>
+                {intrest.slice(0, 7).map((data) =>
                     <Col className="w-100 mt-5 d-flex justify-content-center" md={5} >
                         <Row onClick={() => onClickIntrest(data)} className="w-100">
                             <Row className="w-100 justify-content-center">
-                                <Image id={data._id} onClick={() => onClickColorChange(data._id)} className={`d-flex justify-content-center w-100`}
-                                    key={1} className="selection-image-round " src={data?.url || DefaultImage} preview={false} />
+
+                                <Image id={data._id}  className={`d-flex justify-content-center w-100`}
+                                    key={1}
+                                    className="selection-image-round"
+                                    style={{ borderRadius: '50%', maxWidth: '250px', minWidth: '180px', margin: 'auto', border: '2px solid white' }}
+                                    onClick={() => colorChangeOnClick(data._id)}
+                                    src={data?.url || DefaultImage}
+                                    preview={false}
+                                />
+
                             </Row>
                             <Row className="w-100 mt-3">
                                 <Title level={5} className="d-flex justify-content-center w-100">{data?.name}</Title>

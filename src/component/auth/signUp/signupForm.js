@@ -53,6 +53,7 @@ const SignupForm = (user) => {
         let userObject = JSON.parse(user)
 
         setUserHistory(userObject)
+        console.log(userHistory.profilePicUrl)
 
         try {
 
@@ -61,7 +62,6 @@ const SignupForm = (user) => {
 
             if (resultHandle?.success == true) {
 
-                console.log(resultHandle?.message?.Profession)
                 setGetProfession(resultHandle?.message?.Profession)
                 setLoader(false)
 
@@ -78,7 +78,6 @@ const SignupForm = (user) => {
             setLoader(false)
         }
 
-        console.log(userHistory)
 
     }, [])
 
@@ -89,8 +88,8 @@ const SignupForm = (user) => {
         let services = [];
 
         values.service.forEach((key, i) => services[i] = {
-            name : values.service[i],
-            price : values.price[i]
+            name: values.service[i],
+            price: values.price[i]
         });
 
         let data = {
@@ -173,7 +172,7 @@ const SignupForm = (user) => {
 
                 <Row className="mobile-center-align" >
                     <Col className='' md={2} xs={12} >
-                        <Image preview={false} className="border-50 " src={userHistory?.user?.user[0]?.profilePicUrl} />
+                        <Image preview={false} className="border-50 " src={userHistory?.profilePicUrl} />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={18} xs={24} >
@@ -297,27 +296,41 @@ const SignupForm = (user) => {
                             </Col>
 
                             <Col className="padding-20" md={12} xs={24} >
+
+
+                                <Row>
+                                    <Col className="padding-20" span={12}>
+                                        <Paragraph className="font-18">Services</Paragraph>
+
+                                    </Col>
+                                    <Col className="padding-20" span={12}>
+                                        <Paragraph className="font-18">Price</Paragraph>
+                                    </Col>
+                                </Row>
+
+
+
                                 {services.map((x, i) => {
                                     return (
                                         <Row>
 
                                             <Col className="padding-20" span={12}>
-                                                <Paragraph className="font-18">Services</Paragraph>
+                                                {/* <Paragraph className="font-18">Services</Paragraph> */}
                                                 <Form.Item
                                                     name={['service', i]} rules={[{ required: true }]}
                                                 >
 
-                                                    <Input className="fancy-border" />
+                                                    <Input placeholder='Service Name' className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
                                             <Col className="padding-20" span={12}>
-                                                <Paragraph className="font-18">Price</Paragraph>
+                                                {/* <Paragraph className="font-18">Price</Paragraph> */}
                                                 <Form.Item
                                                     name={['price', i]} rules={[{ required: true }]}
                                                 >
 
-                                                    <Input className="fancy-border" />
+                                                    <Input placeholder='price in $' className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
@@ -331,7 +344,7 @@ const SignupForm = (user) => {
 
 
                                 <Row>
-                                    <Button onClick={handleAddClick}>Add more</Button>
+                                    <Button className='add-more-button' onClick={handleAddClick}>Add more</Button>
                                 </Row>
 
                             </Col>
