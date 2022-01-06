@@ -40,7 +40,6 @@ function Signup() {
     const [loader, setLoader] = useState(false)
 
     const onFinish = async (values) => {
-        setLoader(true)
 
         let password = values.password.match(patterns.password)
 

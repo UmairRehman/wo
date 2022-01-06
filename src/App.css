@@ -522,3 +522,6 @@ html {
     padding-left: 5%;
   }
 }
+.no-focus:focus{
+  background: none !important;
+}

@@ -124,7 +124,20 @@ function ProfilePicture(props) {
                                 disabled={buttonDisable}
                                 onClick={submitImage}
                                 type="primary" htmlType="submit" className="button mt-5 ">
-                                Next / Skip
+                                Next
+                            </Button>
+                        </Row>
+
+                        <Row className="justify-content-center mt-3">
+                            <Button
+                            style={{
+                                background:"none",
+                                border:'none'
+                            }}
+                                onClick={submitImage}
+                                // type="primary" htmlType="submit" className="button mt-5 "
+                                >
+                                Skip
                             </Button>
                         </Row>
                     </Card>

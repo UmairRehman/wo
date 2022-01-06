@@ -377,7 +377,7 @@ function MyProfile() {
                         <Dropdown style={{ border: 'none' }}
                             overlay={profileBellIcon}
                             placement="bottomRight" >
-                            <Button style={{ border: 'none' }} >
+                            <Button className='no-focus' style={{ border: 'none' }} >
                                 <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                             </Button>
                         </Dropdown>
