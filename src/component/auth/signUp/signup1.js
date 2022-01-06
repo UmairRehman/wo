@@ -134,7 +134,7 @@ function Signup() {
                                 ]}
                                 hasFeedback
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"
@@ -160,7 +160,7 @@ function Signup() {
                                     }),
                                 ]}
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"
