@@ -111,7 +111,7 @@ function Following() {
                                         <Col className="mobile-center" md={4} xs={24} >
                                             <Image style={{ maxWidth: '120px', maxHeight: '120px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl || DefaultImage} />
                                         </Col>
-                                        <Col style={{ alignSelf: 'center' }} md={16} xs={24}>
+                                        <Col style={{ alignSelf: 'center' }} md={13} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                 <Title level={4} className="m-0">
                                                     {data?.firstName + " " + data?.lastName}
@@ -123,7 +123,7 @@ function Following() {
                                                 </Paragraph>
                                             </Row>
                                         </Col>
-                                        <Col className="mobile-center" style={{ alignSelf: 'center' }} md={4} xs={24}>
+                                        <Col className="mobile-center" style={{ alignSelf: 'center' }} md={7} xs={24}>
                                             <Button onClick={() => onClickView(data)} className="follow-button">
                                                 View Profile
                                             </Button>

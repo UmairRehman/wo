@@ -47,7 +47,7 @@ h5 {
 }
 
 p {
-  font-size: 20px !important;
+  font-size: 1.5vw !important;
 }
 
 .ant-form label {
@@ -521,4 +521,7 @@ html {
     padding-right: 5%;
     padding-left: 5%;
   }
+}
+.no-focus:focus{
+  background: none !important;
 }

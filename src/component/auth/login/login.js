@@ -102,7 +102,7 @@ function Login() {
                                 name="password"
                                 rules={[{ required: true, message: 'Please input your Password!' }]}
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"

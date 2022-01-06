@@ -40,7 +40,6 @@ function Signup() {
     const [loader, setLoader] = useState(false)
 
     const onFinish = async (values) => {
-        setLoader(true)
 
         let password = values.password.match(patterns.password)
 
@@ -134,7 +133,7 @@ function Signup() {
                                 ]}
                                 hasFeedback
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"
@@ -160,7 +159,7 @@ function Signup() {
                                     }),
                                 ]}
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"

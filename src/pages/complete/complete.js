@@ -32,7 +32,7 @@ function Complete() {
                         </Row>
                         
                         <Title className="d-flex justify-content-center" level={5}>Account successfully Created</Title>
-                        <Paragraph style={{textAlign:'center'}}>Congratulations, youhas been verified. You can now start using the app.</Paragraph>
+                        <Paragraph style={{textAlign:'center'}}>Congratulations, you has been verified. You can now start using the app.</Paragraph>
                         
                         <Link className="mt-5" to="/profile-1">
                             <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
