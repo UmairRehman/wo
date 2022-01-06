@@ -6,15 +6,15 @@
     width: 80%;
 }
 .intro-heading{
-    font-size: 50px !important;
+    font-size: 3vw !important;
 }
 .intro-para{
-    font-size: 24px !important;
+    font-size: 2vw !important;
     font-weight: 500 !important;
 }
 .fixed-button{
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
