@@ -4,13 +4,7 @@ import {
 } from '@ant-design/icons';
 
 import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select } from 'antd';
-import Sidebar from '../../../component/sidebar/sidebar';
-import Header from '../../../component/header/header';
-import { Link } from 'react-router-dom';
-import Option from '../../../assets/images/option.png'
-import Bell from '../../../assets/images/bell.jpg'
-import Line from '../../../assets/images/line.png'
-import SuggestIcon from '../../../assets/images/suggest.png'
+
 
 import { CreateProfile } from '../../../services/apiInteraction';
 
@@ -20,6 +14,8 @@ import { bindActionCreators } from "redux";
 import { GetProfession } from '../../../services/apiInteraction';
 
 import { useHistory } from "react-router-dom";
+import '../auth.css'
+
 
 
 const validateMessages = (data) => {
@@ -173,10 +169,9 @@ const SignupForm = (user) => {
 
     return (
         <div className="animation2 " >
-            <Spin className="loader" spinning={loader} size="large" />
 
             <div style={{ paddingLeft: '5%', paddingRight: '5%', paddingTop: '5%' }} className="" >
-
+            <Spin className="loader" spinning={loader} size="large" />
                 <Row className="mobile-center-align" >
                     <Col className='' md={2} xs={12} >
                         <Image preview={false} className="border-50 " src={userHistory?.profilePicUrl} />

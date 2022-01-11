@@ -291,9 +291,6 @@ function Profile() {
             <Menu.Item key="2" >
                 <Paragraph style={{ marginBottom: '10px' }} > Unfollow </Paragraph>
             </Menu.Item >
-            <Menu.Item key="3" >
-                <Paragraph style={{ marginBottom: '10px' }} > Copy profile URL </Paragraph>
-            </Menu.Item >
         </Menu>
     );
 
@@ -414,13 +411,13 @@ function Profile() {
 
                     {authenticate == true ?
                         <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
-                            <Dropdown style={{ border: 'none' }}
+                            {/* <Dropdown style={{ border: 'none' }}
                                 overlay={profileBellIcon}
                                 placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
                                     <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                                 </Button>
-                            </Dropdown>
+                            </Dropdown> */}
                             <Dropdown style={{ border: 'none' }} overlay={optionDropDown} placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
                                     <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
@@ -448,7 +445,7 @@ function Profile() {
                                 <Paragraph>{profile?.imOnProfile?.about}</Paragraph>
                             }
                             {console.log(profile)}
-                            <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph>
+                            {/* <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph> */}
                         </Col>
 
                         <Col className="justify-content-end" md={12} xs={24}>
