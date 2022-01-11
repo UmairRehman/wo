@@ -279,7 +279,13 @@ function Header(props) {
         }
 
     }
+    function shareProfile() {
+        navigator.clipboard.writeText(`${window.location.origin}/profile/${profile._id}`);
+        message.info(`copy to clipboard`);
 
+        console.log(`${window.location.origin}/profile/${profile._id}`)
+        // console.log(profile._id)
+    }
     function test2(e) {
         if (e.key === 'Enter') {
             if (searchField) {
@@ -393,7 +399,7 @@ function Header(props) {
                                 </Menu.Item>
                             </Link>
                             <Link to="#" >
-                                <Menu.Item icon={<ProfileOutlined className="font-30" />} key="4" >
+                                <Menu.Item icon={<ProfileOutlined className="font-30"  />} onClick={  ()=>shareProfile() } key="4" >
                                     Share profile link
                                 </Menu.Item>
                             </Link>
