@@ -379,7 +379,8 @@ function Header(props) {
 
                 {authenticate == true ?
                     <Row className="justify-content-center mt-3">
-                        <Link to='../profile-1'
+
+                        <Link to={`../profile-1`}
                          >
                             View Profile
                         </Link>

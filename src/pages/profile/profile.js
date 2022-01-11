@@ -235,11 +235,11 @@ function Profile() {
     }
 
     const shareDropdowm = (
-        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+        <Menu className="notification-dropdown" >
             {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
             </Menu.Item> */}
-            <Menu.Item onClick={navigator.clipboard.writeText("test")} key="2">
+            <Menu.Item onClick={()=>{navigator.clipboard.writeText(window.location.href); message.info('Copy to clipboard');}} key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
         </Menu>

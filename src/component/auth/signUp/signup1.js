@@ -107,7 +107,7 @@ function Signup() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         {/* <Title level={5}></Title> */}
                         <Form
@@ -205,6 +205,13 @@ function Signup() {
                                 </Button>
                             </Form.Item>
                         </Form>
+                        <Row className='j-c-c'>
+                            <Text>Allready have an account?
+                                <Link to='./signup-0'>
+                                    <span style={{ color: '#27B824' }}> Sign in</span>
+                                </Link>
+                            </Text>
+                        </Row>
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >

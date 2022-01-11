@@ -14,7 +14,7 @@ import { Login as LoginUser } from '../../../services/apiInteraction';
 // import CSS 
 import '../auth.css'
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 
 const validateMessages = (data) => {
@@ -83,7 +83,7 @@ function Login() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         {/* <Title level={5}></Title> */}
                         <Form
@@ -147,6 +147,13 @@ function Login() {
                                 </Button>
                             </Form.Item>
                         </Form>
+                        <Row className='j-c-c'>
+                            <Text>Don't have an account? 
+                                <Link to='./signup-0'>
+                                    <span style={{ color: '#27B824' }}> Sign up</span>
+                                </Link>
+                            </Text>
+                        </Row>
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >
