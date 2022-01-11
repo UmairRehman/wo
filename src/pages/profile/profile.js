@@ -19,6 +19,7 @@ import { FollowReqest } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
 import { statusConstant } from '../../constant/status'
 import { useParams } from "react-router-dom";
+import CoverImage from '../../assets/images/coverImage.png'
 
 import './profile.css'
 
@@ -77,6 +78,7 @@ function Profile() {
     const [followStatus, setFollowStatus] = useState(0)
 
     const [authenticate, setAuthenticate] = useState(false)
+
     function handleMenuClick(e) {
         message.info('Click on menu item.');
         console.log('click', e);
@@ -239,7 +241,7 @@ function Profile() {
             {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
             </Menu.Item> */}
-            <Menu.Item onClick={()=>{navigator.clipboard.writeText(window.location.href); message.info('Copy to clipboard');}} key="2">
+            <Menu.Item onClick={() => { navigator.clipboard.writeText(window.location.href); message.info('Copy to clipboard'); }} key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
         </Menu>
@@ -384,14 +386,18 @@ function Profile() {
             <div className="test" >
                 <Header />
             </div>
-
-            <div className="content ant-page- padding-whole-page" >
+            <Row style={{ position: "absolute", width: '100%', top:'90px' }} >
+                <Col className="full-image" md={24}>
+                    <Image preview={false} src={CoverImage} />
+                </Col>
+            </Row>
+            <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="mt-5" >
-                    <Col md={4} xs={6} >
+                    <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl || DefaultImage} />
                     </Col>
 
-                    <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
                             <Paragraph className="follower-counter" > {profile?.follower || 0} </Paragraph>
                         </Row>
@@ -400,7 +406,7 @@ function Profile() {
                         </Row >
                     </Col>
 
-                    <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-2'  style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row >
                             <Paragraph className="follower-counter" > {profile?.following || 0} </Paragraph>
                         </Row >
@@ -418,12 +424,12 @@ function Profile() {
                                     <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                                 </Button>
                             </Dropdown> */}
-                            <Dropdown style={{ border: 'none' }} overlay={optionDropDown} placement="bottomRight" >
+                            {/* <Dropdown style={{ border: 'none' }} overlay={optionDropDown} placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
                                     <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
-                            </Dropdown>
+                            </Dropdown> */}
                         </Col>
-                    : ""}
+                        : ""}
 
                 </Row>
                 <Row className="" >

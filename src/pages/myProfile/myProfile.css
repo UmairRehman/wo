@@ -53,5 +53,12 @@
     background: #FD6700 !important;
 }
 
+.manage-position-absolute{
+    padding-top: 420px;
+}
 
-
+@media only screen and (max-width: 600px) {
+    .manage-position-absolute{
+        padding-top: 100px;
+    }
+}
