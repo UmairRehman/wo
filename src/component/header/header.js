@@ -45,6 +45,8 @@ function Header(props) {
 
     const [searchField, setSearchField] = useState('')
 
+    const [authenticate, setAuthenticate] = useState(false)
+
     let history = useHistory();
 
     const { Sider } = Layout;
@@ -90,6 +92,16 @@ function Header(props) {
 
 
     useEffect(async () => {
+
+        if (localStorage.getItem('token') == null) {
+            setAuthenticate(false)
+        }
+        else {
+            setAuthenticate(true)
+        }
+
+
+        console.log("authentication" + authenticate)
 
         let data = {
 
@@ -151,6 +163,7 @@ function Header(props) {
             </div>
 
         </Menu>
+
     );
 
     const [loader, setLoader] = useState(false)
@@ -266,7 +279,13 @@ function Header(props) {
         }
 
     }
+    function shareProfile() {
+        navigator.clipboard.writeText(`${window.location.origin}/profile/${profile._id}`);
+        message.info(`copy to clipboard`);
 
+        console.log(`${window.location.origin}/profile/${profile._id}`)
+        // console.log(profile._id)
+    }
     function test2(e) {
         if (e.key === 'Enter') {
             if (searchField) {
@@ -338,9 +357,9 @@ function Header(props) {
 
                     ghost={false}
                     extra={[
-                        <Input className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
+                        <Input style={{ display: authenticate == true ? null : "none" }} className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
 
-                        <Dropdown.Button className="notifications-custom" style={{ paddingTop: '20px' }} overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
+                        <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
                         </Dropdown.Button>,
                         // <Image className="mt-3" preview={false} src={UserImage} width={30} height={30} />
                     ]}
@@ -352,37 +371,55 @@ function Header(props) {
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
 
-                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
+                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() ||     DefaultImage} />
 
                     <PlusOutlined onClick={showModal} className='add-picture' />
 
                 </Row>
-                <Row className="justify-content-center mt-3">
-                    <Link to='profile-1'>
-                        View Profile
-                    </Link>
-                </Row>
+
+                {authenticate == true ?
+                    <Row className="justify-content-center mt-3">
+
+                        <Link to={`../profile-1`}
+                         >
+                            View Profile
+                        </Link>
+                    </Row>
+                    : ""}
                 <Menu className="sidebar-menu" theme="light" mode="inline" defaultSelectedKeys={['1']}>
-                    <Link to="./users">
-                        <Menu.Item icon={<UsergroupAddOutlined className="font-30" />} key="1" >
-                            Followers / Following
-                        </Menu.Item>
-                    </Link>
-                    <Link to="/notification">
-                        <Menu.Item icon={<NotificationOutlined className="font-30" />} key="3" >
-                            Notifications
-                        </Menu.Item>
-                    </Link>
-                    <Link to="#" >
-                        <Menu.Item icon={<ProfileOutlined className="font-30" />} key="4" >
-                            Share profile link
-                        </Menu.Item>
-                    </Link>
-                    <Link to="./login">
-                        <Menu.Item icon={<LogoutOutlined className="font-30" />} key="5" >
-                            Sign out
-                        </Menu.Item>
-                    </Link>
+                    {authenticate == true ?
+                        <div>
+                            <Link to="../users">
+                                <Menu.Item icon={<UsergroupAddOutlined className="font-30" />} key="1" >
+                                    Followers / Following
+                                </Menu.Item>
+                            </Link>
+                            <Link to="/notification">
+                                <Menu.Item icon={<NotificationOutlined className="font-30" />} key="3" >
+                                    Notifications
+                                </Menu.Item>
+                            </Link>
+                            <Link to="#" >
+                                <Menu.Item icon={<ProfileOutlined className="font-30"  />} onClick={  ()=>shareProfile() } key="4" >
+                                    Share profile link
+                                </Menu.Item>
+                            </Link>
+                            <Link to="./login">
+                                <Menu.Item icon={<LogoutOutlined className="font-30" />} key="5" >
+                                    Sign out
+                                </Menu.Item>
+                            </Link>
+                            :
+                        </div>
+                        :
+                        <div>
+                            <Link to="../login">
+                                <Menu.Item icon={<UsergroupAddOutlined className="font-30" />} key="1" >
+                                    Login
+                                </Menu.Item>
+                            </Link>
+                        </div>
+                    }
                     {/* <Row className="sidebar-icon" style={{position:'absolute', bottom:'100px', right:'0px', fontSize:'30px', color:'white'}}>
                                 {React.createElement(collapsed ? ArrowRightOutlined : ArrowLeftOutlined, {
                                 className: 'trigger',

@@ -18,6 +18,8 @@ import Services from '../../component/services/services';
 import { FollowReqest } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
 import { statusConstant } from '../../constant/status'
+import { useParams } from "react-router-dom";
+import CoverImage from '../../assets/images/coverImage.png'
 
 import './profile.css'
 
@@ -58,10 +60,11 @@ function Profile() {
     const { Title, Text, Paragraph } = Typography;
     const location = useLocation();
     const Swal = require('sweetalert2')
-
+    const params = useParams();
 
     let id = location?.state
-    console.log(id)
+
+    console.log("prams" + params?.id)
 
 
     const [loader, setLoader] = useState(false)
@@ -71,7 +74,10 @@ function Profile() {
     const [isFollow, setIsFollow] = useState(false)
 
     const [reload, setReload] = useState(false)
+
     const [followStatus, setFollowStatus] = useState(0)
+
+    const [authenticate, setAuthenticate] = useState(false)
 
     function handleMenuClick(e) {
         message.info('Click on menu item.');
@@ -82,7 +88,7 @@ function Profile() {
     const onFinish = async (values: any) => {
 
         let data = {
-            "followee": id,
+            "followee": params.id,
             "message": values.message
         }
 
@@ -125,32 +131,32 @@ function Profile() {
                 confirmButtonColor: '#27B824',
                 cancelButtonColor: '#27B824',
                 confirmButtonText: 'Yes!'
-            }).then(async(result) => {
+            }).then(async (result) => {
                 if (result.isConfirmed) {
-                    
+
                     let data = {
-                        followee : id
+                        followee: id
                     }
 
                     try {
 
                         setLoader(true)
                         let resultHandle = await unFollow(data);
-            
+
                         console.log(resultHandle)
-            
+
                         if (resultHandle?.success == true) {
-            
+
                             setLoader(false)
                             setReload(!reload)
                             // setProfile(resultHandle?.message.foundUser[0])
                         }
-            
+
                         else {
                             validateMessages(resultHandle);
                             setLoader(false)
                         }
-            
+
                     }
                     catch (err) {
                         console.log(err)
@@ -174,8 +180,8 @@ function Profile() {
                 if (result.isConfirmed) {
 
                     let data = {
-                        followee: id,
-                        status : 5
+                        followee: params.id,
+                        status: 5
                     }
 
                     try {
@@ -231,12 +237,12 @@ function Profile() {
     }
 
     const shareDropdowm = (
-        <Menu className="notification-dropdown" onClick={handleMenuClick}>
-            <Menu.Item key="1">
+        <Menu className="notification-dropdown" >
+            {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
-            </Menu.Item>
-            <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '0px' }}>Share profile via</Paragraph>
+            </Menu.Item> */}
+            <Menu.Item onClick={() => { navigator.clipboard.writeText(window.location.href); message.info('Copy to clipboard'); }} key="2">
+                <Paragraph style={{ marginBottom: '0px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
         </Menu>
     );
@@ -287,18 +293,20 @@ function Profile() {
             <Menu.Item key="2" >
                 <Paragraph style={{ marginBottom: '10px' }} > Unfollow </Paragraph>
             </Menu.Item >
-            <Menu.Item key="3" >
-                <Paragraph style={{ marginBottom: '10px' }} > Copy profile URL </Paragraph>
-            </Menu.Item >
-            <Menu.Item key="4" >
-                <Paragraph style={{ marginBottom: '0px' }} > Share this profile  </Paragraph>
-            </Menu.Item >
         </Menu>
     );
 
 
 
     useEffect(async () => {
+
+        console.log(localStorage.getItem('token'))
+        if (localStorage.getItem('token') == null) {
+            setAuthenticate(false)
+        }
+        else {
+            setAuthenticate(true)
+        }
 
         let data = {
             id: id
@@ -307,7 +315,7 @@ function Profile() {
         try {
 
             setLoader(true)
-            let resultHandle = await GetProfileByID(data);
+            let resultHandle = await GetProfileByID(params);
 
             console.log(resultHandle)
 
@@ -335,7 +343,7 @@ function Profile() {
         try {
 
             let data = {
-                followee: id
+                followee: params.id
             }
 
             setLoader(true)
@@ -378,44 +386,50 @@ function Profile() {
             <div className="test" >
                 <Header />
             </div>
-
-            <div className="content ant-page- padding-whole-page" >
+            <Row style={{ position: "absolute", width: '100%', top:'90px' }} >
+                <Col className="full-image" md={24}>
+                    <Image preview={false} src={CoverImage} />
+                </Col>
+            </Row>
+            <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="mt-5" >
-                    <Col md={4} xs={6} >
+                    <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl || DefaultImage} />
                     </Col>
 
-                    <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
                             <Paragraph className="follower-counter" > {profile?.follower || 0} </Paragraph>
                         </Row>
                         <Row>
-                            <Paragraph style={{fontSize:'larger'}} className="follower-heading" > Followers </Paragraph>
+                            <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Followers </Paragraph>
                         </Row >
                     </Col>
 
-                    <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-2'  style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row >
                             <Paragraph className="follower-counter" > {profile?.following || 0} </Paragraph>
                         </Row >
                         <Row>
-                            <Paragraph  style={{fontSize:'larger'}}  className="follower-heading" > Following </Paragraph>
+                            <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
                         </Row>
                     </Col>
 
-                    <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
-                        <Dropdown style={{ border: 'none' }}
-                            overlay={profileBellIcon}
-                            placement="bottomRight" >
-                            <Button style={{ border: 'none' }} >
-                                <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
-                            </Button>
-                        </Dropdown>
-                        <Dropdown style={{ border: 'none' }} overlay={optionDropDown} placement="bottomRight" >
-                            <Button style={{ border: 'none' }} >
-                                <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
-                        </Dropdown>
-                    </Col>
+                    {authenticate == true ?
+                        <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
+                            {/* <Dropdown style={{ border: 'none' }}
+                                overlay={profileBellIcon}
+                                placement="bottomRight" >
+                                <Button style={{ border: 'none' }} >
+                                    <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
+                                </Button>
+                            </Dropdown> */}
+                            {/* <Dropdown style={{ border: 'none' }} overlay={optionDropDown} placement="bottomRight" >
+                                <Button style={{ border: 'none' }} >
+                                    <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
+                            </Dropdown> */}
+                        </Col>
+                        : ""}
 
                 </Row>
                 <Row className="" >
@@ -437,19 +451,19 @@ function Profile() {
                                 <Paragraph>{profile?.imOnProfile?.about}</Paragraph>
                             }
                             {console.log(profile)}
-                            <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph>
+                            {/* <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph> */}
                         </Col>
 
                         <Col className="justify-content-end" md={12} xs={24}>
                             {followStatus == ACCEPT ?
-                            <Dropdown className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
-                                <Button className="following-dropdown-button">Following <DownOutlined /></Button>
-                            </Dropdown>
-                            : followStatus == REQUEST ?
-                            <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sent <CheckOutlined /> </Button>
-                            :null} 
+                                <Dropdown className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
+                                    <Button className="following-dropdown-button">Following <DownOutlined /></Button>
+                                </Dropdown>
+                                : followStatus == REQUEST ?
+                                    <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sent <CheckOutlined /> </Button>
+                                    : null}
 
-                            <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button>
+                            {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}
 
                             <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
@@ -471,35 +485,36 @@ function Profile() {
                         : null}
 
                 </Row>
+                {authenticate == true ?
+                    <div>
+                        <Row className="mt-5">
+                            <Title level={5}>Add a note</Title>
+                        </Row>
 
+                        <Row>
+                            <Form
+                                name="basic"
+                                labelCol={{ span: 8 }}
+                                wrapperCol={{ span: 16 }}
+                                initialValues={{ remember: true }}
+                                onFinish={onFinish}
+                                onFinishFailed={onFinishFailed}
+                                autoComplete="off"
+                                className="w-100"
+                            >
+                                <Form.Item name={['message']} rules={[{ required: true, message: 'Please enter mesage' }]}>
+                                    <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
+                                </Form.Item>
 
-                <Row className="mt-5">
-                    <Title level={5}>Add a note</Title>
-                </Row>
-
-                <Row>
-                    <Form
-                        name="basic"
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        initialValues={{ remember: true }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
-                        className="w-100"
-                    >
-                        <Form.Item name={['message']} rules={[{ required: true, message: 'Please enter mesage' }]}>
-                            <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
-                        </Form.Item>
-
-                        <Form.Item >
-                            <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
-                                Send follow request
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Row>
-
+                                <Form.Item >
+                                    <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
+                                        Send follow request
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+                        </Row>
+                    </div>
+                    : ''}
             </div>
         </div >
     )

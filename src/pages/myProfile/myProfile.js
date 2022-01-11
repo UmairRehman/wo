@@ -16,6 +16,7 @@ import Services from '../../component/services/services';
 import { GetProfile, IMON } from '../../services/apiInteraction';
 import './myProfile.css'
 import DefaultImage from '../../assets/images/default.png'
+import CoverImage from '../../assets/images/coverImage.png'
 import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 
@@ -281,11 +282,11 @@ function MyProfile() {
         <Menu className="notification-dropdown"
             onClick={handleMenuClick}
         >
-            <Menu.Item key="1">
+            {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '10px' }}>Share profile via</Paragraph>
+                <Paragraph style={{ marginBottom: '10px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
             <Menu.Item key="3" >
                 <Paragraph style={{ marginBottom: '0px' }}>Edit Profile</Paragraph>
@@ -356,17 +357,17 @@ function MyProfile() {
                 <Header />
             </div>
 
-            <div className="content ant-page- padding-whole-page" >
+            <div className="content ant-page-" >
 
-                {/* <Row> */}
-                {/* <Col className="full-image" md={24}> */}
-                {/* <Image height={300} preview={false} src={getProfile?.backgroundPicUrl} /> */}
-                {/* <CameraOutlined onClick={showModal} className='add-picture-camere' /> */}
+                <Row style={{position:"absolute" , width:'100%'}} >  
+                    <Col className="full-image" md={24}>
+                        <Image preview={false} src={CoverImage} />
+                        {/* <CameraOutlined onClick={showModal} className='add-picture-camere' /> */}
 
-                {/* </Col> */}
-                {/* </Row> */}
+                    </Col>
+                </Row>
 
-                <Row className="mt-5" >
+                <Row className="mt-5  padding-whole-page manage-position-absolute" >
                     <Col md={3} xs={6} >
                         <Image className="border-50" preview={false} src={getProfile?.profilePicUrl || DefaultImage} />
                     </Col>
@@ -396,18 +397,18 @@ function MyProfile() {
 
                 </Row>
 
-                <Row className="" >
+                <Row className="  padding-whole-page " >
                     <Row className='w-100'>
                         <Title level={5}>{getProfile?.firstName} {getProfile?.lastName} </Title>
                     </Row>
                     {getProfile?.imOnProfile ?
                         <Row className='w-100'>
-                            <Paragraph>{getProfile?.imOnProfile?.firstName}</Paragraph>
+                            <Paragraph>{getProfile?.imOnProfile?.profession_data[0]?.name}</Paragraph>
                         </Row>
                         : null}
                 </Row >
 
-                <Row  >
+                <Row className=' padding-whole-page' >
                     <Row className='w-100'>
 
                         {console.log(getProfile)}
@@ -485,11 +486,11 @@ function MyProfile() {
                         : null}
                 </Row >
 
-                <Row className="d-flex justify-content-center mt-5 w-100">
+                <Row className="d-flex justify-content-center mt-5 w-100  padding-whole-page">
                     <Image className="w-100" src={Line} preview={false} />
                 </Row>
                 {getProfile?.imOnProfile?.firstName ?
-                    <Row className=" mt-5 w-100">
+                    <Row className=" mt-5 w-100  padding-whole-page">
 
                         <Services services={getProfile?.imOnProfile?.services} />
 

@@ -300,7 +300,7 @@ export async function CreateProfile(obj) {
 
 
 // Edit Profile   
-export async function EditProfile(obj) {
+export async function editProfile(obj) {
 
   let headers = new Headers();
 
@@ -695,6 +695,28 @@ export async function DeleteNotificationApi(obj) {
       method: 'DELETE',
       headers,
       // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+// mute notification 
+export async function MuteNOtification(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/notification`,
+    {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(obj),
     });
 
   return await ErrorHandling(result)

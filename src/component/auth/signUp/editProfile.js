@@ -4,13 +4,14 @@ import {
 } from '@ant-design/icons';
 
 import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select } from 'antd';
-import { CreateProfile } from '../../../services/apiInteraction';
+import { editProfile } from '../../../services/apiInteraction';
 
 import { GetProfession } from '../../../services/apiInteraction';
 import { useLocation } from 'react-router-dom'
 import { useHistory } from "react-router-dom";
 import Header from '../../header/header';
 
+// import { editProfile } from './../../services/apiInteraction';
 
 const validateMessages = (data) => {
     const args = {
@@ -33,17 +34,17 @@ const EditProfile = (user) => {
     const [services, setServices] = useState([{ name: "", price: "" }]);
     const [loader, setLoader] = useState(false)
     const [getProfession, setGetProfession] = useState([])
-
-
-
-
+    const [form] = Form.useForm();
     const location = useLocation();
 
     let id = location?.state
-    console.log(id)
 
-
-
+    const [service, setService] = useState([...id.imOnProfile.services.map(data => data.name)]);
+    const [price, setPrice] = useState([...id.imOnProfile.services.map(data => data.price)]);
+    form.setFieldsValue({
+        service: service,
+        price : price
+     });
 
     useEffect(async () => {
 
@@ -87,11 +88,11 @@ const EditProfile = (user) => {
 
         values.service.forEach((key, i) => services[i] = {
             name: values.service[i],
-            price: values.price[i]
+            price: String(values.price[i]) 
         });
 
         let data = {
-            private: accountType == '' ? userHistory.private : accountType,
+            // private: accountType == '' ? userHistory.private : accountType,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
             address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
@@ -104,26 +105,26 @@ const EditProfile = (user) => {
 
         console.log(data)
 
-        // try {
-        //     let resultHandle = await EditProfile(data)
-        //     setLoader(true)
+        try {
+            let resultHandle = await editProfile(data)
+            setLoader(true)
 
-        //     if (resultHandle?.success == true) {
+            if (resultHandle?.success == true) {
 
-        //         setLoader(false)
-        //         history.push("/completed");
-        //     }
-        //     else {
-        //         validateMessages(resultHandle);
-        //         setLoader(false)
-        //     }
+                setLoader(false)
+                history.push("/profile-1");
+            }
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
 
-        // }
-        // catch (err) {
-        //     console.log(err)
-        //     setLoader(false)
+        }
+        catch (err) {
+            console.log(err)
+            setLoader(false)
 
-        // }
+        }
 
     };
 
@@ -154,6 +155,17 @@ const EditProfile = (user) => {
         const list = [...services];
         list.splice(index, 1);
         setServices(list);
+        let service = form.getFieldValue("service");
+        service.splice(index,1);
+
+        let price = form.getFieldValue("price");
+        price.splice(index,1);
+        setService(service);
+        setPrice(price)
+        form.setFieldsValue({
+            service,
+            price 
+         });
     };
 
     // handle click event of the Add button
@@ -176,7 +188,7 @@ const EditProfile = (user) => {
                     <Col style={{ alignSelf: 'center' }} md={18} xs={24} >
 
                         <Row style={{ marginLeft: '10px' }} className="mobile-center-align">
-                            <Title level={5}  >Create user profile </Title>
+                            <Title level={5}  >Edit profile </Title>
                         </Row >
 
                         <Row className="mobile-center-align">
@@ -193,6 +205,7 @@ const EditProfile = (user) => {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         className="w-100"
+                        form = {form}
                     >
 
                         <Row>
@@ -312,6 +325,7 @@ const EditProfile = (user) => {
                                                 <Form.Item
                                                     name={['service', i]}
                                                     placeholder={x.name}
+                                                    value= {x.name}
                                                 >
                                                     <Input
 
@@ -329,16 +343,16 @@ const EditProfile = (user) => {
                                                 </Form.Item>
                                             </Col>
 
-                                            {i == services.length - 1 ?
+                                            {/* {i == services.length - 1 ? */}
 
                                                 <Col className="padding-20" span={2}>
-                                                    {i == 0 ? '' :
+                                                    {/* {i == 0 ? '' : */}
                                                         <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
-                                                    }
+                                                    {/* } */}
                                                 </Col>
-
+{/* 
                                                 : ''
-                                            }
+                                            } */}
 
                                         </Row>
                                     )

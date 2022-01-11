@@ -143,13 +143,16 @@
     -webkit-box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
     box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
 }
-.ant-input-affix-wrapper{
+
+.ant-input-affix-wrapper {
     box-shadow: none !important;
 }
-.ant-input-affix-wrapper:hover{
+
+.ant-input-affix-wrapper:hover {
     border: 1px solid #27B824 !important;
 }
-.ant-input-affix-wrapper-focused{
+
+.ant-input-affix-wrapper-focused {
     -webkit-box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
     box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
     border: 1px solid #27B824;
@@ -164,6 +167,15 @@
     }
 }
 
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background: #fafafa;
+    opacity: .6;
+}
+
 .follow-card {
     background: #F8F8F8;
     padding: 10px;
@@ -176,38 +188,42 @@
     background: white !important;
     background-color: white !important;
 }
-.add-more-button:hover{
+
+.add-more-button:hover {
     color: rgba(0, 0, 0, 0.85);
     border-color: #d9d9d9;
     background: #fff;
 }
-.add-more-button:focus{
+
+.add-more-button:focus {
     color: rgba(0, 0, 0, 0.85);
     border-color: #d9d9d9;
     background: #fff;
 }
-.text-black span{
+
+.text-black span {
     color: black !important;
     font-weight: 500 !important;
 }
-.ant-checkbox-inner:after{
+
+.ant-checkbox-inner:after {
     border: none !important;
 }
-.ant-tabs-tab{
+
+.ant-tabs-tab {
     color: #D4D4D4;
 }
-.rotate-180{
+
+.rotate-180 {
     transform: rotate(95deg);
 }
-.delete-button:focus{
+
+.delete-button:focus {
     border: 1px solid #000000 !important;
     color: #000000;
 }
-.delete-button:hover{
+
+.delete-button:hover {
     border: 1px solid #000000 !important;
     color: #000000;
 }
-
-
-
-
