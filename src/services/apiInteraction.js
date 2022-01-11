@@ -300,7 +300,7 @@ export async function CreateProfile(obj) {
 
 
 // Edit Profile   
-export async function EditProfile(obj) {
+export async function editProfile(obj) {
 
   let headers = new Headers();
 
