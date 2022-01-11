@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Menu, Image, Row, PageHeader, Button, Input, message, Dropdown, Modal, notification, Spin, Col, Typography } from 'antd';
-import { SearchOutlined, BellOutlined, UserOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
+import { SearchOutlined, BellOutlined, HomeOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 import User from '../../assets/images/user.png'
 import {
     Link
@@ -371,7 +371,7 @@ function Header(props) {
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
 
-                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() ||     DefaultImage} />
+                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
 
                     <PlusOutlined onClick={showModal} className='add-picture' />
 
@@ -381,7 +381,7 @@ function Header(props) {
                     <Row className="justify-content-center mt-3">
 
                         <Link to={`../profile-1`}
-                         >
+                        >
                             View Profile
                         </Link>
                     </Row>
@@ -389,6 +389,11 @@ function Header(props) {
                 <Menu className="sidebar-menu" theme="light" mode="inline" defaultSelectedKeys={['1']}>
                     {authenticate == true ?
                         <div>
+                            <Link to="../following" >
+                                <Menu.Item icon={<HomeOutlined className="font-30" />} key="993" >
+                                    Home
+                                </Menu.Item>
+                            </Link>
                             <Link to="../users">
                                 <Menu.Item icon={<UsergroupAddOutlined className="font-30" />} key="1" >
                                     Followers / Following
@@ -400,7 +405,7 @@ function Header(props) {
                                 </Menu.Item>
                             </Link>
                             <Link to="#" >
-                                <Menu.Item icon={<ProfileOutlined className="font-30"  />} onClick={  ()=>shareProfile() } key="4" >
+                                <Menu.Item icon={<ProfileOutlined className="font-30" />} onClick={() => shareProfile()} key="4" >
                                     Share profile link
                                 </Menu.Item>
                             </Link>

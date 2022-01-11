@@ -41,8 +41,8 @@ function Suggest() {
     function onClickView(data) {
 
         history.push({
-            pathname: "/profile",
-            state: data?._id
+            pathname: `/profile/${data?._id}`,
+            // state: data?._id
         });
 
     }
