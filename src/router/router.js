@@ -40,6 +40,7 @@ import UploadProfile from '../component/uploadProfile.js/uploadProfile.js';
 import Signup from '../component/auth/signUp/signup1.js';
 import Complete from '../pages/complete/complete.js';
 import Search from '../pages/search/search.js';
+import EditProfile from '../component/auth/signUp/editProfile.js';
 
 
 
@@ -105,6 +106,10 @@ function router() {
 
                     <Route path='/signup-form' >
                         <SignupForm />
+                    </Route>
+
+                    <Route path='/edit-profile' >
+                        <EditProfile />
                     </Route>
 
                     {/* SignUP end  */}

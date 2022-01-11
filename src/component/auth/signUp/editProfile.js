@@ -4,22 +4,12 @@ import {
 } from '@ant-design/icons';
 
 import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select } from 'antd';
-import Sidebar from '../../../component/sidebar/sidebar';
-import Header from '../../../component/header/header';
-import { Link } from 'react-router-dom';
-import Option from '../../../assets/images/option.png'
-import Bell from '../../../assets/images/bell.jpg'
-import Line from '../../../assets/images/line.png'
-import SuggestIcon from '../../../assets/images/suggest.png'
-
 import { CreateProfile } from '../../../services/apiInteraction';
 
-import * as AuthActions from "../../../actions/authActions";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { GetProfession } from '../../../services/apiInteraction';
-
+import { useLocation } from 'react-router-dom'
 import { useHistory } from "react-router-dom";
+import Header from '../../header/header';
 
 
 const validateMessages = (data) => {
@@ -31,7 +21,7 @@ const validateMessages = (data) => {
     };
     notification.error(args);
 };
-const SignupForm = (user) => {
+const EditProfile = (user) => {
 
     const { Content } = Layout;
     const { Title, Text, Paragraph } = Typography;
@@ -42,18 +32,25 @@ const SignupForm = (user) => {
     const [profession, setProfession] = useState('')
     const [services, setServices] = useState([{ name: "", price: "" }]);
     const [loader, setLoader] = useState(false)
-
     const [getProfession, setGetProfession] = useState([])
+
+
+
+
+    const location = useLocation();
+
+    let id = location?.state
+    console.log(id)
+
+
 
 
     useEffect(async () => {
 
-        let user = localStorage.getItem("user")
-
-        let userObject = JSON.parse(user)
-
-        setUserHistory(userObject)
-        console.log(userHistory.profilePicUrl)
+        let user = id
+        console.log(user._id)
+        setUserHistory(user)
+        setServices(user?.imOnProfile?.services)
 
         try {
 
@@ -63,6 +60,7 @@ const SignupForm = (user) => {
             if (resultHandle?.success == true) {
 
                 setGetProfession(resultHandle?.message?.Profession)
+
                 setLoader(false)
 
             }
@@ -93,39 +91,39 @@ const SignupForm = (user) => {
         });
 
         let data = {
-            private: accountType,
+            private: accountType == '' ? userHistory.private : accountType,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
-            address: values.address,
+            address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
             phoneNumber: userHistory?.phoneNumber,
             emailAddress: userHistory?.emailAddress,
-            professionId: profession,
-            about: values.about,
-            services
+            professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
+            about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about,
+            services: services
         }
 
         console.log(data)
 
-        try {
-            let resultHandle = await CreateProfile(data)
-            setLoader(true)
+        // try {
+        //     let resultHandle = await EditProfile(data)
+        //     setLoader(true)
 
-            if (resultHandle?.success == true) {
+        //     if (resultHandle?.success == true) {
 
-                setLoader(false)
-                history.push("/completed");
-            }
-            else {
-                validateMessages(resultHandle);
-                setLoader(false)
-            }
+        //         setLoader(false)
+        //         history.push("/completed");
+        //     }
+        //     else {
+        //         validateMessages(resultHandle);
+        //         setLoader(false)
+        //     }
 
-        }
-        catch (err) {
-            console.log(err)
-            setLoader(false)
+        // }
+        // catch (err) {
+        //     console.log(err)
+        //     setLoader(false)
 
-        }
+        // }
 
     };
 
@@ -152,12 +150,9 @@ const SignupForm = (user) => {
     };
 
     // handle click event of the Remove button
-    const handleRemoveClick = i => {
+    const handleRemoveClick = index => {
         const list = [...services];
-        console.log(i)
-        console.log(list);
-        list.splice(i, 1);
-        console.log(list)
+        list.splice(index, 1);
         setServices(list);
     };
 
@@ -165,10 +160,6 @@ const SignupForm = (user) => {
     const handleAddClick = () => {
         setServices([...services, { name: "", price: "" }]);
     };
-
-    function deleteRow(i) {
-        console.log(i)
-    }
 
 
     return (
@@ -189,7 +180,6 @@ const SignupForm = (user) => {
                         </Row >
 
                         <Row className="mobile-center-align">
-                            {/* <Paragraph style={{ color: '#FD6700' }} className="font-16" >Change Photo </Paragraph> */}
                         </Row>
 
                     </Col>
@@ -210,10 +200,9 @@ const SignupForm = (user) => {
                                 <Paragraph className="font-18">Account Type</Paragraph>
                                 <Form.Item
                                     name={['user', 'acountType']}
-                                    rules={[{ required: true }]}
                                 >
                                     <Select className="form-dropdown"
-                                        // defaultValue="true" 
+                                        placeholder={userHistory.private == true ? "Private Account" : "Public Account"}
                                         style={{ width: '100%' }}
                                         onChange={handleChangeAccountType}>
                                         <Option value="true">Private</Option>
@@ -222,17 +211,19 @@ const SignupForm = (user) => {
                                 </Form.Item>
 
                             </Col>
+                            {userHistory &&
 
-                            <Col className="padding-20" md={12} xs={24} >
-                                <Paragraph className="font-18">Email Address</Paragraph>
-                                <Form.Item
-                                    name={['user', 'email']}
-                                    rules={[{ type: 'email' }]}
-                                >
-                                    <Input placeholder={userHistory?.emailAddress} disabled className="fancy-border" />
-                                </Form.Item>
+                                <Col className="padding-20" md={12} xs={24} >
+                                    <Paragraph className="font-18">Email Address</Paragraph>
+                                    <Form.Item
+                                        name={['user', 'email']}
+                                        rules={[{ type: 'email' }]}
+                                    >
+                                        <Input placeholder={userHistory?.emailAddress} disabled className="fancy-border" />
+                                    </Form.Item>
 
-                            </Col>
+                                </Col>
+                            }
                         </Row>
 
                         <Row>
@@ -240,22 +231,20 @@ const SignupForm = (user) => {
                                 <Paragraph className="font-18">First name</Paragraph>
                                 <Form.Item
                                     name={['firstName']}
-                                // rules={[{ required: true }]}
                                 >
                                     <Input placeholder={userHistory?.firstName} disabled className="fancy-border" />
                                 </Form.Item>
                             </Col>
-
-                            <Col className="padding-20" md={12} xs={24} >
-                                <Paragraph className="font-18">Add location address</Paragraph>
-                                <Form.Item
-                                    name={['address']}
-                                    rules={[{ required: true }]}
-                                >
-                                    <Input className="fancy-border" />
-                                </Form.Item>
-                            </Col>
-
+                            {userHistory?.imOnProfile &&
+                                <Col className="padding-20" md={12} xs={24} >
+                                    <Paragraph className="font-18">Add location address</Paragraph>
+                                    <Form.Item
+                                        name={['address']}
+                                    >
+                                        <Input className="fancy-border" defaultValue={userHistory?.imOnProfile?.address} />
+                                    </Form.Item>
+                                </Col>
+                            }
                         </Row>
 
                         <Row>
@@ -263,35 +252,34 @@ const SignupForm = (user) => {
                                 <Paragraph className="font-18">Last name</Paragraph>
                                 <Form.Item
                                     name={['lastName']}
-                                // rules={[{ required: true }]}
                                 >
 
                                     <Input placeholder={userHistory?.lastName} disabled className="fancy-border" />
 
                                 </Form.Item>
                             </Col>
+                            {userHistory?.imOnProfile?.about &&
+                                <Col className="padding-20" md={12} xs={24} >
+                                    <Paragraph className="font-18">About</Paragraph>
 
-                            <Col className="padding-20" md={12} xs={24} >
-                                <Paragraph className="font-18">About</Paragraph>
+                                    <Form.Item
+                                        name={['about']}
+                                    >
+                                        <Input className="fancy-border" defaultValue={userHistory?.imOnProfile?.about} />
 
-                                <Form.Item
-                                    name={['about']}
-                                    rules={[{ required: true }]}
-                                >
-                                    <Input className="fancy-border" />
-
-                                </Form.Item>
-                            </Col>
-
+                                    </Form.Item>
+                                </Col>
+                            }
                         </Row>
 
                         <Row>
                             <Col className="padding-20" md={12} xs={24} >
                                 <Paragraph className="font-18">Profession</Paragraph>
                                 <Form.Item
-                                    name={['profession']} rules={[{ required: true }]}
+                                    name={['profession']}
                                 >
-                                    <Select className="form-dropdown" style={{ width: '100%' }} onChange={handleChange}>
+                                    <Select placeholder={userHistory?.imOnProfile?.profession_data[0]?.name} className="form-dropdown" style={{ width: '100%' }} onChange={handleChange}>
+
                                         {
                                             getProfession.map((profession) =>
                                                 <Option value={profession._id}>{profession.name}</Option>
@@ -315,47 +303,50 @@ const SignupForm = (user) => {
                                     </Col>
                                 </Row>
 
-
-
                                 {services.map((x, i) => {
                                     return (
+
                                         <Row>
 
                                             <Col className="padding-20" span={12}>
-                                                {/* <Paragraph className="font-18">Services</Paragraph> */}
                                                 <Form.Item
-                                                    name={['service', i]} rules={[{ required: true }]}
+                                                    name={['service', i]}
+                                                    placeholder={x.name}
                                                 >
+                                                    <Input
 
-                                                    <Input placeholder='Service Name' className="fancy-border" />
+                                                        placeholder={x.name}
+                                                        className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
-
                                             <Col className="padding-20" span={10}>
-                                                {/* <Paragraph className="font-18">Price</Paragraph> */}
                                                 <Form.Item
-                                                    name={['price', i]} rules={[{ required: true }]}
+                                                    name={['price', i]}
                                                 >
-
-                                                    <Input placeholder='price in $' className="fancy-border" />
+                                                    <Input placeholder={x.price} className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
-                                            {console.log("i", i)}
+
                                             {i == services.length - 1 ?
 
                                                 <Col className="padding-20" span={2}>
-                                                    {i==0 ? '':
-                                                    <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
+                                                    {i == 0 ? '' :
+                                                        <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
                                                     }
                                                 </Col>
 
                                                 : ''
                                             }
+
                                         </Row>
                                     )
                                 })}
+
+
+
+
 
                                 <Row>
                                     <Button className='add-more-button' onClick={handleAddClick}>Add more</Button>
@@ -389,4 +380,4 @@ const SignupForm = (user) => {
     )
 }
 
-export default SignupForm;
+export default EditProfile;

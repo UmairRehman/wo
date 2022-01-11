@@ -17,32 +17,36 @@ function PasswordVarified() {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
-      };
+    };
 
     return (
-        <div style={{height:'100vh', position:'relative'}}>
-            <Row style={{height:'100vh'}}>
+        <div className='gray-background' style={{ height: '100vh', position: 'relative' }}>
+            <Row style={{ height: '100vh' }}>
                 <Col md={8} xs={24} >
-                    
+
                 </Col>
-                <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
-                    <Card  bordered={false} className="position-relative">
+                <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
+                    <Card style={{ height: '70vh' }} bordered={false} className="custom-card position-relative responsive-card">
                         <Row className="d-flex justify-content-center">
                             <Image src={Varified} preview={false} />
                         </Row>
-                        
+
                         <Title className="d-flex justify-content-center" level={5}>Password verified</Title>
-                        <Paragraph style={{textAlign:'center'}}>Congratulations, your new password has been verified. You can now start using the app.</Paragraph>
-                        
-                        <Link className="mt-5" to="/login">
-                            <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
-                            Sign in
-                            </Button>
-                        </Link>
+                        <Paragraph style={{ textAlign: 'center' }}>Congratulations, your new password has been verified. You can now start using the app.</Paragraph>
+
+
+                        <Row style={{position:'absolute', bottom:20, width:'90%' ,display:'flex', justifyContent:'center'}}>
+                            <Link className="mt-5" to="/login">
+                                <Button type="primary" htmlType="submit" className="button mt-5" >
+                                    Sign in
+                                </Button>
+                            </Link>
+                        </Row>
+
                     </Card>
                 </Col>
                 <Col md={8} xs={24} >
-                
+
                 </Col>
             </Row>
         </div>

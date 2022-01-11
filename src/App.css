@@ -47,7 +47,7 @@ h5 {
 }
 
 p {
-  font-size: 1.5vw !important;
+  font-size: 1.1vw !important;
 }
 
 .ant-form label {
@@ -172,13 +172,24 @@ p {
 .font-12 {
   font-size: 12px;
 }
+.font-12-vw {
+  font-size:0.750vw !important;
+}
 
 .font-14 {
   font-size: 14px;
 }
 
+.font-14-vw {
+  font-size: 0.875vw !important ;
+}
+
 .font-16 {
-  font-size: 16px;
+  font-size: 16px !important;
+}
+
+.font-16-vw {
+  font-size: 1vw !important;
 }
 
 .font-18 {
@@ -309,7 +320,7 @@ p {
   border: none !important;
   background: #27B824;
   color: white;
-  border-radius: 20px;
+  border-radius: 30px;
   height: 50px;
   width: 200px;
   font-size: 20px !important;
@@ -407,7 +418,7 @@ p {
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #27B824 !important;
+  color: #000000 !important;
 }
 
 .ant-tabs-ink-bar {
@@ -483,7 +494,7 @@ html {
 .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
 .ant-menu-light .ant-menu-submenu-active,
 .ant-menu-light .ant-menu-submenu-title:hover {
-  color: #27B824 !important;
+  color: #000000 !important;
 }
 
 ::selection {

@@ -94,7 +94,7 @@ function NewPassword() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Create new password</Title>
                         <Paragraph style={{ textAlign: 'center' }}>Your new password must be different from previous used password.</Paragraph>
@@ -108,7 +108,7 @@ function NewPassword() {
                                 name="password"
                                 rules={[{ required: true, message: 'Please input your Password!' }]}
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"
@@ -132,7 +132,7 @@ function NewPassword() {
                                     }),
                                 ]}
                             >
-                                <Input
+                                <Input.Password
                                     className="login-field"
                                     prefix={<MdLockOutline className="login-fonts" />}
                                     type="password"
@@ -148,14 +148,14 @@ function NewPassword() {
                                 <Col span={12} md={12} xs={24}>
                                     <Form.Item className="login-checkBox" >
                                         <Form.Item name="remember" valuePropName="checked" noStyle>
-                                            <Checkbox>Save Password</Checkbox>
+                                            <Checkbox className='text-black'>Save Password</Checkbox>
                                         </Form.Item>
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
-                                    Sign in
+                                    Next
                                 </Button>
                             </Form.Item>
 

@@ -215,9 +215,9 @@ function Notification(props) {
 
       )}
 
-      <Row style={{ justifyContent: 'end', marginTop: '30px' }}>
+      {/* <Row style={{ justifyContent: 'end', marginTop: '30px' }}>
         <Button onClick={loadMore}>Load More</Button>
-      </Row>
+      </Row> */}
 
       <Row>
 

@@ -106,19 +106,19 @@ function Following() {
                     <Row>
                         {suggest.map((data) =>
                             <Col md={12}>
-                                <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
+                                <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background">
                                     <Row>
                                         <Col className="mobile-center" md={4} xs={24} >
                                             <Image style={{ maxWidth: '120px', maxHeight: '120px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl || DefaultImage} />
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={13} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                <Title level={4} className="m-0">
+                                                <Title style={{textTransform:'capitalize'}} level={5} className="m-0">
                                                     {data?.firstName + " " + data?.lastName}
                                                 </Title>
                                             </Row>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                <Paragraph level={5}>
+                                                <Paragraph style={{textTransform:'capitalize'}}  level={5}>
                                                     {data.imOnProfile?.profession_data[0]?.name}
                                                 </Paragraph>
                                             </Row>

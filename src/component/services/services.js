@@ -30,15 +30,15 @@ function Services(props) {
                 {services.map((s) =>
                     <Col key={s} md={24} xs={24} >
 
-                        <Row>
+                        <Row style={{paddingTop:'10px'}}>
                             <Col span={6}>
-                                <Paragraph className="font-18">{s.name}</Paragraph>
+                                <Paragraph className="font-18" strong={true}>{s.name}</Paragraph>
                             </Col>
                             <Col span={6}>
                                 <Image src={Line} preview={false} />
                             </Col>
                             <Col span={6} className="justify-content-end">
-                                <Paragraph className="font-18" strong={true}>{s.price}</Paragraph>
+                                <Paragraph className="font-18" style={{fontWeight:'bold'}} strong={true}>${s.price} </Paragraph>
                             </Col>
                         </Row>
 

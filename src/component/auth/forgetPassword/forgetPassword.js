@@ -128,7 +128,7 @@ function ForgetPassword() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                <Col  style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Reset Password</Title>
                         <Paragraph style={{ textAlign: 'center' }}>Enter the email or phone number associated with your account and we'll send you code to reset your password</Paragraph>
@@ -145,7 +145,7 @@ function ForgetPassword() {
                                         name="phoneNumber"
                                         rules={[{ required: true, message: 'Please input your phone number!' }]}
                                     >
-                                        <Input className="login-field" prefix={<PhoneOutlined className="login-fonts" />} placeholder="Phone Number" />
+                                        <Input className="login-field" prefix={<PhoneOutlined className="login-fonts rotate-180" />} placeholder="Phone Number" />
                                     </Form.Item>
                                     <Form.Item>
                                         <Button type="primary" htmlType="submit" className="button mt-5 w-100" >

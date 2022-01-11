@@ -93,7 +93,7 @@ function Profile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                validateMessagesFollow("Successfully Followed");
+                validateMessagesFollow("Successfully Request Send");
                 setReload(!reload)
             }
 

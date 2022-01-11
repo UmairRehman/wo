@@ -277,7 +277,7 @@ export async function Login(obj) {
 };
 
 
-// Login   
+// create profile   
 export async function CreateProfile(obj) {
 
   let headers = new Headers();
@@ -296,6 +296,29 @@ export async function CreateProfile(obj) {
   return await ErrorHandling(result)
 
 };
+
+
+
+// Edit Profile   
+export async function EditProfile(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile`,
+    {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
 
 
 
