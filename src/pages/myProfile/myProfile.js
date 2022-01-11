@@ -281,11 +281,11 @@ function MyProfile() {
         <Menu className="notification-dropdown"
             onClick={handleMenuClick}
         >
-            <Menu.Item key="1">
+            {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '10px' }}>Share profile via</Paragraph>
+                <Paragraph style={{ marginBottom: '10px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
             <Menu.Item key="3" >
                 <Paragraph style={{ marginBottom: '0px' }}>Edit Profile</Paragraph>

@@ -91,7 +91,8 @@ function Search() {
     function onClickView(data) {
 
         history.push({
-            pathname: "/profile",
+            // pathname: "/profile",
+            pathname: `/profile/${data._id}`,
             state:data._id
         });
 

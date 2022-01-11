@@ -188,7 +188,7 @@ const EditProfile = (user) => {
                     <Col style={{ alignSelf: 'center' }} md={18} xs={24} >
 
                         <Row style={{ marginLeft: '10px' }} className="mobile-center-align">
-                            <Title level={5}  >Create user profile </Title>
+                            <Title level={5}  >Edit profile </Title>
                         </Row >
 
                         <Row className="mobile-center-align">
