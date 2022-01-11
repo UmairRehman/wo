@@ -79,7 +79,7 @@ function Suggest() {
                 <Header />
             </div>
 
-            <div style={{ paddingLeft: '5%', paddingRight: '5%' }} className="content ant-page- ">
+            <div style={{ paddingLeft: '10%', paddingRight: '10%' }} className="content ant-page- ">
                 <Row className="mt-5 d-flex" >
                     <Title level={3}>Suggested for you</Title>
                 </Row>
@@ -95,7 +95,7 @@ function Suggest() {
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={16} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                <Title level={4} className="m-0">
+                                                <Title level={5} className="m-0">
                                                     {data.firstName + " " + data.lastName}
                                                 </Title>
                                             </Row>
