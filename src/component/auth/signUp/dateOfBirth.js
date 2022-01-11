@@ -41,7 +41,7 @@ function DateOfBirth() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Add your date of birth</Title>
                         <Paragraph style={{ textAlign: 'center' }}>This won't be part of your public profile. Why do i need to provide my date of birth?</Paragraph>

@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {
     DownOutlined,
-    CameraOutlined
 } from '@ant-design/icons';
 import Avatar from 'react-avatar-edit'
 import { Layout, Dropdown, Image, Row, Col, Typography, Spin, Button, Menu, message, notification, Modal } from 'antd';
-import SuggestIcon from '../../assets/images/suggest.png'
-import Sidebar from '../../component/sidebar/sidebar';
 import Header from '../../component/header/header';
 import FollowingCard from '../../component/following/followingCard';
 import { Link } from 'react-router-dom';
-import Option from '../../assets/images/option.png'
 import Bell from '../../assets/images/bell.jpg'
 import Line from '../../assets/images/line.png'
-import Cover from '../../assets/images/cover.png'
-import smallLogo from '../../assets/images/smallLogo.png'
 import whiteLogo from '../../assets/images/logo-white.png'
 
 import './myProfile.css'
@@ -22,7 +16,8 @@ import Services from '../../component/services/services';
 import { GetProfile, IMON } from '../../services/apiInteraction';
 import './myProfile.css'
 import DefaultImage from '../../assets/images/default.png'
-import Load from '../../assets/images/load.gif'
+import { useHistory } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 
 
 import { ChangeProfileImage } from '../../services/apiInteraction';
@@ -46,16 +41,14 @@ function MyProfile() {
     const { Title, Text, Paragraph } = Typography;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    let history = useHistory();
+    const location = useLocation();
     const showModal = () => {
         setIsModalVisible(true);
     };
 
 
-    function handleMenuClick(e) {
-        message.info('Click on menu item.');
-        console.log('click', e);
-    }
+
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -77,21 +70,7 @@ function MyProfile() {
         </Menu>
     );
 
-    const shareDropdowm = (
-        <Menu className="notification-dropdown" onClick={handleMenuClick}>
-            <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
-            </Menu.Item>
-            <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '10px' }}>Share profile via</Paragraph>
-            </Menu.Item>
-            <Menu.Item key="3">
-                <Link to='./signup-form'>
-                    <Paragraph style={{ marginBottom: '0px' }}>Edit Profile</Paragraph>
-                </Link>
-            </Menu.Item>
-        </Menu>
-    );
+
 
 
     const menu = (
@@ -298,6 +277,38 @@ function MyProfile() {
 
     }
 
+    const shareDropdowm = (
+        <Menu className="notification-dropdown"
+            onClick={handleMenuClick}
+        >
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <Paragraph style={{ marginBottom: '10px' }}>Share profile via</Paragraph>
+            </Menu.Item>
+            <Menu.Item key="3" >
+                <Paragraph style={{ marginBottom: '0px' }}>Edit Profile</Paragraph>
+            </Menu.Item>
+        </Menu>
+    );
+
+
+    function handleMenuClick(e) {
+        if (e.key == 3) {
+            history.push({
+                pathname: "/edit-profile",
+                state: getProfile
+            });
+
+        }
+        else {
+            console.log("nothing else")
+        }
+    }
+
+
+
     return (
         <div className="animation2 " >
             <Spin className="loader" spinning={loader} size="large" />
@@ -373,7 +384,7 @@ function MyProfile() {
 
                     </Col>
 
-                    <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
+                    <Col style={{ alignSelf: 'end', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
                         <Dropdown style={{ border: 'none' }}
                             overlay={profileBellIcon}
                             placement="bottomRight" >
@@ -399,8 +410,10 @@ function MyProfile() {
                 <Row  >
                     <Row className='w-100'>
 
+                        {console.log(getProfile)}
+
                         <Col md={12} xs={24}>
-                            <Paragraph className="m-0" style={{ color: '#A8A8A8' }}>Public Account</Paragraph>
+                            <Paragraph className="m-0" style={{ color: '#A8A8A8' }}>{getProfile?.private == false ? "Public Account" : "Private Account"}</Paragraph>
                             {getProfile?.imOnProfile ?
                                 <Paragraph>{getProfile?.imOnProfile?.address}</Paragraph>
                                 : null}

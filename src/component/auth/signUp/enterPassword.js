@@ -25,7 +25,7 @@ function EnterPassword() {
                 <Col md={8} xs={24} >
                     
                 </Col>
-                <Col style={{alignSelf:'center'}} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
                     <Card  bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Create new password</Title>
                         <Paragraph style={{textAlign:'center'}}>Your new password must be different from previous used password.</Paragraph>

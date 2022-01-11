@@ -98,7 +98,7 @@ function ProfilePicture(props) {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
                     <Card style={{ margin: '20px' }} bordered={false} className="custom-crd responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Add profile photo</Title>
                         <Paragraph style={{ textAlign: 'center' }}>Add a profile photo so that your friends know it's you</Paragraph>

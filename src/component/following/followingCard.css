@@ -1,21 +1,22 @@
-.gray-background{
+.gray-background {
     background: #F5F5F5;
 }
-.following-card{
+
+.following-card {
     border-radius: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin: 20px;
+    margin: 10px;
+    max-width: 9vw;
+}
+
+.following-card .ant-card-body {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .react-multiple-carousel__arrow--left {
     left: calc(1% + 1px);
 }
 
-.react-multiple-carousel__arrow--right{
+.react-multiple-carousel__arrow--right {
     right: calc(1% + 1px);
 }
-
-
-
-

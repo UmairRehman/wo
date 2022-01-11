@@ -58,8 +58,10 @@
 }
 
 .responsive-card {
-    /* padding-top: 50px !important;
-    padding-bottom: 50px !important; */
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+    max-width: 350px;
+    min-width: 350px;
 }
 
 .custom-date-of-birth {
@@ -141,6 +143,19 @@
     -webkit-box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
     box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
 }
+.ant-input-affix-wrapper{
+    box-shadow: none !important;
+}
+.ant-input-affix-wrapper:hover{
+    border: 1px solid #27B824 !important;
+}
+.ant-input-affix-wrapper-focused{
+    -webkit-box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
+    box-shadow: 0 0 0 2px rgba(43, 216, 43, 0.2);
+    border: 1px solid #27B824;
+    box-shadow: none;
+
+}
 
 @media only screen and (max-width: 600px) {
     .mobile-center-align {
@@ -171,8 +186,27 @@
     border-color: #d9d9d9;
     background: #fff;
 }
-
-
+.text-black span{
+    color: black !important;
+    font-weight: 500 !important;
+}
+.ant-checkbox-inner:after{
+    border: none !important;
+}
+.ant-tabs-tab{
+    color: #D4D4D4;
+}
+.rotate-180{
+    transform: rotate(95deg);
+}
+.delete-button:focus{
+    border: 1px solid #000000 !important;
+    color: #000000;
+}
+.delete-button:hover{
+    border: 1px solid #000000 !important;
+    color: #000000;
+}
 
 
 

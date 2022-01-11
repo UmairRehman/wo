@@ -105,7 +105,7 @@ function ProfilePictureView() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' }} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
                     <Card bordered={false} style={{ height: '80vh' }} className="custom-card responsive-card">
 
                         <Row className="justify-content-center">

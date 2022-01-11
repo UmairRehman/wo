@@ -26,11 +26,11 @@ function FollowingCard() {
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
-            items: 5
+            items: 7
         },
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
-            items: 5
+            items: 7
         },
         tablet: {
             breakpoint: { max: 1024, min: 464 },
@@ -83,14 +83,11 @@ function FollowingCard() {
 
                         <Card className='following-card gray-background'>
                             <div className='position-relative'>
-                                <img className="d-flex justify-content-center m-auto" style={{ borderRadius: '50%', height: '70px', width: '70px' }} src={data.followeeDetail[0]?.profilePicUrl || DefaultImage} />
+                                <img className="d-flex justify-content-center m-auto" style={{ borderRadius: '50%', height: '60px', width: '60px' }} src={data.followeeDetail[0]?.profilePicUrl || DefaultImage} />
                                 <img style={{ position: 'absolute', bottom: '1%', left: '60%' }} className="d-flex justify-content-center m-auto" src={Online} />
-
                             </div>
-
-
-                            <Paragraph className="font-18 d-flex justify-content-center m-auto mt-3">{data.followeeDetail[0]?.firstName + " " + data.followeeDetail[0]?.lastName }</Paragraph>
-                            <Paragraph className="font-16 d-flex justify-content-center m-auto">{data?.professionData[0]?.name}</Paragraph>
+                            <Paragraph style={{textTransform:'capitalize'}}  strong={true} className="font-16 d-flex justify-content-center m-auto mt-3">{data.followeeDetail[0]?.firstName }</Paragraph>
+                            <Paragraph style={{textTransform:'capitalize'}}  className="font-14 d-flex justify-content-center m-auto">{data?.professionData[0]?.name}</Paragraph>
 
                         </Card>
 
