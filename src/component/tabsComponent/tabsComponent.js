@@ -69,9 +69,9 @@ function TabsComponent() {
     }
 
     function onClickView(data) {
-
+        console.log(data.follower)
         history.push({
-            pathname: "/profile",
+            pathname: `/profile/${data.follower}`,
             state: data?.follower
         });
 
@@ -79,9 +79,9 @@ function TabsComponent() {
 
 
     function onClickFollowing(data) {
-
+        // console.log(data)
         history.push({
-            pathname: "/profile",
+            pathname:  `/profile/${data.followee}`,
             state: data?.followee
         });
 
