@@ -680,6 +680,28 @@ export async function GetNotification(obj) {
 };
 
 
+// delete notification 
+export async function DeleteNotificationApi(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification/${obj.id}`,
+    {
+      method: 'DELETE',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
 
 
 
