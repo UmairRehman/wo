@@ -5,7 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons';
 import Option from '../../assets/images/option.png'
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './notification.css'
-import { GetNotification, StatusChange } from '../../services/apiInteraction';
+import { DeleteNotificationApi, GetNotification, StatusChange } from '../../services/apiInteraction';
 
 
 const { Title, Text, Paragraph } = Typography;
@@ -34,6 +34,8 @@ function Notification(props) {
 
   const [lazyLoader, setLazyLoader] = useState(false)
 
+  const [id, setID] = useState('')
+
   function handleButtonClick(e) {
     message.info('Click on left button.');
     console.log('click left button', e);
@@ -44,10 +46,46 @@ function Notification(props) {
     console.log('click', e);
   }
 
+  async function deleteNotification(Id) {
+
+    try {
+
+      setLoader(true)
+
+      let data = {
+
+        id: id
+
+      }
+
+      let resultHandle = await DeleteNotificationApi(data);
+
+      console.log(resultHandle)
+
+      if (resultHandle?.success == true) {
+
+        setLoader(false)
+        setIsReload(!isReload)
+      }
+
+      else {
+        validateMessages(resultHandle);
+        setLoader(false)
+      }
+
+    }
+    catch (err) {
+      console.log(err)
+      setLoader(false)
+    }
+
+  }
 
   const menu = (
-    <Menu className="notification-dropdown" onClick={handleMenuClick}>
-      <Menu.Item key="1">
+    <Menu className="notification-dropdown"
+    // onClick={handleMenuClick}
+    >
+      <Menu.Item onClick={() => deleteNotification(id)} key="1">
         <Paragraph style={{ marginBottom: '0px' }}>Delete</Paragraph>
         <Paragraph className="fade-text">Delete this notification</Paragraph>
       </Menu.Item>
@@ -206,7 +244,7 @@ function Notification(props) {
           <Col className="self-align-center" span={2}>
             <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
               <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
-                <Button style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
+                <Button onClick={() => setID(data._id)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
               </Dropdown>
             </Row>
           </Col>
