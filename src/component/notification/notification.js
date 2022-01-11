@@ -5,7 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons';
 import Option from '../../assets/images/option.png'
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './notification.css'
-import { DeleteNotificationApi, GetNotification, StatusChange } from '../../services/apiInteraction';
+import { DeleteNotificationApi, GetNotification, MuteNOtification, StatusChange } from '../../services/apiInteraction';
 
 
 const { Title, Text, Paragraph } = Typography;
@@ -54,7 +54,7 @@ function Notification(props) {
 
       let data = {
 
-        id: id
+        id: id._id
 
       }
 
@@ -81,6 +81,48 @@ function Notification(props) {
 
   }
 
+
+
+  async function offNotification(Id) {
+
+    console.log(Id)
+
+    try {
+
+      setLoader(true)
+
+      let data = {
+
+        followee: id.from,
+        on: false,
+        off: false
+      
+      }
+
+      let resultHandle = await MuteNOtification(data);
+
+      console.log(resultHandle)
+
+      if (resultHandle?.success == true) {
+
+        setLoader(false)
+        setIsReload(!isReload)
+      }
+
+      else {
+        validateMessages(resultHandle);
+        setLoader(false)
+      }
+
+    }
+
+    catch (err) {
+      console.log(err)
+      setLoader(false)
+    }
+
+  }
+
   const menu = (
     <Menu className="notification-dropdown"
     // onClick={handleMenuClick}
@@ -93,10 +135,12 @@ function Notification(props) {
         <Paragraph style={{ marginBottom: '0px' }}>Stop only this alert</Paragraph>
         <Paragraph className="fade-text">Remove from my alerts</Paragraph>
       </Menu.Item>
+
       <Menu.Item key="3">
-        <Paragraph style={{ marginBottom: '0px' }}>Turn off</Paragraph>
+        <Paragraph onClick={() => offNotification(id)} style={{ marginBottom: '0px' }}>Turn off</Paragraph>
         <Paragraph className="fade-text">Stop receiving notifications like this</Paragraph>
       </Menu.Item>
+
     </Menu>
   );
 
@@ -244,7 +288,7 @@ function Notification(props) {
           <Col className="self-align-center" span={2}>
             <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
               <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
-                <Button onClick={() => setID(data._id)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
+                <Button onClick={() => setID(data)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
               </Dropdown>
             </Row>
           </Col>

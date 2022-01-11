@@ -402,7 +402,7 @@ function MyProfile() {
                     </Row>
                     {getProfile?.imOnProfile ?
                         <Row className='w-100'>
-                            <Paragraph>{getProfile?.imOnProfile?.firstName}</Paragraph>
+                            <Paragraph>{getProfile?.imOnProfile?.profession_data[0]?.name}</Paragraph>
                         </Row>
                         : null}
                 </Row >
