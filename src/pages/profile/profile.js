@@ -399,7 +399,7 @@ function Profile() {
 
                     <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
-                            <Paragraph className="follower-counter" > {profile?.follower || 0} </Paragraph>
+                            <Paragraph className="follower-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
                         </Row>
                         <Row>
                             <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Followers </Paragraph>
@@ -408,7 +408,7 @@ function Profile() {
 
                     <Col className='mt-2'  style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row >
-                            <Paragraph className="follower-counter" > {profile?.following || 0} </Paragraph>
+                            <Paragraph className="follower-counter" > {profile?.following < 0 ? 0 : profile?.following} </Paragraph>
                         </Row >
                         <Row>
                             <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
