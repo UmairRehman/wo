@@ -38,54 +38,69 @@ function Search() {
     const location = useLocation();
     let search = location?.state
 
+    const scroolValue = useRef(0)
+
+    const [offSet, setOffSet] = useState(0)
+
+    const [searchUser, setSearchUser] = useState([])
+
+    const [loader, setLoader] = useState(false)
+
+    const [componentLoader, setComponentLoader] = useState(false)
+
+    window.addEventListener("scroll", myScript);
 
     function myScript() {
-        // var scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+
         var scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
         console.log(scrollY)
+        console.log(scroolValue.current)
+
+        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+            setOffSet(offSet + 1)
+        }
+
     }
 
-    window.addEventListener("scroll", myScript);
-    console.log(search)
 
-    const [searchUser, setSearchUser] = useState([])
-    const [loader, setLoader] = useState(false)
+
 
     useEffect(async () => {
 
 
         let data = {
-            search: search
+            search: search,
+            offset: offSet
         }
 
         try {
 
-            setLoader(true)
+            setComponentLoader(true)
             let resultHandle = await SearchApi(data);
 
             console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
-                setLoader(false)
-                setSearchUser(resultHandle.message.result)
+                setComponentLoader(false)
+                setSearchUser([...searchUser, ...resultHandle.message.result])
                 console.log(resultHandle.message.result)
 
             }
 
             else {
                 validateMessages(resultHandle);
-                setLoader(false)
+                setComponentLoader(false)
             }
 
         }
         catch (err) {
             console.log(err)
-            setLoader(false)
+            setComponentLoader(false)
         }
 
-    }, [search])
+    }, [search, offSet])
 
 
     function onClickView(data) {
@@ -93,7 +108,7 @@ function Search() {
         history.push({
             // pathname: "/profile",
             pathname: `/profile/${data._id}`,
-            state:data._id
+            state: data._id
         });
 
     }
@@ -107,7 +122,7 @@ function Search() {
                 <Header page='search' />
             </div>
 
-            <div  className="content ant-page- padding-whole-page">
+            <div className="content ant-page- padding-whole-page">
                 {searchUser.length == 0 ?
                     <div>
                         <Row className="mt-5 d-flex" >
@@ -163,6 +178,18 @@ function Search() {
 
                     </Row>
                 </div>
+
+                <Row
+                    style={{
+                        justifyContent: 'center', alignItems: 'center',
+                        display: componentLoader == true ? null : 'none'
+                    }}
+                    className='component-loader j-c-c' >
+
+                    <Spin className='j-c-c' spinning={true} size="large" />
+
+                </Row>
+
             </div>
 
         </div>

@@ -32,9 +32,11 @@ function Notification(props) {
 
   const [page, setPage] = useState(0)
 
-  const [lazyLoader, setLazyLoader] = useState(false)
-
   const [id, setID] = useState('')
+
+  const [componentLoader, setComponentLoader] = useState(false)
+
+  let newNotification = []
 
   function handleButtonClick(e) {
     message.info('Click on left button.');
@@ -60,8 +62,6 @@ function Notification(props) {
 
       let resultHandle = await DeleteNotificationApi(data);
 
-      console.log(resultHandle)
-
       if (resultHandle?.success == true) {
 
         setLoader(false)
@@ -85,8 +85,6 @@ function Notification(props) {
 
   async function offNotification(Id) {
 
-    console.log(Id)
-
     try {
 
       setLoader(true)
@@ -96,12 +94,10 @@ function Notification(props) {
         followee: id.from,
         on: false,
         off: false
-      
+
       }
 
       let resultHandle = await MuteNOtification(data);
-
-      console.log(resultHandle)
 
       if (resultHandle?.success == true) {
 
@@ -149,7 +145,8 @@ function Notification(props) {
 
     try {
 
-      setLoader(true)
+      // setLoader(true)
+      setComponentLoader(true)
 
       let data = {
 
@@ -159,24 +156,24 @@ function Notification(props) {
 
       let resultHandle = await GetNotification(data);
 
-      console.log(resultHandle)
-
       if (resultHandle?.success == true) {
 
-        setLoader(false)
-        setGetNotification(resultHandle?.message.notify)
+        setComponentLoader(false)
 
+        setGetNotification([...getNotification, ...resultHandle?.message.notify])
       }
 
       else {
         validateMessages(resultHandle);
-        setLoader(false)
+        // setLoader(false)
+        setComponentLoader(false)
       }
 
     }
     catch (err) {
       console.log(err)
-      setLoader(false)
+      // setLoader(false)
+      setComponentLoader(false)
     }
 
   }, [isReload, page])
@@ -184,7 +181,6 @@ function Notification(props) {
 
   function loadMore() {
     setPage(page + 1)
-    console.log(page)
   }
 
 
@@ -297,16 +293,21 @@ function Notification(props) {
 
       )}
 
-      {/* <Row style={{ justifyContent: 'end', marginTop: '30px' }}>
-        <Button onClick={loadMore}>Load More</Button>
-      </Row> */}
+      <Row
+        style={{
+          justifyContent: 'center', alignItems: 'center',
+          display: componentLoader == true ? null : 'none'
+        }}
+        className='component-loader j-c-c' >
 
-      <Row>
-
-        <Spin className="loader" spinning={lazyLoader} size="large" />
+        <Spin className='j-c-c' spinning={true} size="large" />
 
       </Row>
 
+
+      <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
+        <Button className='load-more-button' onClick={loadMore}>Load More</Button>
+      </Row>
     </div>
   )
 }

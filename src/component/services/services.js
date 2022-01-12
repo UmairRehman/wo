@@ -31,13 +31,13 @@ function Services(props) {
                     <Col key={s} md={24} xs={24} >
 
                         <Row style={{paddingTop:'10px'}}>
-                            <Col span={6}>
-                                <Paragraph className="font-18" strong={true}>{s.name}</Paragraph>
+                            <Col span={6} md={6} xs={6}>
+                                <Paragraph style={{textTransform:'capitalize'}} className="font-18" strong={true}>{s.name}</Paragraph>
                             </Col>
-                            <Col span={6}>
+                            <Col span={6} md={6}  xs={12}>
                                 <Image src={Line} preview={false} />
                             </Col>
-                            <Col span={6} className="justify-content-end">
+                            <Col span={6} md={6} xs={6} className="justify-content-end">
                                 <Paragraph className="font-18" style={{fontWeight:'bold'}} strong={true}>${s.price} </Paragraph>
                             </Col>
                         </Row>

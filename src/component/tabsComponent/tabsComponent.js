@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 import {
     MenuUnfoldOutlined,
@@ -8,7 +8,7 @@ import {
     UploadOutlined,
 } from '@ant-design/icons';
 
-import { Layout, Image, Row, Col, Typography, Card, Button, Tabs, Dropdown, notification, Menu, message } from 'antd';
+import { Layout, Image, Row, Col, Typography, Card, Button, Tabs, Spin, notification, Menu, message } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Sidebar from '../sidebar/sidebar';
 import Header from '../header/header';
@@ -28,11 +28,14 @@ function TabsComponent() {
 
     const [loader, setLoader] = useState(false)
 
+    const [activeKey, setActiveKey] = useState()
+
     let history = useHistory();
 
 
     function callback(key) {
         console.log(key);
+        setActiveKey(key)
 
     }
 
@@ -80,7 +83,7 @@ function TabsComponent() {
 
     function onClickFollowing(data) {
         history.push({
-            pathname:  `/profile/${data.followee}`,
+            pathname: `/profile/${data.followee}`,
             state: data?.followee
         });
 
@@ -101,22 +104,52 @@ function TabsComponent() {
 
     const [getFollowing, setGetFollowing] = useState([])
 
+    const [componentLoader, setComponentLoader] = useState(false)
+
+    const scroolValue = useRef(0)
+
+    const [offSet, setOffSet] = useState(0)
+
+    const [offSetFollowing, setOffSetFollowing] = useState(0)
+
+    window.addEventListener("scroll", myScript);
+
+    function myScript() {
+
+        var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+        console.log(scrollY)
+        console.log(scroolValue.current)
+
+        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+            console.log(activeKey)
+
+            setOffSet(offSet + 1)
+            setOffSetFollowing(offSetFollowing + 1)
+
+        }
+
+    }
+
     useEffect(async () => {
 
         try {
             setLoader(true)
-            let resultHandle = await GetFollowers();
+            setComponentLoader(true)
+            let resultHandle = await GetFollowers(offSet);
 
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                setGetProfile(resultHandle?.message.followUser)
+                setComponentLoader(false)
+                setGetProfile([...getProfile, ...resultHandle?.message.followUser])
 
             }
 
             else {
                 validateMessages(resultHandle);
                 setLoader(false)
+                setComponentLoader(false)
             }
 
         }
@@ -125,7 +158,7 @@ function TabsComponent() {
         }
 
 
-    }, [])
+    }, [offSet])
 
 
 
@@ -134,11 +167,13 @@ function TabsComponent() {
 
         try {
             setLoader(true)
+            setComponentLoader(true)
             let resultHandle = await GetFollowing();
 
             if (resultHandle?.success == true) {
 
                 setLoader(false)
+                setComponentLoader(false)
                 setGetFollowing(resultHandle?.message?.followUser)
 
             }
@@ -146,6 +181,7 @@ function TabsComponent() {
             else {
                 validateMessages(resultHandle);
                 setLoader(false)
+                setComponentLoader(false)
             }
 
         }
@@ -153,7 +189,7 @@ function TabsComponent() {
             console.log(err)
         }
 
-    }, [])
+    }, [offSetFollowing])
 
 
 
@@ -175,7 +211,7 @@ function TabsComponent() {
                                 <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
                                     <Row>
                                         <Col className="mobile-center" md={4} xs={24} >
-                                            <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl || DefaultImage} />
+                                            <Image style={{ maxWidth: '100px', maxHeight: '100px', width: '80px', height: '80px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl || DefaultImage} />
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
@@ -199,7 +235,19 @@ function TabsComponent() {
                             </Col>
                         )
                         }
+                        <Row
+                            style={{
+                                justifyContent: 'center', alignItems: 'center', width: '100%',
+                                display: componentLoader == true ? null : 'none'
+                            }}
+                            className='component-loader j-c-c' >
+
+                            <Spin className='j-c-c' spinning={true} size="large" />
+
+                        </Row>
                     </Row>
+
+
 
 
                 </TabPane>
@@ -237,6 +285,16 @@ function TabsComponent() {
                                 </Col>
                             )
                         }
+                        <Row
+                            style={{
+                                justifyContent: 'center', alignItems: 'center', width: '100%',
+                                display: componentLoader == true ? null : 'none'
+                            }}
+                            className='component-loader j-c-c' >
+
+                            <Spin className='j-c-c' spinning={true} size="large" />
+
+                        </Row>
                     </Row>
                 </TabPane>
             </Tabs>

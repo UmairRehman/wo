@@ -42,7 +42,6 @@ function Suggest() {
 
         history.push({
             pathname: `/profile/${data?._id}`,
-            // state: data?._id
         });
 
     }

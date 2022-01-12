@@ -277,6 +277,13 @@ function MyProfile() {
         }
 
     }
+    function shareProfile() {
+        navigator.clipboard.writeText(`${window.location.origin}/profile/${getProfile._id}`);
+        message.info(`copy to clipboard`);
+
+        console.log(`${window.location.origin}/profile/${getProfile._id}`)
+        // console.log(profile._id)
+    }
 
     const shareDropdowm = (
         <Menu className="notification-dropdown"
@@ -285,7 +292,7 @@ function MyProfile() {
             {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
             </Menu.Item> */}
-            <Menu.Item key="2">
+            <Menu.Item   onClick={() => shareProfile()}  key="2">
                 <Paragraph style={{ marginBottom: '10px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
             <Menu.Item key="3" >

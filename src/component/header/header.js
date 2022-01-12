@@ -12,7 +12,7 @@ import MenuIcon from '../../assets/images/menu.png'
 
 import './header.css'
 import Paragraph from 'antd/lib/skeleton/Paragraph';
-import { ChangeProfileImage } from '../../services/apiInteraction';
+import { ChangeProfileImage, Logout } from '../../services/apiInteraction';
 
 import { GetProfile } from '../../services/apiInteraction';
 import { useHistory } from "react-router-dom";
@@ -303,7 +303,43 @@ function Header(props) {
     }
 
 
+    async function signOut() {
+        console.log(profile)
 
+        let data = {
+
+            emailAddress : profile?.emailAddress,
+            firebaseToken : profile?.firebaseToken,
+        }
+        // try {
+
+        //     setLoader(true)
+
+        //     let data = {
+
+        //         id: id._id
+
+        //     }
+
+        //     let resultHandle = await Logout(data);
+
+        //     if (resultHandle?.success == true) {
+
+        //         setLoader(false)
+        //         setIsReload(!isReload)
+        //     }
+
+        //     else {
+        //         validateMessages(resultHandle);
+        //         setLoader(false)
+        //     }
+
+        // }
+        // catch (err) {
+        //     console.log(err)
+        //     setLoader(false)
+        // }
+    }
 
     return (
         <div>
@@ -409,11 +445,11 @@ function Header(props) {
                                     Share profile link
                                 </Menu.Item>
                             </Link>
-                            <Link to="./login">
-                                <Menu.Item icon={<LogoutOutlined className="font-30" />} key="5" >
-                                    Sign out
-                                </Menu.Item>
-                            </Link>
+                            {/* <Link to="./login"> */}
+                            <Menu.Item onClick={signOut} icon={<LogoutOutlined className="font-30" />} key="5" >
+                                Sign out
+                            </Menu.Item>
+                            {/* </Link> */}
                             :
                         </div>
                         :
