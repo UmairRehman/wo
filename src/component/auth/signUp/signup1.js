@@ -207,7 +207,7 @@ function Signup() {
                         </Form>
                         <Row className='j-c-c'>
                             <Text>Allready have an account?
-                                <Link to='./signup-0'>
+                                <Link to='./login'>
                                     <span style={{ color: '#27B824' }}> Sign in</span>
                                 </Link>
                             </Text>

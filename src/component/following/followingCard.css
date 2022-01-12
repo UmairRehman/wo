@@ -8,6 +8,14 @@
     max-width: 9vw;
 }
 
+@media only screen and (max-width: 600px) {
+    .following-card {
+        border-radius: 20px;
+        margin: 10px;
+        max-width: 100% !important;
+    }
+}
+
 .following-card .ant-card-body {
     padding-left: 10px;
     padding-right: 10px;
