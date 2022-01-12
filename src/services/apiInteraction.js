@@ -400,7 +400,7 @@ export async function ChangeProfileImage(obj) {
 
 
 // get followers   
-export async function GetFollowers() {
+export async function GetFollowers(offset) {
 
   let headers = new Headers();
 
@@ -408,7 +408,7 @@ export async function GetFollowers() {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower`,
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower?${offset}`,
     {
       method: 'GET',
       headers,
@@ -498,7 +498,7 @@ export async function SearchApi(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/search`,
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/search?${obj.offset}`,
     {
       method: 'POST',
       headers,
@@ -668,7 +668,7 @@ export async function GetNotification(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification?${obj.offset}`,
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification?offset=${obj.offset}`,
     {
       method: 'GET',
       headers,
@@ -713,6 +713,27 @@ export async function MuteNOtification(obj) {
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/notification`,
+    {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+// logout
+export async function Logout(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/logout`,
     {
       method: 'PUT',
       headers,
