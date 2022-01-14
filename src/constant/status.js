@@ -8,5 +8,4 @@ export const statusConstant = {
 
 export const notificationMessage = {
     2: 'is on',
-
 }

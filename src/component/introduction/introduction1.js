@@ -34,7 +34,7 @@ function Introduction1() {
                 </Row>
 
                 <Row>
-                    <Title className="intro-para">A social platform to connect with your favorite service providers or your favorite customers.</Title>
+                    <Title className="intro-para">The easiest way to connect service providers with their favorite customers.</Title>
                 </Row>
 
                 <Row className="d-flex fixed-button ">

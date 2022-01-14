@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {
     DownOutlined,
+    ShareAltOutlined,
+    EditOutlined
 } from '@ant-design/icons';
 import Avatar from 'react-avatar-edit'
 import { Layout, Dropdown, Image, Row, Col, Typography, Spin, Button, Menu, message, notification, Modal } from 'antd';
@@ -292,7 +294,7 @@ function MyProfile() {
             {/* <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
             </Menu.Item> */}
-            <Menu.Item   onClick={() => shareProfile()}  key="2">
+            <Menu.Item onClick={() => shareProfile()} key="2">
                 <Paragraph style={{ marginBottom: '10px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
             <Menu.Item key="3" >
@@ -313,6 +315,15 @@ function MyProfile() {
         else {
             console.log("nothing else")
         }
+    }
+
+
+
+    function onClickEdit() {
+        history.push({
+            pathname: "/edit-profile",
+            state: getProfile
+        });
     }
 
 
@@ -366,7 +377,7 @@ function MyProfile() {
 
             <div className="content ant-page-" >
 
-                <Row style={{position:"absolute" , width:'100%'}} >  
+                <Row style={{ position: "absolute", width: '100%' }} >
                     <Col className="full-image" md={24}>
                         <Image preview={false} src={CoverImage} />
                         {/* <CameraOutlined onClick={showModal} className='add-picture-camere' /> */}
@@ -393,13 +404,13 @@ function MyProfile() {
                     </Col>
 
                     <Col style={{ alignSelf: 'end', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
-                        <Dropdown style={{ border: 'none' }}
+                        {/* <Dropdown style={{ border: 'none' }}
                             overlay={profileBellIcon}
                             placement="bottomRight" >
                             <Button className='no-focus' style={{ border: 'none' }} >
                                 <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                             </Button>
-                        </Dropdown>
+                        </Dropdown> */}
                     </Col>
 
                 </Row>
@@ -458,13 +469,20 @@ function MyProfile() {
 
                                 <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}>I'm On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
                                 :
-                                <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm Off</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
 
                             }
 
+                            <Button onClick={() => shareProfile()} className='gray-background share-button mr-1' ><ShareAltOutlined /></Button>
+
+                            <Button onClick={() => onClickEdit()} className='gray-background share-button' ><EditOutlined /></Button>
 
 
-                            <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
+                            {/* <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} trigger={'click'}
+                                autoAdjustOverflow={true}
+                                placement="bottomRight"
+                                align={{ overflow: { adjustX: true, adjustY: true } }} 
+                                arrow>
                                 <Button style={{
                                     border: 'none', popsition: 'relative',
                                     border: 'none',
@@ -473,7 +491,7 @@ function MyProfile() {
                                     alignItems: 'center',
                                     padding: '10px'
                                 }} className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
-                            </Dropdown>
+                            </Dropdown> */}
 
                         </Col>
                     </Row>

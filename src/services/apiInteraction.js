@@ -735,7 +735,7 @@ export async function Logout(obj) {
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/logout`,
     {
-      method: 'PUT',
+      method: 'POST',
       headers,
       body: JSON.stringify(obj),
     });

@@ -31,15 +31,15 @@ function Introduction3() {
                 </Row>
 
                 <Row className="mt-5">
-                    <Title className="intro-heading" >Tell the <br />World you're on:</Title>
+                    <Title className="intro-heading" >Tell the <br />World Who’s On? You!</Title>
                 </Row>
 
                 <Row>
-                    <Title className="intro-para">Let your favorite customers know that you're available.</Title>
+                    <Title className="intro-para">Let your customers or followers know when you’re on the clock so they can give you business.</Title>
                 </Row>
 
                 <Row className="d-flex fixed-button ">
-                    <Link to="/instruction-4">
+                    <Link to="/instruction-3">
                         <Button className="button mt-5" type="primary">Next</Button>
                     </Link>
                 </Row>

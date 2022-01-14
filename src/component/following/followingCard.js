@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Card, notification, Typography } from 'antd';
+import { Card, notification, Typography, Row } from 'antd';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Stories from '../../assets/images/stories.png'
 import Online from '../../assets/images/online.png'
+import Offline from '../../assets/images/orange.png'
 import './followingCard.css'
 import { GetFollowing } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
@@ -72,29 +73,54 @@ function FollowingCard() {
 
     return (
         <div>
-            
-            <div>
-                {following &&
-                <Title level={3}>Following</Title>
-                }
+            {following.length > 0 ?
+                <div>
+                    {following &&
+                        <Title level={3}>Following</Title>
+                    }
+                    <Carousel responsive={responsive}>
+                        {console.log(following[0]?.followeeDetail[0]?.imOnProfile?.On)}
+                        {following.map((data) =>
+
+                            <Card className='following-card gray-background'>
+                                <div className='position-relative'>
+                                    <img className="d-flex justify-content-center m-auto" style={{ borderRadius: '50%', height: '60px', width: '60px' }} src={data.followeeDetail[0]?.profilePicUrl || DefaultImage} />
+                                    <img style={{ position: 'absolute', bottom: '1%', left: '60%' }} className="d-flex justify-content-center m-auto" src={  data.followeeDetail[0]?.imOnProfile?.On ==true ? Online : Offline } />
+                                </div>
+                                <Paragraph style={{ textTransform: 'capitalize' }} strong={true} className="font-16 d-flex justify-content-center m-auto mt-3">{data.followeeDetail[0]?.firstName}</Paragraph>
+                                <Paragraph style={{ textTransform: 'capitalize' }} className="font-14 d-flex justify-content-center m-auto">{data?.professionData[0]?.name}</Paragraph>
+
+                            </Card>
+
+                        )}
+
+                    </Carousel>
+                </div>
+
+                :
+
                 <Carousel responsive={responsive}>
 
-                    {following.map((data) =>
+                    <div>
+                        <Title level={3}>Following</Title>
 
                         <Card className='following-card gray-background'>
-                            <div className='position-relative'>
-                                <img className="d-flex justify-content-center m-auto" style={{ borderRadius: '50%', height: '60px', width: '60px' }} src={data.followeeDetail[0]?.profilePicUrl || DefaultImage} />
-                                <img style={{ position: 'absolute', bottom: '1%', left: '60%' }} className="d-flex justify-content-center m-auto" src={Online} />
-                            </div>
-                            <Paragraph style={{textTransform:'capitalize'}}  strong={true} className="font-16 d-flex justify-content-center m-auto mt-3">{data.followeeDetail[0]?.firstName }</Paragraph>
-                            <Paragraph style={{textTransform:'capitalize'}}  className="font-14 d-flex justify-content-center m-auto">{data?.professionData[0]?.name}</Paragraph>
+                            <Row style={{ justifyContent: 'center', display: 'flex' }} >
+                                <Paragraph >No followers</Paragraph>
+                            </Row>
+                            {/* <div className='position-relative'>
+                            <img className="d-flex justify-content-center m-auto" style={{ borderRadius: '50%', height: '60px', width: '60px' }} src={DefaultImage} />
+                            <img style={{ position: 'absolute', bottom: '1%', left: '60%' }} className="d-flex justify-content-center m-auto" src={Online} />
+                        </div>
+                        <Paragraph style={{ textTransform: 'capitalize' }} strong={true} className="font-16 d-flex justify-content-center m-auto mt-3">{data.followeeDetail[0]?.firstName}</Paragraph>
+                        <Paragraph style={{ textTransform: 'capitalize' }} className="font-14 d-flex justify-content-center m-auto">{data?.professionData[0]?.name}</Paragraph> */}
 
                         </Card>
+                    </div>
 
-                    )}
 
                 </Carousel>
-            </div>
+            }
         </div>
     )
 }

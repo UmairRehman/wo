@@ -136,24 +136,28 @@ function Header(props) {
 
     const menu = (
         <Menu className='notification-menu'>
+            {console.log(getNotification)}
             <div>
                 {getNotification.slice(0, 4).map((data) =>
-                    <Menu.Item key="1">
-                        <Row>
-                            <Col style={{ display: 'flex', alignItems: 'center' }} span={5}>
-                                <Image className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} />
-                            </Col>
-                            <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
-                                {data.type == 1 ?
-                                    <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
-                                    : data.type == 2 ?
-                                        <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? 'User in Available' : 'User is not Available'}`}</Text>
-                                        : data.type == 3 ?
-                                            <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
-                                            : null}
-                            </Col>
-                        </Row>
-                    </Menu.Item>
+                    <Link to='../notification'>
+                        <Menu.Item key="1">
+                            <Row>
+                                <Col style={{ display: 'flex', alignItems: 'center' }} span={5}>
+                                    <Image className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} />
+                                </Col>
+                                <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
+                                    {data.type == 1 ?
+                                        <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
+                                        : data.type == 2 ?
+                                            <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} is Available` : `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName}  is not Available`}`}</Text>
+                                            : data.type == 3 ?
+                                                <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
+                                                : null}
+                                </Col>
+                            </Row>
+                        </Menu.Item>
+                    </Link>
+
                 )}
                 <Menu.Item className='no-padding-notification' key="4">
                     <Link to='./notification'>
@@ -308,37 +312,33 @@ function Header(props) {
 
         let data = {
 
-            emailAddress : profile?.emailAddress,
-            firebaseToken : profile?.firebaseToken,
+            emailAddress: profile?.emailAddress,
+            firebaseToken: profile?.firebaseToken,
         }
-        // try {
+        try {
 
-        //     setLoader(true)
+            setLoader(true)
 
-        //     let data = {
+            let resultHandle = await Logout(data);
 
-        //         id: id._id
+            if (resultHandle?.success == true) {
 
-        //     }
+                setLoader(false)
+                window.localStorage.clear();
+                history.push('./login')
 
-        //     let resultHandle = await Logout(data);
+            }
 
-        //     if (resultHandle?.success == true) {
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
 
-        //         setLoader(false)
-        //         setIsReload(!isReload)
-        //     }
-
-        //     else {
-        //         validateMessages(resultHandle);
-        //         setLoader(false)
-        //     }
-
-        // }
-        // catch (err) {
-        //     console.log(err)
-        //     setLoader(false)
-        // }
+        }
+        catch (err) {
+            console.log(err)
+            setLoader(false)
+        }
     }
 
     return (
@@ -397,7 +397,7 @@ function Header(props) {
 
                         <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
                         </Dropdown.Button>,
-                        // <Image className="mt-3" preview={false} src={UserImage} width={30} height={30} />
+                        <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
                     ]}
                 >
                 </PageHeader>

@@ -52,7 +52,7 @@ function Select() {
                                 <div className="w-100">
                                     <Title className="title-center mt-5 text-white" level={2}>Who's On</Title>
                                     <Row>
-                                        <Text className="title-center text-white" type="secondary">Are you searching for<br/> a service provider?</Text>
+                                        <Text className="title-center text-white" type="secondary">Searching for<br/> your favourite service provider?</Text>
                                     </Row>
                                 </div>
                             </Row>
@@ -63,7 +63,7 @@ function Select() {
                                 <div className="w-100">
                                     <Title className="title-center mt-5 text-white" level={2}>I'm On</Title>
                                     <Row>
-                                        <Text className="title-center text-white" type="secondary">Let your clients know<br/> you're available</Text>
+                                        <Text className="title-center text-white" type="secondary">I’M ON! Let your customers<br/> know you’re on the clock</Text>
                                     </Row>
                                 </div>
                             </Row>

@@ -5,6 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons';
 import Option from '../../assets/images/option.png'
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './notification.css'
+import { useHistory } from "react-router-dom";
 import { DeleteNotificationApi, GetNotification, MuteNOtification, StatusChange } from '../../services/apiInteraction';
 
 
@@ -35,6 +36,8 @@ function Notification(props) {
   const [id, setID] = useState('')
 
   const [componentLoader, setComponentLoader] = useState(false)
+
+  let history = useHistory();
 
   let newNotification = []
 
@@ -241,6 +244,16 @@ function Notification(props) {
     }
   }
 
+  function onClickNotification(data) {
+
+    console.log(data.from_data[0]._id)
+
+    history.push({
+      pathname: `/profile/${data.from_data[0]._id}`,
+    });
+
+
+  }
   return (
     <div >
       <Spin className="loader" spinning={loader} size="large" />
@@ -250,7 +263,7 @@ function Notification(props) {
 
       {getNotification.map((data) =>
 
-        <Row key={data} className="notification-row mt-5">
+        <Row onClick={() => onClickNotification(data)} key={data} className="notification-row mt-5">
 
           <Col className="display-in-mobile" span={3}>
             <Image className='min-max-width' style={{ width: 'inherit' }} preview={false} style={{ borderRadius: '50%', marginTop: '10px' }} src={data?.from_data[0]?.profilePicUrl} />
@@ -261,7 +274,7 @@ function Notification(props) {
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
 
               : data.type == 2 ?
-                <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in now on' : 'User is now off'}`}</Text>
+                <Text style={{ padding: '20' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now on` : `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now off`}`}</Text>
 
                 : data.type == 3 ?
                   <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
@@ -275,7 +288,7 @@ function Notification(props) {
               <Row className='responsive-button-notification '>
 
                 <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
-                <Button onClick={() => rejectRequest(data)} className="small-button-decline">Declined</Button>
+                <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline</Button>
 
               </Row>
               : null}

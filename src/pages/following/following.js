@@ -88,6 +88,7 @@ function Following() {
             </div>
 
             <div className="content ant-page- padding-whole-page">
+        
                 <div className='mt-5'>
                     <FollowingCard />
                 </div>
