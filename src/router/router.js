@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
@@ -41,6 +41,7 @@ import Signup from '../component/auth/signUp/signup1.js';
 import Complete from '../pages/complete/complete.js';
 import Search from '../pages/search/search.js';
 import EditProfile from '../component/auth/signUp/editProfile.js';
+import ScrollDown from '../component/scroolDown/scroolDown.js';
 
 
 
@@ -48,162 +49,164 @@ function router() {
     return (
         <div>
             <Router>
-                <Switch>
+                <Fragment>
+                    <ScrollDown/>
+                    <Switch>
+                        <Route exact path='/dashboard'>
+                            <Dashboard />
+                        </Route>
 
-                    <Route exact path='/dashboard'>
-                        <Dashboard />
-                    </Route>
+                        <Route path='/splash'>
+                            <Splash />
+                        </Route>
 
-                    <Route path='/splash'>
-                        <Splash />
-                    </Route>
+                        <Route path='/login'>
+                            <Login />
+                        </Route>
 
-                    <Route path='/login'>
-                        <Login />
-                    </Route>
+                        <Route path='/forget-password'>
+                            <ForgetPassword />
+                        </Route>
 
-                    <Route path='/forget-password'>
-                        <ForgetPassword />
-                    </Route>
+                        {/* SignUp  */}
 
-                    {/* SignUp  */}
+                        <Route path='/signup-0'>
+                            <Signup />
+                        </Route>
 
-                    <Route path='/signup-0'>
-                        <Signup />
-                    </Route>
+                        <Route path='/signup-1'>
+                            <PhoneAndEmail />
+                        </Route>
 
-                    <Route path='/signup-1'>
-                        <PhoneAndEmail />
-                    </Route>
+                        <Route path='/signup-confirmation'>
+                            <SignupConfirmation />
+                        </Route>
 
-                    <Route path='/signup-confirmation'>
-                        <SignupConfirmation />
-                    </Route>
+                        <Route path='/signup-confirmation-email'>
+                            <SignupConfirmationEmail />
+                        </Route>
 
-                    <Route path='/signup-confirmation-email'>
-                        <SignupConfirmationEmail />
-                    </Route>
+                        <Route path='/username'>
+                            <UserName />
+                        </Route>
 
-                    <Route path='/username'>
-                        <UserName />
-                    </Route>
+                        <Route path='/create-password'>
+                            <EnterPassword />
+                        </Route>
 
-                    <Route path='/create-password'>
-                        <EnterPassword />
-                    </Route>
+                        <Route path='/date-of-birth'>
+                            <DateOfBirth />
+                        </Route>
 
-                    <Route path='/date-of-birth'>
-                        <DateOfBirth />
-                    </Route>
+                        <Route path='/profile-picture'>
+                            <AddProfilePicture />
+                        </Route>
 
-                    <Route path='/profile-picture'>
-                        <AddProfilePicture />
-                    </Route>
+                        <Route path='/view-profile-picture'>
+                            <ProfilePictureView />
+                        </Route>
 
-                    <Route path='/view-profile-picture'>
-                        <ProfilePictureView />
-                    </Route>
+                        <Route path='/signup-form' >
+                            <SignupForm />
+                        </Route>
 
-                    <Route path='/signup-form' >
-                        <SignupForm />
-                    </Route>
+                        <Route path='/edit-profile' >
+                            <EditProfile />
+                        </Route>
 
-                    <Route path='/edit-profile' >
-                        <EditProfile />
-                    </Route>
+                        {/* SignUP end  */}
 
-                    {/* SignUP end  */}
+                        <Route exact path='/'>
+                            <Introduction1 />
+                        </Route>
 
-                    <Route exact path='/'>
-                        <Introduction1 />
-                    </Route>
+                        <Route path='/instruction-3'>
+                            <Introduction2 />
+                        </Route>
 
-                    <Route path='/instruction-2'>
-                        <Introduction2 />
-                    </Route>
+                        <Route path='/instruction-2'>
+                            <Introduction3 />
+                        </Route>
 
-                    <Route path='/instruction-3'>
-                        <Introduction3 />
-                    </Route>
+                        <Route path='/instruction-4'>
+                            <Introduction4 />
+                        </Route>
 
-                    <Route path='/instruction-4'>
-                        <Introduction4 />
-                    </Route>
+                        <Route path='/forget-confirmation'>
+                            <ForgetConfirmation />
+                        </Route>
 
-                    <Route path='/forget-confirmation'>
-                        <ForgetConfirmation />
-                    </Route>
+                        <Route path='/create-new-password'>
+                            <NewPassword />
+                        </Route>
 
-                    <Route path='/create-new-password'>
-                        <NewPassword />
-                    </Route>
+                        <Route path='/varified'>
+                            <PasswordVarified />
+                        </Route>
 
-                    <Route path='/varified'>
-                        <PasswordVarified />
-                    </Route>
+                        <Route path='/completed'>
+                            <Complete />
+                        </Route>
 
-                    <Route path='/completed'>
-                        <Complete />
-                    </Route>
+                        <Route path='/header'>
+                            <Header />
+                        </Route>
 
-                    <Route path='/header'>
-                        <Header />
-                    </Route>
+                        <Route path='/select'>
+                            <Select />
+                        </Route>
 
-                    <Route path='/select'>
-                        <Select />
-                    </Route>
+                        <Route path='/intrest'>
+                            <Intrest />
+                        </Route>
 
-                    <Route path='/intrest'>
-                        <Intrest />
-                    </Route>
+                        <Route path='/notification'>
+                            <Notification />
+                        </Route>
 
-                    <Route path='/notification'>
-                        <Notification />
-                    </Route>
+                        <Route path='/following'>
+                            <Following />
+                        </Route>
 
-                    <Route path='/following'>
-                        <Following />
-                    </Route>
+                        <Route path='/users'>
+                            <UserListing />
+                        </Route>
 
-                    <Route path='/users'>
-                        <UserListing />
-                    </Route>
+                        {/* This needs to be correct  */}
+                        <Route path='/suggest'>
+                            <Suggest />
+                        </Route>
 
-                    {/* This needs to be correct  */}
-                    <Route path='/suggest'>
-                        <Suggest />
-                    </Route>
+                        <Route path='/profile/:id' >
+                            <Profile />
+                        </Route>
 
-                    <Route path='/profile/:id' >
-                        <Profile />
-                    </Route>
+                        <Route path='/profile-1'>
+                            <MyProfile />
+                        </Route>
 
-                    <Route path='/profile-1'>
-                        <MyProfile />
-                    </Route>
+                        <Route path='/search'>
+                            <Search />
+                        </Route>
 
-                    <Route path='/search'>
-                        <Search />
-                    </Route>
+                        {/* This needs to be correct from here */}
 
-                    {/* This needs to be correct from here */}
+                        {/* import Component  */}
 
-                    {/* import Component  */}
+                        <Route path='/following-card'>
+                            <FollowingCard />
+                        </Route>
 
-                    <Route path='/following-card'>
-                        <FollowingCard />
-                    </Route>
+                        <Route path='/test'>
+                            <UploadProfile />
+                        </Route>
 
-                    <Route path='/test'>
-                        <UploadProfile />
-                    </Route>
-
-                    {/* import Component End  */}
+                        {/* import Component End  */}
 
 
 
-                </Switch>
+                    </Switch>
+                </Fragment>
             </Router>
         </div>
     )

@@ -122,8 +122,6 @@ function TabsComponent() {
         console.log(scroolValue.current)
 
         if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
-            console.log(activeKey)
-
             setOffSet(offSet + 1)
             setOffSetFollowing(offSetFollowing + 1)
 

@@ -149,6 +149,7 @@ function Profile() {
 
                             setLoader(false)
                             setReload(!reload)
+                            setReload(!reload)
                             // setProfile(resultHandle?.message.foundUser[0])
                         }
 
@@ -273,7 +274,7 @@ function Profile() {
             </Menu.Item>
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive Off Notifications </Paragraph>
-                <Paragraph className="fade-text">Stop receiving notifications  when this person is Off</Paragraph>
+                <Paragraph className="fade-text">Start receiving notifications  when this person is Off</Paragraph>
             </Menu.Item>
             <Menu.Item key="3">
                 <Paragraph style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
@@ -417,17 +418,17 @@ function Profile() {
 
                     {authenticate == true ?
                         <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
-                            {/* <Dropdown style={{ border: 'none' }}
+                            <Dropdown style={{ border: 'none' }}
                                 overlay={profileBellIcon}
                                 placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
                                     <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                                 </Button>
-                            </Dropdown> */}
-                            {/* <Dropdown style={{ border: 'none' }} overlay={optionDropDown} placement="bottomRight" >
+                            </Dropdown>
+                            <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
                                     <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
-                            </Dropdown> */}
+                            </Dropdown>
                         </Col>
                         : ""}
 

@@ -94,9 +94,9 @@ function Login() {
                         >
                             <Form.Item
                                 name="email"
-                                rules={[{ required: true, message: 'Please input your Username!' }]}
+                                rules={[{ required: true, message: 'Please input your Username/Email!' }]}
                             >
-                                <Input className="login-field" prefix={<MdOutlineEmail className="login-fonts" />} placeholder="Username" />
+                                <Input className="login-field" prefix={<MdOutlineEmail className="login-fonts" />} placeholder="Username/Email" />
                             </Form.Item>
                             <Form.Item
                                 name="password"

@@ -261,7 +261,7 @@ function Notification(props) {
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
 
               : data.type == 2 ?
-                <Text style={{ padding: '20' }} >{`${data.onOff == true ? 'User in now on' : 'User is now off'}`}</Text>
+                <Text style={{ padding: '20' }} >{`${data.onOff == true ?  `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now on` : `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now off`}`}</Text>
 
                 : data.type == 3 ?
                   <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>

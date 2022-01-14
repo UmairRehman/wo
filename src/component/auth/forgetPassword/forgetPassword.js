@@ -72,11 +72,11 @@ function ForgetPassword() {
             }
 
             else {
-            
+
                 console.log("error")
                 validateMessages(resultHandle);
                 setLoader(false)
-         
+
             }
         }
         catch (err) {
@@ -128,13 +128,17 @@ function ForgetPassword() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col  style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Reset Password</Title>
-                        <Paragraph style={{ textAlign: 'center' }}>Enter the email or phone number associated with your account and we'll send you code to reset your password</Paragraph>
 
                         <Tabs defaultActiveKey="1" onChange={callback} centered>
                             <TabPane tab="Phone Number" key="1">
+
+                                <Paragraph style={{ textAlign: 'center' }}>
+                                    You will receive a password reset code via SMS at the phone number associated with your account. Standard messaging and data rates may apply.
+                                </Paragraph>
+
                                 <Form
                                     name="normal_login"
                                     className="login-form mt-5"
@@ -157,6 +161,10 @@ function ForgetPassword() {
 
                             </TabPane>
                             <TabPane tab="Email Address" key="2">
+
+                                <Paragraph style={{ textAlign: 'center' }}>
+                                    You will receive a password reset code at the email address associated with your account.
+                                </Paragraph>
                                 <Form
                                     name="normal_login"
                                     className="login-form mt-5"
