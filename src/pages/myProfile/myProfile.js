@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {
     DownOutlined,
+    ShareAltOutlined,
+    EditOutlined
 } from '@ant-design/icons';
 import Avatar from 'react-avatar-edit'
 import { Layout, Dropdown, Image, Row, Col, Typography, Spin, Button, Menu, message, notification, Modal } from 'antd';
@@ -317,6 +319,15 @@ function MyProfile() {
 
 
 
+    function onClickEdit() {
+        history.push({
+            pathname: "/edit-profile",
+            state: getProfile
+        });
+    }
+
+
+
     return (
         <div className="animation2 " >
             <Spin className="loader" spinning={loader} size="large" />
@@ -462,12 +473,15 @@ function MyProfile() {
 
                             }
 
+                            <Button onClick={() => shareProfile()} className='gray-background share-button mr-1' ><ShareAltOutlined /></Button>
+
+                            <Button onClick={() => onClickEdit()} className='gray-background share-button' ><EditOutlined /></Button>
 
 
-                            <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} trigger={'click'}
-                                // autoAdjustOverflow={true}
-                                // placement="bottomRight"
-                                // align={{ overflow: { adjustX: true, adjustY: true } }} 
+                            {/* <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} trigger={'click'}
+                                autoAdjustOverflow={true}
+                                placement="bottomRight"
+                                align={{ overflow: { adjustX: true, adjustY: true } }} 
                                 arrow>
                                 <Button style={{
                                     border: 'none', popsition: 'relative',
@@ -477,7 +491,7 @@ function MyProfile() {
                                     alignItems: 'center',
                                     padding: '10px'
                                 }} className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
-                            </Dropdown>
+                            </Dropdown> */}
 
                         </Col>
                     </Row>

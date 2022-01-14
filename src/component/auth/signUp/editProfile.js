@@ -3,7 +3,7 @@ import {
     DeleteOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select, InputNumber  } from 'antd';
 import { editProfile } from '../../../services/apiInteraction';
 
 import { GetProfession } from '../../../services/apiInteraction';
@@ -338,7 +338,7 @@ const EditProfile = (user) => {
                                                 <Form.Item
                                                     name={['price', i]}
                                                 >
-                                                    <Input placeholder={x.price} className="fancy-border" />
+                                                    <InputNumber placeholder={x.price} className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>

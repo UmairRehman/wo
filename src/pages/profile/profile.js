@@ -381,7 +381,9 @@ function Profile() {
     return (
         <div className="animation2 " >
 
-            <Spin className="loader" spinning={loader} size="large" />
+            <Spin className="loader" 
+            spinning={loader} 
+            size="large" />
 
 
             <div className="test" >

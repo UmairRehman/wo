@@ -68,7 +68,6 @@ function Search() {
 
     useEffect(async () => {
 
-
         let data = {
             search: search,
             offset: offSet

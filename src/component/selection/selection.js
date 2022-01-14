@@ -139,8 +139,8 @@ function Selection() {
         <div style={{ width: '100%', margin: 'auto' }} >
             <Spin className="loader" spinning={loader} size="large" />
 
-            <Row style={{justifyContent:'center'}}>
-                <Title level={4}>Choose one or more Professsions</Title>
+            <Row style={{ justifyContent: 'center' }}>
+                <Title level={4}>Choose one or more Professions</Title>
             </Row>
 
             <Row style={{ justifyContent: 'center', marginTop: '10px' }}>
@@ -175,11 +175,11 @@ function Selection() {
             </Row>
 
             <Row style={{ paddingBottom: '50px' }} className="selection-image-div">
-                {/* <Link to='./following'> */}
-                <Button className="skip-button" >
-                    Skip
-                </Button>
-                {/* </Link> */}
+                <Link to='./following'>
+                    <Button className="skip-button" >
+                        Skip
+                    </Button>
+                </Link>
             </Row>
 
         </div>
