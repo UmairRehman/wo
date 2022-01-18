@@ -106,28 +106,30 @@ function Header(props) {
             offset: 0
 
         }
+        if (authenticate == true) {
 
-        try {
+            try {
 
-            setLoader(true)
-            let resultHandle = await GetNotification(data);
+                setLoader(true)
+                let resultHandle = await GetNotification(data);
 
-            if (resultHandle?.success == true) {
+                if (resultHandle?.success == true) {
 
-                setLoader(false)
-                setGetNotification(resultHandle?.message?.notify)
+                    setLoader(false)
+                    setGetNotification(resultHandle?.message?.notify)
+
+                }
+
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
 
             }
-
-            else {
-                validateMessages(resultHandle);
+            catch (err) {
+                console.log(err)
                 setLoader(false)
             }
-
-        }
-        catch (err) {
-            console.log(err)
-            setLoader(false)
         }
 
     }, [])
@@ -170,6 +172,8 @@ function Header(props) {
     const [loader, setLoader] = useState(false)
 
     const [reload, setReload] = useState(false)
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     async function submitImage(props) {
 
@@ -242,9 +246,6 @@ function Header(props) {
     useEffect(() => {
         loadprofile();
     }, [reload])
-
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
