@@ -72,9 +72,8 @@ function TabsComponent() {
     }
 
     function onClickView(data) {
-        console.log(data.follower)
         history.push({
-            pathname: `/profile/${data.follower}`,
+            pathname: `/profile/${data?.followerDetail[0]?.username}`,
             state: data?.follower
         });
 
@@ -83,7 +82,7 @@ function TabsComponent() {
 
     function onClickFollowing(data) {
         history.push({
-            pathname: `/profile/${data.followee}`,
+            pathname: `/profile/${data?.followerDetail[0]?.username}`,
             state: data?.followee
         });
 
@@ -117,9 +116,6 @@ function TabsComponent() {
     function myScript() {
 
         var scrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-        console.log(scrollY)
-        console.log(scroolValue.current)
 
         if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
             setOffSet(offSet + 1)
@@ -196,7 +192,6 @@ function TabsComponent() {
     return (
         <div>
             <Tabs animated tabPosition="top" centered defaultActiveKey="1" onChange={callback} className='mt-5'>
-                {console.log(getProfile)}
 
                 <TabPane tab={
                     <Paragraph className="font-20">

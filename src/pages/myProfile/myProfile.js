@@ -280,7 +280,7 @@ function MyProfile() {
 
     }
     function shareProfile() {
-        navigator.clipboard.writeText(`${window.location.origin}/profile/${getProfile._id}`);
+        navigator.clipboard.writeText(`${window.location.origin}/profile/${getProfile.username}`);
         message.info(`copy to clipboard`);
 
         console.log(`${window.location.origin}/profile/${getProfile._id}`)

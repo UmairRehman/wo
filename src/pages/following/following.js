@@ -43,12 +43,11 @@ function Following() {
 
 
     function onClickView(data) {
-
         history.push({
-            pathname: `/profile/${data._id}`,
-            // state: data._id
+            pathname: `/profile/${data.username}`,
+            state: data._id
         });
-        
+
 
     }
 
@@ -88,7 +87,7 @@ function Following() {
             </div>
 
             <div className="content ant-page- padding-whole-page">
-        
+
                 <div className='mt-5'>
                     <FollowingCard />
                 </div>
@@ -98,7 +97,7 @@ function Following() {
                         <Col span={20}>
                             <Title className='m-0' level={4}>Suggested for you</Title>
                         </Col>
-                        <Col style={{ justifyContent: 'end', display: 'flex', alignItems:'center' }} span={4}>
+                        <Col style={{ justifyContent: 'end', display: 'flex', alignItems: 'center' }} span={4}>
                             <Link to='./suggest' >See All</Link>
                         </Col>
                     </Row>
@@ -115,12 +114,12 @@ function Following() {
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={13} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                <Title style={{textTransform:'capitalize'}} level={5} className="m-0">
+                                                <Title style={{ textTransform: 'capitalize' }} level={5} className="m-0">
                                                     {data?.firstName + " " + data?.lastName}
                                                 </Title>
                                             </Row>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
-                                                <Paragraph style={{textTransform:'capitalize'}}  level={5}>
+                                                <Paragraph style={{ textTransform: 'capitalize' }} level={5}>
                                                     {data.imOnProfile?.profession_data[0]?.name}
                                                 </Paragraph>
                                             </Row>

@@ -324,6 +324,7 @@ function Profile() {
 
                 setLoader(false)
                 setProfile(resultHandle?.message.foundUser[0])
+                console.log(resultHandle?.message.foundUser[0])
             }
 
             else {
@@ -344,7 +345,7 @@ function Profile() {
         try {
 
             let data = {
-                followee: params.id
+                followee: id
             }
 
             setLoader(true)

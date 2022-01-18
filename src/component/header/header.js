@@ -65,7 +65,6 @@ function Header(props) {
 
     function onCrop(preview) {
         setProfileImage(preview)
-        // console.log(profileImage)
     }
 
     function onUpload(file) {
@@ -101,7 +100,6 @@ function Header(props) {
         }
 
 
-        console.log("authentication" + authenticate)
 
         let data = {
 
@@ -136,7 +134,6 @@ function Header(props) {
 
     const menu = (
         <Menu className='notification-menu'>
-            {console.log(getNotification)}
             <div>
                 {getNotification.slice(0, 4).map((data) =>
                     <Link to='../notification'>
@@ -176,7 +173,6 @@ function Header(props) {
 
     async function submitImage(props) {
 
-        console.log(profileImage)
 
         localStorage.setItem("profileImage", profileImage)
 
@@ -284,11 +280,11 @@ function Header(props) {
 
     }
     function shareProfile() {
-        navigator.clipboard.writeText(`${window.location.origin}/profile/${profile._id}`);
+        navigator.clipboard.writeText(`${window.location.origin}/profile/${profile.username}`);
         message.info(`copy to clipboard`);
 
-        console.log(`${window.location.origin}/profile/${profile._id}`)
-        // console.log(profile._id)
+        console.log(`${window.location.origin}/profile/${profile.username}`)
+        // console.log(profile)
     }
     function test2(e) {
         if (e.key === 'Enter') {
@@ -308,7 +304,6 @@ function Header(props) {
 
 
     async function signOut() {
-        console.log(profile)
 
         let data = {
 
