@@ -64,9 +64,6 @@ function Profile() {
 
     let id = location?.state
 
-    console.log("prams" + params?.id)
-
-
     const [loader, setLoader] = useState(false)
 
     const [profile, setProfile] = useState([])
@@ -143,8 +140,6 @@ function Profile() {
                         setLoader(true)
                         let resultHandle = await unFollow(data);
 
-                        console.log(resultHandle)
-
                         if (resultHandle?.success == true) {
 
                             setLoader(false)
@@ -190,8 +185,6 @@ function Profile() {
                         setLoader(true)
                         let resultHandle = await StatusChange(data);
 
-                        console.log(resultHandle)
-
                         if (resultHandle?.success == true) {
 
                             setLoader(false)
@@ -214,8 +207,6 @@ function Profile() {
             })
         }
     }
-
-    // console.log(statusConstant)
 
     const followingDropdown = (
         <Menu className="notification-dropdown" onClick={handleStatus}>
@@ -301,7 +292,6 @@ function Profile() {
 
     useEffect(async () => {
 
-        console.log(localStorage.getItem('token'))
         if (localStorage.getItem('token') == null) {
             setAuthenticate(false)
         }
@@ -318,7 +308,6 @@ function Profile() {
             setLoader(true)
             let resultHandle = await GetProfileByID(params);
 
-            console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
@@ -340,40 +329,39 @@ function Profile() {
 
 
     useEffect(async () => {
+        let userData = JSON.parse(localStorage.getItem('user'))
 
-        try {
+        if (authenticate == true) {
+            try {
 
-            let data = {
-                followee: params.id
-            }
-
-            setLoader(true)
-            let resultHandle = await checkFollow(data);
-
-            console.log(resultHandle)
-
-            if (resultHandle?.success == true) {
-
-                setLoader(false)
-                console.log(resultHandle?.message?.followUser)
-                if (resultHandle?.message?.followUser) {
-                    setIsFollow(true)
-                    setFollowStatus(resultHandle?.message?.followUser?.status);
-                    console.log(resultHandle?.message?.followUser?.status)
+                let data = {
+                    followee: userData._id
                 }
+
+                setLoader(true)
+                let resultHandle = await checkFollow(data);
+
+                if (resultHandle?.success == true) {
+
+                    setLoader(false)
+                    if (resultHandle?.message?.followUser) {
+                        setIsFollow(true)
+                        setFollowStatus(resultHandle?.message?.followUser?.status);
+                    }
+                    else {
+                        setIsFollow(false)
+                    }
+                }
+
                 else {
-                    setIsFollow(false)
+                    validateMessages(resultHandle);
+                    setLoader(false)
                 }
-            }
 
-            else {
-                validateMessages(resultHandle);
-                setLoader(false)
             }
-
-        }
-        catch (err) {
-            console.log(err)
+            catch (err) {
+                console.log(err)
+            }
         }
 
     }, [reload])
@@ -381,15 +369,15 @@ function Profile() {
     return (
         <div className="animation2 " >
 
-            <Spin className="loader" 
-            spinning={loader} 
-            size="large" />
+            <Spin className="loader"
+                spinning={loader}
+                size="large" />
 
 
             <div className="test" >
                 <Header />
             </div>
-            <Row style={{ position: "absolute", width: '100%', top:'90px' }} >
+            <Row style={{ position: "absolute", width: '100%', top: '90px' }} >
                 <Col className="full-image" md={24}>
                     <Image preview={false} src={CoverImage} />
                 </Col>
@@ -409,7 +397,7 @@ function Profile() {
                         </Row >
                     </Col>
 
-                    <Col className='mt-2'  style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row >
                             <Paragraph className="follower-counter" > {profile?.following < 0 ? 0 : profile?.following} </Paragraph>
                         </Row >
@@ -453,7 +441,6 @@ function Profile() {
                             {profile?.imOnProfile &&
                                 <Paragraph>{profile?.imOnProfile?.about}</Paragraph>
                             }
-                            {console.log(profile)}
                             {/* <Paragraph>Followed by john hales<span className="g-color anchor">, Alexander and 35 others</span></Paragraph> */}
                         </Col>
 

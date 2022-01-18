@@ -65,7 +65,6 @@ function Header(props) {
 
     function onCrop(preview) {
         setProfileImage(preview)
-        // console.log(profileImage)
     }
 
     function onUpload(file) {
@@ -101,42 +100,42 @@ function Header(props) {
         }
 
 
-        console.log("authentication" + authenticate)
 
         let data = {
 
             offset: 0
 
         }
+        if (authenticate == true) {
 
-        try {
+            try {
 
-            setLoader(true)
-            let resultHandle = await GetNotification(data);
+                setLoader(true)
+                let resultHandle = await GetNotification(data);
 
-            if (resultHandle?.success == true) {
+                if (resultHandle?.success == true) {
 
-                setLoader(false)
-                setGetNotification(resultHandle?.message?.notify)
+                    setLoader(false)
+                    setGetNotification(resultHandle?.message?.notify)
+
+                }
+
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
 
             }
-
-            else {
-                validateMessages(resultHandle);
+            catch (err) {
+                console.log(err)
                 setLoader(false)
             }
-
-        }
-        catch (err) {
-            console.log(err)
-            setLoader(false)
         }
 
     }, [])
 
     const menu = (
         <Menu className='notification-menu'>
-            {console.log(getNotification)}
             <div>
                 {getNotification.slice(0, 4).map((data) =>
                     <Link to='../notification'>
@@ -174,9 +173,10 @@ function Header(props) {
 
     const [reload, setReload] = useState(false)
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
     async function submitImage(props) {
 
-        console.log(profileImage)
 
         localStorage.setItem("profileImage", profileImage)
 
@@ -247,9 +247,6 @@ function Header(props) {
         loadprofile();
     }, [reload])
 
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -284,11 +281,11 @@ function Header(props) {
 
     }
     function shareProfile() {
-        navigator.clipboard.writeText(`${window.location.origin}/profile/${profile._id}`);
+        navigator.clipboard.writeText(`${window.location.origin}/profile/${profile.username}`);
         message.info(`copy to clipboard`);
 
-        console.log(`${window.location.origin}/profile/${profile._id}`)
-        // console.log(profile._id)
+        console.log(`${window.location.origin}/profile/${profile.username}`)
+        // console.log(profile)
     }
     function test2(e) {
         if (e.key === 'Enter') {
@@ -308,7 +305,6 @@ function Header(props) {
 
 
     async function signOut() {
-        console.log(profile)
 
         let data = {
 

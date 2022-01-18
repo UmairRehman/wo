@@ -54,9 +54,6 @@ function Search() {
 
         var scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-        console.log(scrollY)
-        console.log(scroolValue.current)
-
         if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
             setOffSet(offSet + 1)
         }
@@ -106,7 +103,7 @@ function Search() {
 
         history.push({
             // pathname: "/profile",
-            pathname: `/profile/${data._id}`,
+            pathname: `/profile/${data.username}`,
             state: data._id
         });
 
