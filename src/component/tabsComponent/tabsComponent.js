@@ -269,9 +269,9 @@ function TabsComponent() {
                                                 </Row>
                                             </Col>
                                             <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                                <Button onClick={() => onClickFollowing(data)} className="follow-button">
-                                                    View Profile
-                                                </Button>
+                                            <Button onClick={() => onClickView(data)} className="follow-button">
+                                                View Profile
+                                            </Button>
                                             </Col>
                                         </Row>
                                     </Card>
