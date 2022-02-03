@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, notification, Spin } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, Checkbox,notification, Spin } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
@@ -115,6 +115,24 @@ function UserName() {
                             >
                                 <Input className="login-field" placeholder="User Name" />
                             </Form.Item>
+
+                            <Row>
+                                <Col span={12} md={12} xs={24}>
+                                    <Form.Item className="login-checkBox" >
+                                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                                            <Checkbox>vacinated</Checkbox>
+                                        </Form.Item>
+                                    </Form.Item>
+                                </Col>
+                                <Col span={12} md={12} xs={24}>
+                                    <Form.Item className="login-checkBox" >
+                                        <Form.Item name="remember" valuePropName="" noStyle>
+                                            <Checkbox>Not Vacinated</Checkbox>
+                                        </Form.Item>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+
 
                             <Form.Item className="position-relative">
                                 {/* <Link to="/date-of-birth"> */}
