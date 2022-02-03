@@ -117,6 +117,7 @@ function Header(props) {
 
                     setLoader(false)
                     setGetNotification(resultHandle?.message?.notify)
+                    console.log(resultHandle?.message?.notify)
 
                 }
 

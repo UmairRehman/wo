@@ -81,8 +81,9 @@ function TabsComponent() {
 
 
     function onClickFollowing(data) {
+        console.log(data)
         history.push({
-            pathname: `/profile/${data?.followerDetail[0]?.username}`,
+            pathname: `/profile/${data?.followeeDetail[0]?.username}`,
             state: data?.followee
         });
 
