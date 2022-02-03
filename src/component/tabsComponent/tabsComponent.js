@@ -209,7 +209,7 @@ function TabsComponent() {
                                         <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                 <Title level={4} className="m-0">
-                                                    {data?.followerDetail[0]?.firstName}
+                                                    {data?.followerDetail[0]?.firstName + " " + data?.followerDetail[0]?.lastName}
                                                 </Title>
                                             </Row>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
