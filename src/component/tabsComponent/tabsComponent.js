@@ -210,7 +210,7 @@ function TabsComponent() {
                                         <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                 <Title level={4} className="m-0">
-                                                    {data?.followerDetail[0]?.firstName}
+                                                    {data?.followerDetail[0]?.firstName + " " + data?.followerDetail[0]?.lastName}
                                                 </Title>
                                             </Row>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
@@ -270,9 +270,9 @@ function TabsComponent() {
                                                 </Row>
                                             </Col>
                                             <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                                <Button onClick={() => onClickFollowing(data)} className="follow-button">
-                                                    View Profile
-                                                </Button>
+                                            <Button onClick={() => onClickView(data)} className="follow-button">
+                                                View Profile
+                                            </Button>
                                             </Col>
                                         </Row>
                                     </Card>

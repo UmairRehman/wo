@@ -24,11 +24,11 @@ function Introduction4() {
                 />
             </Col>
             <Col md={12} xs={24} className="padding-auto" style={{ height: '100vh' }} span={12}>
-                <Row>
+                {/* <Row>
                     <Link to='/login'>
                         <p className="justify-content-right d-flex w-100 g-color">Sign In</p>
                     </Link>
-                </Row>
+                </Row> */}
 
                 <Row className="mt-5">
                     <Title className="intro-heading" >Connecting <br />people</Title>

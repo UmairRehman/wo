@@ -8,7 +8,7 @@ import {
 import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Header from '../../component/header/header';
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import Option from '../../assets/images/option.png'
 import Bell from '../../assets/images/bell.jpg'
@@ -393,7 +393,9 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
                         </Row>
                         <Row>
+                        <Link to='../users'>
                             <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Followers </Paragraph>
+                            </Link>
                         </Row >
                     </Col>
 
@@ -402,7 +404,9 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.following < 0 ? 0 : profile?.following} </Paragraph>
                         </Row >
                         <Row>
-                            <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
+                            <Link to='../users'>
+                                <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
+                            </Link>
                         </Row>
                     </Col>
 
