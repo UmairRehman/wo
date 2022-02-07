@@ -12,6 +12,9 @@
     border-radius: 50px;
     background: #F8F8F8;
 }
+.login-field .ant-input {
+    text-transform: lowercase !important;
+}
 
 .login-field .ant-input {
     background: #F8F8F8;
@@ -47,6 +50,7 @@
 .login-form-forgot:hover {
     font-size: 12px;
     color: #27B824;
+    text-transform: lowercase;
 }
 
 .vertical-center {
