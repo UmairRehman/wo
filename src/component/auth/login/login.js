@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification, Spin } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
@@ -60,7 +62,6 @@ function Login() {
                 localStorage.setItem('email', resultHandle.message.user.emailAddress)
                 localStorage.setItem('token', resultHandle.message.accessToken)
                 history.push("/select");
-
             }
 
             else {
@@ -74,9 +75,22 @@ function Login() {
             setLoader(false)
 
         }
-
-
     };
+
+    const responseFacebook = (response) => {
+        console.log(response);
+        // setData(response);
+        // setPicture(response.picture.data.url);
+        if (response.accessToken) {
+            // setLogin(true);
+        } else {
+            // setLogin(false);
+        }
+    }
+
+    const responseGoogle = (response) => {
+        console.log(response);
+    }
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
@@ -134,23 +148,33 @@ function Login() {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary" htmlType="submit" className="gmail-icon mt-5 w-100" >
-                                    Sign in with Google
-                                </Button>
+
+                                <GoogleLogin
+                                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                                    buttonText="Login"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
                             </Form.Item>
 
 
                             <Form.Item className="position-relative">
-                                <Button
-                                    // icon={<Image preview={false} 
-                                    // src={Facebook} />}
-                                    type="primary" htmlType="submit" className="faceook-button mt-5 w-100" >
-                                    Sign in with Facebook
-                                </Button>
+                                <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
+                                    <FacebookLogin
+                                        style={{ borderRadius: '20px' }}
+                                        appId="6u3bu80bhobl8rts163gc022m"
+                                        autoLoad={true}
+                                        fields="name,email,picture"
+                                        scope="public_profile,user_friends"
+                                        callback={responseFacebook}
+                                        icon="fa-facebook" />
+                                </Row>
                             </Form.Item>
+
                         </Form>
                         <Row className='j-c-c'>
-                            <Text>Don't have an account? 
+                            <Text>Don't have an account?
                                 <Link to='./signup-0'>
                                     <span style={{ color: '#27B824' }}> Sign up</span>
                                 </Link>

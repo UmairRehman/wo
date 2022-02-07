@@ -536,3 +536,14 @@ html {
 .no-focus:focus{
   background: none !important;
 }
+.facebook-button-span span{
+  width: 100% !important;
+}
+.kep-login-facebook {
+  border-radius: 20px !important; 
+  height: 50px !important;
+  padding: 0 !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  width: 100% !important;
+}
