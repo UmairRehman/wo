@@ -390,7 +390,7 @@ function Profile() {
 
                     <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
-                            <Paragraph className="follower-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
+                            <Paragraph className="-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
                         </Row>
                         <Row>
                         <Link to='../users'>

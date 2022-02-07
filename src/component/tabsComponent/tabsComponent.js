@@ -196,7 +196,7 @@ function TabsComponent() {
 
                 <TabPane tab={
                     <Paragraph className="font-20">
-                        {getProfile.length + " "}Follower
+                        {getProfile.length + " "}Followers
 
                     </Paragraph>} key="1">
                     <Row>
