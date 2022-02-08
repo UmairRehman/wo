@@ -125,6 +125,7 @@ function PhoneAndEmail() {
                         <Form
                             name="normal_login"
                             className="login-form mt-5"
+                            Text-transform="lowerCase"
                             initialValues={{ remember: true }}
                             onFinish={onFinish}
                         >

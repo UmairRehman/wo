@@ -89,7 +89,7 @@ function Login() {
     const onFinish = async (values) => {
 
         let data = {
-            emailAddress: values.email,
+            emailAddress: values.email.toLowerCase(),
             password: values.password
         }
 

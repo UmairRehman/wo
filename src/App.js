@@ -48,7 +48,7 @@ function App() {
 
         let notifyMessage = {
           name: payload?.data?.firstName,
-          message: " is now on"
+          message: " is now off"
         }
         validateMessages(notifyMessage);
       }
@@ -56,7 +56,7 @@ function App() {
 
         let notifyMessage = {
           name: payload?.data?.firstName,
-          message: " is now off"
+          message: " is now on"
         }
         validateMessages(notifyMessage);
       }

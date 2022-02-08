@@ -96,7 +96,7 @@ function Profile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                validateMessagesFollow("Successfully Request Send");
+                validateMessagesFollow("");
                 setReload(!reload)
             }
 
@@ -390,7 +390,7 @@ function Profile() {
 
                     <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
-                            <Paragraph className="follower-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
+                            <Paragraph className="-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
                         </Row>
                         <Row>
                         <Link to='../users'>
@@ -454,7 +454,7 @@ function Profile() {
                                     <Button className="following-dropdown-button">Following <DownOutlined /></Button>
                                 </Dropdown>
                                 : followStatus == REQUEST ?
-                                    <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sent <CheckOutlined /> </Button>
+                                    <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sucessfully Sent <CheckOutlined /> </Button>
                                     : null}
 
                             {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}

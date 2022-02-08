@@ -375,7 +375,7 @@ const EditProfile = (user) => {
                                 <Form.Item>
                                     {/* <Link to="/varified"> */}
                                     <Button className="button" type="primary" htmlType="submit">
-                                        Next
+                                        Save
                                     </Button>
                                     {/* </Link> */}
                                 </Form.Item>

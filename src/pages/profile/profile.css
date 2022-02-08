@@ -1,17 +1,17 @@
-.follower-counter {
+.-counter {
     color: #FD6700;
     font-size: 18px;
     margin: 0px !important;
     font-weight: bold !important;
 }
 
-.follower-heading {
+.-heading {
     font-size: 20px;
     font-weight: bolder;
 }
 
 @media only screen and (max-width: 600px) {
-    .follower-counter {
+    .-counter {
         font-size: 12px;
         justify-content: center;
         padding-left: 5px;
@@ -19,7 +19,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .follower-heading {
+    .-heading {
         font-size: 14px;
         padding-left: 5px;
     }
