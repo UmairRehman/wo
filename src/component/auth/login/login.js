@@ -141,12 +141,12 @@ function Login() {
     return (
 
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
-            <div className="App">
+            {/* <div className="App">
                 <button onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })}>Open Facebook</button>
                 <button onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>Open Google</button>
                 <button onClick={() => Auth.federatedSignIn()}>Open Hosted UI</button>
-                {/* <button onClick={() => Auth.signOut()}>Sign Out {user?.getUsername()}</button> */}
-            </div>
+                <button onClick={() => Auth.signOut()}>Sign Out {user?.getUsername()}</button>
+            </div> */}
 
             <Spin className="loader" spinning={loader} size="large" />
             <Row style={{ height: '100vh', position: 'relative' }}>
