@@ -212,7 +212,7 @@ function Profile() {
         <Menu className="notification-dropdown" onClick={handleStatus}>
 
             <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
+                <Paragraph style={{ marginBottom: '10px' }}>Follow</Paragraph>
             </Menu.Item>
 
             <Menu.Item key="2">
