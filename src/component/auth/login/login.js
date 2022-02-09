@@ -34,8 +34,8 @@ const validateMessages = (data) => {
 const oauth = {
     domain: 'wo.auth.us-east-2.amazoncognito.com',
     scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-    redirectSignIn: 'https://app.whoson.co/',
-    redirectSignOut: 'https://app.whoson.co/',
+    redirectSignIn: 'http://localhost:3000/login',
+    redirectSignOut: 'http://localhost:3000/login',
     responseType: 'token'
 };
 
@@ -55,7 +55,9 @@ Auth.configure({
 // })
 
 function Login() {
+
     const [user, setUser] = useState(null);
+    
     const [customState, setCustomState] = useState(null);
 
 
@@ -64,7 +66,7 @@ function Login() {
             switch (event) {
                 case "signIn":
                     // setUser(data);
-                    console.log(data)
+                    console.log(data?.signInUserSession.accessToken.jwtToken)
                     break;
                 case "signOut":
                     // setUser(null);
@@ -78,7 +80,8 @@ function Login() {
 
         Auth.currentAuthenticatedUser()
             .then(currentUser => 
-                console.log(currentUser)
+                console.log(currentUser.signInUserSession.accessToken.jwtToken)
+                // console.log(currentUser)
                 // setUser(currentUser)
                 )
             .catch((err) => console.log(err));
