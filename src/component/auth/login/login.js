@@ -46,13 +46,13 @@ Auth.configure({
     oauth
 });
 
-Amplify.configure({
-    aws_cognito_region: "us-east-2", // (required) - Region where Amazon Cognito project was created   
-    aws_user_pools_id: "us-east-2_aPujjAawB", // (optional) -  Amazon Cognito User Pool ID   
-    aws_user_pools_web_client_id: "6u3bu80bhobl8rts163gc022m", // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
-    aws_cognito_identity_pool_id: "us-east-2_aPujjAawB", // (optional) - Amazon Cognito Identity Pool ID   
-    aws_mandatory_sign_in: "enable" // (optional) - Users are not allowed to get the aws credentials unless they are signed in   
-})
+// Amplify.configure({
+//     aws_cognito_region: "us-east-2", // (required) - Region where Amazon Cognito project was created   
+//     aws_user_pools_id: "us-east-2_aPujjAawB", // (optional) -  Amazon Cognito User Pool ID   
+//     aws_user_pools_web_client_id: "6u3bu80bhobl8rts163gc022m", // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
+//     aws_cognito_identity_pool_id: "us-east-2_aPujjAawB", // (optional) - Amazon Cognito Identity Pool ID   
+//     aws_mandatory_sign_in: "enable" // (optional) - Users are not allowed to get the aws credentials unless they are signed in   
+// })
 
 function Login() {
     const [user, setUser] = useState(null);
@@ -63,18 +63,24 @@ function Login() {
         const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
             switch (event) {
                 case "signIn":
-                    setUser(data);
+                    // setUser(data);
+                    console.log(data)
                     break;
                 case "signOut":
-                    setUser(null);
+                    // setUser(null);
                     break;
                 case "customOAuthState":
-                    setCustomState(data);
+                    // setCustomState(data);
+                    console.log(data)
+
             }
         });
 
         Auth.currentAuthenticatedUser()
-            .then(currentUser => setUser(currentUser))
+            .then(currentUser => 
+                console.log(currentUser)
+                // setUser(currentUser)
+                )
             .catch((err) => console.log(err));
 
         return unsubscribe;

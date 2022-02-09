@@ -253,6 +253,10 @@
     color: #fff;
     background-color: #4c69ba;
 }
+.facebook-button:focus{
+    color: #fff !important;
+    background-color: #4c69ba !important;
+}
 .gmail-button{
     background: white;
     border-radius: 20px;
