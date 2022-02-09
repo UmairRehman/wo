@@ -13,7 +13,7 @@
     background: #F8F8F8;
 }
 .login-field .ant-input {
-    text-transform: lowercase !important;
+    /* text-transform: lowercase !important; */
 }
 
 .login-field .ant-input {
