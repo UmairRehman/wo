@@ -119,10 +119,10 @@ function Profile() {
 
 
     function handleStatus(e) {
-        if (e.key == 1) {
+        if (e.key !== 1) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "Do you want to unfollow?",
+                text: "Do you want to follow?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#27B824',
