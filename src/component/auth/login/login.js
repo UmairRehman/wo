@@ -31,6 +31,7 @@ const validateMessages = (data) => {
     notification.error(args);
 };
 
+
 const oauth = {
     domain: 'wo.auth.us-east-2.amazoncognito.com',
     scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
@@ -123,20 +124,20 @@ function Login() {
         }
     };
 
-    const responseFacebook = (response) => {
-        console.log(response);
-        // setData(response);
-        // setPicture(response.picture.data.url);
-        if (response.accessToken) {
-            // setLogin(true);
-        } else {
-            // setLogin(false);
-        }
-    }
+    // const responseFacebook = (response) => {
+    //     console.log(response);
+    //     // setData(response);
+    //     // setPicture(response.picture.data.url);
+    //     if (response.accessToken) {
+    //         // setLogin(true);
+    //     } else {
+    //         // setLogin(false);
+    //     }
+    // }
 
-    const responseGoogle = (response) => {
-        console.log(response);
-    }
+    // const responseGoogle = (response) => {
+    //     console.log(response);
+    // }
 
     return (
   
@@ -224,7 +225,7 @@ function Login() {
                                         callback={responseFacebook}
                                         icon="fa-facebook" />
                                 </Row>
-                            </Form.Item>
+                            </Form.Item> */}
 
                         </Form>
                         <Row className='j-c-c'>

@@ -52,7 +52,7 @@ function router() {
                 <Fragment>
                     <ScrollDown/>
                     <Switch>
-                        <Route exact path='/dashboard'>
+                        <Route path='/dashboard'>
                             <Dashboard />
                         </Route>
 
