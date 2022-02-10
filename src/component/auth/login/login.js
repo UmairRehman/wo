@@ -11,8 +11,8 @@ import {
 import { useHistory } from "react-router-dom";
 import { Login as LoginUser } from '../../../services/apiInteraction';
 
-import Amplify, { Auth, Hub } from 'aws-amplify';
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+// import Amplify, { Auth, Hub } from 'aws-amplify';
+// import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 
 
 // import CSS 
@@ -31,20 +31,20 @@ const validateMessages = (data) => {
     notification.error(args);
 };
 
-const oauth = {
-    domain: 'wo.auth.us-east-2.amazoncognito.com',
-    scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-    redirectSignIn: 'http://localhost:3000/login',
-    redirectSignOut: 'http://localhost:3000/login',
-    responseType: 'token'
-};
+// const oauth = {
+//     domain: 'wo.auth.us-east-2.amazoncognito.com',
+//     scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+//     redirectSignIn: 'http://localhost:3000/login',
+//     redirectSignOut: 'http://localhost:3000/login',
+//     responseType: 'token'
+// };
 
-Auth.configure({
-    region: "us-east-2",
-    userPoolId: "us-east-2_aPujjAawB",
-    userPoolWebClientId: "6u3bu80bhobl8rts163gc022m",
-    oauth
-});
+// Auth.configure({
+//     region: "us-east-2",
+//     userPoolId: "us-east-2_aPujjAawB",
+//     userPoolWebClientId: "6u3bu80bhobl8rts163gc022m",
+//     oauth
+// });
 
 // Amplify.configure({
 //     aws_cognito_region: "us-east-2", // (required) - Region where Amazon Cognito project was created   
@@ -61,33 +61,33 @@ function Login() {
     const [customState, setCustomState] = useState(null);
 
 
-    useEffect(() => {
-        const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
-            switch (event) {
-                case "signIn":
-                    // setUser(data);
-                    console.log(data?.signInUserSession.accessToken.jwtToken)
-                    break;
-                case "signOut":
-                    // setUser(null);
-                    break;
-                case "customOAuthState":
-                    // setCustomState(data);
-                    console.log(data)
+    // useEffect(() => {
+    //     const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
+    //         switch (event) {
+    //             case "signIn":
+    //                 // setUser(data);
+    //                 console.log(data?.signInUserSession.accessToken.jwtToken)
+    //                 break;
+    //             case "signOut":
+    //                 // setUser(null);
+    //                 break;
+    //             case "customOAuthState":
+    //                 // setCustomState(data);
+    //                 console.log(data)
 
-            }
-        });
+    //         }
+    //     });
 
-        Auth.currentAuthenticatedUser()
-            .then(currentUser => 
-                console.log(currentUser.signInUserSession.accessToken.jwtToken)
-                // console.log(currentUser)
-                // setUser(currentUser)
-                )
-            .catch((err) => console.log(err));
+    //     Auth.currentAuthenticatedUser()
+    //         .then(currentUser => 
+    //             console.log(currentUser.signInUserSession.accessToken.jwtToken)
+    //             // console.log(currentUser)
+    //             // setUser(currentUser)
+    //             )
+    //         .catch((err) => console.log(err));
 
-        return unsubscribe;
-    }, []);
+    //     return unsubscribe;
+    // }, []);
 
 
 
@@ -132,20 +132,20 @@ function Login() {
         }
     };
 
-    const responseFacebook = (response) => {
-        console.log(response);
-        // setData(response);
-        // setPicture(response.picture.data.url);
-        if (response.accessToken) {
-            // setLogin(true);
-        } else {
-            // setLogin(false);
-        }
-    }
+    // const responseFacebook = (response) => {
+    //     console.log(response);
+    //     // setData(response);
+    //     // setPicture(response.picture.data.url);
+    //     if (response.accessToken) {
+    //         // setLogin(true);
+    //     } else {
+    //         // setLogin(false);
+    //     }
+    // }
 
-    const responseGoogle = (response) => {
-        console.log(response);
-    }
+    // const responseGoogle = (response) => {
+    //     console.log(response);
+    // }
 
     return (
 
@@ -210,7 +210,7 @@ function Login() {
                                 {/* </Link> */}
                             </Form.Item>
 
-                            <Form.Item className="position-relative">
+                            {/* <Form.Item className="position-relative">
                                 <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
                                     <Button className='facebook-button' onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })} >
                                         Sign In with Facebook
@@ -224,7 +224,7 @@ function Login() {
                                         Sign In with Google
                                     </Button>
                                 </Row>
-                            </Form.Item>
+                            </Form.Item> */}
 
                         </Form>
                         <Row className='j-c-c'>
