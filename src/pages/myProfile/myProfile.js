@@ -467,7 +467,7 @@ function MyProfile() {
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
                             {getProfile?.imOnProfile?.On == true ?
 
-                                <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}>I'm On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}> On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
                                 :
                                 <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm Off</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
 

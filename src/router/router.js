@@ -52,7 +52,7 @@ function router() {
                 <Fragment>
                     <ScrollDown/>
                     <Switch>
-                        <Route exact path='/dashboard'>
+                        <Route path='/dashboard'>
                             <Dashboard />
                         </Route>
 
@@ -116,7 +116,7 @@ function router() {
 
                         {/* SignUP end  */}
 
-                        <Route path='/'>
+                        <Route exact path='/'>
                             <Introduction1 />
                         </Route>
 

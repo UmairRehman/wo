@@ -31,11 +31,12 @@ const validateMessages = (data) => {
     notification.error(args);
 };
 
+
 const oauth = {
     domain: 'wo.auth.us-east-2.amazoncognito.com',
     scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-    redirectSignIn: 'http://localhost:3000/login',
-    redirectSignOut: 'http://localhost:3000/login',
+    redirectSignIn: 'https://app.whoson.co/',
+    redirectSignOut: 'https://app.whoson.co/',
     responseType: 'token'
 };
 
@@ -46,18 +47,16 @@ Auth.configure({
     oauth
 });
 
-// Amplify.configure({
-//     aws_cognito_region: "us-east-2", // (required) - Region where Amazon Cognito project was created   
-//     aws_user_pools_id: "us-east-2_aPujjAawB", // (optional) -  Amazon Cognito User Pool ID   
-//     aws_user_pools_web_client_id: "6u3bu80bhobl8rts163gc022m", // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
-//     aws_cognito_identity_pool_id: "us-east-2_aPujjAawB", // (optional) - Amazon Cognito Identity Pool ID   
-//     aws_mandatory_sign_in: "enable" // (optional) - Users are not allowed to get the aws credentials unless they are signed in   
-// })
+Amplify.configure({
+    aws_cognito_region: "us-east-2", // (required) - Region where Amazon Cognito project was created   
+    aws_user_pools_id: "us-east-2_aPujjAawB", // (optional) -  Amazon Cognito User Pool ID   
+    aws_user_pools_web_client_id: "6u3bu80bhobl8rts163gc022m", // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
+    aws_cognito_identity_pool_id: "us-east-2_aPujjAawB", // (optional) - Amazon Cognito Identity Pool ID   
+    aws_mandatory_sign_in: "enable" // (optional) - Users are not allowed to get the aws credentials unless they are signed in   
+})
 
 function Login() {
-
     const [user, setUser] = useState(null);
-    
     const [customState, setCustomState] = useState(null);
 
 
@@ -65,25 +64,18 @@ function Login() {
         const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
             switch (event) {
                 case "signIn":
-                    // setUser(data);
-                    console.log(data?.signInUserSession.accessToken.jwtToken)
+                    setUser(data);
                     break;
                 case "signOut":
-                    // setUser(null);
+                    setUser(null);
                     break;
                 case "customOAuthState":
-                    // setCustomState(data);
-                    console.log(data)
-
+                    setCustomState(data);
             }
         });
 
         Auth.currentAuthenticatedUser()
-            .then(currentUser => 
-                console.log(currentUser.signInUserSession.accessToken.jwtToken)
-                // console.log(currentUser)
-                // setUser(currentUser)
-                )
+            .then(currentUser => setUser(currentUser))
             .catch((err) => console.log(err));
 
         return unsubscribe;
@@ -98,7 +90,7 @@ function Login() {
     const onFinish = async (values) => {
 
         let data = {
-            emailAddress: values.email.toLowerCase(),
+            emailAddress: values.email,
             password: values.password
         }
 
@@ -158,6 +150,7 @@ function Login() {
             </div> */}
 
             <Spin className="loader" spinning={loader} size="large" />
+
             <Row style={{ height: '100vh', position: 'relative' }}>
                 <Col md={8} xs={24} >
 
@@ -210,18 +203,20 @@ function Login() {
                                 {/* </Link> */}
                             </Form.Item>
 
-                            <Form.Item className="position-relative">
+                            <Form.Item>
+
                                 <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
-                                    <Button className='facebook-button' onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })} >
-                                        Sign In with Facebook
+                                    <Button className='gmail-button' onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })} >
+                                        Sign In with Google
                                     </Button>
                                 </Row>
                             </Form.Item>
 
+
                             <Form.Item className="position-relative">
                                 <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
-                                    <Button className='gmail-button'  onClick={() => Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google })} >
-                                        Sign In with Google
+                                    <Button className='facebook-button' onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })} >
+                                        Sign In with Facebook
                                     </Button>
                                 </Row>
                             </Form.Item>
