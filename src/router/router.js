@@ -116,7 +116,7 @@ function router() {
 
                         {/* SignUP end  */}
 
-                        <Route path='/'>
+                        <Route exact path='/'>
                             <Introduction1 />
                         </Route>
 
