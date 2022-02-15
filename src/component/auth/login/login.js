@@ -74,21 +74,27 @@ function Login() {
                 let resultHandle = await CheckLogin(data);
 
                 console.log(resultHandle.message.login)
+                if (resultHandle?.success == true) {
 
-                if (resultHandle.message.login == false) {
+                    if (resultHandle.message.login == false) {
 
-                    localStorage.setItem('token', resultHandle?.message?.accessToken)
-                    history.push("/signup-1");
+                        localStorage.setItem('token', resultHandle?.message?.accessToken)
+                        history.push("/signup-1");
+                    }
+
+                    else if (resultHandle.message.login == true) {
+
+                        setLoader(false)
+                        localStorage.setItem('token', response.accessToken)
+                        localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
+                        localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
+                        localStorage.setItem('provider', resultHandle.message.foundUser.provider)
+                        history.push("/select");
+                    }
                 }
-
-                if (resultHandle.message.login == true) {
-
+                else {
+                    validateMessages(resultHandle);
                     setLoader(false)
-                    localStorage.setItem('token', response.accessToken)
-                    localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
-                    localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
-                    localStorage.setItem('provider', resultHandle.message.foundUser.provider)
-                    history.push("/select");
                 }
 
                 setLoader(false)
