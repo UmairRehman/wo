@@ -87,6 +87,7 @@ function ProfilePictureView() {
 
         catch (err) {
             console.log(err)
+            setLoader(false)
         }
 
 

@@ -2,6 +2,35 @@ import apiConfig from '../Enviroment/enviroment.js'
 import ErrorHandling from './errorHandling.js';
 
 const StoreToken = localStorage.getItem('token')
+const provider = localStorage.getItem('provider')
+
+
+
+// Check Token  
+export async function CheckLogin(obj) {
+  const headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/checkToken`,
+    {
+      method: 'POST',
+      headers: new Headers({
+        'content-type': 'application/json',
+        'Authorization': obj.token,
+        'provider': obj.provider
+      }),
+      // body: JSON.stringify({
+      //   emailAddress: obj.emailAddress,
+      //   password: obj.password,
+      //   Cpassword: obj.Cpassword
+      // }),
+    });
+
+  return await ErrorHandling(result)
+
+};
 
 
 // Login API 
@@ -266,9 +295,9 @@ export async function Login(obj) {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        emailAddress : obj.emailAddress,
-        password : obj.password,
-        firebaseToken: localStorage.getItem('firebaseToken') 
+        emailAddress: obj.emailAddress,
+        password: obj.password,
+        firebaseToken: localStorage.getItem('firebaseToken')
       }),
     });
 
@@ -305,7 +334,7 @@ export async function editProfile(obj) {
   let headers = new Headers();
 
   headers.append('Content-Type', 'application/json');
-  headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('Authorization', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile`,
@@ -332,6 +361,7 @@ export async function GetProfession() {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/profession`,
@@ -354,6 +384,7 @@ export async function GetProfile() {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile`,
@@ -377,6 +408,7 @@ export async function ChangeProfileImage(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/pic`,
@@ -406,6 +438,7 @@ export async function GetFollowers(offset) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower?${offset}`,
@@ -427,6 +460,7 @@ export async function GetFollowing() {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/following`,
@@ -449,6 +483,7 @@ export async function GetProfileByID(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
   console.log(obj)
 
@@ -473,8 +508,8 @@ export async function userActions(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
-  console.log(obj)
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/follow/status`,
@@ -496,6 +531,7 @@ export async function SearchApi(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/search?${obj.offset}`,
@@ -518,6 +554,7 @@ export async function FollowReqest(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow`,
@@ -539,6 +576,7 @@ export async function IMON() {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/status`,
@@ -562,6 +600,7 @@ export async function checkFollow(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/check`,
@@ -582,7 +621,7 @@ export async function GetSuggestion() {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
-
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/suggestion`,
@@ -605,13 +644,14 @@ export async function Favourite(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/favorite`,
     {
       method: 'PUT',
       headers,
-      body:JSON.stringify(obj),
+      body: JSON.stringify(obj),
     });
 
   return await ErrorHandling(result)
@@ -625,13 +665,14 @@ export async function unFollow(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow`,
     {
       method: 'DELETE',
       headers,
-      body:JSON.stringify(obj),
+      body: JSON.stringify(obj),
     });
 
   return await ErrorHandling(result)
@@ -645,13 +686,14 @@ export async function StatusChange(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/status`,
     {
       method: 'PUT',
       headers,
-      body:JSON.stringify(obj),
+      body: JSON.stringify(obj),
     });
 
   return await ErrorHandling(result)
@@ -665,7 +707,7 @@ export async function GetNotification(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
-
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification?offset=${obj.offset}`,
@@ -687,6 +729,7 @@ export async function DeleteNotificationApi(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
 
@@ -709,6 +752,7 @@ export async function MuteNOtification(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
 
@@ -730,7 +774,7 @@ export async function Logout(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
-
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/logout`,
