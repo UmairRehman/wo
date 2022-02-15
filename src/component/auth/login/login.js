@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { Row, Col, Card, Typography, Form, Input, Button, Checkbox, notification, Spin } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
@@ -10,9 +9,8 @@ import {
 
 import { useHistory } from "react-router-dom";
 import { Login as LoginUser } from '../../../services/apiInteraction';
-
-import Amplify, { Auth, Hub } from 'aws-amplify';
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import FacebookLogin from 'react-facebook-login';
+import { CheckLogin } from '../../../services/apiInteraction';
 
 
 // import CSS 
@@ -32,60 +30,148 @@ const validateMessages = (data) => {
 };
 
 
-const oauth = {
-    domain: 'wo.auth.us-east-2.amazoncognito.com',
-    scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-    redirectSignIn: 'https://app.whoson.co/',
-    redirectSignOut: 'https://app.whoson.co/',
-    responseType: 'token'
+const validateMessagesSocial = (message) => {
+    const args = {
+        message: 'Error',
+        description:
+            `${message}`,
+        duration: 5,
+    };
+    notification.error(args);
 };
 
-Auth.configure({
-    region: "us-east-2",
-    userPoolId: "us-east-2_aPujjAawB",
-    userPoolWebClientId: "6u3bu80bhobl8rts163gc022m",
-    oauth
-});
-
-Amplify.configure({
-    aws_cognito_region: "us-east-2", // (required) - Region where Amazon Cognito project was created   
-    aws_user_pools_id: "us-east-2_aPujjAawB", // (optional) -  Amazon Cognito User Pool ID   
-    aws_user_pools_web_client_id: "6u3bu80bhobl8rts163gc022m", // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
-    aws_cognito_identity_pool_id: "us-east-2_aPujjAawB", // (optional) - Amazon Cognito Identity Pool ID   
-    aws_mandatory_sign_in: "enable" // (optional) - Users are not allowed to get the aws credentials unless they are signed in   
-})
 
 function Login() {
+
     const [user, setUser] = useState(null);
+
     const [customState, setCustomState] = useState(null);
-
-
-    useEffect(() => {
-        const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
-            switch (event) {
-                case "signIn":
-                    setUser(data);
-                    break;
-                case "signOut":
-                    setUser(null);
-                    break;
-                case "customOAuthState":
-                    setCustomState(data);
-            }
-        });
-
-        Auth.currentAuthenticatedUser()
-            .then(currentUser => setUser(currentUser))
-            .catch((err) => console.log(err));
-
-        return unsubscribe;
-    }, []);
-
-
 
     const [loader, setLoader] = useState(false)
 
+    const [facebookLogin, setFacebookLogin] = useState(false)
+
+    const [gmailLogin, setGmailLogin] = useState(false)
+
     let history = useHistory();
+
+    const responseFacebook = async (response) => {
+        console.log(response.accessToken);
+        setFacebookLogin(!facebookLogin)
+        // setData(response);
+        // setPicture(response.picture.data.url);
+        // if login success 
+        if (response.accessToken) {
+            let data = {
+                provider: 'FB',
+                token: response.accessToken
+            }
+            console.log(data)
+
+            try {
+
+                setLoader(true)
+                let resultHandle = await CheckLogin(data);
+
+                console.log(resultHandle.message.login)
+
+                if (resultHandle.message.login == false) {
+
+                    localStorage.setItem('token', resultHandle?.message?.accessToken)
+                    history.push("/signup-1");
+                }
+
+                if (resultHandle.message.login == true) {
+
+                    setLoader(false)
+                    localStorage.setItem('token', response.accessToken)
+                    localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
+                    localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
+                    localStorage.setItem('provider', resultHandle.message.foundUser.provider)
+                    history.push("/select");
+                }
+
+                setLoader(false)
+
+            }
+
+            catch (err) {
+                console.log(err)
+                setLoader(false)
+
+            }
+
+
+        } else {
+            // setLogin(false);
+            validateMessagesSocial("Unknown Error, Contact to support");
+            setLoader(false)
+        }
+    }
+
+
+    const responseGoogle = async (response) => {
+        console.log(response);
+
+
+
+        if (response.accessToken) {
+
+            let data = {
+
+                provider: 'Google',
+                token: response.accessToken
+
+            }
+            console.log(response.accessToken)
+
+            try {
+
+                setLoader(true)
+                let resultHandle = await CheckLogin(data);
+
+                console.log(resultHandle.message.login)
+
+                if (resultHandle.message.login == false) {
+
+                    localStorage.setItem('token', resultHandle?.message?.accessToken)
+                    history.push("/signup-1");
+                }
+
+                else if (resultHandle.message.login == true) {
+
+                    setLoader(false)
+                    localStorage.setItem('token', response.accessToken)
+                    localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
+                    localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
+                    localStorage.setItem('provider', resultHandle.message.foundUser.provider)
+                    history.push("/select");
+                }
+                else {
+                    validateMessagesSocial("Unknown Error, Contact to support");
+                }
+
+                setLoader(false)
+
+            }
+
+            catch (err) {
+                console.log(err)
+                setLoader(false)
+
+            }
+
+
+        } else {
+            // setLogin(false);
+            validateMessagesSocial("Unknown Error, Contact to support");
+            setLoader(false)
+        }
+
+
+
+
+    }
 
     const onFinish = async (values) => {
 
@@ -124,30 +210,10 @@ function Login() {
         }
     };
 
-    const responseFacebook = (response) => {
-        console.log(response);
-        // setData(response);
-        // setPicture(response.picture.data.url);
-        if (response.accessToken) {
-            // setLogin(true);
-        } else {
-            // setLogin(false);
-        }
-    }
-
-    const responseGoogle = (response) => {
-        console.log(response);
-    }
 
     return (
 
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
-            {/* <div className="App">
-                <button onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })}>Open Facebook</button>
-                <button onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>Open Google</button>
-                <button onClick={() => Auth.federatedSignIn()}>Open Hosted UI</button>
-                <button onClick={() => Auth.signOut()}>Sign Out {user?.getUsername()}</button>
-            </div> */}
 
             <Spin className="loader" spinning={loader} size="large" />
 
@@ -157,7 +223,6 @@ function Login() {
                 </Col>
                 <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
-                        {/* <Title level={5}></Title> */}
                         <Form
                             name="normal_login"
                             className="login-form"
@@ -205,19 +270,30 @@ function Login() {
 
                             <Form.Item>
 
-                                <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
-                                    <Button className='gmail-button' onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })} >
-                                        Sign In with Google
-                                    </Button>
+                                <Row style={{ justifyContent: 'center' }} className='gmail-button'>
+                                    <GoogleLogin
+                                        clientId="679274960122-g2cbmfm6abqo1smltkl6bh4l8qbk3sbf.apps.googleusercontent.com"
+                                        buttonText="Login"
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        className="gmail-button"
+                                    />
                                 </Row>
                             </Form.Item>
 
 
                             <Form.Item className="position-relative">
                                 <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
-                                    <Button className='facebook-button' onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })} >
-                                        Sign In with Facebook
-                                    </Button>
+                                    <FacebookLogin
+                                        style={{ borderRadius: '20px' }}
+                                        appId="1294356171049052"
+                                        autoLoad={false}
+                                        fields="name,email,picture"
+                                        scope="public_profile,user_friends"
+                                        callback={responseFacebook}
+                                        icon="fa-facebook"
+                                    />
                                 </Row>
                             </Form.Item>
 

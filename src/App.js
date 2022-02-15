@@ -28,7 +28,6 @@ function App() {
     messaging.requestPermission().then(() => {
       return messaging.getToken()
     }).then(token => {
-      console.log("tokem", token)
       localStorage.setItem('firebaseToken', token)
     }).catch((err) => {
       console.log(err)
