@@ -93,7 +93,11 @@ function Login() {
                     }
                 }
                 else {
-                    validateMessages(resultHandle);
+                    validateMessages(
+                        {
+                            message:'Allready have an account from other social app'
+                        }
+                        );
                     setLoader(false)
                 }
 
@@ -160,7 +164,11 @@ function Login() {
 
                 }
                 else {
-                    validateMessages(resultHandle);
+                    validateMessages(
+                        {
+                            message:'Allready have an account from other social app'
+                        }
+                    );
                     setLoader(false)
                 }
 
