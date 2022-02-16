@@ -307,35 +307,40 @@ function Header(props) {
 
     async function signOut() {
 
-        let data = {
+        localStorage.clear()
+        history.push('./login')
 
-            emailAddress: profile?.emailAddress,
-            firebaseToken: profile?.firebaseToken,
-        }
-        try {
+        
 
-            setLoader(true)
+        // let data = {
 
-            let resultHandle = await Logout(data);
+        //     emailAddress: profile?.emailAddress,
+        //     firebaseToken: profile?.firebaseToken,
+        // }
+        // try {
 
-            if (resultHandle?.success == true) {
+        //     setLoader(true)
 
-                setLoader(false)
-                window.localStorage.clear();
-                history.push('./login')
+        //     let resultHandle = await Logout(data);
 
-            }
+        //     if (resultHandle?.success == true) {
 
-            else {
-                validateMessages(resultHandle);
-                setLoader(false)
-            }
+        //         setLoader(false)
+        //         window.localStorage.clear();
+        //         history.push('./login')
 
-        }
-        catch (err) {
-            console.log(err)
-            setLoader(false)
-        }
+        //     }
+
+        //     else {
+        //         validateMessages(resultHandle);
+        //         setLoader(false)
+        //     }
+
+        // }
+        // catch (err) {
+        //     console.log(err)
+        //     setLoader(false)
+        // }
     }
 
     return (
