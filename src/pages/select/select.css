@@ -3,16 +3,21 @@
     height: 450px;
     border-radius: 30px;
     margin: 10px;
-    background-image: url('../../assets/images/boy.png');
+    background-image: url('../../assets/images/logo-green.png');
     background-repeat: no-repeat;
     background-position: bottom;
+    background-size: 200px 200px;
 }
 .green{
     background: #27B824;
     border-radius: 30px;
     height: 450px;
     margin: 10px;
-    background-image: url('../../assets/images/boy1.png');
+    
+    background-image: url('../../assets/images/logo-orange.png');
+    background-size: 200px 200px;
+
+ 
     background-repeat: no-repeat;
     background-position: bottom;
 }
