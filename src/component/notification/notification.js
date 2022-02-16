@@ -246,10 +246,10 @@ function Notification(props) {
 
   function onClickNotification(data) {
 
-    console.log(data.from_data[0]._id)
+    console.log(data.from_data[0]?.username)
 
     history.push({
-      pathname: `/profile/${data.from_data[0]._id}`,
+      pathname: `/profile/${data.from_data[0].username}`,
     });
 
 
@@ -263,13 +263,13 @@ function Notification(props) {
 
       {getNotification.map((data) =>
 
-        <Row onClick={() => onClickNotification(data)} key={data} className="notification-row mt-5">
+        <Row key={data} className="notification-row mt-5">
 
-          <Col className="display-in-mobile" span={3}>
+          <Col  onClick={() => onClickNotification(data)} className="display-in-mobile" span={3}>
             <Image className='min-max-width' style={{ width: 'inherit' }} preview={false} style={{ borderRadius: '50%', marginTop: '10px' }} src={data?.from_data[0]?.profilePicUrl} />
           </Col>
 
-          <Col className="position-relative self-align-center" span={13}>
+          <Col  onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={13}>
             {data.type == 1 ?
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
 

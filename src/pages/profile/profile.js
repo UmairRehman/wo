@@ -84,8 +84,9 @@ function Profile() {
 
     const onFinish = async (values: any) => {
 
+        console.log(profile._id)
         let data = {
-            "followee": params.id,
+            "followee": profile._id,
             "message": values.message
         }
 
@@ -393,9 +394,7 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
                         </Row>
                         <Row>
-                        <Link to='../users'>
                             <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Followers </Paragraph>
-                            </Link>
                         </Row >
                     </Col>
 
@@ -404,9 +403,7 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.following < 0 ? 0 : profile?.following} </Paragraph>
                         </Row >
                         <Row>
-                            <Link to='../users'>
-                                <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
-                            </Link>
+                            <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
                         </Row>
                     </Col>
 
