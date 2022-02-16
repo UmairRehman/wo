@@ -213,6 +213,7 @@ function Login() {
                 localStorage.setItem('user', JSON.stringify(resultHandle.message.user))
                 localStorage.setItem('email', resultHandle.message.user.emailAddress)
                 localStorage.setItem('token', resultHandle.message.accessToken)
+                localStorage.setItem('provider', "Cognito")
                 history.push("/select");
             }
 
