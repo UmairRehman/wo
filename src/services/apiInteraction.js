@@ -313,7 +313,7 @@ export async function CreateProfile(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
-
+  headers.append('provider', localStorage.getItem('provider'))
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/create/profile`,
     {
@@ -334,7 +334,8 @@ export async function editProfile(obj) {
   let headers = new Headers();
 
   headers.append('Content-Type', 'application/json');
-  headers.append('Authorization', localStorage.getItem('provider'))
+  headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile`,
