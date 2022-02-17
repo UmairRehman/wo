@@ -56,7 +56,8 @@ function Login() {
     let history = useHistory();
 
     const responseFacebook = async (response) => {
-        console.log(response.accessToken);
+        console.log("facebook responce" + response);
+        
         setFacebookLogin(!facebookLogin)
         // setData(response);
         // setPicture(response.picture.data.url);
