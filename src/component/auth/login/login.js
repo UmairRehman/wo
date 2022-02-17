@@ -67,7 +67,7 @@ function Login() {
                 provider: 'FB',
                 token: response.accessToken
             }
-            console.log(data)
+            console.log(response)
 
             try {
 
