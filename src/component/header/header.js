@@ -443,7 +443,7 @@ function Header(props) {
                                     Followers / Following
                                 </Menu.Item>
                             </Link>
-                            <Link to="/notification">
+                            <Link to="../notification">
                                 <Menu.Item icon={<NotificationOutlined className="font-30" />} key="3" >
                                     Notifications
                                 </Menu.Item>
