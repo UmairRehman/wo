@@ -11,7 +11,9 @@ import { useHistory } from "react-router-dom";
 import { SignupApi } from '../../../services/apiInteraction';
 
 import { patterns } from '../../Regix';
-
+import { CheckLogin } from '../../../services/apiInteraction';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 
 // import CSS 
 import '../auth.css'
@@ -29,6 +31,19 @@ const validateMessages = (data) => {
     notification.error(args);
 };
 
+
+const validateMessagesSocial = (message) => {
+    const args = {
+        message: 'Error',
+        description:
+            `${message}`,
+        duration: 5,
+    };
+    notification.error(args);
+};
+
+
+
 function Signup() {
 
     let history = useHistory();
@@ -38,6 +53,147 @@ function Signup() {
     const [error, setError] = useState(false)
 
     const [loader, setLoader] = useState(false)
+
+    const [facebookLogin, setFacebookLogin] = useState(false)
+
+    const [gmailLogin, setGmailLogin] = useState(false)
+
+
+
+    const responseFacebook = async (response) => {
+        console.log("facebook responce" + response);
+
+        setFacebookLogin(!facebookLogin)
+        // setData(response);
+        // setPicture(response.picture.data.url);
+        // if login success 
+        if (response.accessToken) {
+            let data = {
+                provider: 'FB',
+                token: response.accessToken
+            }
+            console.log(response)
+
+            try {
+
+                setLoader(true)
+                let resultHandle = await CheckLogin(data);
+
+                console.log(resultHandle.message.login)
+                if (resultHandle?.success == true) {
+
+                    if (resultHandle.message.login == false) {
+
+                        localStorage.setItem('token', resultHandle?.message?.accessToken)
+                        history.push("/signup-1");
+                    }
+
+                    else if (resultHandle.message.login == true) {
+
+                        setLoader(false)
+                        localStorage.setItem('token', response.accessToken)
+                        localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
+                        localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
+                        localStorage.setItem('provider', resultHandle.message.foundUser.provider)
+                        history.push("/select");
+                    }
+                }
+                else {
+                    validateMessages(
+                        {
+                            message: 'Allready have an account from other social app'
+                        }
+                    );
+                    setLoader(false)
+                }
+
+                setLoader(false)
+
+            }
+
+            catch (err) {
+                console.log(err)
+                setLoader(false)
+
+            }
+
+
+        } else {
+            // setLogin(false);
+            validateMessagesSocial("Unknown Error, Contact to support");
+            setLoader(false)
+        }
+    }
+
+
+    const responseGoogle = async (response) => {
+        console.log(response);
+
+
+
+        if (response.accessToken) {
+
+            let data = {
+
+                provider: 'Google',
+                token: response.accessToken
+
+            }
+            console.log(response.accessToken)
+
+            try {
+
+                setLoader(true)
+                let resultHandle = await CheckLogin(data);
+
+                console.log(resultHandle.message.login)
+                if (resultHandle?.success == true) {
+                    setLoader(false)
+                    if (resultHandle.message.login == false) {
+
+                        localStorage.setItem('token', resultHandle?.message?.accessToken)
+                        history.push("/signup-1");
+                    }
+
+                    else if (resultHandle.message.login == true) {
+
+                        setLoader(false)
+                        localStorage.setItem('token', response.accessToken)
+                        localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
+                        localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
+                        localStorage.setItem('provider', resultHandle.message.foundUser.provider)
+                        history.push("/select");
+                    }
+                    else {
+                        validateMessagesSocial("Unknown Error, Contact to support");
+                    }
+
+                }
+                else {
+                    validateMessages(
+                        {
+                            message: 'Allready have an account from other social app'
+                        }
+                    );
+                    setLoader(false)
+                }
+
+            }
+
+            catch (err) {
+                console.log(err)
+                setLoader(false)
+
+            }
+
+
+        } else {
+            validateMessagesSocial("Unknown Error, Contact to support");
+            setLoader(false)
+        }
+
+    }
+
 
     const onFinish = async (values) => {
 
@@ -116,8 +272,8 @@ function Signup() {
                             initialValues={{ remember: true }}
                             onFinish={onFinish}
                         >
-                            <Form.Item 
-                                
+                            <Form.Item
+
                                 name="email"
                                 rules={[{ type: 'email', required: true, message: 'Please input your valid email!' }]}
                             >
@@ -190,21 +346,36 @@ function Signup() {
                                 {/* </Link> */}
                             </Form.Item>
 
+
                             <Form.Item>
-                                <Button type="primary" htmlType="submit" className="gmail-icon mt-5 w-100" >
-                                    Sign in with Google
-                                </Button>
+
+                                <Row style={{ justifyContent: 'center' }} className='gmail-button'>
+                                    <GoogleLogin
+                                        clientId="679274960122-g2cbmfm6abqo1smltkl6bh4l8qbk3sbf.apps.googleusercontent.com"
+                                        buttonText="Login"
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        className="gmail-button"
+                                    />
+                                </Row>
                             </Form.Item>
 
 
                             <Form.Item className="position-relative">
-                                <Button
-                                    // icon={<Image preview={false} 
-                                    // src={Facebook} />}
-                                    type="primary" htmlType="submit" className="faceook-button mt-5 w-100" >
-                                    Sign in with Facebook
-                                </Button>
+                                <Row style={{ justifyContent: 'center' }} className='facebook-button-span'>
+                                    <FacebookLogin
+                                        style={{ borderRadius: '20px' }}
+                                        appId="1294356171049052"
+                                        autoLoad={false}
+                                        fields="name,email,picture"
+                                        scope="public_profile,user_friends,email"
+                                        callback={responseFacebook}
+                                        icon="fa-facebook"
+                                    />
+                                </Row>
                             </Form.Item>
+
                         </Form>
                         <Row className='j-c-c'>
                             <Text>Allready have an account?
