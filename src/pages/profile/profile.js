@@ -57,9 +57,13 @@ const validateMessagesFollow = (data) => {
 function Profile() {
 
     const { Content } = Layout;
+
     const { Title, Text, Paragraph } = Typography;
+
     const location = useLocation();
+
     const Swal = require('sweetalert2')
+
     const params = useParams();
 
     let id = location?.state
@@ -77,8 +81,10 @@ function Profile() {
     const [authenticate, setAuthenticate] = useState(false)
 
     function handleMenuClick(e) {
+
         message.info('Click on menu item.');
         console.log('click', e);
+
     }
 
 
@@ -120,10 +126,10 @@ function Profile() {
 
 
     function handleStatus(e) {
-        if (e.key !== 1) {
+        if (e.key == 1) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "Do you want to follow?",
+                text: "Do you want to unfollow?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#27B824',
@@ -175,9 +181,9 @@ function Profile() {
                 confirmButtonText: 'Yes!'
             }).then(async (result) => {
                 if (result.isConfirmed) {
-
+                    console.log(profile)
                     let data = {
-                        followee: params.id,
+                        followee: profile._id,
                         status: 5
                     }
 
@@ -210,14 +216,16 @@ function Profile() {
     }
 
     const followingDropdown = (
-        <Menu className="notification-dropdown" onClick={handleStatus}>
+        <Menu className="notification-dropdown"
+            onClick={handleStatus}
+        >
 
-            <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}>Follow</Paragraph>
-            </Menu.Item>
+            {/* <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '10px' }}> Follow</Paragraph>
+            </Menu.Item> */}
 
             <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '0px' }} onClick={onClickBlock} >Block</Paragraph>
+                <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
             </Menu.Item>
 
         </Menu>
@@ -314,6 +322,7 @@ function Profile() {
 
                 setLoader(false)
                 setProfile(resultHandle?.message.foundUser[0])
+                console.log(resultHandle)
             }
 
             else {
@@ -330,50 +339,53 @@ function Profile() {
 
 
     useEffect(async () => {
+
         let userData = JSON.parse(localStorage.getItem('user'))
 
-        if (authenticate == true) {
-            try {
+        // if (authenticate == true) {
 
-                let data = {
-                    followee: userData._id
+        try {
+
+            let data = {
+                followee: profile._id
+
+            }
+
+            setLoader(true)
+            let resultHandle = await checkFollow(data);
+
+            console.log(resultHandle)
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                if (resultHandle?.message?.followUser) {
+                    setIsFollow(true)
+                    setFollowStatus(resultHandle?.message?.followUser?.status);
                 }
-
-                setLoader(true)
-                let resultHandle = await checkFollow(data);
-
-                if (resultHandle?.success == true) {
-
-                    setLoader(false)
-                    if (resultHandle?.message?.followUser) {
-                        setIsFollow(true)
-                        setFollowStatus(resultHandle?.message?.followUser?.status);
-                    }
-                    else {
-                        setIsFollow(false)
-                    }
-                }
-
                 else {
-                    validateMessages(resultHandle);
-                    setLoader(false)
+                    setIsFollow(false)
                 }
+            }
 
+            else {
+                // validateMessages(resultHandle);
+                setLoader(false)
             }
-            catch (err) {
-                console.log(err)
-            }
+
+        }
+        catch (err) {
+            console.log(err)
         }
 
-    }, [reload])
+        // }
+
+    }, [reload, profile])
 
     return (
         <div className="animation2 " >
 
-            <Spin className="loader"
-                spinning={loader}
-                size="large" />
-
+            <Spin className="loader" spinning={loader} size="large" />
 
             <div className="test" >
                 <Header />

@@ -133,7 +133,7 @@ function PhoneAndEmail() {
                                 name="phone"
                                 rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                             >
-                                <Input className="login-field" prefix={<PhoneOutlined className="login-fonts" />} placeholder="Phone Number" />
+                                <Input className="login-field" prefix={<PhoneOutlined className="login-fonts" />} placeholder="+1434*****" />
                             </Form.Item>
                             <Text style={{ display: error == false ? 'none' : 'block' }} type="danger">Phone Number is not valid</Text>
                             <Form.Item>

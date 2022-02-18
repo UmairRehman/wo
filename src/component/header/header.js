@@ -310,7 +310,7 @@ function Header(props) {
         localStorage.clear()
         history.push('./login')
 
-        
+
 
         // let data = {
 
@@ -399,17 +399,23 @@ function Header(props) {
 
                         <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
                         </Dropdown.Button>,
-                        <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
+                        // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
                     ]}
                 >
                 </PageHeader>
 
             </div>
 
+
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
+                    {profile?.profilePicUrl ?
+                        <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
+                        :
+                        <Image preview={false} width={150} height={150} src={DefaultImage} />
 
-                    <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
+                    }
+                    {/* <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} /> */}
 
                     <PlusOutlined onClick={showModal} className='add-picture' />
 

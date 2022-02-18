@@ -145,7 +145,7 @@ function MyProfile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                console.log(resultHandle?.message?.foundUser[0])
+                console.log("profile" + JSON.stringify(resultHandle?.message))
                 setGetProfile(resultHandle?.message?.foundUser[0])
 
             }
@@ -391,12 +391,7 @@ function MyProfile() {
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
-                        {/* <Row>
-                            <Paragraph className="follower-counter" > 40 </Paragraph>
-                        </Row>
-                        <Row>
-                            <Paragraph className="follower-heading" > Followers </Paragraph>
-                        </Row > */}
+                     
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
@@ -404,13 +399,7 @@ function MyProfile() {
                     </Col>
 
                     <Col style={{ alignSelf: 'end', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
-                        {/* <Dropdown style={{ border: 'none' }}
-                            overlay={profileBellIcon}
-                            placement="bottomRight" >
-                            <Button className='no-focus' style={{ border: 'none' }} >
-                                <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
-                            </Button>
-                        </Dropdown> */}
+                      
                     </Col>
 
                 </Row>
@@ -465,14 +454,19 @@ function MyProfile() {
 
                         </Col>
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
-                            {getProfile?.imOnProfile?.On == true ?
+                            {console.log(getProfile?.imOnProfile?.profession_data.length )}
+                            {getProfile?.imOnProfile?.profession_data.length > 0 ?
+                                <div>
 
-                                <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}> On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
-                                :
-                                <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm Off</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                    {getProfile?.imOnProfile?.On == true ?
 
-                            }
+                                        <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}> On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                        :
+                                        <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm Off</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
 
+                                    }
+                                </div>
+                             : ''}
                             <Button onClick={() => shareProfile()} className='gray-background share-button mr-1' ><ShareAltOutlined /></Button>
 
                             <Button onClick={() => onClickEdit()} className='gray-background share-button' ><EditOutlined /></Button>

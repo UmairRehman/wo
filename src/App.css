@@ -257,15 +257,6 @@ h5 {
   opacity: .6;
 }
 
-.loader {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  background: #fafafa;
-  opacity: .6;
-}
-
 
 .loader .ant-spin-dot {
   top: 48%

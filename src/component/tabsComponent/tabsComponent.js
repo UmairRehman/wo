@@ -71,12 +71,11 @@ function TabsComponent() {
         console.log(data)
     }
 
-    function onClickView(data) {
+    const onClickView = (data) => {
         history.push({
             pathname: `/profile/${data?.followerDetail[0]?.username}`,
             state: data?.follower
         });
-
     }
 
 
@@ -196,7 +195,7 @@ function TabsComponent() {
 
                 <TabPane tab={
                     <Paragraph className="font-20">
-                        {getProfile.length + " "}Followers 
+                        {getProfile.length + " "}Followers
 
                     </Paragraph>} key="1">
                     <Row>
@@ -220,7 +219,7 @@ function TabsComponent() {
                                             </Row>
                                         </Col>
                                         <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                            <Button onClick={() => onClickView(data)} className="follow-button">
+                                            <Button onClick={(e) => onClickView(data)} className="follow-button">
                                                 View Profile
                                             </Button>
                                         </Col>
@@ -270,9 +269,9 @@ function TabsComponent() {
                                                 </Row>
                                             </Col>
                                             <Col className="mobile-center" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'right' }} md={8} xs={24}>
-                                            <Button onClick={() => onClickView(data)} className="follow-button">
-                                                View Profile
-                                            </Button>
+                                                <Button onClick={() => onClickFollowing(data)} className="follow-button">
+                                                    View Profile
+                                                </Button>
                                             </Col>
                                         </Row>
                                     </Card>

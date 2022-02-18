@@ -442,7 +442,7 @@ export async function GetFollowers(offset) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower?${offset}`,
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower?offset=${offset}`,
     {
       method: 'GET',
       headers,

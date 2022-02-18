@@ -37,8 +37,10 @@ function SignupConfirmation() {
 
     const [loader, setLoader] = useState(false)
 
+    let phoneFromLocal = localStorage.getItem('phone')
+
     const onFinish = async (values) => {
-        
+
         setLoader(true)
 
         let data = {
@@ -98,6 +100,15 @@ function SignupConfirmation() {
 
     }
 
+    function split() {
+        let firstLetter = phoneFromLocal.substring(0, 3);
+        let lastLetter = phoneFromLocal.substring(phoneFromLocal.length - 4);
+        let center = "********";
+        let emailDemo = firstLetter + center + lastLetter;
+        return emailDemo
+
+    }
+
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
             <Spin className="loader" spinning={loader} size="large" />
@@ -105,13 +116,13 @@ function SignupConfirmation() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}}  className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={5}>Enter confirmation code</Title>
-                        <Paragraph style={{ textAlign: 'center' }}>Enter the confirmation code we sent to +1 8** *** 369</Paragraph>
+                        <Paragraph style={{ textAlign: 'center' }}>Enter the confirmation code we sent to {split()}</Paragraph>
 
                         <Form
-                        style={{marginBottom:'50px'}}
+                            style={{ marginBottom: '50px' }}
                             name="normal_login"
                             className="login-form"
                             initialValues={{ remember: true }}

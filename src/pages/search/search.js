@@ -60,11 +60,7 @@ function Search() {
 
     }
 
-
-
-
-    useEffect(async () => {
-
+    const onScrollSearch = async(offset = 0) => {
         let data = {
             search: search,
             offset: offSet
@@ -95,8 +91,56 @@ function Search() {
             console.log(err)
             setComponentLoader(false)
         }
+    }
 
-    }, [search, offSet])
+
+    const onSearch = async(offset = 0) => {
+        let data = {
+            search: search,
+            offset: offSet
+        }
+
+        console.log(data)
+        try {
+
+            setComponentLoader(true)
+            let resultHandle = await SearchApi(data);
+
+            console.log(resultHandle)
+
+            if (resultHandle?.success == true) {
+
+                setComponentLoader(false)
+                setSearchUser(resultHandle.message.result)
+                console.log(resultHandle.message.result)
+
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setComponentLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            setComponentLoader(false)
+        }
+    }
+
+
+    useEffect(async () => {
+
+        onScrollSearch(offSet);
+
+    }, [offSet])
+
+    
+    useEffect(async () => {
+
+        onSearch(offSet);
+
+    }, [search])
 
 
     function onClickView(data) {
