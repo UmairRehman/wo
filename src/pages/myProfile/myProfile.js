@@ -418,8 +418,6 @@ function MyProfile() {
                 <Row className=' padding-whole-page' >
                     <Row className='w-100'>
 
-                        {console.log(getProfile)}
-
                         <Col md={12} xs={24}>
                             <Paragraph className="m-0" style={{ color: '#A8A8A8' }}>{getProfile?.private == false ? "Public Account" : "Private Account"}</Paragraph>
                             {getProfile?.imOnProfile ?
@@ -427,10 +425,8 @@ function MyProfile() {
                                 : null}
                             <Paragraph>{getProfile?.emailAddress}</Paragraph>
                             <Paragraph>{getProfile?.phoneNumber}</Paragraph>
-                            {console.log(getProfile)}
                             <Title level={5} >Dashboard</Title>
                             <Row>
-
 
                                 <div className="follow-card">
                                     <Row style={{ color: '#FD6700' }}>

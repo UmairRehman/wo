@@ -3,7 +3,7 @@ import {
     DeleteOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select, InputNumber  } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Spin, message, Form, Input, Select, InputNumber } from 'antd';
 import { editProfile } from '../../../services/apiInteraction';
 
 import { GetProfession } from '../../../services/apiInteraction';
@@ -29,7 +29,7 @@ const EditProfile = (user) => {
     const { Option } = Select;
     let history = useHistory();
     const [userHistory, setUserHistory] = useState({})
-    const [accountType, setAccountType] = useState('')
+    const [accountTypeCustom, setAccountTypeCustom] = useState('')
     const [profession, setProfession] = useState('')
     const [services, setServices] = useState([{ name: "", price: "" }]);
     const [loader, setLoader] = useState(false)
@@ -43,8 +43,8 @@ const EditProfile = (user) => {
     const [price, setPrice] = useState([...id.imOnProfile.services.map(data => data.price)]);
     form.setFieldsValue({
         service: service,
-        price : price
-     });
+        price: price
+    });
 
     useEffect(async () => {
 
@@ -83,16 +83,18 @@ const EditProfile = (user) => {
 
 
     const onFinish = async (values: any) => {
+        // setLoader(true)
 
         let services = [];
 
         values.service.forEach((key, i) => services[i] = {
             name: values.service[i],
-            price: String(values.price[i]) 
+            price: String(values.price[i])
         });
 
         let data = {
-            // private: accountType == '' ? userHistory.private : accountType,
+            // private: accountTypeCustom == '' ? userHistory.private : accountTypeCustom,
+            private: accountTypeCustom  == true ? true : accountTypeCustom == false ? false : userHistory.private,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
             address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
@@ -103,11 +105,8 @@ const EditProfile = (user) => {
             services: services
         }
 
-        console.log(data)
-
         try {
             let resultHandle = await editProfile(data)
-            setLoader(true)
 
             if (resultHandle?.success == true) {
 
@@ -139,7 +138,7 @@ const EditProfile = (user) => {
 
 
     function handleChangeAccountType(value) {
-        setAccountType(value)
+        setAccountTypeCustom(value)
     }
 
     // handle input change
@@ -156,16 +155,16 @@ const EditProfile = (user) => {
         list.splice(index, 1);
         setServices(list);
         let service = form.getFieldValue("service");
-        service.splice(index,1);
+        service.splice(index, 1);
 
         let price = form.getFieldValue("price");
-        price.splice(index,1);
+        price.splice(index, 1);
         setService(service);
         setPrice(price)
         form.setFieldsValue({
             service,
-            price 
-         });
+            price
+        });
     };
 
     // handle click event of the Add button
@@ -205,7 +204,7 @@ const EditProfile = (user) => {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         className="w-100"
-                        form = {form}
+                        form={form}
                     >
 
                         <Row>
@@ -218,8 +217,8 @@ const EditProfile = (user) => {
                                         placeholder={userHistory.private == true ? "Private Account" : "Public Account"}
                                         style={{ width: '100%' }}
                                         onChange={handleChangeAccountType}>
-                                        <Option value="true">Private</Option>
-                                        <Option value="false">Public</Option>
+                                        <Option value={true}>Private</Option>
+                                        <Option value={false}>Public</Option>
                                     </Select>
                                 </Form.Item>
 
@@ -325,7 +324,7 @@ const EditProfile = (user) => {
                                                 <Form.Item
                                                     name={['service', i]}
                                                     placeholder={x.name}
-                                                    value= {x.name}
+                                                    value={x.name}
                                                 >
                                                     <Input
 
@@ -345,12 +344,12 @@ const EditProfile = (user) => {
 
                                             {/* {i == services.length - 1 ? */}
 
-                                                <Col className="padding-20" span={2}>
-                                                    {/* {i == 0 ? '' : */}
-                                                        <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
-                                                    {/* } */}
-                                                </Col>
-{/* 
+                                            <Col className="padding-20" span={2}>
+                                                {/* {i == 0 ? '' : */}
+                                                <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
+                                                {/* } */}
+                                            </Col>
+                                            {/* 
                                                 : ''
                                             } */}
 
