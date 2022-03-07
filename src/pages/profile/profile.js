@@ -80,6 +80,12 @@ function Profile() {
 
     const [authenticate, setAuthenticate] = useState(false)
 
+    const [currentUser, setCurrentUser] = useState();
+
+    const [searchedUser, setSearchedUser] = useState();
+
+    
+
     function handleMenuClick(e) {
 
         message.info('Click on menu item.');
@@ -93,7 +99,7 @@ function Profile() {
         console.log(profile._id)
         let data = {
             "followee": profile._id,
-            "message": values.message
+            "message": values.message ? values.message : "",
         }
 
         try {
@@ -102,9 +108,10 @@ function Profile() {
 
             if (resultHandle?.success == true) {
 
-                setLoader(false)
-                validateMessagesFollow("");
+                validateMessagesFollow("Request Successfully Sent!");
                 setReload(!reload)
+                setLoader(false)
+
             }
 
             else {
@@ -322,7 +329,9 @@ function Profile() {
 
                 setLoader(false)
                 setProfile(resultHandle?.message.foundUser[0])
-                console.log(resultHandle)
+                setSearchedUser(resultHandle.message.foundUser[0].username);
+                setSearchedUser(params.id)
+                setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
             }
 
             else {
@@ -428,10 +437,14 @@ function Profile() {
                                     <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                                 </Button>
                             </Dropdown>
+                            {
+                                currentUser !== searchedUser &&
                             <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
                                     <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
                             </Dropdown>
+                            }
+                            
                         </Col>
                         : ""}
 
@@ -505,15 +518,15 @@ function Profile() {
                                 autoComplete="off"
                                 className="w-100"
                             >
-                                <Form.Item name={['message']} rules={[{ required: true, message: 'Please enter mesage' }]}>
+                                <Form.Item name={['message']} >
                                     <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
                                 </Form.Item>
 
-                                <Form.Item >
+                                { currentUser !== searchedUser && <Form.Item >
                                     <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
                                         Send follow request
                                     </Button>
-                                </Form.Item>
+                                </Form.Item>}
                             </Form>
                         </Row>
                     </div>

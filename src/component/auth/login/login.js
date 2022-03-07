@@ -55,6 +55,11 @@ function Login() {
 
     let history = useHistory();
 
+    useEffect(()=> {
+        const token = localStorage.getItem('token');
+        if (token) history.push('/profile-1')
+    },[])
+
     const responseFacebook = async (response) => {
         console.log("facebook responce" + response);
         

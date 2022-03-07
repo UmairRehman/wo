@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect
 } from "react-router-dom";
 import ForgetConfirmation from '../component/auth/forgetPassword/confirmation.js';
 import ForgetPassword from '../component/auth/forgetPassword/forgetPassword.js';
@@ -42,6 +43,7 @@ import Complete from '../pages/complete/complete.js';
 import Search from '../pages/search/search.js';
 import EditProfile from '../component/auth/signUp/editProfile.js';
 import ScrollDown from '../component/scroolDown/scroolDown.js';
+import AuthCheck from '../AuthCheck/authCheck.js';
 
 
 
@@ -110,9 +112,9 @@ function router() {
                             <SignupForm />
                         </Route>
 
-                        <Route path='/edit-profile' >
+                        <AuthCheck path='/edit-profile' >
                             <EditProfile />
-                        </Route>
+                        </AuthCheck>
 
                         {/* SignUP end  */}
 
@@ -152,25 +154,25 @@ function router() {
                             <Header />
                         </Route>
 
-                        <Route path='/select'>
+                        <AuthCheck path='/select'>
                             <Select />
-                        </Route>
+                        </AuthCheck>
 
-                        <Route path='/intrest'>
+                        <AuthCheck path='/intrest'>
                             <Intrest />
-                        </Route>
+                        </AuthCheck>
 
-                        <Route path='/notification'>
+                        <AuthCheck path='/notification'>
                             <Notification />
-                        </Route>
+                        </AuthCheck>
 
-                        <Route path='/following'>
+                        <AuthCheck path='/following'>
                             <Following />
-                        </Route>
+                        </AuthCheck>
 
-                        <Route path='/users'>
+                        <AuthCheck path='/users'>
                             <UserListing />
-                        </Route>
+                        </AuthCheck>
 
                         {/* This needs to be correct  */}
                         <Route path='/suggest'>
@@ -181,9 +183,9 @@ function router() {
                             <Profile />
                         </Route>
 
-                        <Route path='/profile-1'>
+                        <AuthCheck path='/profile-1'>
                             <MyProfile />
-                        </Route>
+                        </AuthCheck>
 
                         <Route path='/search'>
                             <Search />
@@ -200,6 +202,7 @@ function router() {
                         <Route path='/test'>
                             <UploadProfile />
                         </Route>
+                        <Redirect to="/login" />
 
                         {/* import Component End  */}
 

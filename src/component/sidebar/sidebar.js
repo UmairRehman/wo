@@ -39,9 +39,11 @@ function Sidebar() {
             console.log("else")
 
         }
-
-
     },[])
+
+        const handleSignOut = () => {
+        localStorage.clear();
+    }
 
     return (
         <div>
@@ -68,7 +70,7 @@ function Sidebar() {
                             <Menu.Item icon={<ProfileOutlined className="font-30" />} key="4" >
                                 Share profile l
                             </Menu.Item>
-                            <Menu.Item icon={<LogoutOutlined className="font-30" />} key="5" >
+                            <Menu.Item onClick={handleSignOut} icon={<LogoutOutlined className="font-30" />} key="5" >
                                 Sign out
                             </Menu.Item>
                             <Row className="sidebar-icon" style={{ position: 'absolute', bottom: '100px', right: '0px', fontSize: '30px', color: 'white' }}>
