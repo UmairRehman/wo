@@ -148,7 +148,9 @@ function Header(props) {
                         <Menu.Item key="1">
                             <Row>
                                 <Col style={{ display: 'flex', alignItems: 'center' ,  }} span={5}>
-                                    <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} />
+                                    {data?.from_data[0]?.profilePicUrl ?
+                                     <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} alt={data.from_data[0].firstName[0]} /> :
+                                    <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={DefaultImage} >{data.from_data[0].firstName[0]}</Image>}
                                 </Col>
                                 <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
                                     {data.type == 1 ?
@@ -401,7 +403,7 @@ function Header(props) {
                     extra={[
                         <Input style={{ display: authenticate == true ? null : "none", marginRight: "20px" }} className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
                        <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
-                        { unRead && <p style={{color: "red"}}>!</p> }
+                        {/* { unRead && <p style={{color: "red"}}>!</p> } */}
                         </Dropdown.Button>,
                          // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
                     ]}

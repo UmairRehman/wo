@@ -158,7 +158,6 @@ function Profile() {
 
                             setLoader(false)
                             setReload(!reload)
-                            setReload(!reload)
                             // setProfile(resultHandle?.message.foundUser[0])
                         }
 
@@ -227,9 +226,9 @@ function Profile() {
             onClick={handleStatus}
         >
 
-            {/* <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}> Follow</Paragraph>
-            </Menu.Item> */}
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
+            </Menu.Item>
 
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
@@ -424,7 +423,7 @@ function Profile() {
                             <Paragraph className="follower-counter" > {profile?.following < 0 ? 0 : profile?.following} </Paragraph>
                         </Row >
                         <Row>
-                            <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" > Following </Paragraph>
+                            <Paragraph style={{ fontSize: 'larger' }} className="follower-heading" >Following</Paragraph>
                         </Row>
                     </Col>
 
@@ -472,12 +471,13 @@ function Profile() {
 
                         <Col className="justify-content-end" md={12} xs={24}>
                             {followStatus == ACCEPT ?
-                                <Dropdown className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
-                                    <Button className="following-dropdown-button">Following <DownOutlined /></Button>
+                                <Dropdown disabled={!isFollow} className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
+                                    <Button className="following-dropdown-button">{ isFollow ? <span>Following</span> : <span>Disabled</span>}<DownOutlined /></Button>
                                 </Dropdown>
                                 : followStatus == REQUEST ?
                                     <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sucessfully Sent <CheckOutlined /> </Button>
-                                    : null}
+                                    : null
+                            }
 
                             {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}
 

@@ -37,6 +37,9 @@ function Notification(props) {
 
   const [componentLoader, setComponentLoader] = useState(false)
 
+  const [countFlag, setCountFlag] = useState(0);
+
+
   let history = useHistory();
 
   let newNotification = []
@@ -161,8 +164,14 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
-        setGetNotification([...getNotification, ...resultHandle?.message.notify])
-        setComponentLoader(false)
+        if ( countFlag === 0 ){
+          setGetNotification([...resultHandle?.message.notify])
+          setComponentLoader(false)}
+        if ( countFlag === 1){
+          setGetNotification([...getNotification, ...resultHandle?.message.notify])
+          setComponentLoader(false)
+        }
+        
         // setLoader(false)
       }
 
@@ -184,6 +193,7 @@ function Notification(props) {
 
   function loadMore() {
     setPage(page + 1)
+    setCountFlag(1);
   }
 
 
@@ -306,16 +316,16 @@ function Notification(props) {
 
       )}
 
-      <Row
+      { componentLoader && <Row
         style={{
           justifyContent: 'center', alignItems: 'center',
-          display: componentLoader == true ? null : 'none'
+         
         }}
         className='component-loader j-c-c' >
 
         <Spin className='j-c-c' spinning={true} size="large" />
 
-      </Row>
+      </Row>}
 
 
       <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>

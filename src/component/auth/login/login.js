@@ -129,8 +129,6 @@ function Login() {
     const responseGoogle = async (response) => {
         console.log(response);
 
-
-
         if (response.accessToken) {
 
             let data = {
@@ -165,7 +163,7 @@ function Login() {
                         history.push("/select");
                     }
                     else {
-                        validateMessagesSocial("Unknown Error, Contact to support");
+                        validateMessagesSocial("Unknown Error, Contact to support");    
                     }
 
                 }
