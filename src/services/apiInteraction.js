@@ -94,6 +94,7 @@ export async function VarifyPhoneOTP(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
+  
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/verify/otp`,
@@ -290,13 +291,15 @@ export async function Login(obj) {
   let headers = new Headers();
 
   headers.append('Content-Type', 'application/json');
-  // headers.append('Authorization', localStorage.getItem('token'))
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/login`,
     {
       method: 'POST',
-      headers,
+      headers: new Headers({
+        'content-type': 'application/json',
+        'firebaseToken': firebaseToken
+      }),
       body: JSON.stringify({
         emailAddress: obj.emailAddress,
         password: obj.password,

@@ -16,7 +16,7 @@ import FollowingCard from '../following/followingCard';
 import Suggest from '../../assets/images/suggest.png'
 import userIcon from '../../assets/images/option.png'
 import { Link } from 'react-router-dom';
-import { GetFollowers, GetFollowing } from '../../services/apiInteraction';
+import { GetFollowers, GetFollowing, GetProfile } from '../../services/apiInteraction';
 import { useHistory } from "react-router-dom";
 import DefaultImage from '../../assets/images/default.png'
 
@@ -101,6 +101,11 @@ function TabsComponent() {
 
     const [getProfile, setGetProfile] = useState([])
 
+    const [followData, setFollowData] = useState({
+        follower: 0,
+        following: 0,
+    })
+
     const [getFollowing, setGetFollowing] = useState([])
 
     const [componentLoader, setComponentLoader] = useState(false)
@@ -126,6 +131,30 @@ function TabsComponent() {
     }
 
     useEffect(async () => {
+        try {
+            setLoader(true)
+            let resultHandle = await GetProfile();
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                console.log("profile", resultHandle?.message.foundUser[0])
+                setFollowData(resultHandle?.message?.foundUser[0])
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }, [])
+    
+
+    useEffect(async () => {
 
         try {
             setLoader(true)
@@ -137,6 +166,7 @@ function TabsComponent() {
                 setLoader(false)
                 setComponentLoader(false)
                 setGetProfile([...getProfile, ...resultHandle?.message.followUser])
+                console.log(resultHandle?.message.followUser)
 
             }
 
@@ -195,7 +225,7 @@ function TabsComponent() {
 
                 <TabPane tab={
                     <Paragraph className="font-20">
-                        {getProfile.length + " "}Followers
+                        {followData?.follower + " "}Followers
 
                     </Paragraph>} key="1">
                     <Row>
@@ -246,7 +276,7 @@ function TabsComponent() {
                 </TabPane>
 
 
-                <TabPane tab={<Paragraph className="font-20">{getFollowing.length + " "} Following</Paragraph>} key="2">
+                <TabPane tab={<Paragraph className="font-20">{followData?.following + " "} Following</Paragraph>} key="2">
                     <Row>
                         {
                             getFollowing.map((data) =>

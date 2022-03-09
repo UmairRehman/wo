@@ -10,6 +10,8 @@ function Notification() {
         notificationMsg : "Congratulations alexander start following you"
     }
 
+  
+
 
     return (
         <div  className="animation2">

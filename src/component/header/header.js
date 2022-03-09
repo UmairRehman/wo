@@ -47,6 +47,9 @@ function Header(props) {
 
     const [authenticate, setAuthenticate] = useState(false)
 
+    const [unRead, setUnread] = useState(false);
+
+
     let history = useHistory();
 
     const { Sider } = Layout;
@@ -90,61 +93,64 @@ function Header(props) {
 
 
 
+
     useEffect(async () => {
 
-        if (localStorage.getItem('token') == null) {
-            setAuthenticate(false)
-        }
-        else {
+        const token = localStorage.getItem('token');
+
+        if (token) {
             setAuthenticate(true)
         }
-
-
-
+        else {
+            setAuthenticate(false)
+        }
         let data = {
 
             offset: 0
 
         }
-        if (authenticate == true) {
 
-            try {
+        try {
 
-                setLoader(true)
-                let resultHandle = await GetNotification(data);
+            setLoader(true)
+            let resultHandle = await GetNotification(data);
 
-                if (resultHandle?.success == true) {
-
-                    setLoader(false)
-                    setGetNotification(resultHandle?.message?.notify)
-                    console.log(resultHandle?.message?.notify)
-
-                }
-
-                else {
-                    validateMessages(resultHandle);
-                    setLoader(false)
-                }
-
+            if (resultHandle?.success === true) {
+                setLoader(false)
+                setGetNotification([...resultHandle?.message?.notify]);
+                // console.log("header",resultHandle.message.notify)
+                const data = resultHandle.message.notify;
+                data.forEach((item)=>{
+                    if ( item.isRead ){
+                        setUnread(true);
+                    }
+                })
             }
-            catch (err) {
-                console.log(err)
+            else {
+                validateMessages(resultHandle);
                 setLoader(false)
             }
+
         }
+        catch (err) {
+            console.log(err)
+            setLoader(false)
+        }
+    
 
     }, [])
 
     const menu = (
         <Menu className='notification-menu'>
             <div>
-                {console.log(getNotification)}
-                {getNotification.slice(0, 4).map((data) =>
+                {getNotification?.slice(0, 4).map((data) =>
                     <Link to='../notification'>
                         <Menu.Item key="1">
                             <Row>
-                                <Col style={{ display: 'flex', alignItems: 'center' }} span={5}>
-                                    <Image className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} />
+                                <Col style={{ display: 'flex', alignItems: 'center' ,  }} span={5}>
+                                    {data?.from_data[0]?.profilePicUrl ?
+                                     <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} alt={data.from_data[0].firstName[0]} /> :
+                                    <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={DefaultImage} >{data.from_data[0].firstName[0]}</Image>}
                                 </Col>
                                 <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
                                     {data.type == 1 ?
@@ -161,7 +167,7 @@ function Header(props) {
 
                 )}
                 <Menu.Item className='no-padding-notification' key="4">
-                    <Link to='./notification'>
+                    <Link to='../notification'>
                         <Row className='view-all p-0 m-0'>View All</Row>
                     </Link>
                 </Menu.Item>
@@ -231,13 +237,12 @@ function Header(props) {
             if (resultHandle?.success == true) {
                 setGetProfile(resultHandle?.message?.foundUser[0])
                 setLoader(false)
-
             }
 
             else {
                 validateMessages(resultHandle);
                 setLoader(false)
-
+            
             }
 
         }
@@ -309,7 +314,7 @@ function Header(props) {
     async function signOut() {
 
         localStorage.clear()
-        history.push('./login')
+        history.push('/login')
 
 
 
@@ -389,11 +394,11 @@ function Header(props) {
 
                     ghost={false}
                     extra={[
-                        <Input style={{ display: authenticate == true ? null : "none" }} className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
-
-                        <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
+                        <Input style={{ display: authenticate == true ? null : "none", marginRight: "20px" }} className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
+                       <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
+                        {/* { unRead && <p style={{color: "red"}}>!</p> } */}
                         </Dropdown.Button>,
-                        // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
+                         // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
                     ]}
                 >
                 </PageHeader>
