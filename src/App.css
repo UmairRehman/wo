@@ -534,3 +534,16 @@ html {
   padding-right: 10px !important;
   width: 100% !important;
 }
+
+.animateIn-splash {
+animation: animateIn 1s alternate ease;
+}
+
+@keyframes animateIn {
+  form {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

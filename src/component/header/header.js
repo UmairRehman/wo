@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Menu, Image, Row, PageHeader, Button, Input, message, Dropdown, Modal, notification, Spin, Col, Typography } from 'antd';
-import { SearchOutlined, BellOutlined, HomeOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
+import { SearchOutlined, BellOutlined,AlertOutlined, HomeOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 import User from '../../assets/images/user.png'
 import {
     Link
@@ -12,7 +12,7 @@ import MenuIcon from '../../assets/images/menu.png'
 
 import './header.css'
 import Paragraph from 'antd/lib/skeleton/Paragraph';
-import { ChangeProfileImage, Logout } from '../../services/apiInteraction';
+import { ChangeProfileImage, Logout, readAPI } from '../../services/apiInteraction';
 
 import { GetProfile } from '../../services/apiInteraction';
 import { useHistory } from "react-router-dom";
@@ -90,8 +90,32 @@ function Header(props) {
 
     const [getNotification, setGetNotification] = useState([])
 
+    
 
+    const handleRead = async (notificationID) => {
+        try {
 
+            setLoader(true)
+      
+            let resultHandle = await readAPI(notificationID);
+      
+            if (resultHandle?.success == true) {
+      
+              setLoader(false)
+            }
+      
+            else {
+              validateMessages(resultHandle);
+              setLoader(false)
+            }
+      
+          }
+          catch (err) {
+            console.log(err)
+            setLoader(false)
+          }
+      
+    }
 
 
     useEffect(async () => {
@@ -120,8 +144,9 @@ function Header(props) {
                 setGetNotification([...resultHandle?.message?.notify]);
                 // console.log("header",resultHandle.message.notify)
                 const data = resultHandle.message.notify;
-                data.forEach((item)=>{
-                    if ( item.isRead ){
+                data.slice(0,3).forEach((item)=>{
+                    console.log(item)
+                    if ( !item.isRead  ){
                         setUnread(true);
                     }
                 })
@@ -138,14 +163,14 @@ function Header(props) {
         }
     
 
-    }, [])
+    }, [getNotification])
 
     const menu = (
         <Menu className='notification-menu'>
             <div>
                 {getNotification?.slice(0, 4).map((data) =>
                     <Link to='../notification'>
-                        <Menu.Item key="1">
+                        <Menu.Item onClick={()=> handleRead(data._id)} key="1">
                             <Row>
                                 <Col style={{ display: 'flex', alignItems: 'center' ,  }} span={5}>
                                     {data?.from_data[0]?.profilePicUrl ?
@@ -395,8 +420,9 @@ function Header(props) {
                     ghost={false}
                     extra={[
                         <Input style={{ display: authenticate == true ? null : "none", marginRight: "20px" }} className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
-                       <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={<BellOutlined style={{ fontSize: '25px' }} />}>
-                        {/* { unRead && <p style={{color: "red"}}>!</p> } */}
+                       
+                       
+                       <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={ !unRead ? <BellOutlined style={{ fontSize: '25px'}} /> : <div style={{display: "flex", height: "100%"}}><p style={{ fontSize: "70px" , color: "#F1171C", marginTop: "-72px", zIndex: "999"}}>.</p><BellOutlined style={{ fontSize: '25px' , position: "absolute"}} /></div>}>
                         </Dropdown.Button>,
                          // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
                     ]}

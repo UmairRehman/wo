@@ -56,6 +56,8 @@ function Notification(props) {
     console.log('click', e);
   }
 
+
+
   async function deleteNotification(Id) {
 
     try {
@@ -301,7 +303,7 @@ function Notification(props) {
 
 
           <Col className="self-align-center" span={6}>
-            {data.type == 1 && data.isRead == false ?
+            {data.type == 1 ?
               <Row className='responsive-button-notification '>
 
                 <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>

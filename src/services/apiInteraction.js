@@ -383,6 +383,28 @@ export async function GetProfession() {
 };
 
 
+// Read Notification API
+export async function readAPI(id) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification/${id}`,
+  {
+    method: 'PUT',
+    // header: {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': (localStorage.getItem('token')),
+    //   'provider': (localStorage.getItem('provider'))
+    // },
+    headers
+  });
+
+return await ErrorHandling(result)
+}
 
 // get profile   
 export async function GetProfile() {
