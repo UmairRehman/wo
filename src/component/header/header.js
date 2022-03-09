@@ -174,7 +174,7 @@ function Header(props) {
                             <Row>
                                 <Col style={{ display: 'flex', alignItems: 'center' ,  }} span={5}>
                                     {data?.from_data[0]?.profilePicUrl ?
-                                     <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} alt={data.from_data[0].firstName[0]} /> :
+                                     <Image style={{borderRadius: "50px" }} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} alt={data.from_data[0].firstName[0]} /> :
                                     <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={DefaultImage} >{data.from_data[0].firstName[0]}</Image>}
                                 </Col>
                                 <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
@@ -435,7 +435,7 @@ function Header(props) {
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
                     {profile?.profilePicUrl ?
-                        <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
+                        <Image preview={false} style={{borderRadius:'50%'}} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
                         :
                         <Image preview={false} width={150} height={150} src={DefaultImage} />
 
