@@ -22,7 +22,8 @@
 
 .notifications-custom .ant-dropdown-trigger {
     margin-top: 15px;
-    background: #F8F8F8;
+    background-color: #F8F8F8;
+    color: #27B824;
     border: none;
     padding: 5px !important;
     border-top-right-radius: 50% !important;

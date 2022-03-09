@@ -37,6 +37,9 @@ function Notification(props) {
 
   const [componentLoader, setComponentLoader] = useState(false)
 
+  const [countFlag, setCountFlag] = useState(0);
+
+
   let history = useHistory();
 
   let newNotification = []
@@ -68,7 +71,7 @@ function Notification(props) {
       if (resultHandle?.success == true) {
 
         setLoader(false)
-        setIsReload(!isReload)
+        setIsReload(() => !isReload)
       }
 
       else {
@@ -161,9 +164,15 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
-        setComponentLoader(false)
-
-        setGetNotification([...getNotification, ...resultHandle?.message.notify])
+        if ( countFlag === 0 ){
+          setGetNotification([...resultHandle?.message.notify])
+          setComponentLoader(false)}
+        if ( countFlag === 1){
+          setGetNotification([...getNotification, ...resultHandle?.message.notify])
+          setComponentLoader(false)
+        }
+        
+        // setLoader(false)
       }
 
       else {
@@ -184,6 +193,7 @@ function Notification(props) {
 
   function loadMore() {
     setPage(page + 1)
+    setCountFlag(1);
   }
 
 
@@ -200,8 +210,8 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
+        setIsReload(() => !isReload)
         setLoader(false)
-        setIsReload(!isReload)
       }
 
       else {
@@ -214,7 +224,6 @@ function Notification(props) {
       console.log(err)
       setLoader(false)
     }
-
   }
 
   async function rejectRequest(data) {
@@ -228,8 +237,9 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
+        setIsReload(() => !isReload)
         setLoader(false)
-        setIsReload(!isReload)
+        
       }
 
       else {
@@ -266,7 +276,7 @@ function Notification(props) {
         <Row key={data} className="notification-row mt-5">
 
           <Col  onClick={() => onClickNotification(data)} className="display-in-mobile" span={3}>
-            <Image className='min-max-width' style={{ width: 'inherit' }} preview={false} style={{ borderRadius: '50%', marginTop: '10px' }} src={data?.from_data[0]?.profilePicUrl} />
+            <Image className='min-max-width' style={{ width: 'inherit' , borderRadius: '50%', marginTop: '10px' , maxWidth: "115px", maxHeight: "100px"}} preview={false} src={data?.from_data[0]?.profilePicUrl} />
           </Col>
 
           <Col  onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={13}>
@@ -306,16 +316,16 @@ function Notification(props) {
 
       )}
 
-      <Row
+      { componentLoader && <Row
         style={{
           justifyContent: 'center', alignItems: 'center',
-          display: componentLoader == true ? null : 'none'
+         
         }}
         className='component-loader j-c-c' >
 
         <Spin className='j-c-c' spinning={true} size="large" />
 
-      </Row>
+      </Row>}
 
 
       <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>

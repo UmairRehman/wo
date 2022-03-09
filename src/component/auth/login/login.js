@@ -55,6 +55,11 @@ function Login() {
 
     let history = useHistory();
 
+    useEffect(()=> {
+        const token = localStorage.getItem('token');
+        if (token) history.push('/profile-1')
+    },[])
+
     const responseFacebook = async (response) => {
         console.log("facebook responce" + response);
         
@@ -124,8 +129,6 @@ function Login() {
     const responseGoogle = async (response) => {
         console.log(response);
 
-
-
         if (response.accessToken) {
 
             let data = {
@@ -160,7 +163,7 @@ function Login() {
                         history.push("/select");
                     }
                     else {
-                        validateMessagesSocial("Unknown Error, Contact to support");
+                        validateMessagesSocial("Unknown Error, Contact to support");    
                     }
 
                 }
