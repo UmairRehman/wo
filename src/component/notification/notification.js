@@ -202,6 +202,7 @@ function Notification(props) {
 
         setLoader(false)
         setIsReload(!isReload)
+        setGetNotification([])
       }
 
       else {
@@ -230,6 +231,7 @@ function Notification(props) {
 
         setLoader(false)
         setIsReload(!isReload)
+        setGetNotification([])
       }
 
       else {

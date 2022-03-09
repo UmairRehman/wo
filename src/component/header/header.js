@@ -138,6 +138,7 @@ function Header(props) {
     const menu = (
         <Menu className='notification-menu'>
             <div>
+                {console.log(getNotification)}
                 {getNotification.slice(0, 4).map((data) =>
                     <Link to='../notification'>
                         <Menu.Item key="1">
@@ -380,13 +381,6 @@ function Header(props) {
                 </Row>
             </Modal>
             <div className="site-page-header-ghost-wrapper">
-
-                {/* <Row className="sidebar-icon mt-5" style={{position:'absolute', bottom:'100px', right:'0px', fontSize:'30px', color:'white'}}>
-                        {React.createElement(collapsed ? ArrowRightOutlined : ArrowLeftOutlined, {
-                        className: 'trigger',
-                        onClick: toggle,
-                        })}
-                    </Row> */}
 
                 <PageHeader
                     className="site-page-header"

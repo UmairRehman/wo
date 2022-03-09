@@ -2,6 +2,7 @@ import apiConfig from '../Enviroment/enviroment.js'
 import ErrorHandling from './errorHandling.js';
 
 const StoreToken = localStorage.getItem('token')
+const firebaseToken = localStorage.getItem('firebaseToken')
 const provider = localStorage.getItem('provider')
 
 
@@ -19,7 +20,9 @@ export async function CheckLogin(obj) {
       headers: new Headers({
         'content-type': 'application/json',
         'Authorization': obj.token,
-        'provider': obj.provider
+        'provider': obj.provider,
+        'firebaseToken': firebaseToken
+
       }),
       // body: JSON.stringify({
       //   emailAddress: obj.emailAddress,

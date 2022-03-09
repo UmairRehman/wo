@@ -139,9 +139,8 @@ function Profile() {
                 if (result.isConfirmed) {
 
                     let data = {
-                        followee: id
+                        followee: profile._id
                     }
-
                     try {
 
                         setLoader(true)
@@ -164,9 +163,6 @@ function Profile() {
                     catch (err) {
                         console.log(err)
                     }
-
-
-
                 }
             })
         }
@@ -219,10 +215,9 @@ function Profile() {
         <Menu className="notification-dropdown"
             onClick={handleStatus}
         >
-
-            {/* <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}> Follow</Paragraph>
-            </Menu.Item> */}
+            <Menu.Item key="1">
+                <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
+            </Menu.Item>
 
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
@@ -231,11 +226,6 @@ function Profile() {
         </Menu>
     );
 
-    function onClickBlock() {
-
-        console.log(profile?.imOnProfile?.profession_data[0]?._id)
-
-    }
 
     const shareDropdowm = (
         <Menu className="notification-dropdown" >
