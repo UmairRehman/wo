@@ -7,6 +7,8 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './notification.css'
 import { useHistory } from "react-router-dom";
 import { DeleteNotificationApi, GetNotification, MuteNOtification, StatusChange } from '../../services/apiInteraction';
+import DefaultImage from '../../assets/images/default.png'
+import moment from 'moment';
 
 
 const { Title, Text, Paragraph } = Typography;
@@ -164,14 +166,15 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
-        if ( countFlag === 0 ){
+        if (countFlag === 0) {
           setGetNotification([...resultHandle?.message.notify])
-          setComponentLoader(false)}
-        if ( countFlag === 1){
+          setComponentLoader(false)
+        }
+        if (countFlag === 1) {
           setGetNotification([...getNotification, ...resultHandle?.message.notify])
           setComponentLoader(false)
         }
-        
+
         // setLoader(false)
       }
 
@@ -239,7 +242,7 @@ function Notification(props) {
 
         setIsReload(() => !isReload)
         setLoader(false)
-        
+
       }
 
       else {
@@ -275,11 +278,15 @@ function Notification(props) {
 
         <Row key={data} className="notification-row mt-5">
 
-          <Col  onClick={() => onClickNotification(data)} className="display-in-mobile" span={3}>
-            <Image className='min-max-width' style={{ width: 'inherit' , borderRadius: '50%', marginTop: '10px' , maxWidth: "115px", maxHeight: "100px"}} preview={false} src={data?.from_data[0]?.profilePicUrl} />
+          <Col onClick={() => onClickNotification(data)} className="display-in-mobile" span={3}>
+            {data?.from_data[0]?.profilePicUrl ?
+              <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={data?.from_data[0]?.profilePicUrl} />
+              :
+              <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={DefaultImage}  />
+            }
           </Col>
 
-          <Col  onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={13}>
+          <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={13}>
             {data.type == 1 ?
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
 
@@ -306,6 +313,7 @@ function Notification(props) {
 
           <Col className="self-align-center" span={2}>
             <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
+              <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text>
               <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
                 <Button onClick={() => setID(data)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
               </Dropdown>
@@ -316,10 +324,10 @@ function Notification(props) {
 
       )}
 
-      { componentLoader && <Row
+      {componentLoader && <Row
         style={{
           justifyContent: 'center', alignItems: 'center',
-         
+
         }}
         className='component-loader j-c-c' >
 

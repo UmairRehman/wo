@@ -187,21 +187,22 @@ function router() {
                             <MyProfile />
                         </AuthCheck>
 
-                        <Route path='/search'>
+                        <AuthCheck path='/search'>
                             <Search />
-                        </Route>
+                        </AuthCheck>
 
                         {/* This needs to be correct from here */}
 
                         {/* import Component  */}
 
-                        <Route path='/following-card'>
+                        <AuthCheck path='/following-card'>
                             <FollowingCard />
-                        </Route>
+                        </AuthCheck>
 
-                        <Route path='/test'>
+                        <AuthCheck path='/test'>
                             <UploadProfile />
-                        </Route>
+                        </AuthCheck>
+                        
                         <Redirect to="/login" />
 
                         {/* import Component End  */}
