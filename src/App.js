@@ -29,7 +29,7 @@ function App() {
     var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
 
     if (isSafari) {
-      alert("Notification disabled in Safari")
+      // alert("Notification disabled in Safari")
     }
     else {
       const messaging = firebase.messaging();
