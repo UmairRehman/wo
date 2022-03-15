@@ -313,7 +313,7 @@ function Profile() {
             setLoader(true)
             let resultHandle = await GetProfileByID(params);
 
-
+            console.log(params)
             if (resultHandle?.success == true) {
 
                 setLoader(false)
@@ -321,12 +321,15 @@ function Profile() {
                 setSearchedUser(resultHandle.message.foundUser[0].username);
                 setSearchedUser(params.id)
                 setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
+
+                console.log(resultHandle)
             }
 
             else {
                 validateMessages(resultHandle);
                 setLoader(false)
             }
+            console.log(resultHandle)
 
         }
         catch (err) {
