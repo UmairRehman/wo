@@ -84,7 +84,7 @@ function Profile() {
 
     const [searchedUser, setSearchedUser] = useState();
 
-    
+
 
     function handleMenuClick(e) {
 
@@ -329,7 +329,6 @@ function Profile() {
                 validateMessages(resultHandle);
                 setLoader(false)
             }
-            console.log(resultHandle)
 
         }
         catch (err) {
@@ -341,44 +340,48 @@ function Profile() {
 
     useEffect(async () => {
 
-        let userData = JSON.parse(localStorage.getItem('user'))
+        // let userData = JSON.parse(localStorage.getItem('user'))
 
         // if (authenticate == true) {
+        let token = localStorage.getItem('token')
+        console.log('token', token)
+        if (token !== null) {
 
-        try {
+            try {
 
-            let data = {
-                followee: profile._id
+                let data = {
+                    followee: profile._id
 
-            }
-
-            setLoader(true)
-            let resultHandle = await checkFollow(data);
-
-            console.log(resultHandle)
-
-            if (resultHandle?.success == true) {
-
-                setLoader(false)
-                if (resultHandle?.message?.followUser) {
-                    setIsFollow(true)
-                    setFollowStatus(resultHandle?.message?.followUser?.status);
                 }
+
+                setLoader(true)
+                let resultHandle = await checkFollow(data);
+
+                console.log(resultHandle)
+
+                if (resultHandle?.success == true) {
+
+                    setLoader(false)
+                    if (resultHandle?.message?.followUser) {
+                        setIsFollow(true)
+                        setFollowStatus(resultHandle?.message?.followUser?.status);
+                    }
+                    else {
+                        setIsFollow(false)
+                    }
+                }
+
                 else {
-                    setIsFollow(false)
+                    // validateMessages(resultHandle);
+                    setLoader(false)
                 }
-            }
 
-            else {
-                // validateMessages(resultHandle);
-                setLoader(false)
+            }
+            catch (err) {
+                console.log(err)
             }
 
         }
-        catch (err) {
-            console.log(err)
-        }
-
         // }
 
     }, [reload, profile])
@@ -431,12 +434,12 @@ function Profile() {
                             </Dropdown>
                             {
                                 currentUser !== searchedUser &&
-                            <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
-                                <Button style={{ border: 'none' }} >
-                                    <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
-                            </Dropdown>
+                                <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
+                                    <Button style={{ border: 'none' }} >
+                                        <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
+                                </Dropdown>
                             }
-                            
+
                         </Col>
                         : ""}
 
@@ -465,7 +468,7 @@ function Profile() {
                         <Col className="justify-content-end" md={12} xs={24}>
                             {followStatus == ACCEPT ?
                                 <Dropdown disabled={!isFollow} className="gray-background following-dropdown mr-2" overlay={followingDropdown} placement="bottomRight" arrow>
-                                    <Button className="following-dropdown-button">{ isFollow ? <span>Following</span> : <span>Disabled</span>}<DownOutlined /></Button>
+                                    <Button className="following-dropdown-button">{isFollow ? <span>Following</span> : <span>Disabled</span>}<DownOutlined /></Button>
                                 </Dropdown>
                                 : followStatus == REQUEST ?
                                     <Button style={{ border: 'none' }} className="mr-2 following-dropdown-button2">Follow Request Sucessfully Sent <CheckOutlined /> </Button>
@@ -515,7 +518,7 @@ function Profile() {
                                     <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
                                 </Form.Item>
 
-                                { currentUser !== searchedUser && <Form.Item >
+                                {currentUser !== searchedUser && <Form.Item >
                                     <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
                                         Send follow request
                                     </Button>
