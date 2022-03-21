@@ -94,7 +94,7 @@ export async function VarifyPhoneOTP(obj) {
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
-  
+
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/verify/otp`,
@@ -393,17 +393,17 @@ export async function readAPI(id) {
   headers.append('provider', localStorage.getItem('provider'))
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification/${id}`,
-  {
-    method: 'PUT',
-    // header: {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': (localStorage.getItem('token')),
-    //   'provider': (localStorage.getItem('provider'))
-    // },
-    headers
-  });
+    {
+      method: 'PUT',
+      // header: {
+      //   'Content-Type': 'application/json',
+      //   'Authorization': (localStorage.getItem('token')),
+      //   'provider': (localStorage.getItem('provider'))
+      // },
+      headers
+    });
 
-return await ErrorHandling(result)
+  return await ErrorHandling(result)
 }
 
 // get profile   
@@ -816,6 +816,32 @@ export async function Logout(obj) {
   return await ErrorHandling(result)
 
 };
+
+// check block status 
+
+export async function checkBlockStatus(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/checkFollower`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
+
 
 
 

@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 import Option from '../../assets/images/option.png'
 import Bell from '../../assets/images/bell.jpg'
 import Line from '../../assets/images/line.png'
-import { checkFollow, GetProfileByID, StatusChange, unFollow } from '../../services/apiInteraction';
+import { checkBlockStatus, checkFollow, GetProfileByID, StatusChange, unFollow } from '../../services/apiInteraction';
 import Services from '../../component/services/services';
 import { FollowReqest } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
@@ -84,7 +84,7 @@ function Profile() {
 
     const [searchedUser, setSearchedUser] = useState();
 
-
+    const [checkBlock, setCheckBlock] = useState()
 
     function handleMenuClick(e) {
 
@@ -96,7 +96,6 @@ function Profile() {
 
     const onFinish = async (values: any) => {
 
-        console.log(profile._id)
         let data = {
             "followee": profile._id,
             "message": values.message ? values.message : "",
@@ -183,7 +182,6 @@ function Profile() {
                 confirmButtonText: 'Yes!'
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    console.log(profile)
                     let data = {
                         followee: profile._id,
                         status: 5
@@ -225,9 +223,12 @@ function Profile() {
                 <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
             </Menu.Item>
 
-            <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
-            </Menu.Item>
+            {checkBlock == true ?
+                <Menu.Item key="2">
+                    <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
+                </Menu.Item>
+                :null
+            }
 
         </Menu>
     );
@@ -281,18 +282,6 @@ function Profile() {
         </Menu>
     );
 
-    const optionDropDown = (
-        <Menu className="notification-dropdown"
-            onClick={handleMenuClick} >
-            <Menu.Item key="1" >
-                <Paragraph style={{ marginBottom: '10px' }} > Block </Paragraph>
-            </Menu.Item >
-            <Menu.Item key="2" >
-                <Paragraph style={{ marginBottom: '10px' }} > Unfollow </Paragraph>
-            </Menu.Item >
-        </Menu>
-    );
-
 
 
     useEffect(async () => {
@@ -313,7 +302,6 @@ function Profile() {
             setLoader(true)
             let resultHandle = await GetProfileByID(params);
 
-            console.log(params)
             if (resultHandle?.success == true) {
 
                 setLoader(false)
@@ -322,7 +310,6 @@ function Profile() {
                 setSearchedUser(params.id)
                 setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
 
-                console.log(resultHandle)
             }
 
             else {
@@ -340,11 +327,7 @@ function Profile() {
 
     useEffect(async () => {
 
-        // let userData = JSON.parse(localStorage.getItem('user'))
-
-        // if (authenticate == true) {
         let token = localStorage.getItem('token')
-        console.log('token', token)
         if (token !== null) {
 
             try {
@@ -357,7 +340,6 @@ function Profile() {
                 setLoader(true)
                 let resultHandle = await checkFollow(data);
 
-                console.log(resultHandle)
 
                 if (resultHandle?.success == true) {
 
@@ -382,9 +364,56 @@ function Profile() {
             }
 
         }
-        // }
 
     }, [reload, profile])
+
+
+
+
+
+
+    // check Block status 
+
+    useEffect(async () => {
+
+        let token = localStorage.getItem('token')
+        if (token !== null) {
+
+            setLoader(true)
+
+            try {
+
+                let data = {
+                    followee: profile._id
+                }
+
+                let resultHandle = await checkBlockStatus(data);
+
+                if (resultHandle?.success == true) {
+
+                    setLoader(false)
+
+                    if (resultHandle?.message?.followUser) {
+                        setCheckBlock(true)
+                    }
+                    else {
+                        setCheckBlock(false)
+                    }
+                }
+
+                else {
+                    setLoader(false)
+                }
+
+            }
+            catch (err) {
+                console.log(err)
+            }
+
+        }
+
+    }, [reload, profile])
+
 
     return (
         <div className="animation2 " >
@@ -435,8 +464,11 @@ function Profile() {
                             {
                                 currentUser !== searchedUser &&
                                 <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
-                                    <Button style={{ border: 'none' }} >
-                                        <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
+
+                                    <Button style={{ border: 'none', display: checkBlock == true ? 'none' : 'flex' }} >
+                                        <Image style={{ width: 'inherit' }} preview={false} src={Option} />
+                                    </Button>
+
                                 </Dropdown>
                             }
 
