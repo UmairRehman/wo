@@ -122,6 +122,7 @@ function Profile() {
         }
         catch (err) {
             console.log(err)
+            setLoader(false)
         }
 
     };
@@ -167,6 +168,8 @@ function Profile() {
                     }
                     catch (err) {
                         console.log(err)
+                        setLoader(false)
+
                     }
                 }
             })
@@ -206,6 +209,8 @@ function Profile() {
                     }
                     catch (err) {
                         console.log(err)
+                        setLoader(false)
+
                     }
 
 
@@ -227,7 +232,7 @@ function Profile() {
                 <Menu.Item key="2">
                     <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
                 </Menu.Item>
-                :null
+                : null
             }
 
         </Menu>
@@ -320,6 +325,8 @@ function Profile() {
         }
         catch (err) {
             console.log(err)
+            setLoader(false)
+
         }
 
     }, [reload])
@@ -361,6 +368,7 @@ function Profile() {
             }
             catch (err) {
                 console.log(err)
+                setLoader(false)
             }
 
         }
@@ -408,6 +416,7 @@ function Profile() {
             }
             catch (err) {
                 console.log(err)
+                setLoader(false)
             }
 
         }

@@ -14,11 +14,15 @@ async function ErrorHandling(result) {
         }
         else {
             result = await result.json()
+            console.log('error', result)
+            if (result.message == 'InvalidToken') {
+                localStorage.clear()
+                // window.location.href = "../login";
+            }
             return {
                 success: false,
-                message: result?.message,      
+                message: result?.message,
             }
-            throw new Error(result?.message);
         }
 
     } catch (error) {
