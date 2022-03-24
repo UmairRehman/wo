@@ -120,7 +120,7 @@ function Login() {
 
         } else {
             // setLogin(false);
-            validateMessagesSocial("Unknown Error, Contact to support");
+            // validateMessagesSocial("Unknown Error, Contact to support");
             setLoader(false)
         }
     }
@@ -163,7 +163,7 @@ function Login() {
                         history.push("/select");
                     }
                     else {
-                        validateMessagesSocial("Unknown Error, Contact to support");    
+                        // validateMessagesSocial("Unknown Error, Contact to support");    
                     }
 
                 }
@@ -187,7 +187,7 @@ function Login() {
 
         } else {
             // setLogin(false);
-            validateMessagesSocial("Unknown Error, Contact to support");
+            // validateMessagesSocial("Unknown Error, Contact to support");
             setLoader(false)
         }
 
