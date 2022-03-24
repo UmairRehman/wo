@@ -17,7 +17,6 @@ async function ErrorHandling(result) {
             console.log('error', result)
             if (result.message == 'InvalidToken') {
                 localStorage.clear()
-                // window.location.href = "../login";
             }
             return {
                 success: false,
