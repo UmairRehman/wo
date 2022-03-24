@@ -39,8 +39,11 @@ const EditProfile = (user) => {
 
     let id = location?.state
 
-    const [service, setService] = useState([...id.imOnProfile.services.map(data => data.name)]);
-    const [price, setPrice] = useState([...id.imOnProfile.services.map(data => data.price)]);
+    console.log(id)
+
+    const [service, setService] = useState(id?.imOnProfile.profession_data.length == 0 ? [] : [...id?.imOnProfile?.services.map(data => data?.name)]);
+    const [price, setPrice] = useState(id?.imOnProfile?.services ? [...id?.imOnProfile?.services.map(data => data?.price)] : []);
+
     form.setFieldsValue({
         service: service,
         price: price
@@ -51,7 +54,6 @@ const EditProfile = (user) => {
         let user = id
         console.log(user._id)
         setUserHistory(user)
-        setServices(user?.imOnProfile?.services)
 
         try {
 
@@ -83,18 +85,19 @@ const EditProfile = (user) => {
 
 
     const onFinish = async (values: any) => {
-        // setLoader(true)
 
         let services = [];
 
-        values.service.forEach((key, i) => services[i] = {
-            name: values.service[i],
-            price: String(values.price[i])
-        });
+        if (service.length > 0) {
+            values.service.forEach((key, i) => services[i] = {
+                name: values.service[i],
+                price: String(values.price[i])
+            });
+        }
 
         let data = {
             // private: accountTypeCustom == '' ? userHistory.private : accountTypeCustom,
-            private: accountTypeCustom  == true ? true : accountTypeCustom == false ? false : userHistory.private,
+            private: accountTypeCustom == true ? true : accountTypeCustom == false ? false : userHistory.private,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
             address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
@@ -106,6 +109,9 @@ const EditProfile = (user) => {
         }
 
         try {
+
+            setLoader(true)
+
             let resultHandle = await editProfile(data)
 
             if (resultHandle?.success == true) {
@@ -215,7 +221,7 @@ const EditProfile = (user) => {
                                 >
                                     <Select className="form-dropdown"
                                         placeholder={userHistory.private == true ? "Private Account" : "Public Account"}
-                                        style={{ width: '100%' }}
+                                        style={{ width: '80%' }}
                                         onChange={handleChangeAccountType}>
                                         <Option value={true}>Private</Option>
                                         <Option value={false}>Public</Option>
@@ -285,98 +291,90 @@ const EditProfile = (user) => {
                         </Row>
 
                         <Row>
-                            <Col className="padding-20" md={12} xs={24} >
-                                <Paragraph className="font-18">Profession</Paragraph>
-                                <Form.Item
-                                    name={['profession']}
-                                >
-                                    <Select placeholder={userHistory?.imOnProfile?.profession_data[0]?.name} className="form-dropdown" style={{ width: '100%' }} onChange={handleChange}>
+                            {service.length > 0 ?
+                                <Col className="padding-20" md={12} xs={24} >
+                                    <Paragraph className="font-18">Profession</Paragraph>
+                                    <Form.Item
+                                        name={['profession']}
+                                    >
+                                        <Select placeholder={userHistory?.imOnProfile?.profession_data[0]?.name} className="form-dropdown" style={{ width: '100%' }} onChange={handleChange}>
 
-                                        {
-                                            getProfession.map((profession) =>
-                                                <Option value={profession._id}>{profession.name}</Option>
-                                            )
-                                        }
-                                    </Select>
+                                            {
+                                                getProfession.map((profession) =>
+                                                    <Option value={profession._id}>{profession.name}</Option>
+                                                )
+                                            }
+                                        </Select>
 
-                                </Form.Item>
-                            </Col>
+                                    </Form.Item>
+                                </Col>
+                                : null}
 
-                            <Col className="padding-20" md={12} xs={24} >
+                            {service.length > 0 ?
+
+                                <Col className="padding-20" md={12} xs={24} >
 
 
-                                <Row>
-                                    <Col className="padding-20" span={12}>
-                                        <Paragraph className="font-18">Services</Paragraph>
+                                    <Row>
+                                        <Col className="padding-20" span={12}>
+                                            <Paragraph className="font-18">Services</Paragraph>
 
-                                    </Col>
-                                    <Col className="padding-20" span={12}>
-                                        <Paragraph className="font-18">Price</Paragraph>
-                                    </Col>
-                                </Row>
+                                        </Col>
+                                        <Col className="padding-20" span={12}>
+                                            <Paragraph className="font-18">Price</Paragraph>
+                                        </Col>
+                                    </Row>
 
-                                {services.map((x, i) => {
-                                    return (
+                                    {services.map((x, i) => {
+                                        return (
 
-                                        <Row>
+                                            <Row>
 
-                                            <Col className="padding-20" span={12}>
-                                                <Form.Item
-                                                    name={['service', i]}
-                                                    placeholder={x.name}
-                                                    value={x.name}
-                                                >
-                                                    <Input
-
+                                                <Col className="padding-20" span={12}>
+                                                    <Form.Item
+                                                        name={['service', i]}
                                                         placeholder={x.name}
-                                                        className="fancy-border" />
+                                                        value={x.name}
+                                                    >
+                                                        <Input
 
-                                                </Form.Item>
-                                            </Col>
-                                            <Col className="padding-20" span={10}>
-                                                <Form.Item
-                                                    name={['price', i]}
-                                                >
-                                                    <InputNumber placeholder={x.price} className="fancy-border" />
+                                                            placeholder={x.name}
+                                                            className="fancy-border" />
 
-                                                </Form.Item>
-                                            </Col>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col className="padding-20" span={10}>
+                                                    <Form.Item
+                                                        name={['price', i]}
+                                                    >
+                                                        <InputNumber placeholder={x.price} className="fancy-border" />
 
-                                            {/* {i == services.length - 1 ? */}
+                                                    </Form.Item>
+                                                </Col>
 
-                                            <Col className="padding-20" span={2}>
-                                                {/* {i == 0 ? '' : */}
-                                                <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
-                                                {/* } */}
-                                            </Col>
-                                            {/* 
-                                                : ''
-                                            } */}
+                                                <Col className="padding-20" span={2}>
+                                                    <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
+                                                </Col>
 
-                                        </Row>
-                                    )
-                                })}
+                                            </Row>
+                                        )
+                                    })}
 
+                                    <Row>
+                                        <Button className='add-more-button' onClick={handleAddClick}>Add more</Button>
+                                    </Row>
 
-
-
-
-                                <Row>
-                                    <Button className='add-more-button' onClick={handleAddClick}>Add more</Button>
-                                </Row>
-
-                            </Col>
+                                </Col>
+                                : null}
 
                         </Row>
 
                         <Row className="mt-3">
                             <Col md={12} xs={24} >
                                 <Form.Item>
-                                    {/* <Link to="/varified"> */}
                                     <Button className="button" type="primary" htmlType="submit">
                                         Save
                                     </Button>
-                                    {/* </Link> */}
                                 </Form.Item>
                             </Col>
                         </Row>
