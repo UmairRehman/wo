@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Dropdown, Row, Image, Typography, Button, message, Menu, notification, Spin } from 'antd';
 import notificationImage from '../../assets/images/notification.png'
-import { EllipsisOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import Option from '../../assets/images/option.png'
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './notification.css'
 import { useHistory } from "react-router-dom";
 import { DeleteNotificationApi, GetNotification, MuteNOtification, StatusChange } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
 import moment from 'moment';
-
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -284,11 +282,11 @@ function Notification(props) {
             {data?.from_data[0]?.profilePicUrl ?
               <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={data?.from_data[0]?.profilePicUrl} />
               :
-              <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={DefaultImage}  />
+              <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={DefaultImage} />
             }
           </Col>
 
-          <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={13}>
+          <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={11}>
             {data.type == 1 ?
               <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
 
@@ -303,19 +301,31 @@ function Notification(props) {
 
 
           <Col className="self-align-center" span={6}>
-            {data.type == 1 ?
+            {data.type == 1 && data.isRead == false ?
               <Row className='responsive-button-notification '>
 
                 <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
-                <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline</Button>
+
+                <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button>
+
+                {/* <Button onClick={() => acceptRequest(data)} className="small-button"><CheckOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button>
+                <Button onClick={() => rejectRequest(data)} className="small-button-decline"><CloseOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button> */}
+
 
               </Row>
               : null}
           </Col>
 
+
           <Col className="self-align-center" span={2}>
             <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
               <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text>
+            </Row>
+          </Col>
+
+          <Col className="self-align-center" span={2} >
+            <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
+              {/* <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text> */}
               <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
                 <Button onClick={() => setID(data)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
               </Dropdown>
@@ -326,16 +336,18 @@ function Notification(props) {
 
       )}
 
-      {componentLoader && <Row
-        style={{
-          justifyContent: 'center', alignItems: 'center',
+      {componentLoader &&
+        <Row
+          style={{
+            justifyContent: 'center', alignItems: 'center',
 
-        }}
-        className='component-loader j-c-c' >
+          }}
+          className='component-loader j-c-c' >
 
-        <Spin className='j-c-c' spinning={true} size="large" />
+          <Spin className='j-c-c' spinning={true} size="large" />
 
-      </Row>}
+        </Row>
+      }
 
 
       <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>

@@ -187,7 +187,7 @@ function Search() {
                     <Row>
                         {searchUser.map((data) =>
                             <Col md={12}>
-                                <Card style={{ borderRadius: '30px', margin: '20px' , maxHeight: "140px" }} className="gray-background ">
+                                <Card style={{ borderRadius: '30px', margin: '20px'  }} className="gray-background ">
                                     <Row>
                                         <Col className="mobile-center" md={4} xs={24} >
                                             <Image style={{ maxWidth: '100px', maxHeight: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl || DefaultImage} />
