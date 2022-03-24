@@ -241,9 +241,6 @@ function Profile() {
 
     const shareDropdowm = (
         <Menu className="notification-dropdown" >
-            {/* <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}>Share profile via message</Paragraph>
-            </Menu.Item> */}
             <Menu.Item onClick={() => { navigator.clipboard.writeText(window.location.href); message.info('Copy to clipboard'); }} key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
@@ -440,10 +437,10 @@ function Profile() {
             <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="mt-5" >
                     <Col md={4} xs={24} >
-                        <Image style={{ height: '150px', width: '150px' }} className="border-50" src={profile?.profilePicUrl || DefaultImage} />
+                        <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
                     </Col>
 
-                    <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-5' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row>
                             <Paragraph className="follower-counter" > {profile?.follower < 0 ? 0 : profile?.follower} </Paragraph>
                         </Row>
@@ -452,7 +449,7 @@ function Profile() {
                         </Row >
                     </Col>
 
-                    <Col className='mt-2' style={{ alignSelf: 'center' }} md={2} xs={6} >
+                    <Col className='mt-5' style={{ alignSelf: 'center' }} md={2} xs={6} >
                         <Row >
                             <Paragraph className="follower-counter" > {profile?.following < 0 ? 0 : profile?.following} </Paragraph>
                         </Row >
@@ -538,7 +535,7 @@ function Profile() {
                         : null}
 
                 </Row>
-                {authenticate == true ?
+                {authenticate == true && isFollow == false ?
                     <div>
                         <Row className="mt-5">
                             <Title level={5}>Add a note</Title>

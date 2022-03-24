@@ -44,8 +44,10 @@ function MyProfile() {
     const { Title, Text, Paragraph } = Typography;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+
     let history = useHistory();
     const location = useLocation();
+
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -391,7 +393,7 @@ function MyProfile() {
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
-                     
+
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
@@ -399,7 +401,7 @@ function MyProfile() {
                     </Col>
 
                     <Col style={{ alignSelf: 'end', display: 'flex', justifyContent: 'end' }} md={17} xs={6} >
-                      
+
                     </Col>
 
                 </Row>
@@ -450,7 +452,7 @@ function MyProfile() {
 
                         </Col>
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
-                            {console.log(getProfile?.imOnProfile?.profession_data.length )}
+                            {console.log(getProfile?.imOnProfile?.profession_data.length)}
                             {getProfile?.imOnProfile?.profession_data.length > 0 ?
                                 <div>
 
@@ -462,26 +464,15 @@ function MyProfile() {
 
                                     }
                                 </div>
-                             : ''}
+                                : ''}
                             <Button onClick={() => shareProfile()} className='gray-background share-button mr-1' ><ShareAltOutlined /></Button>
 
-                            <Button onClick={() => onClickEdit()} className='gray-background share-button' ><EditOutlined /></Button>
+                            {getProfile?.imOnProfile?.profession_data.length > 0 ?
+                                <Button onClick={() => onClickEdit()} className='gray-background share-button' ><EditOutlined /></Button>
 
+                                : null
+                            }
 
-                            {/* <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} trigger={'click'}
-                                autoAdjustOverflow={true}
-                                placement="bottomRight"
-                                align={{ overflow: { adjustX: true, adjustY: true } }} 
-                                arrow>
-                                <Button style={{
-                                    border: 'none', popsition: 'relative',
-                                    border: 'none',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    padding: '10px'
-                                }} className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
-                            </Dropdown> */}
 
                         </Col>
                     </Row>
