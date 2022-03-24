@@ -66,6 +66,7 @@ function ProfilePictureView() {
                 
                 if (resultHandle?.success == true) {
                     setLoader(false)
+                    localStorage.clear()
                     history.push('./login')
                 }
 
