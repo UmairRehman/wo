@@ -3,6 +3,9 @@ import { Row, Col, Typography, Image } from 'antd';
 import Boy from '../../assets/images/boy.png'
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import LogoGreen from '../../assets/images/logo-green.png'
+import LogoOrange from '../../assets/images/logo-orange.png'
+
 import './select.css'
 
 
@@ -54,6 +57,9 @@ function Select() {
                                         <Row>
                                             <Text className="title-center text-white" type="secondary">Searching for<br /> your favourite service provider?</Text>
                                         </Row>
+                                        <Row className='d-flex justify-content-center position-relative'>
+                                            <Image className='logo-center' preview={false} src={LogoGreen} />
+                                        </Row>
                                     </div>
                                 </Row>
                             </Link>
@@ -64,6 +70,9 @@ function Select() {
                                     <Title className="title-center mt-5 text-white" level={2}>I'm On</Title>
                                     <Row>
                                         <Text className="title-center text-white" type="secondary">I’M ON! Let your customers<br /> know you’re on the clock</Text>
+                                    </Row>
+                                    <Row className='d-flex justify-content-center position-relative'>
+                                        <Image className='logo-center' preview={false} src={LogoOrange} />
                                     </Row>
                                 </div>
                             </Row>

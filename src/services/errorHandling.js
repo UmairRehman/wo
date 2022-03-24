@@ -17,6 +17,7 @@ async function ErrorHandling(result) {
             console.log('error', result)
             if (result.message == 'InvalidToken') {
                 localStorage.clear()
+                window.location.reload(false);
             }
             return {
                 success: false,
