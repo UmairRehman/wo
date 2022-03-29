@@ -33,14 +33,12 @@ function Select() {
     function onClickAction() {
 
 
-        console.log(userHistory.imOnProfile)
-        if (userHistory.imOnProfile) {
+        if (userHistory?.imOnProfile) {
             history.push("/profile-1");
         }
         else {
             history.push("/signup-form");
         }
-
 
     }
 

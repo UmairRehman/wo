@@ -400,9 +400,11 @@ function Profile() {
 
                     if (resultHandle?.message?.followUser) {
                         setCheckBlock(true)
+                        console.log("if")
                     }
                     else {
                         setCheckBlock(false)
+                        console.log("else")
                     }
                 }
 
@@ -435,7 +437,7 @@ function Profile() {
                 </Col>
             </Row>
             <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
-                <Row className="mt-5" >
+                <Row className="" >
                     <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
                     </Col>
@@ -460,11 +462,14 @@ function Profile() {
 
                     {authenticate == true ?
                         <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
+
                             <Dropdown style={{ border: 'none' }}
                                 overlay={profileBellIcon}
                                 placement="bottomRight" >
                                 <Button style={{ border: 'none' }} >
-                                    <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
+                                    {currentUser !== searchedUser &&
+                                        <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
+                                    }
                                 </Button>
                             </Dropdown>
                             {
@@ -541,28 +546,30 @@ function Profile() {
                             <Title level={5}>Add a note</Title>
                         </Row>
 
-                        <Row>
-                            <Form
-                                name="basic"
-                                labelCol={{ span: 8 }}
-                                wrapperCol={{ span: 16 }}
-                                initialValues={{ remember: true }}
-                                onFinish={onFinish}
-                                onFinishFailed={onFinishFailed}
-                                autoComplete="off"
-                                className="w-100"
-                            >
-                                <Form.Item name={['message']} >
-                                    <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
-                                </Form.Item>
+                        {currentUser !== searchedUser &&
+                            <Row>
+                                <Form
+                                    name="basic"
+                                    labelCol={{ span: 8 }}
+                                    wrapperCol={{ span: 16 }}
+                                    initialValues={{ remember: true }}
+                                    onFinish={onFinish}
+                                    onFinishFailed={onFinishFailed}
+                                    autoComplete="off"
+                                    className="w-100"
+                                >
+                                    <Form.Item name={['message']} >
+                                        <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
+                                    </Form.Item>
 
-                                {currentUser !== searchedUser && <Form.Item >
-                                    <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
-                                        Send follow request
-                                    </Button>
-                                </Form.Item>}
-                            </Form>
-                        </Row>
+                                    <Form.Item >
+                                        <Button disabled={isFollow} type="primary" htmlType="submit" className="button-normal" >
+                                            Send follow request
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+                            </Row>
+                        }
                     </div>
                     : ''}
             </div>

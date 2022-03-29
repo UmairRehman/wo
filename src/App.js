@@ -32,7 +32,9 @@ function App() {
       // alert("Notification disabled in Safari")
     }
     else {
+      
       const messaging = firebase.messaging();
+
       messaging.requestPermission().then(() => {
         return messaging.getToken()
       }).then(token => {
@@ -47,6 +49,8 @@ function App() {
             resolve(payload);
           });
         });
+
+
 
       onMessageListener().then(payload => {
 
