@@ -135,10 +135,10 @@ function Notification(props) {
         <Paragraph style={{ marginBottom: '0px' }}>Delete</Paragraph>
         <Paragraph className="fade-text">Delete this notification</Paragraph>
       </Menu.Item>
-      <Menu.Item key="2">
+      {/* <Menu.Item key="2">
         <Paragraph style={{ marginBottom: '0px' }}>Stop only this alert</Paragraph>
         <Paragraph className="fade-text">Remove from my alerts</Paragraph>
-      </Menu.Item>
+      </Menu.Item> */}
 
       <Menu.Item key="3">
         <Paragraph onClick={() => offNotification(id)} style={{ marginBottom: '0px' }}>Turn off</Paragraph>
