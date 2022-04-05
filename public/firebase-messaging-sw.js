@@ -4,14 +4,14 @@ importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
 
 firebase.initializeApp({
-    apiKey: "AIzaSyA49mVYSNLXZQqWfq-sJi-MRofZI06u8U8",
-    authDomain: "who-s-on.firebaseapp.com",
-    projectId: "who-s-on",
-    storageBucket: "who-s-on.appspot.com",
-    messagingSenderId: "1062275279679",
-    appId: "1:1062275279679:web:d3402b9b1c819df656c18a",
-    measurementId: "G-F5JXL2F3VC"
-});
+    apiKey: "AIzaSyA22v2LQyu8UcUln8-7TcLvPYhLnel_Gcg",
+    authDomain: "whos-on-340806.firebaseapp.com",
+    projectId: "whos-on-340806",
+    storageBucket: "whos-on-340806.appspot.com",
+    messagingSenderId: "679274960122",
+    appId: "1:679274960122:web:5301af8c8aae596ede6543",
+    measurementId: "G-K3QPSGNBDT"
+  });
 
 
 
