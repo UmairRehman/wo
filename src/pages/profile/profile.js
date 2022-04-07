@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 import Option from '../../assets/images/option.png'
 import Bell from '../../assets/images/bell.jpg'
 import Line from '../../assets/images/line.png'
-import { checkBlockStatus, checkFollow, GetProfileByID, StatusChange, unFollow } from '../../services/apiInteraction';
+import { checkBlockStatus, checkFollow, GetProfileByID, StatusChange, unFollow, MuteNOtification } from '../../services/apiInteraction';
 import Services from '../../component/services/services';
 import { FollowReqest } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
@@ -132,7 +132,7 @@ function Profile() {
     };
 
 
-    function handleStatus(e) {
+    async function handleStatus(e) {
         if (e.key == 1) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -174,7 +174,7 @@ function Profile() {
                 }
             })
         }
-        else {
+        else if (e.key == 2) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "Do you want to Block This Person?",
@@ -218,6 +218,40 @@ function Profile() {
                 }
             })
         }
+        else if (e.key == 3) {
+
+            try {
+
+                setLoader(true)
+
+                let data = {
+
+                    followee: profile._id,
+                    on: false,
+                    off: false
+
+                }
+
+                let resultHandle = await MuteNOtification(data);
+
+                if (resultHandle?.success == true) {
+
+                    setLoader(false)
+                }
+
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
+
+            }
+
+            catch (err) {
+                console.log(err)
+                setLoader(false)
+            }
+
+        }
     }
 
     const followingDropdown = (
@@ -230,10 +264,17 @@ function Profile() {
 
             {checkBlock == true ?
                 <Menu.Item key="2">
-                    <Paragraph style={{ marginBottom: '0px' }} >Block</Paragraph>
+                    <Paragraph style={{ marginBottom: '10px' }} >Block</Paragraph>
                 </Menu.Item>
                 : null
             }
+
+            {/* {checkBlock == true ? */}
+                <Menu.Item key="3">
+                    <Paragraph style={{ marginBottom: '10px' }} >Turn off notification</Paragraph>
+                </Menu.Item>
+                {/* : null */}
+            {/* } */}
 
         </Menu>
     );
@@ -542,10 +583,11 @@ function Profile() {
                 </Row>
                 {authenticate == true && isFollow == false ?
                     <div>
-                        <Row className="mt-5">
-                            <Title level={5}>Add a note</Title>
-                        </Row>
-
+                        {currentUser !== searchedUser &&
+                            <Row className="mt-5">
+                                <Title level={5}>Add a note</Title>
+                            </Row>
+                        }
                         {currentUser !== searchedUser &&
                             <Row>
                                 <Form
