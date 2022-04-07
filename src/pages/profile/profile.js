@@ -269,12 +269,12 @@ function Profile() {
                 : null
             }
 
-            {/* {checkBlock == true ? */}
+            {checkBlock == true ?
                 <Menu.Item key="3">
                     <Paragraph style={{ marginBottom: '10px' }} >Turn off notification</Paragraph>
                 </Menu.Item>
-                {/* : null */}
-            {/* } */}
+                : null 
+            }
 
         </Menu>
     );
