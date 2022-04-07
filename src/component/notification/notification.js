@@ -137,7 +137,7 @@ function Notification(props) {
       </Menu.Item>
       {/* <Menu.Item key="2">
         <Paragraph style={{ marginBottom: '0px' }}>Stop only this alert</Paragraph>
-        <Paragraph className="fade-text">Remove from my alerts</Paragraph>
+        <jjjjjjjjjjjjj className="fade-text">Remove from my alerts</Paragraph>
       </Menu.Item> */}
 
       {/* <Menu.Item key="3">
@@ -191,7 +191,7 @@ function Notification(props) {
       setComponentLoader(false)
     }
 
-  }, [isReload, page])
+  }, [isReload, page, loader])
 
 
   function loadMore() {
