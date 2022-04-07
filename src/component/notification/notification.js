@@ -174,13 +174,10 @@ function Notification(props) {
           setGetNotification([...getNotification, ...resultHandle?.message.notify])
           setComponentLoader(false)
         }
-
-        // setLoader(false)
       }
 
       else {
         validateMessages(resultHandle);
-        // setLoader(false)
         setComponentLoader(false)
       }
 
