@@ -133,6 +133,7 @@ function Profile() {
 
 
     async function handleStatus(e) {
+
         if (e.key == 1) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -154,10 +155,8 @@ function Profile() {
                         let resultHandle = await unFollow(data);
 
                         if (resultHandle?.success == true) {
-
                             setLoader(false)
                             setReload(!reload)
-                            // setProfile(resultHandle?.message.foundUser[0])
                         }
 
                         else {
@@ -174,7 +173,8 @@ function Profile() {
                 }
             })
         }
-        else if (e.key == 2) {
+
+        else if (e.key == 2 || e.key == 4) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "Do you want to Block This Person?",
@@ -187,7 +187,7 @@ function Profile() {
                 if (result.isConfirmed) {
                     let data = {
                         followee: profile._id,
-                        status: 5
+                        status: e.key == 2 ? 5 : 2
                     }
 
                     try {
@@ -212,8 +212,6 @@ function Profile() {
                         setLoader(false)
 
                     }
-
-
 
                 }
             })
@@ -250,31 +248,39 @@ function Profile() {
                 console.log(err)
                 setLoader(false)
             }
-
         }
+
     }
 
     const followingDropdown = (
         <Menu className="notification-dropdown"
             onClick={handleStatus}
         >
-            <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
-            </Menu.Item>
+            {followStatus == 2 ?
+                <Menu.Item key="1">
+                    <Paragraph style={{ marginBottom: '10px' }}>Unfollow</Paragraph>
+                </Menu.Item>
+                : null}
 
-            {checkBlock == true ?
+            {checkBlock == 2 ?
                 <Menu.Item key="2">
                     <Paragraph style={{ marginBottom: '10px' }} >Block</Paragraph>
                 </Menu.Item>
                 : null
             }
-
-            {checkBlock == true ?
-                <Menu.Item key="3">
-                    <Paragraph style={{ marginBottom: '10px' }} >Turn off notification</Paragraph>
+            {checkBlock == 5 ?
+                <Menu.Item key="4">
+                    <Paragraph style={{ marginBottom: '10px' }} >Unblock</Paragraph>
                 </Menu.Item>
-                : null 
+                : null
             }
+
+            {/* {getNotificationOFF.OffNotification == true ?
+                <Menu.Item key="3">
+                    <Paragraph style={{ marginBottom: '10px' }} >Receive on notification</Paragraph>
+                </Menu.Item>
+                : null
+            } */}
 
         </Menu>
     );
@@ -334,10 +340,6 @@ function Profile() {
         }
         else {
             setAuthenticate(true)
-        }
-
-        let data = {
-            id: id
         }
 
         try {
@@ -414,7 +416,7 @@ function Profile() {
     }, [reload, profile])
 
 
-
+    const [getNotificationOFF, setGetNotificationOFF] = useState({})
 
 
 
@@ -440,13 +442,12 @@ function Profile() {
                     setLoader(false)
 
                     if (resultHandle?.message?.followUser) {
-                        setCheckBlock(true)
-                        console.log("if")
+                        setCheckBlock(resultHandle?.message?.followUser.status)
+                        setGetNotificationOFF(resultHandle?.message?.followUser)
                     }
-                    else {
-                        setCheckBlock(false)
-                        console.log("else")
-                    }
+                    // else {
+                    //     setCheckBlock(false)
+                    // }
                 }
 
                 else {

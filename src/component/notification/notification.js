@@ -153,7 +153,6 @@ function Notification(props) {
 
     try {
 
-      // setLoader(true)
       setComponentLoader(true)
 
       let data = {
@@ -184,7 +183,6 @@ function Notification(props) {
     }
     catch (err) {
       console.log(err)
-      // setLoader(false)
       setComponentLoader(false)
     }
 

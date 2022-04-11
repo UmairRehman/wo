@@ -32,7 +32,7 @@ function App() {
       // alert("Notification disabled in Safari")
     }
     else {
-      
+
       const messaging = firebase.messaging();
 
       messaging.requestPermission().then(() => {
@@ -43,55 +43,51 @@ function App() {
         console.log(err)
       })
 
-      const onMessageListener = () =>
-        new Promise((resolve) => {
-          messaging.onMessage((payload) => {
-            resolve(payload);
-          });
-        });
+      messaging.onMessage((payload) => {
 
+        try {
 
+          console.log(payload);
+          if (payload?.data?.type == "2" && payload?.data?.On == "1") {
 
-      onMessageListener().then(payload => {
-
-        console.log(payload.data);
-        if (payload?.data?.type == "2" && payload?.data?.On == "1") {
-
-          let notifyMessage = {
-            name: payload?.data?.firstName,
-            message: " is now off"
+            let notifyMessage = {
+              name: payload?.data?.firstName,
+              message: " is now off"
+            }
+            validateMessages(notifyMessage);
           }
-          validateMessages(notifyMessage);
-        }
-        else if (payload?.data?.type == "2" && payload?.data?.On == "0") {
+          else if (payload?.data?.type == "2" && payload?.data?.On == "0") {
 
-          let notifyMessage = {
-            name: payload?.data?.firstName,
-            message: " is now on"
+            let notifyMessage = {
+              name: payload?.data?.firstName,
+              message: " is now on"
+            }
+            validateMessages(notifyMessage);
           }
-          validateMessages(notifyMessage);
-        }
 
-        else if (payload?.data?.type == "1") {
+          else if (payload?.data?.type == "1") {
 
-          let notifyMessage = {
-            name: payload?.data?.firstName,
-            message: "wants to follow you"
+            let notifyMessage = {
+              name: payload?.data?.firstName,
+              message: "wants to follow you"
+            }
+            validateMessages(notifyMessage);
           }
-          validateMessages(notifyMessage);
-        }
-        else if (payload?.data?.type == "3") {
+          else if (payload?.data?.type == "3") {
 
-          let notifyMessage = {
-            name: payload?.data?.firstName,
-            message: "Accept your follow request"
+            let notifyMessage = {
+              name: payload?.data?.firstName,
+              message: "Accept your follow request"
+            }
+            validateMessages(notifyMessage);
           }
-          validateMessages(notifyMessage);
         }
 
-      })
+        catch (err) {
+          console.log(err)
+        }
 
-        .catch(err => console.log('failed: ', err));
+      });
 
     }
 
