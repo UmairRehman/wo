@@ -178,8 +178,8 @@ function Header(props) {
                                     <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={DefaultImage} >{data.from_data[0].firstName[0]}</Image>}
                                 </Col>
                                 <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
-                                    {data.type == 1 ?
-                                        <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
+                                    {data.type == 1  ?
+                                        <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName  + data.from_data[0]?.lastName} wants to follow you`}</Text>
                                         : data.type == 2 ?
                                             <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} is Available` : `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName}  is not Available`}`}</Text>
                                             : data.type == 3 ?

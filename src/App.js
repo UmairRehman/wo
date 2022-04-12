@@ -21,6 +21,7 @@ const validateMessages = (data) => {
 function App() {
 
   const [notify, setNotify] = useState({})
+  const [loader, setLoader] = useState(false)
 
 
   useEffect(() => {
@@ -46,7 +47,7 @@ function App() {
       messaging.onMessage((payload) => {
 
         try {
-
+          setLoader(!loader)
           console.log(payload);
           if (payload?.data?.type == "2" && payload?.data?.On == "1") {
 
@@ -91,7 +92,7 @@ function App() {
 
     }
 
-  }, [])
+  }, [loader])
   return (
     <div className="App">
 
