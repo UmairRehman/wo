@@ -5,7 +5,7 @@ import {
     CheckOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input, Switch } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Header from '../../component/header/header';
 import { Link, useLocation } from 'react-router-dom'
@@ -86,12 +86,8 @@ function Profile() {
 
     const [checkBlock, setCheckBlock] = useState()
 
-    function handleMenuClick(e) {
+    const [checkNotification, setCheckNotification] = useState({})
 
-        message.info('Click on menu item.');
-        console.log('click', e);
-
-    }
 
 
     const onFinish = async (values: any) => {
@@ -295,42 +291,73 @@ function Profile() {
     );
 
 
-    const menu = (
-        <Menu className="notification-dropdown" onClick={handleMenuClick}>
-            <Menu.Item key="1">
-                <Paragraph style={{ marginBottom: '0px' }}>Delete</Paragraph>
-                <Paragraph className="fade-text">Delete this notification</Paragraph>
-            </Menu.Item>
-            {/* <Menu.Item key="2">
-                <Paragraph style={{ marginBottom: '0px' }}>Stop only this alert</Paragraph>
-                <Paragraph className="fade-text">Remove from my alerts</Paragraph>
-            </Menu.Item> */}
-            <Menu.Item key="3">
-                <Paragraph style={{ marginBottom: '0px' }}>Turn off</Paragraph>
-                <Paragraph className="fade-text">Stop receiving notifications like this</Paragraph>
-            </Menu.Item>
-        </Menu>
-    );
+    const [notify, setNotify] = useState({
+        onNotify: checkNotification.OnNotification == undefined ? true : checkNotification.OnNotification,
+        offNotify: checkNotification.OffNotification == undefined ? true : checkNotification.OnNotification,
+
+    })
+
+    async function handleMenuClick(e) {
+
+
+        try {
+
+            setLoader(true)
+
+            let data = {
+
+                followee: profile._id,
+                on: e.key == 1 ? notify.onNotify : e.key == 2 ? checkNotification.OnNotification : e.key == 3 ? false : notify.onNotify == undefined ? true : true,
+                off: e.key == 1 ? checkNotification.OnNotification : e.key == 2 ? notify.offNotify : e.key == 3 ? false : notify.offNotify == undefined ? true : true,
+
+            }
+
+            let resultHandle = await MuteNOtification(data);
+
+            console.log(data)
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+
+        catch (err) {
+            console.log(err)
+            setLoader(false)
+        }
+
+    }
+
+
 
     const profileBellIcon = (
         <Menu className="notification-dropdown" onClick={handleMenuClick}>
             <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive On Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications when this person is ON</Paragraph>
+
+                <Switch defaultChecked={checkNotification.OnNotification} onChange={(checked) => setNotify({ ...notify, onNotify: checked })} />
             </Menu.Item>
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive Off Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications  when this person is Off</Paragraph>
+                <Switch defaultChecked={checkNotification.OffNotification} onChange={(checked) => setNotify({ ...notify, offNotify: checked })} />
             </Menu.Item>
             <Menu.Item key="3">
                 <Paragraph style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
             </Menu.Item>
-            <Menu.Item key="4">
+            {/* <Menu.Item key="4">
                 <Paragraph style={{ marginBottom: '0px' }}>Turn Off all notifications for this person</Paragraph>
-            </Menu.Item>
+            </Menu.Item> */}
         </Menu>
     );
-
 
 
     useEffect(async () => {
@@ -394,6 +421,7 @@ function Profile() {
                     if (resultHandle?.message?.followUser) {
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
+                        setCheckNotification(resultHandle?.message?.followUser)
                     }
                     else {
                         setIsFollow(false)
@@ -514,7 +542,7 @@ function Profile() {
                                     }
                                 </Button>
                             </Dropdown>
-                            {
+                            {/* {
                                 currentUser !== searchedUser &&
                                 <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
 
@@ -523,7 +551,7 @@ function Profile() {
                                     </Button>
 
                                 </Dropdown>
-                            }
+                            } */}
 
                         </Col>
                         : ""}
