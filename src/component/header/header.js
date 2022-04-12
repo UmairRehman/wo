@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Menu, Image, Row, PageHeader, Button, Input, message, Dropdown, Modal, notification, Spin, Col, Typography } from 'antd';
-import { SearchOutlined, BellOutlined,AlertOutlined, HomeOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
+import { SearchOutlined, BellOutlined, AlertOutlined, HomeOutlined, PlusOutlined, MenuOutlined, ArrowLeftOutlined, UsergroupAddOutlined, LogoutOutlined, ProfileOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 import User from '../../assets/images/user.png'
 import {
     Link
@@ -90,31 +90,31 @@ function Header(props) {
 
     const [getNotification, setGetNotification] = useState([])
 
-    
+
 
     const handleRead = async (notificationID) => {
         try {
 
             setLoader(true)
-      
+
             let resultHandle = await readAPI(notificationID);
-      
+
             if (resultHandle?.success == true) {
-      
-              setLoader(false)
+
+                setLoader(false)
             }
-      
+
             else {
-              validateMessages(resultHandle);
-              setLoader(false)
+                validateMessages(resultHandle);
+                setLoader(false)
             }
-      
-          }
-          catch (err) {
+
+        }
+        catch (err) {
             console.log(err)
             setLoader(false)
-          }
-      
+        }
+
     }
 
 
@@ -144,9 +144,9 @@ function Header(props) {
                 setGetNotification([...resultHandle?.message?.notify]);
                 // console.log("header",resultHandle.message.notify)
                 const data = resultHandle.message.notify;
-                data.slice(0,3).forEach((item)=>{
+                data.slice(0, 3).forEach((item) => {
                     console.log(item)
-                    if ( !item.isRead  ){
+                    if (!item.isRead) {
                         setUnread(true);
                     }
                 })
@@ -161,7 +161,7 @@ function Header(props) {
             console.log(err)
             setLoader(false)
         }
-    
+
 
     }, [])
 
@@ -169,26 +169,31 @@ function Header(props) {
         <Menu className='notification-menu'>
             <div>
                 {getNotification?.slice(0, 4).map((data) =>
-                    <Link to='../notification'>
-                        <Menu.Item onClick={()=> handleRead(data._id)} key="1">
-                            <Row>
-                                <Col style={{ display: 'flex', alignItems: 'center' ,  }} span={5}>
-                                    {data?.from_data[0]?.profilePicUrl ?
-                                     <Image style={{borderRadius: "50px" }} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} alt={data.from_data[0].firstName[0]} /> :
-                                    <Image style={{borderRadius: "50px"}} className='notification-image' preview={false} src={DefaultImage} >{data.from_data[0].firstName[0]}</Image>}
-                                </Col>
-                                <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
-                                    {data.type == 1  ?
-                                        <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName  + data.from_data[0]?.lastName} wants to follow you`}</Text>
-                                        : data.type == 2 ?
-                                            <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} is Available` : `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName}  is not Available`}`}</Text>
-                                            : data.type == 3 ?
-                                                <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName + data.from_data[0]?.lastName} accepted your follow request`}</Text>
-                                                : null}
-                                </Col>
-                            </Row>
-                        </Menu.Item>
-                    </Link>
+                    <div>
+                        {data.isRead == false ?
+
+                            <Link to='../notification'>
+                                <Menu.Item onClick={() => handleRead(data._id)} key="1">
+                                    <Row>
+                                        <Col style={{ display: 'flex', alignItems: 'center', }} span={5}>
+                                            {data?.from_data[0]?.profilePicUrl ?
+                                                <Image style={{ borderRadius: "50px" }} className='notification-image' preview={false} src={data?.from_data[0]?.profilePicUrl} alt={data.from_data[0].firstName[0]} /> :
+                                                <Image style={{ borderRadius: "50px" }} className='notification-image' preview={false} src={DefaultImage} >{data.from_data[0].firstName[0]}</Image>}
+                                        </Col>
+                                        <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
+                                            {data.type == 1 ?
+                                                <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName + data.from_data[0]?.lastName} wants to follow you`}</Text>
+                                                : data.type == 2 ?
+                                                    <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} is Available` : `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName}  is not Available`}`}</Text>
+                                                    : data.type == 3 ?
+                                                        <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName + data.from_data[0]?.lastName} accepted your follow request`}</Text>
+                                                        : null}
+                                        </Col>
+                                    </Row>
+                                </Menu.Item>
+                            </Link>
+                            : null}
+                    </div>
 
                 )}
                 <Menu.Item className='no-padding-notification' key="4">
@@ -267,7 +272,7 @@ function Header(props) {
             else {
                 validateMessages(resultHandle);
                 setLoader(false)
-            
+
             }
 
         }
@@ -420,11 +425,11 @@ function Header(props) {
                     ghost={false}
                     extra={[
                         <Input style={{ display: authenticate == true ? null : "none", marginRight: "20px" }} className="search-bar-custom" placeholder="Search" onKeyDown={test2} onChange={(e) => setSearchField(e.target.value)} suffix={<SearchOutlined onClick={submitSearch} style={{ fontSize: '20px' }} />} />,
-                       
-                       
-                       <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={ !unRead ? <BellOutlined style={{ fontSize: '25px'}} /> : <div style={{display: "flex", height: "100%"}}><p style={{ fontSize: "70px" , color: "#F1171C", marginTop: "-72px", zIndex: "999"}}>.</p><BellOutlined style={{ fontSize: '25px' , position: "absolute"}} /></div>}>
+
+
+                        <Dropdown.Button style={{ display: authenticate == true ? null : "none", paddingTop: '20px' }} className="notifications-custom" overlay={menu} trigger={['click']} placement="bottomRight" icon={!unRead ? <BellOutlined style={{ fontSize: '25px' }} /> : <div style={{ display: "flex", height: "100%" }}><p style={{ fontSize: "70px", color: "#F1171C", marginTop: "-72px", zIndex: "999" }}>.</p><BellOutlined style={{ fontSize: '25px', position: "absolute" }} /></div>}>
                         </Dropdown.Button>,
-                         // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
+                        // <Image className="mt-3" preview={false} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} width={30} height={30} />
                     ]}
                 >
                 </PageHeader>
@@ -435,7 +440,7 @@ function Header(props) {
             <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
                     {profile?.profilePicUrl ?
-                        <Image preview={false} style={{borderRadius:'50%'}} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
+                        <Image preview={false} style={{ borderRadius: '50%' }} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
                         :
                         <Image preview={false} width={150} height={150} src={DefaultImage} />
 

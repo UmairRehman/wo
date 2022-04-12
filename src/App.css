@@ -317,11 +317,7 @@ h5 {
   font-size: 20px !important;
 }
 
-.ant-btn:focus {
-  color: white !important;
-  border-color: #27B824 !important;
-  background: #27B824 !important;
-}
+
 
 .green-background {
   background: #27B824;
@@ -546,4 +542,7 @@ animation: animateIn 1s alternate ease;
   to {
     opacity: 1;
   }
+}
+.ant-switch-checked {
+  background-color: #27B824 !important;
 }
