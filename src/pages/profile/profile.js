@@ -319,6 +319,7 @@ function Profile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
+                setReload(!reload)
             }
 
             else {
@@ -348,7 +349,7 @@ function Profile() {
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive Off Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications  when this person is Off</Paragraph>
-                <Switch defaultChecked={checkNotification.OffNotification} onChange={(checked) => setNotify({ ...notify, offNotify: checked })} />
+                <Switch defaultChecked={checkNotification.OffNotification} onChange={(checked) => setNotify({ ...notify, offNotify:     checked })} />
             </Menu.Item>
             <Menu.Item key="3">
                 <Paragraph style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
