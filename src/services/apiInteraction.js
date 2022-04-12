@@ -395,11 +395,6 @@ export async function readAPI(id) {
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification/${id}`,
     {
       method: 'PUT',
-      // header: {
-      //   'Content-Type': 'application/json',
-      //   'Authorization': (localStorage.getItem('token')),
-      //   'provider': (localStorage.getItem('provider'))
-      // },
       headers
     });
 

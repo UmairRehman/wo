@@ -162,7 +162,7 @@ function Header(props) {
         }
 
 
-    }, [])
+    }, [getNotification])
 
     const menu = (
         <Menu className='notification-menu'>
