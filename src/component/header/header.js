@@ -145,7 +145,6 @@ function Header(props) {
                 // console.log("header",resultHandle.message.notify)
                 const data = resultHandle.message.notify;
                 data.slice(0, 3).forEach((item) => {
-                    console.log(item)
                     if (!item.isRead) {
                         setUnread(true);
                     }
@@ -321,8 +320,6 @@ function Header(props) {
         navigator.clipboard.writeText(`${window.location.origin}/profile/${profile.username}`);
         message.info(`copy to clipboard`);
 
-        console.log(`${window.location.origin}/profile/${profile.username}`)
-        // console.log(profile)
     }
     function test2(e) {
         if (e.key === 'Enter') {

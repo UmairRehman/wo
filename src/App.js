@@ -50,7 +50,6 @@ function App() {
           setLoader(!loader)
           console.log(payload);
           if (payload?.data?.type == "2" && payload?.data?.On == "1") {
-
             let notifyMessage = {
               name: payload?.data?.firstName,
               message: " is now off"
@@ -82,8 +81,8 @@ function App() {
             }
             validateMessages(notifyMessage);
           }
+          console.log('useEffect')
         }
-
         catch (err) {
           console.log(err)
         }
@@ -96,7 +95,7 @@ function App() {
   return (
     <div className="App">
 
-      <Routers />
+      <Routers loader={loader} />
 
     </div>
   );
