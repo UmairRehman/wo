@@ -6,19 +6,29 @@ import { createStore } from 'redux';
 import Routers from './router/router'
 import rootReducer from './reducer/index'
 import { notification } from 'antd';
+import { useHistory } from 'react-router-dom';
 // import store from './store'
 
-const validateMessages = (data) => {
-  const args = {
-    message: data.name,
-    description:
-      `${data?.message}`,
-    duration: 5,
-  };
-  notification.success(args);
-};
 
 function App() {
+
+
+  let history = useHistory();
+
+
+
+  const validateMessages = (data) => {
+    const args = {
+      message: data.name,
+      description:
+        `${data?.message}`,
+      onClick: () => onNotificationClick(data),
+      duration: 5,
+    };
+
+    notification.success(args);
+  };
+
 
   const [notify, setNotify] = useState({})
   const [loader, setLoader] = useState(false)
@@ -92,6 +102,13 @@ function App() {
     }
 
   }, [loader])
+
+
+  function onNotificationClick(data) {
+    console.log(data)
+    window.location.href = `./profile/${'Herry'}`
+  }
+
   return (
     <div className="App">
 
