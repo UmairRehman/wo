@@ -299,7 +299,7 @@ function Notification(props) {
 
 
             <Col className="self-align-center" span={6}>
-              {data.type == 1 ?
+              {data.type == 1 && data.isRead == false ?
                 <Row className='responsive-button-notification '>
 
                   <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
