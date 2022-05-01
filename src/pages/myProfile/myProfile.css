@@ -19,7 +19,7 @@
     padding: 10px !important;
     height: 50px;
     border-radius: 20px;
-    width: 150px;
+    width: 180px;
     background: #27B824 !important;
     border: none !important;
     color: white !important;
@@ -36,23 +36,23 @@
     padding: 10px !important;
     height: 50px;
     border-radius: 20px;
-    width: 150px;
-    background: #FD6700 !important;
+    width: 180px;
+    background: #FAFAFA !important;
     border: none !important;
-    color: white !important;
+    color: gray !important;
     display: flex;
     justify-content: center;
     font-size: 15px;
 }
 
 .imon-button2:hover {
-    background: #FD6700 !important;
+    background: #FAFAFA !important;
     border: none !important;
-    color: white !important;
+    color: gray !important;
 }
 
 .imon-button2:focus {
-    background: #FD6700 !important;
+    background: #FAFAFA !important;
 }
 
 .manage-position-absolute {

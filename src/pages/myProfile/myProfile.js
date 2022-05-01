@@ -21,6 +21,10 @@ import DefaultImage from '../../assets/images/default.png'
 import CoverImage from '../../assets/images/coverImage.png'
 import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
+import off from "../../assets/images/off.png"
+import on from "../../assets/images/on.png"
+import imOff from "../../assets/images/imoff.png"
+
 
 
 import { ChangeProfileImage } from '../../services/apiInteraction';
@@ -319,6 +323,12 @@ function MyProfile() {
         }
     }
 
+    const buttonStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly"
+    }
+
 
 
     function onClickEdit() {
@@ -458,9 +468,9 @@ function MyProfile() {
 
                                     {getProfile?.imOnProfile?.On == true ?
 
-                                        <Button className='imon-button mr-2' onClick={() => onClickStatus()} ><span style={{ marginTop: '2px' }}> On</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                        <Button style={buttonStyle} className='imon-button mr-2' onClick={() => onClickStatus()} ><span className='mr-1' style={{ marginTop: '2px' }}>I'm On</span> <Image preview={false} src={whiteLogo} /> <Image style={{ marginTop: "5px" }} preview={false} src={on} /> </Button>
                                         :
-                                        <Button className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span style={{ marginTop: '2px' }}>I'm Off</span> <span style={{ marginLeft: '20px' }} > <Image preview={false} src={whiteLogo} /> </span></Button>
+                                        <Button style={buttonStyle} className='imon-button2 mr-2' onClick={() => onClickStatus()} > <span className='mr-1' style={{ marginTop: '2px' }}>I'm Off</span><Image preview={false} src={imOff} /> <Image style={{ marginTop: "5px" }} preview={false} src={off} /></Button>
 
                                     }
                                 </div>
