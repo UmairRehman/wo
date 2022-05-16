@@ -41,7 +41,7 @@ function Suggest() {
     function onClickView(data) {
 
         history.push({
-            pathname: `/profile/${data?._id}`,
+            pathname: `/profile/${data?.username}`,
         });
 
     }
@@ -92,7 +92,7 @@ function Suggest() {
                                         <Col className="mobile-center" md={4} xs={24} >
                                             <Image style={{ maxWidth: '120px', maxHeight: '120px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl || DefaultImage} />
                                         </Col>
-                                        <Col style={{ alignSelf: 'center' }} md={16} xs={24}>
+                                        <Col style={{ alignSelf: 'center'  }} md={15} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                 <Title level={5} className="m-0">
                                                     {data.firstName + " " + data.lastName}
@@ -105,7 +105,7 @@ function Suggest() {
                                             </Row>
                                         </Col>
                                         <Col className="mobile-center" style={{ alignSelf: 'center' }} md={4} xs={24}>
-                                            <Button onClick={() => onClickView(data)}  className="follow-button">
+                                            <Button  onClick={() => onClickView(data)}  className="follow-button">
                                                 View Profile
                                             </Button>
                                         </Col>
