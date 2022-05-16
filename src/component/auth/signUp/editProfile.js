@@ -336,7 +336,7 @@ const EditProfile = (user) => {
                                                 <Form.Item
                                                     name={['price', i]}
                                                 >
-                                                    <InputNumber placeholder={x.price} className="fancy-border" />
+                                                    <InputNumber  min={1}  placeholder={x.price} className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
