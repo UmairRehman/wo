@@ -82,21 +82,20 @@ function Selection() {
                     delete selectedIntrest[i];
                 }
                 else {
-                    console.log('works')
+                    // console.log('works')
                 }
             }
-            console.log(selectedIntrest)
+            // console.log(selectedIntrest)
         }
         else {
             selectedIntrest.push(data?._id)
-            console.log(selectedIntrest)
+            // console.log(selectedIntrest)
         }
 
     }
 
 
     async function onClickNext() {
-        console.log(selectedIntrest)
         if (selectedIntrest.length > 0) {
             try {
                 setLoader(true)

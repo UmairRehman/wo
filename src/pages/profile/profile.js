@@ -314,7 +314,6 @@ function Profile() {
 
             let resultHandle = await MuteNOtification(data);
 
-            console.log(data)
 
             if (resultHandle?.success == true) {
 

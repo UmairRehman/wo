@@ -58,7 +58,7 @@ function App() {
 
         try {
           setLoader(!loader)
-          console.log(payload);
+          // console.log(payload);
           if (payload?.data?.type == "2" && payload?.data?.On == "1") {
             let notifyMessage = {
               name: payload?.data?.firstName,
@@ -91,7 +91,7 @@ function App() {
             }
             validateMessages(notifyMessage);
           }
-          console.log('useEffect')
+          // console.log('useEffect')
         }
         catch (err) {
           console.log(err)

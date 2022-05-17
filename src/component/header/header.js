@@ -80,12 +80,10 @@ function Header(props) {
 
     function handleButtonClick(e) {
         message.info('Click on left button.');
-        console.log('click left button', e);
     }
 
     function handleMenuClick(e) {
         message.info('Click on menu item.');
-        console.log('click', e);
     }
 
     const [getNotification, setGetNotification] = useState([])
@@ -297,7 +295,7 @@ function Header(props) {
     };
 
     function submit(file) {
-        console.log(file)
+        // console.log(file)
     }
 
     const [test, setTest] = useState(false)

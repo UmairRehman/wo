@@ -63,7 +63,6 @@ function Following() {
 
                 setLoader(false)
                 setSuggest(resultHandle?.message?.suggestedUser)
-                console.log(resultHandle?.message.suggestedUser)
             }
 
             else {

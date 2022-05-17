@@ -10,7 +10,6 @@ function Services(props) {
 
     const [services, setServices] = useState([])
     useEffect(() => {
-        console.log(props.services)
         setServices(props.services)
 
     }, [])

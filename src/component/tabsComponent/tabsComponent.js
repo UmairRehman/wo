@@ -34,14 +34,12 @@ function TabsComponent() {
 
 
     function callback(key) {
-        console.log(key);
         setActiveKey(key)
 
     }
 
     function handleMenuClick(e) {
         message.info('Click on menu item.');
-        console.log('click', e);
     }
 
 
@@ -68,7 +66,7 @@ function TabsComponent() {
 
 
     function onClickFollow(data) {
-        console.log(data)
+        // console.log(data)
     }
 
     const onClickView = (data) => {
@@ -80,7 +78,6 @@ function TabsComponent() {
 
 
     function onClickFollowing(data) {
-        console.log(data)
         history.push({
             pathname: `/profile/${data?.followeeDetail[0]?.username}`,
             state: data?.followee
@@ -138,7 +135,6 @@ function TabsComponent() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                console.log("profile", resultHandle?.message.foundUser[0])
                 setFollowData(resultHandle?.message?.foundUser[0])
             }
 
@@ -166,7 +162,6 @@ function TabsComponent() {
                 setLoader(false)
                 setComponentLoader(false)
                 setGetProfile([...getProfile, ...resultHandle?.message.followUser])
-                console.log("Followers: ",resultHandle?.message.followUser)
 
             }
 
@@ -199,7 +194,6 @@ function TabsComponent() {
                 setLoader(false)
                 setComponentLoader(false)
                 setGetFollowing(resultHandle?.message?.followUser)
-                console.log("Following: ",resultHandle?.message?.followUser)
 
             }
 

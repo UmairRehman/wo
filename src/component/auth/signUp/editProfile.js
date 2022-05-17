@@ -128,7 +128,7 @@ const EditProfile = (user) => {
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     function handleChange(value) {

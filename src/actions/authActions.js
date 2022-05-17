@@ -14,7 +14,7 @@ export const LoginUser = (data) => {
     try {
       // dispatch({ type: "LOGIN", payload: true });
       let resultHandle = await Login(data);
-      console.log(resultHandle)
+      // console.log(resultHandle)
 
       if (resultHandle.success == true) {
 
@@ -27,7 +27,7 @@ export const LoginUser = (data) => {
       }
 
       else {
-        console.log(resultHandle.message);
+        // console.log(resultHandle.message);
         return resultHandle = {
           success: false,
           message: resultHandle.message

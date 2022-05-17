@@ -46,12 +46,10 @@ function Notification(props) {
 
   function handleButtonClick(e) {
     message.info('Click on left button.');
-    console.log('click left button', e);
   }
 
   function handleMenuClick(e) {
     message.info('Click on menu item.');
-    console.log('click', e);
   }
 
 
@@ -256,7 +254,6 @@ function Notification(props) {
 
   function onClickNotification(data) {
 
-    console.log(data.from_data[0]?.username)
 
     history.push({
       pathname: `/profile/${data.from_data[0].username}`,

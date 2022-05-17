@@ -32,11 +32,9 @@ function Sidebar() {
 
         if (localStorage.getItem('token') == null) {
             setAuthenticate(false)
-            console.log("if")
         }
         else {
             setAuthenticate(true)
-            console.log("else")
 
         }
     },[])

@@ -19,7 +19,7 @@ const { Title, Paragraph } = Typography;
 
 
 const validateMessages = (data) => {
-    console.log(data)
+    // console.log(data)
     const args = {
         message: 'Error',
         description:
@@ -58,7 +58,7 @@ function SignupConfirmation() {
                 }
                 else {
                     validateMessages(resultHandle);
-                    console.log(resultHandle)
+                    // console.log(resultHandle)
                     setLoader(false)
                 }
             }

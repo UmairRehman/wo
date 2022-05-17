@@ -16,7 +16,7 @@ import '../auth.css'
 const { Title, Paragraph } = Typography;
 
 const validateMessages = (data) => {
-    console.log(data)
+    // console.log(data)
     const args = {
         message: 'Error',
         description:
@@ -55,7 +55,7 @@ function ForgetConfirmation() {
 
                 else {
                     validateMessages(resultHandle);
-                    console.log(resultHandle)
+                    // console.log(resultHandle)
                     setLoader(false)
                 }
 
