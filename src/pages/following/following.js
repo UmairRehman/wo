@@ -86,9 +86,9 @@ function Following() {
                 <Header />
             </div>
 
-            <div className="content ant-page- padding-whole-page">
+            <div style={{zIndex: "2"}} className="content ant-page- padding-whole-page">
 
-                <div className='mt-5'>
+                <div  className='mt-5'>
                     <FollowingCard />
                 </div>
 

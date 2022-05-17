@@ -72,13 +72,13 @@ function FollowingCard() {
 
 
     return (
-        <div>
+        <div style={{zIndex: "2"}}>
             {following.length > 0 ?
                 <div>
                     {following &&
                         <Title level={3}>Following</Title>
                     }
-                    <Carousel responsive={responsive}>
+                    <Carousel style={{zIndex: "2"}} responsive={responsive}>
                         {console.log(following[0]?.followeeDetail[0]?.imOnProfile?.On)}
                         {following.map((data) =>
 
@@ -99,7 +99,7 @@ function FollowingCard() {
 
                 :
 
-                <Carousel responsive={responsive}>
+                <Carousel style={{zIndex: "2"}} responsive={responsive}>
 
                     <div>
                         <Title level={3}>Following</Title>
