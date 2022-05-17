@@ -509,7 +509,6 @@ export async function GetProfileByID(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
   headers.append('provider', localStorage.getItem('provider'))
 
-  console.log(obj)
 
 
   let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/${obj.id}`,

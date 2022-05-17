@@ -60,11 +60,11 @@ function MyProfile() {
 
 
     const onFinish = (values: any) => {
-        console.log('Success:', values);
+        // console.log('Success:', values);
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     const followingDropdown = (
@@ -151,7 +151,7 @@ function MyProfile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                console.log("profile" + JSON.stringify(resultHandle?.message))
+                // console.log("profile",resultHandle?.message )
                 setGetProfile(resultHandle?.message?.foundUser[0])
 
             }
@@ -198,7 +198,6 @@ function MyProfile() {
 
     async function submitImage() {
 
-        console.log(profileImage)
 
         localStorage.setItem("profileImage", profileImage)
 
@@ -214,7 +213,6 @@ function MyProfile() {
 
             let resultHandle = await ChangeProfileImage(data);
 
-            console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
@@ -262,7 +260,6 @@ function MyProfile() {
             setLoader(true)
             let resultHandle = await IMON();
 
-            console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
@@ -289,8 +286,6 @@ function MyProfile() {
         navigator.clipboard.writeText(`${window.location.origin}/profile/${getProfile.username}`);
         message.info(`copy to clipboard`);
 
-        console.log(`${window.location.origin}/profile/${getProfile._id}`)
-        // console.log(profile._id)
     }
 
     const shareDropdowm = (
@@ -336,6 +331,10 @@ function MyProfile() {
             pathname: "/edit-profile",
             state: getProfile
         });
+    }
+
+    const handleURL = () => {
+        window.open("https://" + getProfile?.imOnProfile?.website)
     }
 
 
@@ -436,6 +435,7 @@ function MyProfile() {
                                 <Paragraph>{getProfile?.imOnProfile?.address}</Paragraph>
                                 : null}
                             <Paragraph>{getProfile?.emailAddress}</Paragraph>
+                            <Paragraph style={{cursor: "pointer"}} onClick={handleURL} >{getProfile?.imOnProfile?.website}</Paragraph>
                             <Paragraph>{getProfile?.phoneNumber}</Paragraph>
                             <Title level={5} >Dashboard</Title>
                             <Row>
@@ -462,7 +462,6 @@ function MyProfile() {
 
                         </Col>
                         <Col className="justify-content-end mt-3" md={12} xs={24}>
-                            {console.log(getProfile?.imOnProfile?.profession_data.length)}
                             {getProfile?.imOnProfile?.profession_data.length > 0 ?
                                 <div>
 

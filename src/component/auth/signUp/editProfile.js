@@ -93,7 +93,7 @@ const EditProfile = (user) => {
 
         let data = {
             // private: accountTypeCustom == '' ? userHistory.private : accountTypeCustom,
-            private: accountTypeCustom  == true ? true : accountTypeCustom == false ? false : userHistory.private,
+            private: accountTypeCustom == true ? true : accountTypeCustom == false ? false : userHistory.private,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
             address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
@@ -101,7 +101,8 @@ const EditProfile = (user) => {
             emailAddress: userHistory?.emailAddress,
             professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
             about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about,
-            services: services
+            services: services,
+            website: values.website
         }
 
         try {
@@ -127,12 +128,11 @@ const EditProfile = (user) => {
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     function handleChange(value) {
         setProfession(value)
-
     }
 
 
@@ -258,6 +258,8 @@ const EditProfile = (user) => {
                             }
                         </Row>
 
+
+
                         <Row>
                             <Col className="padding-20" md={12} xs={24} >
                                 <Paragraph className="font-18">Last name</Paragraph>
@@ -302,7 +304,16 @@ const EditProfile = (user) => {
                             </Col>
 
                             <Col className="padding-20" md={12} xs={24} >
+                                <Col className="padding-20" md={12} xs={24} >
+                                    <Paragraph className="font-18">Website URL</Paragraph>
+                                    <Form.Item
+                                        name={['website']}
+                                    >
 
+                                        <Input placeholder={userHistory?.website} className="fancy-border" />
+
+                                    </Form.Item>
+                                </Col>
 
                                 <Row>
                                     <Col className="padding-20" span={12}>
@@ -336,7 +347,7 @@ const EditProfile = (user) => {
                                                 <Form.Item
                                                     name={['price', i]}
                                                 >
-                                                    <InputNumber  min={1}  placeholder={x.price} className="fancy-border" />
+                                                    <InputNumber min={1} placeholder={x.price} className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>

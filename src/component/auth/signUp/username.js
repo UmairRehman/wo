@@ -17,7 +17,6 @@ const { Title, Paragraph } = Typography;
 
 
 const validateMessages = (data) => {
-    console.log(data)
     const args = {
         message: 'Error',
         description:
@@ -46,7 +45,6 @@ function UserName() {
         localStorage.setItem('lastName', values.lastName)
         localStorage.setItem('userName', values.userName)
 
-        console.log(data)
 
         try {
 

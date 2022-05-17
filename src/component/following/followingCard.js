@@ -51,11 +51,11 @@ function FollowingCard() {
 
             let resultHandle = await GetFollowing();
 
-            console.log(resultHandle)
+            // console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
-                console.log(resultHandle?.message?.followUser)
+                // console.log(resultHandle?.message?.followUser)
                 setFollowing(resultHandle?.message?.followUser)
             }
 
@@ -72,14 +72,13 @@ function FollowingCard() {
 
 
     return (
-        <div>
+        <div style={{zIndex: "2"}}>
             {following.length > 0 ?
                 <div>
                     {following &&
                         <Title level={3}>Following</Title>
                     }
-                    <Carousel responsive={responsive}>
-                        {console.log(following[0]?.followeeDetail[0]?.imOnProfile?.On)}
+                    <Carousel style={{zIndex: "2"}} responsive={responsive}>
                         {following.map((data) =>
 
                             <Card className='following-card gray-background'>
@@ -99,7 +98,7 @@ function FollowingCard() {
 
                 :
 
-                <Carousel responsive={responsive}>
+                <Carousel style={{zIndex: "2"}} responsive={responsive}>
 
                     <div>
                         <Title level={3}>Following</Title>

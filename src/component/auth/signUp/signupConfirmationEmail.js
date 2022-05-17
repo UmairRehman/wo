@@ -16,7 +16,7 @@ const { Title, Paragraph } = Typography;
 function SignupConfirmationEmail() {
 
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
     };
 
     return (

@@ -61,7 +61,7 @@ function Login() {
     },[])
 
     const responseFacebook = async (response) => {
-        console.log("facebook responce" + response);
+        // console.log("facebook responce" + response);
         
         setFacebookLogin(!facebookLogin)
         // setData(response);
@@ -72,14 +72,14 @@ function Login() {
                 provider: 'FB',
                 token: response.accessToken
             }
-            console.log(response)
+            // console.log(response)
 
             try {
 
                 setLoader(true)
                 let resultHandle = await CheckLogin(data);
 
-                console.log(resultHandle.message.login)
+                // console.log(resultHandle.message.login)
                 if (resultHandle?.success == true) {
 
                     if (resultHandle.message.login == false) {
@@ -127,7 +127,7 @@ function Login() {
 
 
     const responseGoogle = async (response) => {
-        console.log(response);
+        // console.log(response);
 
         if (response.accessToken) {
 
@@ -137,14 +137,14 @@ function Login() {
                 token: response.accessToken
 
             }
-            console.log(response.accessToken)
+            // console.log(response.accessToken)
 
             try {
 
                 setLoader(true)
                 let resultHandle = await CheckLogin(data);
 
-                console.log(resultHandle.message.login)
+                // console.log(resultHandle.message.login)
                 if (resultHandle?.success == true) {
                     setLoader(false)
                     if (resultHandle.message.login == false) {
@@ -208,7 +208,7 @@ function Login() {
             setLoader(true)
             let resultHandle = await LoginUser(data);
 
-            console.log(resultHandle)
+            // console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 

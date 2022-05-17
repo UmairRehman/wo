@@ -71,13 +71,11 @@ function Search() {
             setComponentLoader(true)
             let resultHandle = await SearchApi(data);
 
-            console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
                 setComponentLoader(false)
                 setSearchUser([...searchUser, ...resultHandle.message.result])
-                console.log(resultHandle.message.result)
 
             }
 
@@ -106,13 +104,11 @@ function Search() {
             setComponentLoader(true)
             let resultHandle = await SearchApi(data);
 
-            console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
                 setComponentLoader(false)
                 setSearchUser(resultHandle.message.result)
-                console.log(resultHandle.message.result)
 
             }
 
