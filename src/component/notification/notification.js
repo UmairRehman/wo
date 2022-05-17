@@ -153,7 +153,7 @@ function Notification(props) {
 
     try {
 
-      setComponentLoader(true)
+      setComponentLoader(true) 
 
       let data = {
 
@@ -167,12 +167,14 @@ function Notification(props) {
 
         if (countFlag === 0) {
           setGetNotification([...resultHandle?.message.notify])
-          setComponentLoader(false)
         }
         if (countFlag === 1) {
           setGetNotification([...getNotification, ...resultHandle?.message.notify])
           setComponentLoader(false)
         }
+
+
+
       }
 
       else {
@@ -265,94 +267,95 @@ function Notification(props) {
 
 
   return (
-    <div >
-      <Spin className="loader" spinning={loader} size="large" />
+    <Spin className="loader" spinning={loader} size="large" >
+      <div>
+
+        <Title className='mt-5' level={4}>Notifications </Title>
+
+        {getNotification?.map((data) =>
+          <div>
+
+            <Row key={data} className="notification-row mt-5">
+
+              <Col onClick={() => onClickNotification(data)} className="display-in-mobile" span={3}>
+                {data?.from_data[0]?.profilePicUrl ?
+                  <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={data?.from_data[0]?.profilePicUrl} />
+                  :
+                  <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={DefaultImage} />
+                }
+              </Col>
+
+              <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={11}>
+                {data.type == 1 ?
+                  <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
+
+                  : data.type == 2 ?
+                    <Text style={{ padding: '20' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now on` : `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now off`}`}</Text>
+
+                    : data.type == 3 ?
+                      <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
+                      : null}
+              </Col>
 
 
-      <Title className='mt-5' level={4}>Notifications </Title>
 
-      {getNotification?.map((data) =>
-        <div>
+              <Col className="self-align-center" span={6}>
+                {data.type == 1 ?
+                  <Row className='responsive-button-notification '>
 
-          <Row key={data} className="notification-row mt-5">
+                    <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
 
-            <Col onClick={() => onClickNotification(data)} className="display-in-mobile" span={3}>
-              {data?.from_data[0]?.profilePicUrl ?
-                <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={data?.from_data[0]?.profilePicUrl} />
-                :
-                <Image className='min-max-width' style={{ width: 'inherit', borderRadius: '50%', marginTop: '10px', maxWidth: "115px", maxHeight: "100px" }} preview={false} src={DefaultImage} />
-              }
-            </Col>
+                    <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button>
 
-            <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={11}>
-              {data.type == 1 ?
-                <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
-
-                : data.type == 2 ?
-                  <Text style={{ padding: '20' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now on` : `${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} is now off`}`}</Text>
-
-                  : data.type == 3 ?
-                    <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} accepted you follow request`}</Text>
-                    : null}
-            </Col>
-
-
-
-            <Col className="self-align-center" span={6}>
-              {data.type == 1 ?
-                <Row className='responsive-button-notification '>
-
-                  <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
-
-                  <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button>
-
-                  {/* <Button onClick={() => acceptRequest(data)} className="small-button"><CheckOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button>
+                    {/* <Button onClick={() => acceptRequest(data)} className="small-button"><CheckOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button>
                 <Button onClick={() => rejectRequest(data)} className="small-button-decline"><CloseOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button> */}
 
 
+                  </Row>
+                  : null}
+              </Col>
+
+
+              <Col className="self-align-center" span={2}>
+                <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
+                  <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text>
                 </Row>
-                : null}
-            </Col>
+              </Col>
+
+              <Col className="self-align-center" span={2} >
+                <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
+                  {/* <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text> */}
+                  <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
+                    <Button onClick={() => setID(data)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
+                  </Dropdown>
+                </Row>
+              </Col>
+            </Row>
+          </div>
 
 
-            <Col className="self-align-center" span={2}>
-              <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
-                <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text>
-              </Row>
-            </Col>
+        )}
 
-            <Col className="self-align-center" span={2} >
-              <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
-                {/* <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text> */}
-                <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
-                  <Button onClick={() => setID(data)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
-                </Dropdown>
-              </Row>
-            </Col>
+        {componentLoader &&
+          <Row
+            style={{
+              justifyContent: 'center', alignItems: 'center',
+
+            }}
+            className='component-loader j-c-c' >
+
+            <Spin className='j-c-c' spinning={componentLoader} size="large" />
+
           </Row>
-        </div>
+        }
 
 
-      )}
-
-      {componentLoader &&
-        <Row
-          style={{
-            justifyContent: 'center', alignItems: 'center',
-
-          }}
-          className='component-loader j-c-c' >
-
-          <Spin className='j-c-c' spinning={true} size="large" />
-
+        <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
+          <Button className='load-more-button' onClick={loadMore}>Load More</Button>
         </Row>
-      }
+      </div>
+    </Spin>
 
-
-      <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
-        <Button className='load-more-button' onClick={loadMore}>Load More</Button>
-      </Row>
-    </div>
   )
 }
 

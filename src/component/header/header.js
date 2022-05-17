@@ -195,9 +195,10 @@ function Header(props) {
                     </div>
 
                 )}
+
                 <Menu.Item className='no-padding-notification' key="4">
                     <Link to='../notification'>
-                        <Row className='view-all p-0 m-0'>View All</Row>
+                        <Row className='view-all p-0 m-0' >View All</Row>
                     </Link>
                 </Menu.Item>
             </div>
@@ -434,7 +435,7 @@ function Header(props) {
             </div>
 
 
-            <Sider width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
+            <Sider style={{zIndex: "99"}} width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
                     {profile?.profilePicUrl ?
                         <Image preview={false} style={{ borderRadius: '50%' }} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
@@ -457,11 +458,11 @@ function Header(props) {
                         </Link>
                     </Row>
                     : ""}
-                <Menu className="sidebar-menu" theme="light" mode="inline" defaultSelectedKeys={['1']}>
+                <Menu  className="sidebar-menu" theme="light" mode="inline" defaultSelectedKeys={['1']}>
                     {authenticate == true ?
-                        <div>
+                        <div >
                             <Link to="../following" >
-                                <Menu.Item icon={<HomeOutlined className="font-30" />} key="993" >
+                                <Menu.Item style={{zIndex: "3"}} icon={<HomeOutlined className="font-30" />} key="993" >
                                     Home
                                 </Menu.Item>
                             </Link>

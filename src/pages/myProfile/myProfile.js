@@ -151,7 +151,7 @@ function MyProfile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                console.log("profile" + JSON.stringify(resultHandle?.message))
+                // console.log("profile",resultHandle?.message )
                 setGetProfile(resultHandle?.message?.foundUser[0])
 
             }
@@ -338,6 +338,10 @@ function MyProfile() {
         });
     }
 
+    const handleURL = () => {
+        window.open("https://" + getProfile?.imOnProfile?.website)
+    }
+
 
 
     return (
@@ -436,6 +440,7 @@ function MyProfile() {
                                 <Paragraph>{getProfile?.imOnProfile?.address}</Paragraph>
                                 : null}
                             <Paragraph>{getProfile?.emailAddress}</Paragraph>
+                            <Paragraph style={{cursor: "pointer"}} onClick={handleURL} >{getProfile?.imOnProfile?.website}</Paragraph>
                             <Paragraph>{getProfile?.phoneNumber}</Paragraph>
                             <Title level={5} >Dashboard</Title>
                             <Row>

@@ -166,7 +166,7 @@ function TabsComponent() {
                 setLoader(false)
                 setComponentLoader(false)
                 setGetProfile([...getProfile, ...resultHandle?.message.followUser])
-                console.log(resultHandle?.message.followUser)
+                console.log("Followers: ",resultHandle?.message.followUser)
 
             }
 
@@ -199,6 +199,7 @@ function TabsComponent() {
                 setLoader(false)
                 setComponentLoader(false)
                 setGetFollowing(resultHandle?.message?.followUser)
+                console.log("Following: ",resultHandle?.message?.followUser)
 
             }
 
@@ -233,10 +234,11 @@ function TabsComponent() {
                             <Col md={12}>
                                 <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
                                     <Row>
-                                        <Col className="mobile-center" md={4} xs={24} >
-                                            <Image style={{ maxWidth: '100px', maxHeight: '100px', width: '80px', height: '80px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl || DefaultImage} />
+                                        <Col className="mobile-center" style={{  display: "flex" , alignItems: "end" }} md={5} xs={24} >
+                                            <Image style={{ maxWidth: '100px', maxHeight: '100px', width: '80px', height: '80px' , zIndex: "1" }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl || DefaultImage} />
+                                            <div style={{width: "15px" , height: "15px" , borderRadius: "50%" , background: `${data?.followerDetail[0]?.imOnProfile?.On ? 'green' : 'rgb(255, 0, 0)'}` , marginLeft: "-25px" , zIndex: "2"}}></div>
                                         </Col>
-                                        <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
+                                        <Col style={{ alignSelf: 'center' }} md={11} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                 <Title level={4} className="m-0">
                                                     {data?.followerDetail[0]?.firstName + " " + data?.followerDetail[0]?.lastName}
@@ -283,10 +285,11 @@ function TabsComponent() {
                                 <Col md={12}>
                                     <Card style={{ borderRadius: '30px', margin: '20px' }} className="gray-background ">
                                         <Row>
-                                            <Col className="mobile-center" md={4} xs={24} >
+                                            <Col className="mobile-center" style={{  display: "flex" , alignItems: "end" }} md={5} xs={24} >
                                                 <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followeeDetail[0].profilePicUrl} />
+                                                <div style={{width: "15px" , height: "15px" , borderRadius: "50%" , background: `${data?.followeeDetail[0]?.imOnProfile?.On ? 'green' : 'rgb(255, 0, 0)'}` , marginLeft: "-25px" , zIndex: "2"}}></div>
                                             </Col>
-                                            <Col style={{ alignSelf: 'center' }} md={12} xs={24}>
+                                            <Col style={{ alignSelf: 'center' }} md={11} xs={24}>
                                                 <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
                                                     <Title level={4} className="m-0">
                                                         {data?.followeeDetail[0]?.firstName + ' ' + data?.followeeDetail[0]?.lastName}
