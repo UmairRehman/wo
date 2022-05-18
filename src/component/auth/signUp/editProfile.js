@@ -23,11 +23,19 @@ const validateMessages = (data) => {
     notification.error(args);
 };
 
+const errorNotification = (data) => {
+    const args = {
+        message: 'Error',
+        description: data,
+        duration: 5,
+    };
+    notification.error(args);
+}
+
 const successNotification = (data) => {
     const args = {
         message: 'Success',
-        description:
-            `${data?.message}`,
+        description: data,
         duration: 5,
     };
     notification.success(args);
@@ -127,15 +135,25 @@ const EditProfile = (user) => {
 
         let validationFlag = true
 
-
+        let index = 0;
         data?.services?.forEach(service => {
+
+            index = index + 1
+
             if (service.name === undefined || service.price === undefined || service.name === null || service.price === null || service.name === '' || service.price === '' || service.name === 'undefined' || service.price === 'undefined') {
-                const args = {
-                    message: 'Error',
-                    description: 'Services fields can not be empty!',
-                    duration: 5,
-                };
-                notification.error(args);
+                errorNotification("Service fields can not be empty!")
+                validationFlag = false
+            }
+            if ( parseInt(service.price) > 999999 ) {
+                errorNotification(`Price field no. ${index} too large!`)
+                validationFlag = false
+            }
+            if ( parseInt(service.price) === 0  ) {
+                errorNotification("Price fields can not be 0!")
+                validationFlag = false
+            }
+            if ( isNaN(service.price)  ) {
+                errorNotification(`Price field no. ${index} needs to be a number!`)
                 validationFlag = false
             }
         });
@@ -145,30 +163,30 @@ const EditProfile = (user) => {
             return
         }
 
-        console.log("Final Data", data.services)
 
 
-        // setLoader(true)
+        setLoader(true)
 
-        // try {
-        //     let resultHandle = await editProfile(data)
+        try {
+            let resultHandle = await editProfile(data)
 
-        //     if (resultHandle?.success == true) {
+            if (resultHandle?.success == true) {
 
-        //         setLoader(false)
-        //         history.push("/profile-1");
-        //     }
-        //     else {
-        //         validateMessages(resultHandle);
-        //         setLoader(false)
-        //     }
+                setLoader(false)
+                successNotification("Profile updated!")
+                history.push("/profile-1");
+            }
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
 
-        // }
-        // catch (err) {
-        //     console.log(err)
-        //     setLoader(false)
+        }
+        catch (err) {
+            console.log(err)
+            setLoader(false)
 
-        // }
+        }
 
     };
 
@@ -228,9 +246,6 @@ const EditProfile = (user) => {
         setServices(temp)
         setService(services.map(data => data.name))
         setPrice(services.map(data => data.price))
- 
-      
-
     };
 
 
@@ -368,7 +383,7 @@ const EditProfile = (user) => {
                             </Col>
 
                             <Col className="padding-20" md={12} xs={24} >
-                                <Col className="padding-20" md={12} xs={24} >
+                                <Col className="padding-20" md={24} xs={24} >
                                     <Paragraph className="font-18">Website URL</Paragraph>
                                     <Form.Item
                                         name={['website']}
@@ -418,7 +433,7 @@ const EditProfile = (user) => {
                                                     initialValue={x?.price}
 
                                                 >
-                                                    <InputNumber placeholder={x?.price} defaultValue={x?.price} min={1} max={99999} className="fancy-border" />
+                                                    <Input placeholder={x?.price} defaultValue={x?.price} min={1} max={99999} className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
