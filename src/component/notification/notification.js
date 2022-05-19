@@ -24,7 +24,7 @@ const validateMessages = (data) => {
 
 const successNotification = (data) => {
   const args = {
-    message: 'Error',
+    message: 'Success',
     description: data,
     duration: 5,
   };
