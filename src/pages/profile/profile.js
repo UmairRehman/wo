@@ -94,7 +94,7 @@ function Profile() {
 
         let data = {
             "followee": profile._id,
-            "message": values.message ? values.message : "",
+            "message": values.message.length > 0 ? values.message : "",
         }
 
         try {
@@ -133,7 +133,7 @@ function Profile() {
         if (e.key == 1) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "Do you want to unfollow?",
+                text: "Do you really want to unfollow?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#27B824',
@@ -284,7 +284,7 @@ function Profile() {
 
     const shareDropdowm = (
         <Menu className="notification-dropdown" >
-            <Menu.Item onClick={() => { navigator.clipboard.writeText(window.location.href); message.info('Copy to clipboard'); }} key="2">
+            <Menu.Item onClick={() => { navigator.clipboard.writeText(window.location.href); message.info('Copied to clipboard'); }} key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Copy Profile URL</Paragraph>
             </Menu.Item>
         </Menu>
