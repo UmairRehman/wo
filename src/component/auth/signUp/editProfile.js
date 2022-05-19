@@ -141,7 +141,7 @@ const EditProfile = (user) => {
             index = index + 1
 
             if (service.name === undefined || service.price === undefined || service.name === null || service.price === null || service.name === '' || service.price === '' || service.name === 'undefined' || service.price === 'undefined') {
-                errorNotification("Service fields can not be empty!")
+                errorNotification("Can not have empty fields!")
                 validationFlag = false
             }
             if ( parseInt(service.price) > 999999 ) {

@@ -317,7 +317,7 @@ function Header(props) {
     }
     function shareProfile() {
         navigator.clipboard.writeText(`${window.location.origin}/profile/${profile.username}`);
-        message.info(`copy to clipboard`);
+        message.info(`Copied to clipboard`);
 
     }
     function test2(e) {
