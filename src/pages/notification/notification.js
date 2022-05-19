@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NotificationComponent from '../../component/notification/notification'
 import Header from '../../component/header/header';
 
@@ -10,6 +10,8 @@ function Notification() {
         notificationMsg : "Congratulations alexander start following you"
     }
 
+    const [notificationFlag, setNotificationFlag] = useState(false)
+
   
 
 
@@ -17,11 +19,11 @@ function Notification() {
         <div  className="animation2">
             <div >
                 <div className="test">
-                    <Header />
+                    <Header notificationFlag={notificationFlag} setNotificationFlag={setNotificationFlag} />
                 </div>
 
                 <div className="content padding-whole-page">
-                    <NotificationComponent data={notificationData} className="w-100"/>
+                    <NotificationComponent notificationFlag={notificationFlag} setNotificationFlag={setNotificationFlag} data={notificationData} className="w-100"/>
                 </div>
             
             </div>

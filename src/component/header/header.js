@@ -91,27 +91,48 @@ function Header(props) {
 
 
     const handleRead = async (notificationID) => {
-        try {
 
-            setLoader(true)
+        let unReadNotifications = []
 
-            let resultHandle = await readAPI(notificationID);
+        getNotification.slice(0, 4).forEach((notification) => {
+            if ( !notification?.isRead )
+            {
+                unReadNotifications.push({_id: notification?._id})
+            }
+        })
 
-            if (resultHandle?.success == true) {
 
+
+
+        unReadNotifications.forEach(async (notification) => {
+
+            try {
+
+                setLoader(true)
+    
+                let resultHandle = await readAPI(notification?._id);
+    
+                if (resultHandle?.success == true) {
+    
+                    setLoader(false)
+                    props?.setNotificationFlag(!props?.notificationFlag)
+                    message.info('Refreshing notifications. Please wait!')
+
+                }
+    
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
+    
+            }
+            catch (err) {
+                console.log(err)
                 setLoader(false)
             }
+        })
+        
 
-            else {
-                validateMessages(resultHandle);
-                setLoader(false)
-            }
-
-        }
-        catch (err) {
-            console.log(err)
-            setLoader(false)
-        }
 
     }
 
@@ -138,11 +159,15 @@ function Header(props) {
             let resultHandle = await GetNotification(data);
 
             if (resultHandle?.success === true) {
-                setLoader(false)
                 setGetNotification([...resultHandle?.message?.notify]);
                 // console.log("header",resultHandle.message.notify)
+
+                setLoader(false)
+                setUnread(false)
+
+
                 const data = resultHandle.message.notify;
-                data.slice(0, 3).forEach((item) => {
+                data.slice(0, 4).forEach((item) => {
                     if (!item.isRead) {
                         setUnread(true);
                     }
@@ -160,7 +185,7 @@ function Header(props) {
         }
 
 
-    }, [getNotification])
+    }, [getNotification, props.notificationFlag])
 
     const menu = (
         <Menu className='notification-menu'>
@@ -317,7 +342,7 @@ function Header(props) {
     }
     function shareProfile() {
         navigator.clipboard.writeText(`${window.location.origin}/profile/${profile.username}`);
-        message.info(`copy to clipboard`);
+        message.info(`Copied to clipboard`);
 
     }
     function test2(e) {

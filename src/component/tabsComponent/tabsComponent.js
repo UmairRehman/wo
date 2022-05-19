@@ -230,7 +230,7 @@ function TabsComponent() {
                                     <Row>
                                         <Col className="mobile-center" style={{  display: "flex" , alignItems: "end" }} md={5} xs={24} >
                                             <Image style={{ maxWidth: '100px', maxHeight: '100px', width: '80px', height: '80px' , zIndex: "1" }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followerDetail[0]?.profilePicUrl || DefaultImage} />
-                                            <div style={{width: "15px" , height: "15px" , borderRadius: "50%" , background: `${data?.followerDetail[0]?.imOnProfile?.On ? 'green' : 'rgb(255, 0, 0)'}` , marginLeft: "-25px" , zIndex: "2"}}></div>
+                                            <div style={{width: "15px" , height: "15px" , borderRadius: "50%" , background: `${data?.followerDetail[0]?.imOnProfile?.On ? '#00C100' : '#FD6700'}` , marginLeft: "-25px" , zIndex: "2"}}></div>
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={11} xs={24}>
                                             <Row className="mobile-center" style={{ paddingLeft: '20px' }}>
@@ -281,7 +281,7 @@ function TabsComponent() {
                                         <Row>
                                             <Col className="mobile-center" style={{  display: "flex" , alignItems: "end" }} md={5} xs={24} >
                                                 <Image style={{ maxWidth: '120px', maxHeight: '120px', width: '100px', height: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.followeeDetail[0].profilePicUrl} />
-                                                <div style={{width: "15px" , height: "15px" , borderRadius: "50%" , background: `${data?.followeeDetail[0]?.imOnProfile?.On ? 'green' : 'rgb(255, 0, 0)'}` , marginLeft: "-25px" , zIndex: "2"}}></div>
+                                                <div style={{width: "15px" , height: "15px" , borderRadius: "50%" , background: `${data?.followeeDetail[0]?.imOnProfile?.On ? '#00C100' : '#FD6700'}` , marginLeft: "-25px" , zIndex: "2"}}></div>
                                             </Col>
                                             <Col style={{ alignSelf: 'center' }} md={11} xs={24}>
                                                 <Row className="mobile-center" style={{ paddingLeft: '20px' }}>

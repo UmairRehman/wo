@@ -22,6 +22,15 @@ const validateMessages = (data) => {
   notification.error(args);
 };
 
+const successNotification = (data) => {
+  const args = {
+    message: 'Success',
+    description: data,
+    duration: 5,
+  };
+  notification.success(args);
+};
+
 
 function Notification(props) {
 
@@ -53,6 +62,39 @@ function Notification(props) {
   }
 
 
+  async function deleteOnAccept(id) {
+
+    try {
+
+      setLoader(true)
+
+      let data = {
+
+        id: id
+
+      }
+
+      let resultHandle = await DeleteNotificationApi(data);
+
+      if (resultHandle?.success == true) {
+
+        setIsReload(() => !isReload)
+        setLoader(false)
+
+      }
+
+      else {
+        validateMessages(resultHandle);
+        setLoader(false)
+      }
+
+    }
+    catch (err) {
+      console.log(err)
+      setLoader(false)
+    }
+
+  }
 
   async function deleteNotification(Id) {
 
@@ -70,8 +112,10 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
-        setLoader(false)
+        successNotification("Notification deleted!")
         setIsReload(() => !isReload)
+        setLoader(false)
+
       }
 
       else {
@@ -165,13 +209,13 @@ function Notification(props) {
 
         if (countFlag === 0) {
           setGetNotification([...resultHandle?.message.notify])
+          setComponentLoader(false)
         }
         if (countFlag === 1) {
           setGetNotification([...getNotification, ...resultHandle?.message.notify])
           setComponentLoader(false)
+
         }
-
-
 
       }
 
@@ -186,7 +230,9 @@ function Notification(props) {
       setComponentLoader(false)
     }
 
-  }, [isReload, page, loader, getNotification])
+  }, [isReload, page, loader, props?.notificationFlag])
+
+
 
 
   function loadMore() {
@@ -196,6 +242,7 @@ function Notification(props) {
 
 
   async function acceptRequest(data) {
+
 
     let obj = {
       followee: data.from,
@@ -208,8 +255,11 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
+        deleteOnAccept(data?._id)
         setIsReload(() => !isReload)
+        successNotification("Request Accepted!")
         setLoader(false)
+        
       }
 
       else {
@@ -236,6 +286,7 @@ function Notification(props) {
       if (resultHandle?.success == true) {
 
         setIsReload(() => !isReload)
+        successNotification("Request declined!")
         setLoader(false)
 
       }
