@@ -22,6 +22,24 @@ const validateMessages = (data) => {
     };
     notification.error(args);
 };
+
+const errorNotification = (data) => {
+    const args = {
+        message: 'Error',
+        description: data,
+        duration: 5,
+    };
+    notification.error(args);
+}
+
+const successNotification = (data) => {
+    const args = {
+        message: 'Success',
+        description: data,
+        duration: 5,
+    };
+    notification.success(args);
+};
 const EditProfile = (user) => {
 
     const { Content } = Layout;
@@ -31,7 +49,7 @@ const EditProfile = (user) => {
     const [userHistory, setUserHistory] = useState({})
     const [accountTypeCustom, setAccountTypeCustom] = useState('')
     const [profession, setProfession] = useState('')
-    const [services, setServices] = useState([{ name: "", price: "" }]);
+    const [services, setServices] = useState([]);
     const [loader, setLoader] = useState(false)
     const [getProfession, setGetProfession] = useState([])
     const [form] = Form.useForm();
@@ -39,8 +57,8 @@ const EditProfile = (user) => {
 
     let id = location?.state
 
-    const [service, setService] = useState([...id.imOnProfile.services.map(data => data.name)]);
-    const [price, setPrice] = useState([...id.imOnProfile.services.map(data => data.price)]);
+    const [service, setService] = useState([...id?.imOnProfile.services.map(data => data.name)]);
+    const [price, setPrice] = useState([...id?.imOnProfile.services.map(data => data.price)]);
     form.setFieldsValue({
         service: service,
         price: price
@@ -50,7 +68,14 @@ const EditProfile = (user) => {
 
         let user = id
         setUserHistory(user)
-        setServices(user?.imOnProfile?.services)
+        // setServices(user?.imOnProfile?.services)
+
+        let tempArray = []
+        user?.imOnProfile?.services.forEach(service => {
+            tempArray.push({ name: service.name, price: service.price })
+        })
+
+        setServices(tempArray)
 
         try {
 
@@ -91,6 +116,8 @@ const EditProfile = (user) => {
             price: String(values.price[i])
         });
 
+
+
         let data = {
             // private: accountTypeCustom == '' ? userHistory.private : accountTypeCustom,
             private: accountTypeCustom == true ? true : accountTypeCustom == false ? false : userHistory.private,
@@ -102,8 +129,43 @@ const EditProfile = (user) => {
             professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
             about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about,
             services: services,
-            website: values.website
+            website: values?.website?.length > 0 ? values?.website : userHistory?.imOnProfile?.website
         }
+
+
+        let validationFlag = true
+
+        let index = 0;
+        data?.services?.forEach(service => {
+
+            index = index + 1
+
+            if (service.name === undefined || service.price === undefined || service.name === null || service.price === null || service.name === '' || service.price === '' || service.name === 'undefined' || service.price === 'undefined') {
+                errorNotification("Service fields can not be empty!")
+                validationFlag = false
+            }
+            if ( parseInt(service.price) > 999999 ) {
+                errorNotification(`Price field no. ${index} too large!`)
+                validationFlag = false
+            }
+            if ( parseInt(service.price) === 0  ) {
+                errorNotification("Price fields can not be 0!")
+                validationFlag = false
+            }
+            if ( isNaN(service.price)  ) {
+                errorNotification(`Price field no. ${index} needs to be a number!`)
+                validationFlag = false
+            }
+        });
+
+
+        if (!validationFlag) {
+            return
+        }
+
+
+
+        setLoader(true)
 
         try {
             let resultHandle = await editProfile(data)
@@ -111,6 +173,7 @@ const EditProfile = (user) => {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
+                successNotification("Profile updated!")
                 history.push("/profile-1");
             }
             else {
@@ -140,6 +203,14 @@ const EditProfile = (user) => {
         setAccountTypeCustom(value)
     }
 
+    const handleService = (key, index, value) => {
+
+        services[index][key] = value
+        setServices(() => services)
+
+    };
+
+
     // handle input change
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
@@ -147,6 +218,7 @@ const EditProfile = (user) => {
         list[index][name] = value;
         setServices(list);
     };
+
 
     // handle click event of the Remove button
     const handleRemoveClick = index => {
@@ -166,9 +238,14 @@ const EditProfile = (user) => {
         });
     };
 
+
     // handle click event of the Add button
     const handleAddClick = () => {
-        setServices([...services, { name: "", price: "" }]);
+        let temp = [...services]
+        temp.push({ name: "", price: "" })
+        setServices(temp)
+        setService(services.map(data => data.name))
+        setPrice(services.map(data => data.price))
     };
 
 
@@ -179,6 +256,7 @@ const EditProfile = (user) => {
             <div style={{ paddingLeft: '5%', paddingRight: '5%', paddingTop: '5%' }} className="" >
 
                 <Row className="mobile-center-align" >
+
                     <Col className='' md={2} xs={12} >
                         <Image preview={false} className="border-50 " src={userHistory?.profilePicUrl} />
                     </Col>
@@ -198,12 +276,13 @@ const EditProfile = (user) => {
 
                     <Form
                         name="basic"
-                        initialValues={{ remember: true }}
+                        // initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         className="w-100"
                         form={form}
+
                     >
 
                         <Row>
@@ -304,13 +383,13 @@ const EditProfile = (user) => {
                             </Col>
 
                             <Col className="padding-20" md={12} xs={24} >
-                                <Col className="padding-20" md={12} xs={24} >
+                                <Col className="padding-20" md={24} xs={24} >
                                     <Paragraph className="font-18">Website URL</Paragraph>
                                     <Form.Item
                                         name={['website']}
                                     >
 
-                                        <Input placeholder={userHistory?.website} className="fancy-border" />
+                                        <Input placeholder={userHistory?.imOnProfile?.website} className="fancy-border" />
 
                                     </Form.Item>
                                 </Col>
@@ -333,21 +412,28 @@ const EditProfile = (user) => {
                                             <Col className="padding-20" span={12}>
                                                 <Form.Item
                                                     name={['service', i]}
-                                                    placeholder={x.name}
                                                     value={x.name}
+                                                    initialValue={x?.name}
+                                                    onChange={(event) => handleService('name', i, event.target.value)}
                                                 >
                                                     <Input
-
-                                                        placeholder={x.name}
-                                                        className="fancy-border" />
+                                                        initialValue={x?.name}
+                                                        defaultValue={x?.name}
+                                                        className="fancy-border"
+                                                        placeholder={x?.name}
+                                                    />
 
                                                 </Form.Item>
                                             </Col>
                                             <Col className="padding-20" span={10}>
                                                 <Form.Item
                                                     name={['price', i]}
+                                                    value={x.price}
+                                                    onChange={(event) => handleService('price', i, event.target.value)}
+                                                    initialValue={x?.price}
+
                                                 >
-                                                    <InputNumber min={1} placeholder={x.price} className="fancy-border" />
+                                                    <Input placeholder={x?.price} defaultValue={x?.price} min={1} max={99999} className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>

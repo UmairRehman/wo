@@ -381,7 +381,6 @@ function Profile() {
                 setSearchedUser(resultHandle.message.foundUser[0].username);
                 setSearchedUser(params.id)
                 setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
-
             }
 
             else {
@@ -492,6 +491,10 @@ function Profile() {
 
     }, [reload, profile])
 
+    const handleURL = () => {
+        window.open("https://" + profile?.imOnProfile?.website)
+    }
+
 
     return (
         <div className="animation2 " >
@@ -561,11 +564,15 @@ function Profile() {
                     <Row className='w-100'>
                         <Title level={5}>{profile?.firstName + " " + profile?.lastName}</Title>
                     </Row>
+                   
                     {profile?.imOnProfile &&
                         <Row className='w-100'>
                             <Paragraph>{profile?.imOnProfile?.profession_data[0]?.name}</Paragraph>
                         </Row>
                     }
+                     <Row className='w-100 ' style={{marginBottom: "10px"}}>
+                        <Paragraph onClick={handleURL} style={{ cursor: "pointer" , textDecoration: "underline" , color: "#FB6400"}} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>
+                    </Row>
                 </Row >
 
                 <Row>

@@ -435,7 +435,7 @@ function MyProfile() {
                                 <Paragraph>{getProfile?.imOnProfile?.address}</Paragraph>
                                 : null}
                             <Paragraph>{getProfile?.emailAddress}</Paragraph>
-                            <Paragraph style={{cursor: "pointer"}} onClick={handleURL} >{getProfile?.imOnProfile?.website}</Paragraph>
+                            <Paragraph style={{cursor: "pointer" , textDecoration: "underline" , color: "#FB6400"}} onClick={handleURL} >{getProfile?.imOnProfile?.website}</Paragraph>
                             <Paragraph>{getProfile?.phoneNumber}</Paragraph>
                             <Title level={5} >Dashboard</Title>
                             <Row>
