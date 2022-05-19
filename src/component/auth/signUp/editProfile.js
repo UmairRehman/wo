@@ -196,11 +196,15 @@ const EditProfile = (user) => {
 
     function handleChange(value) {
         setProfession(value)
+        setService(services.map(data => data.name))
+        setPrice(services.map(data => data.price))
     }
 
 
     function handleChangeAccountType(value) {
         setAccountTypeCustom(value)
+        setService(services.map(data => data.name))
+        setPrice(services.map(data => data.price))
     }
 
     const handleService = (key, index, value) => {
