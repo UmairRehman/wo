@@ -124,7 +124,7 @@ function ForgetConfirmation() {
                                 name="ConfirmationCode"
                                 rules={[{ required: true, message: 'Please input your Username!' }]}
                             >
-                                <Input className="login-field" placeholder="Varification Code" />
+                                <Input className="login-field" placeholder="Verification Code" />
                             </Form.Item>
 
                             <Form.Item className="position-relative">
