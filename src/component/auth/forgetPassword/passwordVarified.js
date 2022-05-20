@@ -17,7 +17,12 @@ function PasswordVarified() {
 
     const onFinish = (values) => {
         // console.log('Received values of form: ', values);
+        localStorage.clear()
     };
+
+    const handleClick = () => {
+        localStorage.clear()
+    }
 
     return (
         <div className='gray-background' style={{ height: '100vh', position: 'relative' }}>
@@ -37,7 +42,7 @@ function PasswordVarified() {
 
                         <Row style={{position:'absolute', bottom:20, width:'90%' ,display:'flex', justifyContent:'center'}}>
                             <Link className="mt-5" to="/login">
-                                <Button type="primary" htmlType="submit" className="button mt-5" >
+                                <Button type="primary" onClick={handleClick} className="button mt-5" >
                                     Sign in
                                 </Button>
                             </Link>
