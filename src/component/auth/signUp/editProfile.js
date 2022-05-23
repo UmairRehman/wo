@@ -61,7 +61,7 @@ const EditProfile = (user) => {
     const [price, setPrice] = useState([...id?.imOnProfile.services.map(data => data.price)]);
     form.setFieldsValue({
         service: service,
-        price: price
+        price: price,
     });
 
     useEffect(async () => {
@@ -75,6 +75,10 @@ const EditProfile = (user) => {
             tempArray.push({ name: service.name, price: service.price })
         })
 
+        form.setFieldsValue({
+            website: user?.imOnProfile?.website
+        });
+
         setServices(tempArray)
 
         try {
@@ -85,7 +89,6 @@ const EditProfile = (user) => {
             if (resultHandle?.success == true) {
 
                 setGetProfession(resultHandle?.message?.Profession)
-
                 setLoader(false)
 
             }
@@ -148,8 +151,8 @@ const EditProfile = (user) => {
                 errorNotification(`Price field no. ${index} too large!`)
                 validationFlag = false
             }
-            if ( parseInt(service.price) === 0  ) {
-                errorNotification("Price fields can not be 0!")
+            if ( parseInt(service.price) <= 0  ) {
+                errorNotification("Price fields can not be 0 or negative!")
                 validationFlag = false
             }
             if ( isNaN(service.price)  ) {
@@ -393,7 +396,7 @@ const EditProfile = (user) => {
                                         name={['website']}
                                     >
 
-                                        <Input placeholder={userHistory?.imOnProfile?.website} className="fancy-border" />
+                                        <Input placeholder={userHistory?.imOnProfile?.website} defaultValue={userHistory?.imOnProfile?.website} className="fancy-border" />
 
                                     </Form.Item>
                                 </Col>
@@ -435,7 +438,16 @@ const EditProfile = (user) => {
                                                     value={x.price}
                                                     onChange={(event) => handleService('price', i, event.target.value)}
                                                     initialValue={x?.price}
-
+                                                    rules={[
+                                                        ({ getFieldValue }) => ({
+                                                            validator(_, value) {
+                                                              if ( value < 99999999 ) {
+                                                                return Promise.resolve();
+                                                              }
+                                                              return Promise.reject(new Error('Price too large!'));
+                                                            },
+                                                          }),
+                                                    ]}
                                                 >
                                                     <Input placeholder={x?.price} defaultValue={x?.price} min={1} max={99999} className="fancy-border" />
 
