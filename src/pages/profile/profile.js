@@ -54,7 +54,7 @@ const validateMessagesFollow = (data) => {
 };
 
 
-function Profile() {
+function Profile(props) {
 
     const { Content } = Layout;
 
@@ -87,6 +87,12 @@ function Profile() {
     const [checkBlock, setCheckBlock] = useState()
 
     const [checkNotification, setCheckNotification] = useState({})
+
+    const [notify, setNotify] = useState({
+        onNotify: false,
+        offNotify: false,
+    })
+
 
 
 
@@ -264,6 +270,7 @@ function Profile() {
                 </Menu.Item>
                 : null
             }
+
             {checkBlock == 5 ?
                 <Menu.Item key="4">
                     <Paragraph style={{ marginBottom: '10px' }} >Unblock</Paragraph>
@@ -291,26 +298,35 @@ function Profile() {
     );
 
 
-    const [notify, setNotify] = useState({
-        onNotify: checkNotification.OnNotification == undefined ? true : checkNotification.OnNotification,
-        offNotify: checkNotification.OffNotification == undefined ? true : checkNotification.OnNotification,
 
-    })
 
-    async function handleMenuClick(e) {
+    async function handleMenuClick(checked) {
+
+        // if (checked.on) setNotify({ ...notify, onNotify: checked.on })
 
 
         try {
 
-            setLoader(true)
+            setNotify({onNotify: checked.on , offNotify: checked.off})
 
             let data = {
-
-                followee: profile._id,
-                on: e.key == 1 ? notify.onNotify : e.key == 2 ? checkNotification.OnNotification : e.key == 3 ? false : notify.onNotify == undefined ? true : true,
-                off: e.key == 1 ? checkNotification.OnNotification : e.key == 2 ? notify.offNotify : e.key == 3 ? false : notify.offNotify == undefined ? true : true,
-
+                followee: profile?._id,
+                on: checked.on,
+                off: checked.off 
             }
+
+            // console.log(data)
+
+            setLoader(true)
+
+            // let data = {
+
+            //     followee: profile._id,
+            //     on: e.key == 1 ? notify.onNotify : e.key == 2 ? checkNotification.OnNotification : e.key == 3 ? false : notify.onNotify == undefined ? true : true,
+            //     off: e.key == 1 ? checkNotification.OnNotification : e.key == 2 ? notify.offNotify : e.key == 3 ? false : notify.offNotify == undefined ? true : true,
+
+            // }
+
 
             let resultHandle = await MuteNOtification(data);
 
@@ -318,7 +334,6 @@ function Profile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                setReload(!reload)
             }
 
             else {
@@ -335,28 +350,37 @@ function Profile() {
 
     }
 
+    // const handleAll = () => {
+        
+    //     const data = {
+    //         on: true,
+    //         off: true
+    //     }
 
+    //     setNotify({onNotify: true, offNotify: true})
+
+    //     handleMenuClick(data)
+    //     setReload(!reload)
+    // }
 
     const profileBellIcon = (
-        <Menu className="notification-dropdown" onClick={handleMenuClick}>
+
+        <Menu className="notification-dropdown" >
             <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive On Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications when this person is ON</Paragraph>
-
-                <Switch defaultChecked={checkNotification.OnNotification} onChange={(checked) => setNotify({ ...notify, onNotify: checked })} />
+                <Switch defaultChecked={notify?.onNotify}  onChange={(checked) => handleMenuClick({ on: checked, off: notify?.offNotify })} />
             </Menu.Item>
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive Off Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications  when this person is Off</Paragraph>
-                <Switch defaultChecked={checkNotification.OffNotification} onChange={(checked) => setNotify({ ...notify, offNotify: checked })} />
+                <Switch defaultChecked={notify?.offNotify}  onChange={(checked) => handleMenuClick({ off: checked, on: notify?.onNotify })} />
             </Menu.Item>
-            <Menu.Item key="3">
-                <Paragraph style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
-            </Menu.Item>
-            {/* <Menu.Item key="4">
-                <Paragraph style={{ marginBottom: '0px' }}>Turn Off all notifications for this person</Paragraph>
+            {/* <Menu.Item key="3">
+                <Paragraph  style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
             </Menu.Item> */}
         </Menu>
+
     );
 
 
@@ -407,7 +431,6 @@ function Profile() {
 
                 let data = {
                     followee: profile._id
-
                 }
 
                 setLoader(true)
@@ -420,7 +443,8 @@ function Profile() {
                     if (resultHandle?.message?.followUser) {
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
-                        setCheckNotification(resultHandle?.message?.followUser)
+                        // setCheckNotification(resultHandle?.message?.followUser)
+                        setNotify({ onNotify: resultHandle?.message?.followUser?.OnNotification, offNotify: resultHandle?.message?.followUser?.OffNotification })
                     }
                     else {
                         setIsFollow(false)
@@ -536,15 +560,17 @@ function Profile() {
                     {authenticate == true ?
                         <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
 
-                            <Dropdown style={{ border: 'none' }}
-                                overlay={profileBellIcon}
-                                placement="bottomRight" >
-                                <Button style={{ border: 'none' }} >
-                                    {currentUser !== searchedUser &&
-                                        <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
-                                    }
-                                </Button>
-                            </Dropdown>
+                            {isFollow &&
+                                <Dropdown style={{ border: 'none' }}
+                                    overlay={profileBellIcon}
+                                    placement="bottomRight" >
+                                    <Button style={{ border: 'none' }} >
+                                        {currentUser !== searchedUser &&
+                                            <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
+                                        }
+                                    </Button>
+                                </Dropdown>}
+
                             {/* {
                                 currentUser !== searchedUser &&
                                 <Dropdown style={{ border: 'none' }} overlay={followingDropdown} placement="bottomRight" >
@@ -564,14 +590,14 @@ function Profile() {
                     <Row className='w-100'>
                         <Title level={5}>{profile?.firstName + " " + profile?.lastName}</Title>
                     </Row>
-                   
+
                     {profile?.imOnProfile &&
                         <Row className='w-100'>
                             <Paragraph>{profile?.imOnProfile?.profession_data[0]?.name}</Paragraph>
                         </Row>
                     }
-                     <Row className='w-100 ' style={{marginBottom: "10px"}}>
-                        <Paragraph onClick={handleURL} style={{ cursor: "pointer" , textDecoration: "underline" , color: "#FB6400"}} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>
+                    <Row className='w-100 ' style={{ marginBottom: "10px" }}>
+                        <Paragraph onClick={handleURL} style={{ cursor: "pointer", textDecoration: "underline", color: "#FB6400" }} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>
                     </Row>
                 </Row >
 

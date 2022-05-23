@@ -95,3 +95,16 @@
     height: 50px;
     width: 50px;
 }
+
+.view-profile{
+    background: #F5F5F5;
+    border: 1px solid white;
+    color: black;
+    border-radius: 10px;
+}
+
+.view-profile:hover{
+    border: 1px solid #27B824;
+    background: #27B824;
+    color: white !important; 
+}

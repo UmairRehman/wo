@@ -475,9 +475,9 @@ function Header(props) {
                 {authenticate == true ?
                     <Row className="justify-content-center mt-3">
 
-                        <Link to={`../profile-1`}
+                        <Link  style={{padding: "5px"}} to={`../profile-1`}
                         >
-                            View Profile
+                           <Button className='view-profile'> View Profile</Button>
                         </Link>
                     </Row>
                     : ""}
