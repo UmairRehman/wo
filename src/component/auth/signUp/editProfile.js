@@ -441,7 +441,7 @@ const EditProfile = (user) => {
                                                     rules={[
                                                         ({ getFieldValue }) => ({
                                                             validator(_, value) {
-                                                              if ( value < 99999999 ) {
+                                                              if ( value < 99999 ) {
                                                                 return Promise.resolve();
                                                               }
                                                               return Promise.reject(new Error('Price too large!'));
