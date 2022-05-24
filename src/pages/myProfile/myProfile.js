@@ -139,6 +139,8 @@ function MyProfile() {
 
     const [loader, setLoader] = useState(false)
 
+    const [reloadFlag, setReloadFlag] = useState(false)
+
     const [getProfile, setGetProfile] = useState({})
 
     const [status, setStatus] = useState(false)
@@ -153,7 +155,6 @@ function MyProfile() {
                 setLoader(false)
                 // console.log("profile",resultHandle?.message )
                 setGetProfile(resultHandle?.message?.foundUser[0])
-
             }
 
             else {
@@ -165,10 +166,9 @@ function MyProfile() {
         catch (err) {
             console.log(err)
         }
-    }, [status])
+    }, [status,reloadFlag])
 
     const [preview, setPreview] = useState()
-
 
     function onClose() {
         // setPreview(UserImage)
@@ -360,7 +360,7 @@ function MyProfile() {
                         cropRadius={20}
                         minCropRadius={10}
                         onClose={onClose}
-                        onFileLoad={submit}
+                        // onFileLoad={submit}
                         onBeforeFileLoad={onBeforeFileLoad}
                         onFileLoad={onUpload}
                         label={`Choose Image`}
@@ -383,7 +383,7 @@ function MyProfile() {
 
 
             <div className="test" >
-                <Header />
+                <Header reloadFlag={reloadFlag} setReloadFlag={setReloadFlag} />
             </div>
 
             <div className="content ant-page-" >
@@ -398,7 +398,7 @@ function MyProfile() {
 
                 <Row className="mt-5  padding-whole-page manage-position-absolute" >
                     <Col md={3} xs={6} >
-                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl || DefaultImage} />
+                        <Image className="border-50" preview={false} src={getProfile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
                     </Col>
 
                     <Col style={{ alignSelf: 'center' }} md={2} xs={6} >
