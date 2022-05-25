@@ -258,6 +258,7 @@ function Header(props) {
                 setLoader(false)
 
                 setIsModalVisible(false)
+                props.setReloadFlag(!props.reloadFlag)
                 // window.location.reload(false);
             }
 
@@ -460,12 +461,12 @@ function Header(props) {
 
             <Sider style={{zIndex: "99"}} width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
-                    {profile?.profilePicUrl ?
-                        <Image preview={false} style={{ borderRadius: '50%' }} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random()} />
-                        :
-                        <Image preview={false} width={150} height={150} src={DefaultImage} />
+                    {/* {profile?.profilePicUrl?.length > 0 ? */}
+                        <Image preview={false} style={{ borderRadius: '50%' }} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
+                        {/* :
+                        <Image preview={false} width={150} height={150} src={DefaultImage} /> */}
 
-                    }
+                    {/* } */}
                     {/* <Image preview={false} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} /> */}
 
                     <PlusOutlined onClick={showModal} className='add-picture' />
