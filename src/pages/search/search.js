@@ -185,7 +185,7 @@ function Search() {
                             <Col md={12}>
                                 <Card style={{ borderRadius: '30px', margin: '20px'  }} className="gray-background ">
                                     <Row>
-                                        <Col className="mobile-center" md={4} xs={24} >
+                                        <Col className="mobile-center" md={3} xs={24} >
                                             <Image style={{ maxWidth: '100px', maxHeight: '100px' }} preview={false} className="border-50 d-flex justify-content-center" src={data?.profilePicUrl || DefaultImage} />
                                         </Col>
                                         <Col style={{ alignSelf: 'center' }} md={15} xs={24}>
