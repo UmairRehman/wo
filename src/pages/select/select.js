@@ -75,7 +75,6 @@ function Select() {
 
 
         if (userHistory?.imOnProfile) {
-            // console.log(userHistory?.imOnProfile)
             if ( !userHistory?.imOnProfile?.On) handleStatus().then(() => { history.push("/profile-1") })
             if (userHistory?.imOnProfile?.On) history.push("/profile-1")
         }

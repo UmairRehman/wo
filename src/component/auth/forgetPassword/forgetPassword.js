@@ -20,12 +20,10 @@ const { Title, Paragraph } = Typography;
 const { TabPane } = Tabs;
 
 function callback(key) {
-    // console.log(key);
 }
 
 
 const validateMessages = (data) => {
-    // console.log(data)
     const args = {
         message: 'Error',
         description:
@@ -65,7 +63,6 @@ function ForgetPassword() {
 
                 else {
                     validateMessages(resultHandle);
-                    // console.log(resultHandle)
                     setLoader(false)
                 }
 
@@ -104,7 +101,6 @@ function ForgetPassword() {
                 }
                 else {
                     validateMessages(resultHandle);
-                    // console.log(resultHandle)
                     setLoader(false)
                 }
             }

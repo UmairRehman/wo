@@ -16,7 +16,6 @@ const { Title, Paragraph } = Typography;
 function PasswordVarified() {
 
     const onFinish = (values) => {
-        // console.log('Received values of form: ', values);
         localStorage.clear()
     };
 

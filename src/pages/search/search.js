@@ -98,7 +98,6 @@ function Search() {
             offset: offSet
         }
 
-        console.log(data)
         try {
 
             setComponentLoader(true)

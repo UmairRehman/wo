@@ -22,7 +22,6 @@ const { Title, Paragraph, Text } = Typography;
 const { TabPane } = Tabs;
 
 function callback(key) {
-    // console.log(key);
 }
 
 
@@ -64,7 +63,6 @@ function PhoneAndEmail() {
 
                 let resultHandle = await AddPhone(data)
 
-                // console.log(resultHandle)
 
                 if (resultHandle?.success == true) {
 
@@ -78,7 +76,6 @@ function PhoneAndEmail() {
                     else {
 
                         validateMessages(resultHandle?.message);
-                        // console.log(resultHandle)
                         setLoader(false)
                     }
 
@@ -109,7 +106,6 @@ function PhoneAndEmail() {
     };
     const onFinishEmail = (values) => {
 
-        // console.log('Received values of form: ', values);
     };
 
     return (

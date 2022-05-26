@@ -19,7 +19,6 @@ const { Title, Paragraph } = Typography;
 
 
 const validateMessages = (data) => {
-    // console.log(data)
     const args = {
         message: 'Error',
         description:

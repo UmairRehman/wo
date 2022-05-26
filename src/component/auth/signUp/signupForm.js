@@ -49,7 +49,6 @@ const SignupForm = (user) => {
         let userObject = JSON.parse(user)
 
         setUserHistory(userObject)
-        // console.log(userHistory.profilePicUrl)
 
         try {
 
@@ -100,7 +99,6 @@ const SignupForm = (user) => {
             services
         }
 
-        // console.log(data)
 
         try {
             let resultHandle = await CreateProfile(data)
@@ -150,10 +148,8 @@ const SignupForm = (user) => {
     // handle click event of the Remove button
     const handleRemoveClick = i => {
         const list = [...services];
-        // console.log(i)
-        // console.log(list);
+
         list.splice(i, 1);
-        // console.log(list)
         setServices(list);
     };
 
@@ -163,7 +159,6 @@ const SignupForm = (user) => {
     };
 
     function deleteRow(i) {
-        // console.log(i)
     }
 
 

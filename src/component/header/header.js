@@ -160,7 +160,6 @@ function Header(props) {
 
             if (resultHandle?.success === true) {
                 setGetNotification([...resultHandle?.message?.notify]);
-                // console.log("header",resultHandle.message.notify)
 
                 setLoader(false)
                 setUnread(false)
@@ -321,7 +320,6 @@ function Header(props) {
     };
 
     function submit(file) {
-        // console.log(file)
     }
 
     const [test, setTest] = useState(false)
@@ -367,38 +365,7 @@ function Header(props) {
 
         localStorage.clear()
         history.push('/login')
-
-
-
-        // let data = {
-
-        //     emailAddress: profile?.emailAddress,
-        //     firebaseToken: profile?.firebaseToken,
-        // }
-        // try {
-
-        //     setLoader(true)
-
-        //     let resultHandle = await Logout(data);
-
-        //     if (resultHandle?.success == true) {
-
-        //         setLoader(false)
-        //         window.localStorage.clear();
-        //         history.push('./login')
-
-        //     }
-
-        //     else {
-        //         validateMessages(resultHandle);
-        //         setLoader(false)
-        //     }
-
-        // }
-        // catch (err) {
-        //     console.log(err)
-        //     setLoader(false)
-        // }
+        
     }
 
     return (

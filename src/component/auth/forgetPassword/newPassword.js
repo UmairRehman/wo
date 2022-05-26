@@ -39,7 +39,6 @@ function NewPassword() {
 
     const onFinish = async (values) => {
 
-        console.log('Received values of form: ', values);
 
         let password = values.password.match(patterns.password)
 
@@ -63,7 +62,6 @@ function NewPassword() {
 
                     else {
                         validateMessages(resultHandle);
-                        // console.log(resultHandle)
                         setLoader(false)
                     }
 

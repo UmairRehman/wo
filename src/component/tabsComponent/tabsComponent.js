@@ -66,7 +66,6 @@ function TabsComponent() {
 
 
     function onClickFollow(data) {
-        // console.log(data)
     }
 
     const onClickView = (data) => {

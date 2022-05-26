@@ -82,14 +82,11 @@ function Selection() {
                     delete selectedIntrest[i];
                 }
                 else {
-                    // console.log('works')
                 }
             }
-            // console.log(selectedIntrest)
         }
         else {
             selectedIntrest.push(data?._id)
-            // console.log(selectedIntrest)
         }
 
     }
