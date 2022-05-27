@@ -310,7 +310,6 @@ function MyProfile() {
 
         }
         else {
-            // console.log("nothing else")
         }
     }
 

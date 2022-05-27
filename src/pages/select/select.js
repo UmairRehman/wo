@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import LogoGreen from '../../assets/images/logo-green.png'
 import LogoOrange from '../../assets/images/logo-orange.png'
-import { IMON } from "../../services/apiInteraction"
+import { IMON , GetProfile } from "../../services/apiInteraction"
 import './select.css'
 
 
@@ -17,14 +17,37 @@ function Select() {
 
     let history = useHistory();
 
-    const [userHistory, setuserHistory] = useState({})
+    const [userHistory, setUserHistory] = useState({})
 
-    useEffect(() => {
+    const [userProfile, setUserProfile] = useState()
+
+    useEffect(async () => {
+
         let user = localStorage.getItem("user")
 
         let userObject = JSON.parse(user)
 
-        setuserHistory(userObject)
+        try {
+            setLoader(true)
+            let resultHandle = await GetProfile();
+
+            if (resultHandle?.success == true) {
+
+                setLoader(false)
+                setUserHistory(resultHandle?.message?.foundUser[0])
+
+            }
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+
 
     }, [])
 
@@ -69,6 +92,7 @@ function Select() {
             console.log(err)
         }
     }
+
 
 
     function onClickAction() {
