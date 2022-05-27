@@ -64,7 +64,6 @@ export async function SignupApi(obj) {
 
 // varify phone 
 export async function AddPhone(obj) {
-  // console.log(StoreToken)
 
   let headers = new Headers();
 

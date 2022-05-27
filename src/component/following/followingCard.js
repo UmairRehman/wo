@@ -51,11 +51,9 @@ function FollowingCard() {
 
             let resultHandle = await GetFollowing();
 
-            // console.log(resultHandle)
 
             if (resultHandle?.success == true) {
 
-                // console.log(resultHandle?.message?.followUser)
                 setFollowing(resultHandle?.message?.followUser)
             }
 

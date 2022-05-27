@@ -19,7 +19,6 @@ const { Title, Paragraph } = Typography;
 
 
 const validateMessages = (data) => {
-    // console.log(data)
     const args = {
         message: 'Error',
         description:
@@ -57,10 +56,8 @@ function ProfilePicture(props) {
 
     function test(file) {
         if (file.type == "image/png") {
-            // console.log("works")
         }
         else {
-            // console.log("error")
             // alert("File is too big!");
             // setPreview(UserImage)
         }
@@ -73,7 +70,6 @@ function ProfilePicture(props) {
 
     function onCrop(preview) {
         setProfileImage(preview)
-        // console.log(profileImage)
     }
 
     function onUpload(file) {

@@ -315,17 +315,8 @@ function Profile(props) {
                 off: checked.off 
             }
 
-            // console.log(data)
 
             setLoader(true)
-
-            // let data = {
-
-            //     followee: profile._id,
-            //     on: e.key == 1 ? notify.onNotify : e.key == 2 ? checkNotification.OnNotification : e.key == 3 ? false : notify.onNotify == undefined ? true : true,
-            //     off: e.key == 1 ? checkNotification.OnNotification : e.key == 2 ? notify.offNotify : e.key == 3 ? false : notify.offNotify == undefined ? true : true,
-
-            // }
 
 
             let resultHandle = await MuteNOtification(data);

@@ -16,7 +16,6 @@ function UploadProfile(props) {
             elem.target.value = "";
         }
         else{
-            console.log(elem)
         }
     }
 
@@ -26,8 +25,6 @@ function UploadProfile(props) {
     }
 
     function onCrop(preview) {
-        // setPreview('')
-        // console.log(preview)
     }
 
     return (

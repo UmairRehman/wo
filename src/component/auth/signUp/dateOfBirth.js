@@ -31,7 +31,6 @@ function DateOfBirth() {
     };
 
     function onChange(date, dateString) {
-        // console.log(dateString);
         setDateofBirth(dateString)
     }
 

@@ -61,25 +61,21 @@ function Signup() {
 
 
     const responseFacebook = async (response) => {
-        // console.log("facebook responce" + response);
 
         setFacebookLogin(!facebookLogin)
-        // setData(response);
-        // setPicture(response.picture.data.url);
+
         // if login success 
         if (response.accessToken) {
             let data = {
                 provider: 'FB',
                 token: response.accessToken
             }
-            // console.log(response)
 
             try {
 
                 setLoader(true)
                 let resultHandle = await CheckLogin(data);
 
-                // console.log(resultHandle.message.login)
                 if (resultHandle?.success == true) {
 
                     if (resultHandle.message.login == false) {
@@ -127,7 +123,6 @@ function Signup() {
 
 
     const responseGoogle = async (response) => {
-        // console.log(response);
 
 
 
@@ -139,14 +134,12 @@ function Signup() {
                 token: response.accessToken
 
             }
-            // console.log(response.accessToken)
 
             try {
 
                 setLoader(true)
                 let resultHandle = await CheckLogin(data);
 
-                // console.log(resultHandle.message.login)
                 if (resultHandle?.success == true) {
                     setLoader(false)
                     if (resultHandle.message.login == false) {
@@ -209,13 +202,11 @@ function Signup() {
 
             try {
                 let resultHandle = await SignupApi(data)
-                // console.log(resultHandle)
 
                 if (resultHandle.success == true) {
                     if (resultHandle.success == true) {
 
                         setLoader(false)
-                        // console.log(data)
                         localStorage.setItem('email', data.emailAddress)
                         localStorage.setItem('token', resultHandle.message.accessToken)
                         setLoader(false)

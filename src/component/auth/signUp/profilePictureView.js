@@ -17,7 +17,6 @@ const { Title, Paragraph } = Typography;
 
 
 const validateMessages = (data) => {
-    // console.log(data)
     const args = {
         message: 'Error',
         description:
@@ -56,7 +55,6 @@ function ProfilePictureView() {
             data['image'] = localStorage.getItem('profileImage');
         }
 
-        // console.log(data)
 
         try {
 
@@ -72,7 +70,6 @@ function ProfilePictureView() {
 
                 else {
                     validateMessages(resultHandle);
-                    // console.log(resultHandle)
                     setLoader(false)
                 }
 
@@ -97,7 +94,6 @@ function ProfilePictureView() {
     };
 
     function onChange(date, dateString) {
-        // console.log(date, dateString);
     }
 
     return (

@@ -60,11 +60,9 @@ function MyProfile() {
 
 
     const onFinish = (values: any) => {
-        // console.log('Success:', values);
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        // console.log('Failed:', errorInfo);
     };
 
     const followingDropdown = (
@@ -153,7 +151,6 @@ function MyProfile() {
             if (resultHandle?.success == true) {
 
                 setLoader(false)
-                // console.log("profile",resultHandle?.message )
                 setGetProfile(resultHandle?.message?.foundUser[0])
             }
 
@@ -176,7 +173,6 @@ function MyProfile() {
 
     function onCrop(preview) {
         setProfileImage(preview)
-        // console.log(profileImage)
     }
 
     function onUpload(file) {
@@ -314,7 +310,7 @@ function MyProfile() {
 
         }
         else {
-            console.log("nothing else")
+            // console.log("nothing else")
         }
     }
 

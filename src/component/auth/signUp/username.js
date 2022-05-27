@@ -58,7 +58,6 @@ function UserName() {
                 }
                 else {
                     validateMessages(resultHandle);
-                    console.log(resultHandle)
                     setLoader(false)
                 }
             }
