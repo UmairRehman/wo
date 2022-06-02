@@ -8,6 +8,11 @@
 # testing
 /coverage
 
+
+
+src/Enviroment
+
+
 # production
 /build
 
