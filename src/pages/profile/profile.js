@@ -589,6 +589,17 @@ function Profile(props) {
                     }
 
 
+                    {profile?.imOnProfile &&
+                        <Row className='w-100'>
+                            <Paragraph>{profile?.imOnProfile?.address}</Paragraph>
+                        </Row>
+                    }
+
+                    {profile?.imOnProfile &&
+                        <Row className='w-100'>
+                            <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
+                        </Row>
+                    }
 
                     <Row className='w-100 ' style={{ marginBottom: "10px" }}>
                         <Paragraph onClick={handleURL} style={{ cursor: "pointer", textDecoration: "underline", color: "#FB6400" }} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>
@@ -617,9 +628,9 @@ function Profile(props) {
 
                             {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}
 
-                            <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
+                            { isFollow && <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
-                            </Dropdown>
+                            </Dropdown>}
 
                         </Col>
                     </Row>
