@@ -307,12 +307,12 @@ function Profile(props) {
 
         try {
 
-            setNotify({onNotify: checked.on , offNotify: checked.off})
+            setNotify({ onNotify: checked.on, offNotify: checked.off })
 
             let data = {
                 followee: profile?._id,
                 on: checked.on,
-                off: checked.off 
+                off: checked.off
             }
 
 
@@ -342,7 +342,7 @@ function Profile(props) {
     }
 
     // const handleAll = () => {
-        
+
     //     const data = {
     //         on: true,
     //         off: true
@@ -360,12 +360,12 @@ function Profile(props) {
             <Menu.Item key="1">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive On Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications when this person is ON</Paragraph>
-                <Switch defaultChecked={notify?.onNotify}  onChange={(checked) => handleMenuClick({ on: checked, off: notify?.offNotify })} />
+                <Switch defaultChecked={notify?.onNotify} onChange={(checked) => handleMenuClick({ on: checked, off: notify?.offNotify })} />
             </Menu.Item>
             <Menu.Item key="2">
                 <Paragraph style={{ marginBottom: '0px' }}>Receive Off Notifications </Paragraph>
                 <Paragraph className="fade-text">Start receiving notifications  when this person is Off</Paragraph>
-                <Switch defaultChecked={notify?.offNotify}  onChange={(checked) => handleMenuClick({ off: checked, on: notify?.onNotify })} />
+                <Switch defaultChecked={notify?.offNotify} onChange={(checked) => handleMenuClick({ off: checked, on: notify?.onNotify })} />
             </Menu.Item>
             {/* <Menu.Item key="3">
                 <Paragraph  style={{ marginBottom: '10px' }}>Receive Both On/Off notifications</Paragraph>
@@ -587,6 +587,20 @@ function Profile(props) {
                             <Paragraph>{profile?.imOnProfile?.profession_data[0]?.name}</Paragraph>
                         </Row>
                     }
+
+
+                    {profile?.imOnProfile &&
+                        <Row className='w-100'>
+                            <Paragraph>{profile?.imOnProfile?.address}</Paragraph>
+                        </Row>
+                    }
+
+                    {profile?.imOnProfile &&
+                        <Row className='w-100'>
+                            <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
+                        </Row>
+                    }
+
                     <Row className='w-100 ' style={{ marginBottom: "10px" }}>
                         <Paragraph onClick={handleURL} style={{ cursor: "pointer", textDecoration: "underline", color: "#FB6400" }} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>
                     </Row>
@@ -614,9 +628,9 @@ function Profile(props) {
 
                             {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}
 
-                            <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
+                            { isFollow && <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
-                            </Dropdown>
+                            </Dropdown>}
 
                         </Col>
                     </Row>

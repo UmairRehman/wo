@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button, DatePicker, Image } from 'antd';
+import { Row, Col, Card, Typography, Form, Input, Button, DatePicker, Image, notification } from 'antd';
 import { FacebookOutlined } from '@ant-design/icons';
+import moment from "moment"
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
     Link
@@ -21,6 +22,11 @@ function DateOfBirth() {
 
     const onFinish = (values) => {
 
+        
+        const selectedDate = dateofBirth?.split(' ')
+        const today = dateToday?.split(' ')
+        if (parseInt(selectedDate[2]) > parseInt(today[2]) ) return toast("Invalid date!")
+
         let data = {
             dateofBirth
         }
@@ -30,9 +36,21 @@ function DateOfBirth() {
 
     };
 
-    function onChange(date, dateString) {
+
+    const toast = (data) => {
+        const args = {
+            message: 'Error',
+            description: data,
+            duration: 5,
+        };
+        notification.error(args);
+    }
+
+    function onChange(date,dateString) {
         setDateofBirth(dateString)
     }
+
+    const dateToday = moment(new Date()).format('MMMM Do YYYY')
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
@@ -55,7 +73,7 @@ function DateOfBirth() {
                                 name="ConfirmationCode"
                                 rules={[{ required: true, message: 'Please enter your data of birth!' }]}
                             >
-                                <DatePicker format={'MMMM Do YYYY'} className="w-100 custom-date-of-birth" onChange={onChange} />
+                                <DatePicker  format={'MMMM Do YYYY'}  className="w-100 custom-date-of-birth" onChange={onChange} />
 
                             </Form.Item>
 

@@ -56,7 +56,7 @@ function Login() {
     let history = useHistory();
 
     useEffect(()=> {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('user');
         if (token) history.push('/profile-1')
     },[])
 

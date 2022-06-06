@@ -9,7 +9,7 @@ import { Redirect, Route } from "react-router-dom";
 
     // const token = Promise.resolve().then(()=> localStorage.getItem('token'));
     useEffect(() => {
-        setToken(localStorage.getItem('token'));
+        setToken(localStorage.getItem('user'));
     }, []);
     
 

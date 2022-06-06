@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Typography, Form, Input, Button, notification, Tabs, Spin } from 'antd';
 import { PhoneOutlined } from '@ant-design/icons';
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 import {
     Link
 } from "react-router-dom";
@@ -45,9 +47,14 @@ function PhoneAndEmail() {
 
     const [phoneNumber, setPhoneNumber] = useState()
 
+    const [value, setValue] = useState(null)
+
+
     const onFinish = async (values) => {
 
-        let phone = values.phone.match(patterns.phoneNumber)
+        // let phone = values.phone.match(patterns.phoneNumber)
+        let phone = value
+
 
         if (phone) {
             setLoader(true)
@@ -108,6 +115,9 @@ function PhoneAndEmail() {
 
     };
 
+
+   
+
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">
             <Spin className="loader" spinning={loader} size="large" />
@@ -116,7 +126,7 @@ function PhoneAndEmail() {
                 <Col md={8} xs={24} >
 
                 </Col>
-                <Col style={{ alignSelf: 'center' , justifyContent:'center', display:'flex'}} className="position-relative" md={8} xs={24} >
+                <Col style={{ alignSelf: 'center', justifyContent: 'center', display: 'flex' }} className="position-relative" md={8} xs={24} >
                     <Card bordered={false} className="custom-card responsive-card">
                         <Title className="d-flex justify-content-center" level={4}>Enter phone number</Title>
 
@@ -131,7 +141,9 @@ function PhoneAndEmail() {
                                 name="phone"
                                 rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                             >
-                                <Input className="login-field" prefix={<PhoneOutlined className="login-fonts" />} placeholder="+1434*****" />
+                                {/* <Input className="login-field" prefix={<PhoneInput placeholder="Enter phone number" value={value} onChange={setValue} className="login-fonts" />} placeholder="+1434*****" /> */}
+                                <PhoneInput  placeholder="Enter phone number" value={value} onChange={setValue} />
+
                             </Form.Item>
                             <Text style={{ display: error == false ? 'none' : 'block' }} type="danger">Phone Number is not valid</Text>
                             <Form.Item>

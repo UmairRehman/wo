@@ -5,7 +5,8 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import {
     Link
 } from "react-router-dom";
-
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 import { useHistory } from "react-router-dom";
 
 // import CSS 
@@ -42,12 +43,17 @@ function ForgetPassword() {
 
     const [error, setError] = useState(false)
 
+    const [value, setValue] = useState(null)
+
+
     const onFinish = async (values) => {
-        setLoader(true)
 
         let data = {
-            phoneNumber: values.phoneNumber
+            phoneNumber: value
         }
+
+        setLoader(true)
+
 
         try {
 
@@ -145,7 +151,8 @@ function ForgetPassword() {
                                         name="phoneNumber"
                                         rules={[{ required: true, message: 'Please input your phone number!' }]}
                                     >
-                                        <Input className="login-field" prefix={<PhoneOutlined className="login-fonts rotate-180" />} placeholder="Phone Number" />
+                                        <PhoneInput placeholder="Enter phone number" value={value} onChange={setValue} />
+                                        {/* <Input className="login-field" prefix={<PhoneOutlined className="login-fonts rotate-180" />} placeholder="Phone Number" /> */}
                                     </Form.Item>
                                     <Form.Item>
                                         <Button type="primary" htmlType="submit" className="button mt-5 w-100" >

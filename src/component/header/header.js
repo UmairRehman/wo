@@ -101,9 +101,6 @@ function Header(props) {
             }
         })
 
-
-
-
         unReadNotifications.forEach(async (notification) => {
 
             try {
@@ -131,9 +128,10 @@ function Header(props) {
                 setLoader(false)
             }
         })
-        
 
 
+        if (notificationID === 'view') history.push('../notification')
+    
     }
 
 
@@ -186,6 +184,7 @@ function Header(props) {
 
     }, [getNotification, props.notificationFlag])
 
+
     const menu = (
         <Menu className='notification-menu'>
             <div>
@@ -203,7 +202,7 @@ function Header(props) {
                                         </Col>
                                         <Col style={{ display: 'flex', alignItems: 'center' }} span={19}>
                                             {data.type == 1 ?
-                                                <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName + data.from_data[0]?.lastName} wants to follow you`}</Text>
+                                                <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.from_data[0]?.firstName + " " + data.from_data[0]?.lastName} wants to follow you`}</Text>
                                                 : data.type == 2 ?
                                                     <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} is Available` : `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName}  is not Available`}`}</Text>
                                                     : data.type == 3 ?
@@ -219,15 +218,15 @@ function Header(props) {
                 )}
 
                 <Menu.Item className='no-padding-notification' key="4">
-                    <Link to='../notification'>
-                        <Row className='view-all p-0 m-0' >View All</Row>
-                    </Link>
+                        <Row onClick={()=>handleRead('view')} className='view-all p-0 m-0' >View All</Row>
                 </Menu.Item>
             </div>
 
         </Menu>
 
     );
+
+   
 
     const [loader, setLoader] = useState(false)
 
