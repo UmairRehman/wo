@@ -614,9 +614,9 @@ function Profile(props) {
 
                             {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}
 
-                            <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
+                            { isFollow && <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
-                            </Dropdown>
+                            </Dropdown>}
 
                         </Col>
                     </Row>
