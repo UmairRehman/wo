@@ -600,7 +600,6 @@ function Profile(props) {
                             <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
                         </Row>
                     } </> }
-
                     
 
                     <Row className='w-100 ' style={{ marginBottom: "10px" }}>
