@@ -589,7 +589,7 @@ function Profile(props) {
                     }
 
 
-                    {profile?.imOnProfile &&
+                  { isFollow && <>  {profile?.imOnProfile &&
                         <Row className='w-100'>
                             <Paragraph>{profile?.imOnProfile?.address}</Paragraph>
                         </Row>
@@ -599,7 +599,8 @@ function Profile(props) {
                         <Row className='w-100'>
                             <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
                         </Row>
-                    }
+                    } </> }
+                    
 
                     <Row className='w-100 ' style={{ marginBottom: "10px" }}>
                         <Paragraph onClick={handleURL} style={{ cursor: "pointer", textDecoration: "underline", color: "#FB6400" }} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>

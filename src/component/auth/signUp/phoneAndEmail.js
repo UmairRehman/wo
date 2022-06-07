@@ -142,7 +142,9 @@ function PhoneAndEmail() {
                                 rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                             >
                                 {/* <Input className="login-field" prefix={<PhoneInput placeholder="Enter phone number" value={value} onChange={setValue} className="login-fonts" />} placeholder="+1434*****" /> */}
-                                <PhoneInput  placeholder="Enter phone number" value={value} onChange={setValue} />
+                                {/* <PhoneInput  placeholder="Enter phone number" value={value} onChange={setValue} /> */}
+                                <PhoneInput defaultCountry='US' placeholder="(XXX) XXX-XXXX" value={value} onChange={setValue} limitMaxLength={13} />
+
 
                             </Form.Item>
                             <Text style={{ display: error == false ? 'none' : 'block' }} type="danger">Phone Number is not valid</Text>
