@@ -73,7 +73,9 @@ function DateOfBirth() {
                                 name="ConfirmationCode"
                                 rules={[{ required: true, message: 'Please enter your data of birth!' }]}
                             >
-                                <DatePicker  format={'MMMM Do YYYY'}  className="w-100 custom-date-of-birth" onChange={onChange} />
+                                <DatePicker disabledDate={(current) => {
+                                    return current && current > moment(new Date(), "YYYY-MM-DD");
+                                }} format={'DD-MM-YYYY'} className="w-100 custom-date-of-birth" onChange={onChange} />
 
                             </Form.Item>
 
