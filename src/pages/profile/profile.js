@@ -20,9 +20,8 @@ import DefaultImage from '../../assets/images/default.png'
 import { statusConstant } from '../../constant/status'
 import { useParams } from "react-router-dom";
 import CoverImage from '../../assets/images/coverImage.png'
-
+import io from 'socket.io-client'
 import './profile.css'
-
 
 const {
     REQUEST,
@@ -374,6 +373,41 @@ function Profile(props) {
 
     );
 
+    useEffect(() => {
+        const socket = io("ws://localhost:3000/imOnOff",{transports:['websocket']});
+        
+        try {
+            console.log('here we go')
+            socket.on("connect", () => {
+                console.log('connected', socket.id); // x8WIv7-mJelg7on_ALbx
+                socket.emit('join',profile._id)
+                console.log('id', profile._id)
+            });
+            socket.on('statusUpdated', (data) => {
+                console.log(data);
+            });                        
+            socket.on('connect_error', (error) => {
+                console.log('connection error', error.message); // x8WIv7-mJelg7on_ALbx
+                console.log('Reconnecting', socket.id); // x8WIv7-mJelg7on_ALbx
+               
+                socket.emit('join',profile._id)
+               
+                console.log('id', profile._id)
+               
+                socket.disconnect()
+            });
+        } catch (error) {
+            console.log({error})
+        }
+
+      return () => {
+        socket.on("disconnect", () => {
+            console.log('disconnecting ...', socket.connected); // undefined
+            socket.disconnect()
+        });
+      }
+    }, [profile])
+    
 
     useEffect(async () => {
 
@@ -395,7 +429,7 @@ function Profile(props) {
                 setProfile(resultHandle?.message.foundUser[0])
                 setSearchedUser(resultHandle.message.foundUser[0].username);
                 setSearchedUser(params.id)
-                setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
+                setCurrentUser(JSON.parse(localStorage.getItem('user')).username)              
             }
 
             else {
