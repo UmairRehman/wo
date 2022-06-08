@@ -410,9 +410,9 @@ function Profile(props) {
         }
 
         return () => {
-            socket.emit("disconnect")
+            socket.emit("disconnecting")
             socket.on("disconnect", () => {
-                console.log('disconnecting ...', socket.connected); // undefined
+                console.log('disconnected ...', socket); // undefined
                 socket.disconnect()
             });
         }
