@@ -128,7 +128,7 @@ const EditProfile = (user) => {
             lastName: userHistory?.lastName,
             address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
             phoneNumber: userHistory?.phoneNumber,
-            emailAddress: userHistory?.emailAddress,
+           
             professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
             about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about,
             services: services,

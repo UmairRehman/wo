@@ -23,10 +23,19 @@ function DateOfBirth() {
     const onFinish = (values) => {
 
         
-        const selectedDate = dateofBirth?.split(' ')
-        const today = dateToday?.split(' ')
-        if (parseInt(selectedDate[2]) > parseInt(today[2]) ) return toast("Invalid date!")
+        const today = moment(new Date()).format('DD-MM-YYYY').split('-')
+        const selected = dateofBirth.split('-')
 
+
+        if ( selected[2] > today[2] ) return toast("Invalid date!")
+
+        if ( selected[1] > today[1] && selected[2] >= today[2] ) return toast("Invalid date!")
+
+        if ( selected[0] > today[0] ) return toast("Invalid date!")
+
+
+
+        console.log("Go")
         let data = {
             dateofBirth
         }
@@ -50,7 +59,6 @@ function DateOfBirth() {
         setDateofBirth(dateString)
     }
 
-    const dateToday = moment(new Date()).format('MMMM Do YYYY')
 
     return (
         <div style={{ height: '100vh', position: 'relative' }} className="gray-background">

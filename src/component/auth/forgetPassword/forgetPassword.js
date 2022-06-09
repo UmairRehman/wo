@@ -147,13 +147,13 @@ function ForgetPassword() {
                                     initialValues={{ remember: true }}
                                     onFinish={onFinish}
                                 >
-                                    <Form.Item
+                                    {/* <Form.Item
                                         name="phoneNumber"
                                         rules={[{ required: true, message: 'Please input your phone number!' }]}
-                                    >
-                                        <PhoneInput placeholder="Enter phone number" value={value} onChange={setValue} />
-                                        {/* <Input className="login-field" prefix={<PhoneOutlined className="login-fonts rotate-180" />} placeholder="Phone Number" /> */}
-                                    </Form.Item>
+                                    > */}
+                                    <PhoneInput defaultCountry='US' placeholder="(XXX) XXX-XXXX" value={value} onChange={setValue} limitMaxLength={13} />
+                                    {/* <Input className="login-field" prefix={<PhoneOutlined className="login-fonts rotate-180" />} placeholder="Phone Number" /> */}
+                                    {/* </Form.Item> */}
                                     <Form.Item>
                                         <Button type="primary" htmlType="submit" className="button mt-5 w-100" >
                                             Next
