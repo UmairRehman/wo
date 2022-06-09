@@ -24,10 +24,14 @@ import io from 'socket.io-client'
 import './profile.css'
 import imOff from "../../assets/images/logo-white.png"
 import imOn from "../../assets/images/imoff.png"
-import On from "../../assets/images/on.png"
-import off from "../../assets/images/off.png"
 
+import apiConfig from '../../Enviroment/enviroment'
 
+const  {
+    socketUrl
+} = apiConfig
+
+const socketNamespace = 'imOnOff'
 
 const {
     REQUEST,
@@ -381,40 +385,40 @@ function Profile(props) {
 
     const [imOnStatus, setImOnStatus] = useState(false)
 
+    const socket = io(`${socketUrl}${socketNamespace}`, { transports: ['websocket'] });
+
     useEffect(() => {
-        const socket = io("ws://api.dev.whoson.co:3000/imOnOff", { transports: ['websocket'] });
 
         try {
             console.log('here we go')
-            socket.on("connect", () => {
-                console.log('connected', socket.id); // x8WIv7-mJelg7on_ALbx
-                socket.emit('join', profile._id)
-                console.log('id', profile._id)
-            });
-            socket.on('statusUpdated', (data) => {
-                console.log(data);
-                setImOnStatus(data?.status)
-            });
-            socket.on('connect_error', (error) => {
-                console.log('connection error', error.message); // x8WIv7-mJelg7on_ALbx
-                console.log('Reconnecting', socket.id); // x8WIv7-mJelg7on_ALbx
+            if ( profile._id && !socket.connected){
 
-                socket.emit('join', profile._id)
+                socket.on("connect", () => {
+                    console.log('connected', socket.id , profile._id); // x8WIv7-mJelg7on_ALbx
+                    socket.emit('join', profile._id)
+                
+                    socket.on('connect_error', (error) => {
+                        console.log('error', error.message); // x8WIv7-mJelg7on_ALbx
+                        socket.disconnect()
+                      });
+                    socket.on('statusUpdated', (data) => {
+                        console.log(data);
+                        setImOnStatus(data?.status)
+                    });
+                    socket.on('disconnect',()=>{
+                            console.log('disconnected called');
+                            socket.disconnect()
+                    })
 
-                console.log('id', profile._id)
-
+                });
+                
+            }
+            } catch (error) {
+                console.log({ error })
                 socket.disconnect()
-            });
-        } catch (error) {
-            console.log({ error })
-        }
-
+            }            
         return () => {
-            socket.emit("disconnecting")
-            socket.on("disconnect", () => {
-                console.log('disconnected ...', socket); // undefined
-                socket.disconnect()
-            });
+            socket.disconnect()
         }
     }, [profile])
 
@@ -479,7 +483,7 @@ function Profile(props) {
                     if (resultHandle?.message?.followUser) {
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
-                        // setCheckNotification(resultHandle?.message?.followUser)
+                        setCheckNotification(resultHandle?.message?.followUser)
                         setNotify({ onNotify: resultHandle?.message?.followUser?.OnNotification, offNotify: resultHandle?.message?.followUser?.OffNotification })
                     }
                     else {
