@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import LogoGreen from '../../assets/images/logo-green.png'
 import LogoOrange from '../../assets/images/logo-orange.png'
-import { IMON , GetProfile } from "../../services/apiInteraction"
+import { IMON, GetProfile } from "../../services/apiInteraction"
 import './select.css'
 
 
@@ -98,8 +98,8 @@ function Select() {
     function onClickAction() {
 
         // console.log(userHistory)
-        if (userHistory?.imOnProfile.On) {
-            if ( !userHistory?.imOnProfile?.On) handleStatus().then(() => { history.push("/profile-1") })
+        if (userHistory?.imOnProfile?.profession_data.length > 0 ) {
+            if (!userHistory?.imOnProfile?.On) handleStatus().then(() => { history.push("/profile-1") })
             if (userHistory?.imOnProfile?.On) history.push("/profile-1")
         }
         else {
