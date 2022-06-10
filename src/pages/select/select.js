@@ -97,8 +97,8 @@ function Select() {
 
     function onClickAction() {
 
-
-        if (userHistory?.imOnProfile) {
+        // console.log(userHistory)
+        if (userHistory?.imOnProfile.On) {
             if ( !userHistory?.imOnProfile?.On) handleStatus().then(() => { history.push("/profile-1") })
             if (userHistory?.imOnProfile?.On) history.push("/profile-1")
         }
