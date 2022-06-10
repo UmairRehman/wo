@@ -206,7 +206,7 @@ function Header(props) {
                                                 : data.type == 2 ?
                                                     <Text style={{ whiteSpace: 'pre-wrap' }} >{`${data.onOff == true ? `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} is Available` : `${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName}  is not Available`}`}</Text>
                                                     : data.type == 3 ?
-                                                        <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName + data.from_data[0]?.lastName} accepted your follow request`}</Text>
+                                                        <Text style={{ whiteSpace: 'pre-wrap' }}>{`${data.from_data[0]?.firstName + "  " + data.from_data[0]?.lastName} accepted your follow request`}</Text>
                                                         : null}
                                         </Col>
                                     </Row>
