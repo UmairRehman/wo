@@ -163,7 +163,7 @@ function ForgetPassword() {
                                 <Paragraph className="mt-5" style={{ textAlign: 'center' }}>You may receive SMS updates from WHO'S ON and can opt out any time.</Paragraph>
 
                             </TabPane>
-                            <TabPane tab="Email Address" key="2">
+                            {/* <TabPane tab="Email Address" key="2">
 
                                 <Paragraph style={{ textAlign: 'center' }}>
                                     You will receive a password reset code at the email address associated with your account.
@@ -187,7 +187,7 @@ function ForgetPassword() {
                                     </Form.Item>
                                 </Form>
                                 <Paragraph className="mt-5" style={{ textAlign: 'center' }}>You may receive code on your email address.</Paragraph>
-                            </TabPane>
+                            </TabPane> */}
                         </Tabs>
                     </Card>
                 </Col>
