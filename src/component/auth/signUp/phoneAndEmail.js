@@ -143,7 +143,7 @@ function PhoneAndEmail() {
                             >
                                 {/* <Input className="login-field" prefix={<PhoneInput placeholder="Enter phone number" value={value} onChange={setValue} className="login-fonts" />} placeholder="+1434*****" /> */}
                                 {/* <PhoneInput  placeholder="Enter phone number" value={value} onChange={setValue} /> */}
-                                <PhoneInput defaultCountry='US' placeholder="(XXX) XXX-XXXX" value={value} onChange={setValue} limitMaxLength={13} />
+                                <PhoneInput defaultCountry='US' placeholder="(XXX) XXX-XXXX" value={value} onChange={setValue} limitMaxLength={10} />
 
 
                             </Form.Item>
