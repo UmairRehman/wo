@@ -138,6 +138,8 @@ const EditProfile = (user) => {
 
         let validationFlag = true
 
+        console.log('website' ,typeof(data.website))
+
         let index = 0;
         data?.services?.forEach(service => {
 
