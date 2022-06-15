@@ -151,7 +151,7 @@ function ForgetPassword() {
                                         name="phoneNumber"
                                         rules={[{ required: true, message: 'Please input your phone number!' }]}
                                     > */}
-                                    <PhoneInput defaultCountry='US' placeholder="(XXX) XXX-XXXX" value={value} onChange={setValue} limitMaxLength={13} />
+                                    <PhoneInput defaultCountry='US' placeholder="(XXX) XXX-XXXX" value={value} onChange={setValue} limitMaxLength={10} />
                                     {/* <Input className="login-field" prefix={<PhoneOutlined className="login-fonts rotate-180" />} placeholder="Phone Number" /> */}
                                     {/* </Form.Item> */}
                                     <Form.Item>
