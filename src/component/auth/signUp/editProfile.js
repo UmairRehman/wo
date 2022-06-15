@@ -132,7 +132,7 @@ const EditProfile = (user) => {
             professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
             about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about,
             services: services,
-            website: values?.website?.length > 0 ? values?.website : userHistory?.imOnProfile?.website
+            website: values?.website
         }
 
 
