@@ -22,23 +22,10 @@ function DateOfBirth() {
 
     const onFinish = (values) => {
 
-        
-        const today = moment(new Date()).format('DD-MM-YYYY').split('-')
-        const selected = dateofBirth.split('-')
-
-
-        if ( selected[2] > today[2] ) return toast("Invalid date!")
-
-        if ( selected[1] > today[1] && selected[2] >= today[2] ) return toast("Invalid date!")
-
-        if ( selected[0] > today[0] ) return toast("Invalid date!")
-
-
-
-        console.log("Go")
         let data = {
             dateofBirth
         }
+
 
         localStorage.setItem('dateofBirth', dateofBirth)
         history.push('/profile-picture')
@@ -46,14 +33,7 @@ function DateOfBirth() {
     };
 
 
-    const toast = (data) => {
-        const args = {
-            message: 'Error',
-            description: data,
-            duration: 5,
-        };
-        notification.error(args);
-    }
+  
 
     function onChange(date,dateString) {
         setDateofBirth(dateString)
@@ -81,7 +61,9 @@ function DateOfBirth() {
                                 name="ConfirmationCode"
                                 rules={[{ required: true, message: 'Please enter your data of birth!' }]}
                             >
-                                <DatePicker  format={'DD-MM-YYYY'}  className="w-100 custom-date-of-birth" onChange={onChange} />
+                                <DatePicker disabledDate={(current) => {
+                                    return current && current > moment(new Date(), "YYYY-MM-DD");
+                                }} format={'Do MMMM YYYY'} className="w-100 custom-date-of-birth" onChange={onChange} />
 
                             </Form.Item>
 
