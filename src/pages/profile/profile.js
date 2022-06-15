@@ -5,7 +5,7 @@ import {
     CheckOutlined
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input, Switch } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input, Switch, Empty } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Header from '../../component/header/header';
 import { Link, useLocation } from 'react-router-dom'
@@ -374,6 +374,8 @@ function Profile(props) {
 
     );
 
+    const [exists, setExists] = useState(true)
+
 
     useEffect(async () => {
 
@@ -389,8 +391,8 @@ function Profile(props) {
             setLoader(true)
             let resultHandle = await GetProfileByID(params);
 
-            if (resultHandle?.success == true) {
 
+            if (resultHandle?.success == true) {
                 setLoader(false)
                 setProfile(resultHandle?.message.foundUser[0])
                 setSearchedUser(resultHandle.message.foundUser[0].username);
@@ -399,6 +401,7 @@ function Profile(props) {
             }
 
             else {
+                setExists(false)
                 validateMessages(resultHandle);
                 setLoader(false)
             }
@@ -524,7 +527,7 @@ function Profile(props) {
                     <Image preview={false} src={CoverImage} />
                 </Col>
             </Row>
-            <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
+            {exists ? <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="" >
                     <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
@@ -682,7 +685,7 @@ function Profile(props) {
                         }
                     </div>
                     : ''}
-            </div>
+            </div> : <div style={{marginTop: "-300px",maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center"}}><h3>User does not exist!</h3><Empty /></div>}
         </div >
     )
 }

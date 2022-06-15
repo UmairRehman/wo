@@ -68,6 +68,8 @@ const EditProfile = (user) => {
 
         let user = id
         setUserHistory(user)
+        setAccountTypeCustom(user.private)
+
         // setServices(user?.imOnProfile?.services)
 
         let tempArray = []
@@ -89,6 +91,7 @@ const EditProfile = (user) => {
             if (resultHandle?.success == true) {
 
                 setGetProfession(resultHandle?.message?.Profession)
+
                 setLoader(false)
 
             }
@@ -123,7 +126,8 @@ const EditProfile = (user) => {
 
         let data = {
             // private: accountTypeCustom == '' ? userHistory.private : accountTypeCustom,
-            private: accountTypeCustom == true ? true : accountTypeCustom == false ? false : userHistory.private,
+            // private: accountTypeCustom == true ? true : accountTypeCustom == false ? false : userHistory.private,
+            private: accountTypeCustom ? true : false,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
             address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
@@ -135,8 +139,11 @@ const EditProfile = (user) => {
             website: values?.website
         }
 
+        console.log({ data })
+
 
         let validationFlag = true
+
 
         let index = 0;
         data?.services?.forEach(service => {
@@ -147,15 +154,15 @@ const EditProfile = (user) => {
                 errorNotification("Can not have empty fields!")
                 validationFlag = false
             }
-            if ( parseInt(service.price) > 999999 ) {
+            if (parseInt(service.price) > 999999) {
                 errorNotification(`Price field no. ${index} too large!`)
                 validationFlag = false
             }
-            if ( parseInt(service.price) <= 0  ) {
+            if (parseInt(service.price) <= 0) {
                 errorNotification("Price fields can not be 0 or negative!")
                 validationFlag = false
             }
-            if ( isNaN(service.price)  ) {
+            if (isNaN(service.price)) {
                 errorNotification(`Price field no. ${index} needs to be a number!`)
                 validationFlag = false
             }
@@ -193,7 +200,7 @@ const EditProfile = (user) => {
 
     };
 
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo) => {
         // console.log('Failed:', errorInfo);
     };
 
@@ -441,12 +448,12 @@ const EditProfile = (user) => {
                                                     rules={[
                                                         ({ getFieldValue }) => ({
                                                             validator(_, value) {
-                                                              if ( value < 99999 ) {
-                                                                return Promise.resolve();
-                                                              }
-                                                              return Promise.reject(new Error('Price too large!'));
+                                                                if (value < 99999) {
+                                                                    return Promise.resolve();
+                                                                }
+                                                                return Promise.reject(new Error('Price too large!'));
                                                             },
-                                                          }),
+                                                        }),
                                                     ]}
                                                 >
                                                     <Input placeholder={x?.price} defaultValue={x?.price} min={1} max={99999} className="fancy-border" />
