@@ -706,7 +706,7 @@ function Profile(props) {
                     </div>
                     : ''}
             </div>}
-            { (exists && !displayFlag) && <div style={{ marginTop: "-100px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{fontSize: "30px" ,marginBottom: "15px", marginRight: "10px"}} /><h3 >Private Account!</h3></div>}
+            { (exists && !displayFlag) && <div style={{ marginTop: "-200px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{fontSize: "30px" ,marginBottom: "15px", marginRight: "10px"}} /><h3 >Private Account!</h3></div>}
             { !exists && <div style={{ marginTop: "-300px", maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}><h3>User does not exist!</h3><Empty /></div>}
         </div >
     )
