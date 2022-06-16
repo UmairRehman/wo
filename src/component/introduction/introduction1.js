@@ -41,18 +41,17 @@ function Introduction1() {
     useEffect(() => {
         if (isAndroid) {
             const url =
-                "intent://beychday.com/#Intent;scheme=https;package=com.instagram.android;end";
+                "intent://beychday.com/#Intent;scheme=https;package=com.beychday.android;end";
 
-            // window.location.replace(url);
-            window.location.replace("beychday://")
-            alert("bechdey")
+            window.location.replace(url);
 
+            alert("test")
         } else if (isIOS) {
             window.location.replace("beychday://");
 
             setTimeout(() => {
                 window.location.replace(
-                    "https://apps.apple.com/us/app/beychday/id389801252"
+                    "https://apps.apple.com/us/app/instagram/id389801252"
                 );
             }, 10000);
         } 
