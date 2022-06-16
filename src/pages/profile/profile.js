@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import {
     DownOutlined,
     CheckOutlined,
-    LockOutlined ,
+    LockOutlined,
 } from '@ant-design/icons';
 
 import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input, Switch, Empty } from 'antd';
@@ -441,6 +441,7 @@ function Profile(props) {
 
                     setLoader(false)
                     if (resultHandle?.message?.followUser) {
+                        console.log(resultHandle?.message?.followUser)
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
                         // setCheckNotification(resultHandle?.message?.followUser)
@@ -519,18 +520,18 @@ function Profile(props) {
         window.open("https://" + profile?.imOnProfile?.website)
     }
 
-    const [displayFlag , setDisplayFlag] = useState(true) 
+    const [displayFlag, setDisplayFlag] = useState(true)
     const handleDisplay = () => {
 
         if (isFollow) setDisplayFlag(true)
 
-        if (!isFollow){
-            if ( isPrivate ) setDisplayFlag(false)
-        } 
+        if (!isFollow) {
+            if (isPrivate) setDisplayFlag(false)
+        }
     }
     useEffect(() => {
-      handleDisplay()
-      console.log({displayFlag})
+        handleDisplay()
+        console.log({ displayFlag })
     }, [isFollow, isPrivate])
 
 
@@ -547,7 +548,7 @@ function Profile(props) {
                     <Image preview={false} src={CoverImage} />
                 </Col>
             </Row>
-            { (exists && displayFlag) &&  <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
+            {(exists && displayFlag) && <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="" >
                     <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
@@ -612,7 +613,7 @@ function Profile(props) {
                     }
 
 
-                    {isFollow && <>  {profile?.imOnProfile &&
+                    {followStatus == ACCEPT && <>  {profile?.imOnProfile &&
                         <Row className='w-100'>
                             <Paragraph>{profile?.imOnProfile?.address}</Paragraph>
                         </Row>
@@ -622,7 +623,8 @@ function Profile(props) {
                             <Row className='w-100'>
                                 <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
                             </Row>
-                        } </>}
+                        } </>
+                    }
 
 
                     <Row className='w-100 ' style={{ marginBottom: "10px" }}>
@@ -706,8 +708,8 @@ function Profile(props) {
                     </div>
                     : ''}
             </div>}
-            { (exists && !displayFlag) && <div style={{ marginTop: "-200px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{fontSize: "30px" ,marginBottom: "15px", marginRight: "10px"}} /><h3 >Private Account!</h3></div>}
-            { !exists && <div style={{ marginTop: "-300px", maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}><h3>User does not exist!</h3><Empty /></div>}
+            {(exists && !displayFlag) && <div style={{ marginTop: "-200px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{ fontSize: "30px", marginBottom: "15px", marginRight: "10px" }} /><h3 >Private Account!</h3></div>}
+            {!exists && <div style={{ marginTop: "-300px", maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}><h3>User does not exist!</h3><Empty /></div>}
         </div >
     )
 }
