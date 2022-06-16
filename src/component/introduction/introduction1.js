@@ -41,19 +41,19 @@ function Introduction1() {
     useEffect(() => {
         if (isAndroid) {
             const url =
-                "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
+                "intent://who.com/#Intent;scheme=https;package=com.who.android;end";
 
             window.location.replace(url);
 
             alert("test1")
         } else if (isIOS) {
-            window.location.replace("beychday://");
+            window.location.replace("who://");
 
-            setTimeout(() => {
-                window.location.replace(
-                    "https://apps.apple.com/us/app/instagram/id389801252"
-                );
-            }, 10000);
+            // setTimeout(() => {
+            //     window.location.replace(
+            //         "https://apps.apple.com/us/app/instagram/id389801252"
+            //     );
+            // }, 10000);
         }
         // else {
         //     window.location.replace("https://instagram.com");
