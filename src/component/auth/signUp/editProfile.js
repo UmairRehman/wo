@@ -344,6 +344,8 @@ const EditProfile = (user) => {
                                     <Paragraph className="font-18">Add location address</Paragraph>
                                     <Form.Item
                                         name={['address']}
+                                        rules={[{ required: true, message: 'Enter Location' }]}
+
                                     >
                                         <Input className="fancy-border" defaultValue={userHistory?.imOnProfile?.address} />
                                     </Form.Item>
@@ -370,6 +372,8 @@ const EditProfile = (user) => {
 
                                     <Form.Item
                                         name={['about']}
+                                        rules={[{ required: true, message: 'Enter about' }]}
+
                                     >
                                         <Input className="fancy-border" defaultValue={userHistory?.imOnProfile?.about} />
 
