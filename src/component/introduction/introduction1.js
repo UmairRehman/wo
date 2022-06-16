@@ -41,20 +41,23 @@ function Introduction1() {
     useEffect(() => {
         if (isAndroid) {
             const url =
-                "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
+                "intent://beychday.com/#Intent;scheme=https;package=com.instagram.android;end";
 
-            window.location.replace(url);
+            // window.location.replace(url);
+            window.location.replace("beychday://");
+
         } else if (isIOS) {
-            window.location.replace("instagram://");
+            window.location.replace("beychday://");
 
             setTimeout(() => {
                 window.location.replace(
-                    "https://apps.apple.com/us/app/instagram/id389801252"
+                    "https://apps.apple.com/us/app/beychday/id389801252"
                 );
             }, 10000);
-        } else {
-            window.location.replace("https://instagram.com");
-        }
+        } 
+        // else {
+        //     window.location.replace("https://instagram.com");
+        // }
     }, []);
 
 
