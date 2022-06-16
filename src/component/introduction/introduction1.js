@@ -44,7 +44,8 @@ function Introduction1() {
                 "intent://beychday.com/#Intent;scheme=https;package=com.instagram.android;end";
 
             // window.location.replace(url);
-            window.location.replace("beychday://");
+            window.location.replace("beychday://")
+            alert("bechdey")
 
         } else if (isIOS) {
             window.location.replace("beychday://");
