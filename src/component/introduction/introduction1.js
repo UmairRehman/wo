@@ -4,7 +4,7 @@ import introductionImage from '../../assets/images/introduction1.png'
 import {
     Link
 } from "react-router-dom";
-
+import { isAndroid, isIOS } from "react-device-detect";
 import './introduction.css'
 
 const { Text, Title } = Typography;
@@ -12,25 +12,50 @@ const { Text, Title } = Typography;
 
 function Introduction1() {
 
-    const checkIfMobile = () => {
-        if (
-            navigator.userAgent.match(/Android/i) ||
-            navigator.userAgent.match(/iPhone/i)
-        ) {
-            alert("mobile")
-            window.location.replace('peopleapp://people/0');
+    // const checkIfMobile = () => {
+    //     if (
+    //         navigator.userAgent.match(/Android/i) ||
+    //         navigator.userAgent.match(/iPhone/i)
+    //     ) {
+    //         alert("mobile")
+    //         window.location.replace('peopleapp://people/0');
 
-        }
-    }
+    //     }
+
+    //     else {
+    //         alert("mobile")
+
+    //         window.location.replace('peopleapp://people/0');
+    //     }
+    // }
+
+
+    // useEffect(() => {
+    //     checkIfMobile()
+
+    // }, [])
+
+
 
 
     useEffect(() => {
-        checkIfMobile()
+        if (isAndroid) {
+            const url =
+                "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
 
-    }, [])
+            window.location.replace(url);
+        } else if (isIOS) {
+            window.location.replace("instagram://");
 
-
-
+            setTimeout(() => {
+                window.location.replace(
+                    "https://apps.apple.com/us/app/instagram/id389801252"
+                );
+            }, 10000);
+        } else {
+            window.location.replace("https://instagram.com");
+        }
+    }, []);
 
 
     return (
