@@ -12,22 +12,20 @@ const { Text, Title } = Typography;
 
 function Introduction1() {
 
-    const test = () => {
+    const checkIfMobile = () => {
         if (
             navigator.userAgent.match(/Android/i) ||
             navigator.userAgent.match(/iPhone/i)
         ) {
             alert("mobile")
-        }
-        else{
-            alert("web")
+            window.location.replace('peopleapp://people/0');
 
         }
     }
 
 
     useEffect(() => {
-        test()
+        checkIfMobile()
 
     }, [])
 
