@@ -101,9 +101,9 @@ function Profile(props) {
 
         let data = {
             "followee": profile._id,
-            "message": values.message.length,
+            "message": values.message || " " ,
         }
-
+        console.log(data)
         try {
             setLoader(true)
             let resultHandle = await FollowReqest(data);
