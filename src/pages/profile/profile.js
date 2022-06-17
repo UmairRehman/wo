@@ -101,7 +101,7 @@ function Profile(props) {
 
         let data = {
             "followee": profile._id,
-            "message": values.message.length > 0 ? values.message : "",
+            "message": values.message.length,
         }
 
         try {
