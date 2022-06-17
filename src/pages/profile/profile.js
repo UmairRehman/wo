@@ -21,9 +21,18 @@ import DefaultImage from '../../assets/images/default.png'
 import { statusConstant } from '../../constant/status'
 import { useParams } from "react-router-dom";
 import CoverImage from '../../assets/images/coverImage.png'
-
+import io from 'socket.io-client'
 import './profile.css'
+import imOff from "../../assets/images/logo-white.png"
+import imOn from "../../assets/images/imoff.png"
 
+import apiConfig from '../../Enviroment/enviroment'
+
+const {
+    socketUrl
+} = apiConfig
+
+const socketNamespace = 'imOnOff'
 
 const {
     REQUEST,
@@ -97,11 +106,11 @@ function Profile(props) {
 
 
 
-    const onFinish = async (values: any) => {
+    const onFinish = async (values) => {
 
         let data = {
             "followee": profile._id,
-            "message": values.message || " " ,
+            "message": values.message || " ",
         }
         console.log(data)
         try {
@@ -130,7 +139,7 @@ function Profile(props) {
 
     };
 
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -378,6 +387,44 @@ function Profile(props) {
     const [exists, setExists] = useState(true)
     const [isPrivate, setIsPrivate] = useState(false)
 
+    const [imOnStatus, setImOnStatus] = useState(false)
+
+    const socket = io(`${socketUrl}${socketNamespace}`, { transports: ['websocket'] });
+
+    useEffect(() => {
+
+        try {
+            console.log('here we go')
+            if (profile._id && !socket.connected) {
+
+                socket.on("connect", () => {
+                    console.log('connected', socket.id, profile._id); // x8WIv7-mJelg7on_ALbx
+                    socket.emit('join', profile._id)
+
+                    socket.on('connect_error', (error) => {
+                        console.log('error', error.message); // x8WIv7-mJelg7on_ALbx
+                        socket.disconnect()
+                    });
+                    socket.on('statusUpdated', (data) => {
+                        console.log(data);
+                        setImOnStatus(data?.status)
+                    });
+                    socket.on('disconnect', () => {
+                        console.log('disconnected called');
+                        socket.disconnect()
+                    })
+
+                });
+
+            }
+        } catch (error) {
+            console.log({ error })
+            socket.disconnect()
+        }
+        return () => {
+            socket.disconnect()
+        }
+    }, [profile])
 
 
     useEffect(async () => {
@@ -400,6 +447,7 @@ function Profile(props) {
                 console.log(resultHandle.message.foundUser[0])
                 setIsPrivate(resultHandle.message.foundUser[0].private)
                 setProfile(resultHandle?.message.foundUser[0])
+                setImOnStatus(resultHandle?.message.foundUser[0]?.imOnProfile?.On)
                 setSearchedUser(resultHandle.message.foundUser[0].username);
                 setSearchedUser(params.id)
                 setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
@@ -444,7 +492,7 @@ function Profile(props) {
                         console.log(resultHandle?.message?.followUser)
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
-                        // setCheckNotification(resultHandle?.message?.followUser)
+                        setCheckNotification(resultHandle?.message?.followUser)
                         setNotify({ onNotify: resultHandle?.message?.followUser?.OnNotification, offNotify: resultHandle?.message?.followUser?.OffNotification })
                     }
                     else {
@@ -535,6 +583,13 @@ function Profile(props) {
     }, [isFollow, isPrivate])
 
 
+    const buttonStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly"
+    }
+
+
     return (
         <div className="animation2 " >
 
@@ -575,7 +630,11 @@ function Profile(props) {
                     {authenticate == true ?
                         <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
 
-                            {isFollow &&
+                            {isFollow && <div style={{ display: "flex", alignItems: "center" }}>
+                                {imOnStatus ? <div style={buttonStyle} className='imon-button mr-2'  ><span className='mr-1' style={{ marginTop: '2px' }}>I'm On</span> <Image preview={false} src={imOff} /></div> :
+                                    <div style={buttonStyle} className='imon-button2 mr-2' > <span className='mr-1' style={{ marginTop: '2px' }}>I'm Off</span><Image preview={false} src={imOn} /></div>}
+
+
                                 <Dropdown style={{ border: 'none' }}
                                     overlay={profileBellIcon}
                                     placement="bottomRight" >
@@ -584,7 +643,8 @@ function Profile(props) {
                                             <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                                         }
                                     </Button>
-                                </Dropdown>}
+                                </Dropdown>
+                            </div>}
 
                             {/* {
                                 currentUser !== searchedUser &&

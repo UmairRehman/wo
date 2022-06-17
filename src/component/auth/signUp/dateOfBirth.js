@@ -63,7 +63,7 @@ function DateOfBirth() {
                             >
                                 <DatePicker disabledDate={(current) => {
                                     return current && current > moment(new Date(), "YYYY-MM-DD");
-                                }} format={'Do MMMM YYYY'} className="w-100 custom-date-of-birth" onChange={onChange} />
+                                }} format={'DD-MM-YYYY'} className="w-100 custom-date-of-birth" onChange={onChange} />
 
                             </Form.Item>
 
