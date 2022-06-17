@@ -3,5 +3,6 @@ export default {
     // base: 'http://192.168.0.152:4040/',
     port: '',
     // route: 'api'
-    route: 'api/api'
+    route: 'api/api',
+    socketUrl : 'ws://api.dev.whoson.co:3000/',
 };
