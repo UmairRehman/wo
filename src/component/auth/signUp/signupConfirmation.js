@@ -57,7 +57,6 @@ function SignupConfirmation() {
                 }
                 else {
                     validateMessages(resultHandle);
-                    // console.log(resultHandle)
                     setLoader(false)
                 }
             }

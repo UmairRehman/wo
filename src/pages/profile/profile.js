@@ -112,7 +112,6 @@ function Profile(props) {
             "followee": profile._id,
             "message": values.message || " ",
         }
-        console.log(data)
         try {
             setLoader(true)
             let resultHandle = await FollowReqest(data);
@@ -394,23 +393,18 @@ function Profile(props) {
     useEffect(() => {
 
         try {
-            console.log('here we go')
             if (profile._id && !socket.connected) {
 
                 socket.on("connect", () => {
-                    console.log('connected', socket.id, profile._id); // x8WIv7-mJelg7on_ALbx
                     socket.emit('join', profile._id)
 
                     socket.on('connect_error', (error) => {
-                        console.log('error', error.message); // x8WIv7-mJelg7on_ALbx
                         socket.disconnect()
                     });
                     socket.on('statusUpdated', (data) => {
-                        console.log(data);
                         setImOnStatus(data?.status)
                     });
                     socket.on('disconnect', () => {
-                        console.log('disconnected called');
                         socket.disconnect()
                     })
 
@@ -444,7 +438,6 @@ function Profile(props) {
 
             if (resultHandle?.success == true) {
 
-                console.log(resultHandle.message.foundUser[0])
                 setIsPrivate(resultHandle.message.foundUser[0].private)
                 setProfile(resultHandle?.message.foundUser[0])
                 setImOnStatus(resultHandle?.message.foundUser[0]?.imOnProfile?.On)
@@ -489,7 +482,6 @@ function Profile(props) {
 
                     setLoader(false)
                     if (resultHandle?.message?.followUser) {
-                        console.log(resultHandle?.message?.followUser)
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
                         setCheckNotification(resultHandle?.message?.followUser)
@@ -579,7 +571,6 @@ function Profile(props) {
     }
     useEffect(() => {
         handleDisplay()
-        console.log({ displayFlag })
     }, [isFollow, isPrivate])
 
 
