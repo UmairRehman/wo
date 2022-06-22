@@ -4,5 +4,5 @@ export default {
     port: '',
     // route: 'api'
     route: 'api/api',
-    socketUrl : 'http://localhost:4040/',
+    socketUrl : 'http://api.dev.whoson.co/',
 };
