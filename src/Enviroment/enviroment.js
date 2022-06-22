@@ -4,5 +4,5 @@ export default {
     port: '',
     // route: 'api'
     route: 'api/api',
-    socketUrl : 'wss://www.api.dev.whoson.co/',
+    socketUrl : 'ws://api.dev.whoson.co/',
 };
