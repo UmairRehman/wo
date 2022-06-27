@@ -1,8 +1,9 @@
 export default {
-    base: 'https://api.dev.whoson.co/',
-    // base: 'http://192.168.0.152:4040/',
+    base: 'https://api.whoson.co/',
     port: '',
     // route: 'api'
     route: 'api/api',
-    socketUrl : 'wss://api.dev.whoson.co/',
+    socketUrl : 'wss://api.whoson.co/',
 };
+
+
