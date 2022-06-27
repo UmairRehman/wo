@@ -5,3 +5,4 @@ export default {
     route: 'api/api',
     socketUrl : 'wss://api.dev.whoson.co/',
 };
+
