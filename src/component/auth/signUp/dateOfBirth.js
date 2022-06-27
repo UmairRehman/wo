@@ -59,7 +59,7 @@ function DateOfBirth() {
                         >
                             <Form.Item
                                 name="ConfirmationCode"
-                                rules={[{ required: true, message: 'Please enter your data of birth!' }]}
+                                rules={[{ required: true, message: 'Please enter your date of birth!' }]}
                             >
                                 <DatePicker disabledDate={(current) => {
                                     return current && current > moment(new Date(), "YYYY-MM-DD");
