@@ -97,7 +97,6 @@ function Select() {
 
     function onClickAction() {
 
-        // console.log(userHistory)
         if (userHistory?.imOnProfile?.profession_data.length > 0 ) {
             if (!userHistory?.imOnProfile?.On) handleStatus().then(() => { history.push("/profile-1") })
             if (userHistory?.imOnProfile?.On) history.push("/profile-1")
