@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import {
     DownOutlined,
-    CheckOutlined
+    CheckOutlined,
+    LockOutlined,
 } from '@ant-design/icons';
 
-import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input, Switch } from 'antd';
+import { Layout, Dropdown, Image, Row, Col, Typography, notification, Button, Menu, Spin, message, Form, Input, Switch, Empty } from 'antd';
 import SuggestIcon from '../../assets/images/suggest.png'
 import Header from '../../component/header/header';
 import { Link, useLocation } from 'react-router-dom'
@@ -20,9 +21,18 @@ import DefaultImage from '../../assets/images/default.png'
 import { statusConstant } from '../../constant/status'
 import { useParams } from "react-router-dom";
 import CoverImage from '../../assets/images/coverImage.png'
-
+import io from 'socket.io-client'
 import './profile.css'
+import imOff from "../../assets/images/logo-white.png"
+import imOn from "../../assets/images/imoff.png"
 
+import apiConfig from '../../Enviroment/enviroment'
+
+const {
+    socketUrl
+} = apiConfig
+
+const socketNamespace = 'imOnOff'
 
 const {
     REQUEST,
@@ -96,13 +106,12 @@ function Profile(props) {
 
 
 
-    const onFinish = async (values: any) => {
+    const onFinish = async (values) => {
 
         let data = {
             "followee": profile._id,
-            "message": values.message.length > 0 ? values.message : "",
+            "message": values.message || " ",
         }
-
         try {
             setLoader(true)
             let resultHandle = await FollowReqest(data);
@@ -129,7 +138,7 @@ function Profile(props) {
 
     };
 
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -374,6 +383,43 @@ function Profile(props) {
 
     );
 
+    const [exists, setExists] = useState(true)
+    const [isPrivate, setIsPrivate] = useState(false)
+
+    const [imOnStatus, setImOnStatus] = useState(false)
+
+    const socket = io(`${socketUrl}${socketNamespace}`, { transports: ['websocket'] });
+
+    useEffect(() => {
+
+        try {
+            if (profile._id && !socket.connected) {
+
+                socket.on("connect", () => {
+                    socket.emit('join', profile._id)
+
+                    socket.on('connect_error', (error) => {
+                        socket.disconnect()
+                    });
+                    socket.on('statusUpdated', (data) => {
+                        setImOnStatus(data?.status)
+                    });
+                    socket.on('disconnect', () => {
+                        socket.disconnect()
+                    })
+
+                });
+
+            }
+        } catch (error) {
+            console.log({ error })
+            socket.disconnect()
+        }
+        return () => {
+            socket.disconnect()
+        }
+    }, [profile])
+
 
     useEffect(async () => {
 
@@ -389,16 +435,20 @@ function Profile(props) {
             setLoader(true)
             let resultHandle = await GetProfileByID(params);
 
+
             if (resultHandle?.success == true) {
 
-                setLoader(false)
+                setIsPrivate(resultHandle.message.foundUser[0].private)
                 setProfile(resultHandle?.message.foundUser[0])
+                setImOnStatus(resultHandle?.message.foundUser[0]?.imOnProfile?.On)
                 setSearchedUser(resultHandle.message.foundUser[0].username);
                 setSearchedUser(params.id)
                 setCurrentUser(JSON.parse(localStorage.getItem('user')).username)
+                setLoader(false)
             }
 
             else {
+                setExists(false)
                 validateMessages(resultHandle);
                 setLoader(false)
             }
@@ -434,7 +484,7 @@ function Profile(props) {
                     if (resultHandle?.message?.followUser) {
                         setIsFollow(true)
                         setFollowStatus(resultHandle?.message?.followUser?.status);
-                        // setCheckNotification(resultHandle?.message?.followUser)
+                        setCheckNotification(resultHandle?.message?.followUser)
                         setNotify({ onNotify: resultHandle?.message?.followUser?.OnNotification, offNotify: resultHandle?.message?.followUser?.OffNotification })
                     }
                     else {
@@ -510,6 +560,26 @@ function Profile(props) {
         window.open("https://" + profile?.imOnProfile?.website)
     }
 
+    const [displayFlag, setDisplayFlag] = useState(true)
+    const handleDisplay = () => {
+
+        if (isFollow) setDisplayFlag(true)
+
+        if (!isFollow) {
+            if (isPrivate) setDisplayFlag(false)
+        }
+    }
+    useEffect(() => {
+        handleDisplay()
+    }, [isFollow, isPrivate])
+
+
+    const buttonStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly"
+    }
+
 
     return (
         <div className="animation2 " >
@@ -524,7 +594,7 @@ function Profile(props) {
                     <Image preview={false} src={CoverImage} />
                 </Col>
             </Row>
-            <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
+            {(exists && displayFlag) && <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="" >
                     <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
@@ -551,7 +621,11 @@ function Profile(props) {
                     {authenticate == true ?
                         <Col style={{ alignSelf: 'center', display: 'flex', justifyContent: 'end' }} md={16} xs={6} >
 
-                            {isFollow &&
+                            {isFollow && <div style={{ display: "flex", alignItems: "center" }}>
+                                {imOnStatus ? <div style={buttonStyle} className='imon-button mr-2'  ><span className='mr-1' style={{ marginTop: '2px' }}>I'm On</span> <Image preview={false} src={imOff} /></div> :
+                                    <div style={buttonStyle} className='imon-button2 mr-2' > <span className='mr-1' style={{ marginTop: '2px' }}>I'm Off</span><Image preview={false} src={imOn} /></div>}
+
+
                                 <Dropdown style={{ border: 'none' }}
                                     overlay={profileBellIcon}
                                     placement="bottomRight" >
@@ -560,7 +634,8 @@ function Profile(props) {
                                             <Image style={{ width: 'inherit' }} preview={false} src={Bell} />
                                         }
                                     </Button>
-                                </Dropdown>}
+                                </Dropdown>
+                            </div>}
 
                             {/* {
                                 currentUser !== searchedUser &&
@@ -589,18 +664,19 @@ function Profile(props) {
                     }
 
 
-                  { isFollow && <>  {profile?.imOnProfile &&
+                    {followStatus == ACCEPT && <>  {profile?.imOnProfile &&
                         <Row className='w-100'>
                             <Paragraph>{profile?.imOnProfile?.address}</Paragraph>
                         </Row>
                     }
 
-                    {profile?.imOnProfile &&
-                        <Row className='w-100'>
-                            <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
-                        </Row>
-                    } </> }
-                    
+                        {profile?.imOnProfile &&
+                            <Row className='w-100'>
+                                <Paragraph>{profile?.imOnProfile?.phoneNumber}</Paragraph>
+                            </Row>
+                        } </>
+                    }
+
 
                     <Row className='w-100 ' style={{ marginBottom: "10px" }}>
                         <Paragraph onClick={handleURL} style={{ cursor: "pointer", textDecoration: "underline", color: "#FB6400" }} target="_blank" href={`https://${profile?.imOnProfile?.website}`} level={5}>{profile?.imOnProfile?.website}</Paragraph>
@@ -629,7 +705,7 @@ function Profile(props) {
 
                             {/* <Button style={{ border: 'none' }} className="gray-background mr-2 following-dropdown-button">Message </Button> */}
 
-                            { isFollow && <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
+                            {isFollow && <Dropdown className="gray-background following-dropdown mr-2" overlay={shareDropdowm} placement="bottomRight" arrow>
                                 <Button className="following-dropdown-button-2"><DownOutlined style={{ fontSize: 22 }} /></Button>
                             </Dropdown>}
 
@@ -682,7 +758,9 @@ function Profile(props) {
                         }
                     </div>
                     : ''}
-            </div>
+            </div>}
+            {(exists && !displayFlag) && <div style={{ marginTop: "-200px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{ fontSize: "30px", marginBottom: "15px", marginRight: "10px" }} /><h3 >Private Account!</h3></div>}
+            {!exists && <div style={{ marginTop: "-300px", maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}><h3>User does not exist!</h3><Empty /></div>}
         </div >
     )
 }
