@@ -299,7 +299,7 @@ const SignupForm = (user) => {
                                 <Paragraph className="font-18">Website URL</Paragraph>
                                 <Form.Item
                                     name={['website']}
-                                // rules={[{ required: true }]}
+                               
                                 >
 
                                     <Input placeholder={userHistory?.website} className="fancy-border" />
