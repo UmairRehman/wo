@@ -82,23 +82,23 @@ const SignupForm = (user) => {
     const onFinish = async (values) => {
 
         let services = [];
-
+        if (values?.service?.length) {
         values.service.forEach((key, i) => services[i] = {
             name: values.service[i],
             price: values.price[i]
         });
-
+    }
         let data = {
             private: accountType,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
-            address: values?.address,
+            address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address == '' ? ' ' : values.address,
             phoneNumber: userHistory?.phoneNumber,
             emailAddress: userHistory?.emailAddress,
             professionId: profession,
-            about: values?.about,
-            services,
-            website: values?.website?.length ? values.website : '',
+            about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about == '' ? ' ' : values.about,
+            services: services,
+            website: values?.website == '' ? ' ' : values.website
         }
 
 
