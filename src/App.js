@@ -108,7 +108,6 @@ function App() {
 
   return (
     <div className="App">
-
       <Routers loader={loader} />
 
     </div>

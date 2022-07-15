@@ -114,15 +114,15 @@ const EditProfile = (user) => {
 
     const onFinish = async (values: any) => {
         // setLoader(true)
+        if (services.length) {
+            let services = [];
 
-        let services = [];
-
-        values.service.forEach((key, i) => services[i] = {
-            name: values.service[i],
-            price: String(values.price[i])
-        });
-
-
+            values.service.forEach((key, i) => services[i] = {
+                name: values.service[i],
+                price: String(values.price[i])
+            });
+        
+        }
 
         let data = {
             // private: accountTypeCustom == '' ? userHistory.private : accountTypeCustom,
@@ -130,13 +130,13 @@ const EditProfile = (user) => {
             private: accountTypeCustom ? true : false,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
-            address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address,
+            address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address == '' ? ' ' : values.address,
             phoneNumber: userHistory?.phoneNumber,
             emailAddress: userHistory?.emailAddress,
             professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
-            about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about,
+            about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about == '' ? ' ' : values.about,
             services: services,
-            website: values?.website
+            website: values?.website == '' ? ' ' : values.website
         }
 
         console.log({ data })

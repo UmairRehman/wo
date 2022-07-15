@@ -393,7 +393,7 @@ function Profile(props) {
     useEffect(() => {
 
         try {
-            if (profile._id && !socket.connected) {
+            if (profile?._id && !socket.connected) {
 
                 socket.on("connect", () => {
                     socket.emit('join', profile._id)
