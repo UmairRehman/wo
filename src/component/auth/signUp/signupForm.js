@@ -36,6 +36,7 @@ const SignupForm = (user) => {
     const [userHistory, setUserHistory] = useState({})
     const [accountType, setAccountType] = useState('')
     const [profession, setProfession] = useState('')
+    const [website, setWebsite] = useState('')
     const [services, setServices] = useState([{ name: "", price: "" }]);
     const [loader, setLoader] = useState(false)
 
@@ -78,25 +79,26 @@ const SignupForm = (user) => {
 
 
 
-    const onFinish = async (values: any) => {
+    const onFinish = async (values) => {
 
         let services = [];
-
+        if (values?.service?.length) {
         values.service.forEach((key, i) => services[i] = {
             name: values.service[i],
             price: values.price[i]
         });
-
+    }
         let data = {
             private: accountType,
             firstName: userHistory?.firstName,
             lastName: userHistory?.lastName,
-            address: values.address,
+            address: values?.address == undefined ? userHistory?.imOnProfile?.address : values?.address == '' ? ' ' : values.address,
             phoneNumber: userHistory?.phoneNumber,
             emailAddress: userHistory?.emailAddress,
             professionId: profession,
-            about: values.about,
-            services
+            about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about == '' ? ' ' : values.about,
+            services: services,
+            website: values?.website == '' ? ' ' : values.website
         }
 
 
@@ -166,7 +168,7 @@ const SignupForm = (user) => {
         <div className="animation2 " >
 
             <div style={{ paddingLeft: '5%', paddingRight: '5%', paddingTop: '5%' }} className="" >
-            <Spin className="loader" spinning={loader} size="large" />
+                <Spin className="loader" spinning={loader} size="large" />
                 <Row className="mobile-center-align" >
                     <Col className='' md={2} xs={12} >
                         <Image preview={false} className="border-50 " src={userHistory?.profilePicUrl} />
@@ -200,7 +202,7 @@ const SignupForm = (user) => {
                                 <Paragraph className="font-18">Account Type</Paragraph>
                                 <Form.Item
                                     name={['user', 'acountType']}
-                                    rules={[{ required: true }]}
+                                    rules={[{ required: true, message: "Required field!" }]}
                                 >
                                     <Select className="form-dropdown"
                                         // defaultValue="true" 
@@ -240,7 +242,7 @@ const SignupForm = (user) => {
                                 <Paragraph className="font-18">Add location address</Paragraph>
                                 <Form.Item
                                     name={['address']}
-                                    rules={[{ required: true }]}
+                                    rules={[{ required: true, message: "Required field!" }]}
                                 >
                                     <Input className="fancy-border" />
                                 </Form.Item>
@@ -266,7 +268,7 @@ const SignupForm = (user) => {
 
                                 <Form.Item
                                     name={['about']}
-                                    rules={[{ required: true }]}
+                                    rules={[{ required: true, message: "Required field!" }]}
                                 >
                                     <Input className="fancy-border" />
 
@@ -275,11 +277,13 @@ const SignupForm = (user) => {
 
                         </Row>
 
+
+
                         <Row>
                             <Col className="padding-20" md={12} xs={24} >
                                 <Paragraph className="font-18">Profession</Paragraph>
                                 <Form.Item
-                                    name={['profession']} rules={[{ required: true }]}
+                                    name={['profession']} rules={[{ required: true, message: "Required field!" }]}
                                 >
                                     <Select className="form-dropdown" style={{ width: '100%' }} onChange={handleChange}>
                                         {
@@ -291,7 +295,19 @@ const SignupForm = (user) => {
 
                                 </Form.Item>
                             </Col>
+                            <Col className="padding-20" md={12} xs={24} >
+                                <Paragraph className="font-18">Website URL</Paragraph>
+                                <Form.Item
+                                    name={['website']}
+                               
+                                >
 
+                                    <Input placeholder={userHistory?.website} className="fancy-border" />
+
+                                </Form.Item>
+                            </Col>
+                            <Col md={12} xs={24}>
+                            </Col>
                             <Col className="padding-20" md={12} xs={24} >
 
 
@@ -314,7 +330,7 @@ const SignupForm = (user) => {
                                             <Col className="padding-20" span={12}>
                                                 {/* <Paragraph className="font-18">Services</Paragraph> */}
                                                 <Form.Item
-                                                    name={['service', i]} rules={[{ required: true }]}
+                                                    name={['service', i]} rules={[{ required: true, message: "Required field!" }]}
                                                 >
 
                                                     <Input placeholder='Service Name' className="fancy-border" />
@@ -325,18 +341,18 @@ const SignupForm = (user) => {
                                             <Col className="padding-20" span={10}>
                                                 {/* <Paragraph className="font-18">Price</Paragraph> */}
                                                 <Form.Item
-                                                    name={['price', i]} rules={[{ required: true }]}
+                                                    name={['price', i]} rules={[{ required: true, message: "Required field!" }]}
                                                 >
 
-                                                    <Input placeholder='price in $' className="fancy-border" />
+                                                    <Input placeholder='Price in $' className="fancy-border" />
 
                                                 </Form.Item>
                                             </Col>
                                             {i == services.length - 1 ?
 
                                                 <Col className="padding-20" span={2}>
-                                                    {i==0 ? '':
-                                                    <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
+                                                    {i == 0 ? '' :
+                                                        <Button className='delete-button' onClick={() => handleRemoveClick(i)}><DeleteOutlined /></Button>
                                                     }
                                                 </Col>
 
