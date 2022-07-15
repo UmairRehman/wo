@@ -30,16 +30,6 @@ const validateMessages = (data) => {
 };
 
 
-const validateMessagesSocial = (message) => {
-    const args = {
-        message: 'Error',
-        description:
-            `${message}`,
-        duration: 5,
-    };
-    notification.error(args);
-};
-
 
 function Login() {
 
@@ -55,6 +45,8 @@ function Login() {
 
     let history = useHistory();
 
+    const firebaseToken = localStorage.getItem('firebaseToken');
+
     useEffect(()=> {
         const token = localStorage.getItem('user');
         if (token) history.push('/profile-1')
@@ -69,7 +61,8 @@ function Login() {
         if (response.accessToken) {
             let data = {
                 provider: 'FB',
-                token: response.accessToken
+                token: response.accessToken,
+                firebaseToken: firebaseToken
             }
 
             try {
@@ -130,7 +123,8 @@ function Login() {
             let data = {
 
                 provider: 'Google',
-                token: response.accessToken
+                token: response.accessToken,
+                firebaseToken: firebaseToken
 
             }
 
