@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import {
-    DownOutlined,
+    DeleteOutlined,
     ShareAltOutlined,
     EditOutlined
 } from '@ant-design/icons';
 import Avatar from 'react-avatar-edit'
-import { Layout, Dropdown, Image, Row, Col, Typography, Spin, Button, Menu, message, notification, Modal } from 'antd';
+import { Layout, Form, Input, Image, Row, Col, Typography, Spin, Button, Menu, message, notification, Modal } from 'antd';
 import Header from '../../component/header/header';
 import FollowingCard from '../../component/following/followingCard';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ import whiteLogo from '../../assets/images/logo-white.png'
 
 import './myProfile.css'
 import Services from '../../component/services/services';
-import { GetProfile, IMON } from '../../services/apiInteraction';
+import { DeleteUser, GetProfile, IMON } from '../../services/apiInteraction';
 import './myProfile.css'
 import DefaultImage from '../../assets/images/default.png'
 import CoverImage from '../../assets/images/coverImage.png'
@@ -48,6 +48,9 @@ function MyProfile() {
     const { Title, Text, Paragraph } = Typography;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const [deleteModal, setDeleteModal] = useState(false);
+
 
     let history = useHistory();
     const location = useLocation();
@@ -163,7 +166,7 @@ function MyProfile() {
         catch (err) {
             console.log(err)
         }
-    }, [status,reloadFlag])
+    }, [status, reloadFlag])
 
     const [preview, setPreview] = useState()
 
@@ -182,8 +185,17 @@ function MyProfile() {
         setIsModalVisible(false);
     };
 
+
+    const handleOkDelete = () => {
+        setDeleteModal(false);
+    };
+
     const handleCancel = () => {
         setIsModalVisible(false);
+    };
+
+    const handleCancelDelete = () => {
+        setDeleteModal(false);
     };
 
     const [buttonDisable, setButtonDisable] = useState(false)
@@ -284,6 +296,39 @@ function MyProfile() {
 
     }
 
+    async function onClickDelete(values) {
+
+        if (values.input == 'delete') {
+            try {
+                setLoader(true)
+                let resultHandle = await DeleteUser();
+
+
+                if (resultHandle?.success == true) {
+
+                    setLoader(false)
+                    localStorage.clear()
+                    history.push('/login')
+
+                }
+
+                else {
+                    validateMessages(resultHandle);
+                    setLoader(false)
+                }
+
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        else {
+
+        }
+
+    }
+
+
     const shareDropdowm = (
         <Menu className="notification-dropdown"
             onClick={handleMenuClick}
@@ -377,6 +422,56 @@ function MyProfile() {
             </Modal>
 
 
+
+
+            <Modal
+                // title="Basic Modal"
+                visible={deleteModal}
+                onOk={handleOkDelete}
+                onCancel={handleCancelDelete}
+                footer={null}
+                className='change-profile-modal'
+            >
+                <Row className="justify-content-center manage-Background-color" >
+
+                    <Title style={{ textAlign: 'center' }} level={3}>Do you want to delete your account?  </Title>
+
+                    <Paragraph style={{ textAlign: 'center', marginTop: '0' }} level={5}>Type 'delete' if you want to delete your account. This will wipe all data associated to your account   </Paragraph>
+
+                    <Form
+                        name="normal_login"
+                        className="login-form"
+                        initialValues={{ remember: true }}
+                        onFinish={onClickDelete}
+                    >
+                        <Form.Item
+                            name="input"
+                            rules={[{ required: true, message: 'Please type delete!' }]}
+                        >
+                            <Input className="login-field" placeholder="Delete" />
+                        </Form.Item>
+
+                        <Form.Item className="position-relative">
+                            <Button
+                                type="primary" htmlType="submit" className="button mt-5 w-100" >
+                                Delete
+                            </Button>
+                        </Form.Item>
+                    </Form>
+
+
+                </Row>
+                {/* <Row className="justify-content-center ">
+                    <Button
+                        disabled={buttonDisable}
+                        onClick={() => onClickDelete}
+                        type="primary" htmlType="submit" className="button-profile-image mt-2">
+                        Delete
+                    </Button>
+                </Row> */}
+            </Modal>
+
+
             <div className="test" >
                 <Header reloadFlag={reloadFlag} setReloadFlag={setReloadFlag} />
             </div>
@@ -430,7 +525,7 @@ function MyProfile() {
                                 <Paragraph>{getProfile?.imOnProfile?.address}</Paragraph>
                                 : null}
                             <Paragraph>{getProfile?.emailAddress}</Paragraph>
-                            <Paragraph style={{cursor: "pointer" , textDecoration: "underline" , color: "#FB6400"}} onClick={handleURL} >{getProfile?.imOnProfile?.website}</Paragraph>
+                            <Paragraph style={{ cursor: "pointer", textDecoration: "underline", color: "#FB6400" }} onClick={handleURL} >{getProfile?.imOnProfile?.website}</Paragraph>
                             <Paragraph>{getProfile?.phoneNumber}</Paragraph>
                             <Title level={5} >Dashboard</Title>
                             <Row>
@@ -475,6 +570,13 @@ function MyProfile() {
                                 <Button onClick={() => onClickEdit()} className='gray-background share-button' ><EditOutlined /></Button>
 
                                 : null
+                            }
+
+
+                            {getProfile?.imOnProfile?.On == true ?
+                                <Button onClick={() => setDeleteModal(true)} className='gray-background share-button mr-1' ><DeleteOutlined /></Button>
+                                :
+                                null
                             }
 
 

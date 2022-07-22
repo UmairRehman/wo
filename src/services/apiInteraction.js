@@ -834,3 +834,26 @@ export async function checkBlockStatus(obj) {
 };
 
 
+// check block status 
+
+export async function DeleteUser(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
+
+
+
+  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/`,
+    {
+      method: 'DELETE',
+      headers,
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
