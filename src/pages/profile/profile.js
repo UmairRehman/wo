@@ -430,17 +430,15 @@ function Profile(props) {
     useEffect(async () => {
 
         if (window.navigator.platform == OS.android) {
-            window.location.replace("https://play.google.com/store/apps/details?id=com.who");
+            window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
             console.log("if")
         }
         else if (window.navigator.platform == OS.mac) {
-            // intent://APP_HOST/#Intent;scheme=APP_NAME;package=APP_PACKAGE;end
             window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
             console.log("else")
         }
-        else{
-            window.location.replace("https://play.google.com/store/apps/details?id=com.who");
-
+        else {
+            window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
         }
 
 
