@@ -27,7 +27,6 @@ import imOff from "../../assets/images/logo-white.png"
 import imOn from "../../assets/images/imoff.png"
 import { useHistory } from "react-router-dom";
 import apiConfig from '../../Enviroment/enviroment'
-import OpenApp from "react-open-app";
 
 const {
     socketUrl
@@ -434,6 +433,11 @@ function Profile(props) {
         // history.push('./org.liqteq.react.native.Whoson')
 
 
+        const url = "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
+
+        window.location.replace(url);
+
+
         if (localStorage.getItem('token') == null) {
             setAuthenticate(false)
         }
@@ -594,15 +598,7 @@ function Profile(props) {
 
     return (
         <div className="animation2 " >
-
-            <OpenApp
-                // href="https://mycoolappwebsite.com"
-                android="org.liqteq.react.native.Whoson"
-            // ios="whatever deep link you need on iOS"
-            >
-                app
-            </OpenApp>
-
+            test 1
             <Spin className="loader" spinning={loader} size="large" />
 
             <div className="test" >
