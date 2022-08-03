@@ -27,6 +27,7 @@ import imOff from "../../assets/images/logo-white.png"
 import imOn from "../../assets/images/imoff.png"
 import { useHistory } from "react-router-dom";
 import apiConfig from '../../Enviroment/enviroment'
+import { OS } from './OS';
 
 const {
     socketUrl
@@ -428,14 +429,13 @@ function Profile(props) {
 
     useEffect(async () => {
 
-
-        // console.log("umair", window.navigator.platform)
-        // history.push('./org.liqteq.react.native.Whoson')
-
-
-        const url = "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
-
-        window.location.replace(url);
+        if (window.navigator.platform == OS.android) {
+            window.location.replace("https://play.google.com/store/apps/details?id=com.who");
+        }
+        else if (window.navigator.platform == OS.mac) {
+            // intent://APP_HOST/#Intent;scheme=APP_NAME;package=APP_PACKAGE;end
+            window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
+        }
 
 
         if (localStorage.getItem('token') == null) {
