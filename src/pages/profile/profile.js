@@ -429,17 +429,16 @@ function Profile(props) {
 
     useEffect(async () => {
 
-        if (window.navigator.platform == OS.android) {
-            window.location.replace("https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo");
-            console.log("if")
-        }
-        else if (window.navigator.platform == OS.mac) {
-            window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-            console.log("else")
-        }
-        else {
+        if (window.navigator.platform == window.navigator.platform == OS.mac) {
             window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
         }
+        // else if (window.navigator.platform == OS.android) {
+        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+        //     console.log("else")
+        // }
+        // else {
+        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+        // }
 
 
         if (localStorage.getItem('token') == null) {
