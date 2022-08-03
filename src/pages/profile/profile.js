@@ -431,10 +431,16 @@ function Profile(props) {
 
         if (window.navigator.platform == OS.android) {
             window.location.replace("https://play.google.com/store/apps/details?id=com.who");
+            console.log("if")
         }
         else if (window.navigator.platform == OS.mac) {
             // intent://APP_HOST/#Intent;scheme=APP_NAME;package=APP_PACKAGE;end
             window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
+            console.log("else")
+        }
+        else{
+            window.location.replace("https://play.google.com/store/apps/details?id=com.who");
+
         }
 
 
@@ -598,7 +604,7 @@ function Profile(props) {
 
     return (
         <div className="animation2 " >
-            test 1
+            {window.navigator.platform + " " + OS.android}
             <Spin className="loader" spinning={loader} size="large" />
 
             <div className="test" >
