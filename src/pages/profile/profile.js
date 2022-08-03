@@ -429,7 +429,7 @@ function Profile(props) {
 
     useEffect(async () => {
 
-        if (window.navigator.platform == window.navigator.platform == OS.mac) {
+        if (window.navigator.platform == OS.mac) {
             window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
         }
         // else if (window.navigator.platform == OS.android) {
