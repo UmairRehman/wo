@@ -430,15 +430,15 @@ function Profile(props) {
     useEffect(async () => {
 
         if (window.navigator.platform == OS.android) {
-            window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
+            window.location.replace("https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo");
             console.log("if")
         }
         else if (window.navigator.platform == OS.mac) {
-            window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
+            window.location.replace("https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo");
             console.log("else")
         }
         else {
-            window.location.replace("intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end");
+            window.location.replace("https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo");
         }
 
 
