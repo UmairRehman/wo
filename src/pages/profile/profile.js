@@ -601,7 +601,6 @@ function Profile(props) {
 
     return (
         <div className="animation2 " >
-            {window.navigator.platform + " " + OS.android}
             <Spin className="loader" spinning={loader} size="large" />
 
             <div className="test" >
