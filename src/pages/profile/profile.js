@@ -25,8 +25,9 @@ import io from 'socket.io-client'
 import './profile.css'
 import imOff from "../../assets/images/logo-white.png"
 import imOn from "../../assets/images/imoff.png"
-
+import { useHistory } from "react-router-dom";
 import apiConfig from '../../Enviroment/enviroment'
+import OpenApp from "react-open-app";
 
 const {
     socketUrl
@@ -64,7 +65,12 @@ const validateMessagesFollow = (data) => {
 };
 
 
+
+
+
 function Profile(props) {
+
+    let history = useHistory();
 
     const { Content } = Layout;
 
@@ -423,6 +429,11 @@ function Profile(props) {
 
     useEffect(async () => {
 
+
+        // console.log("umair", window.navigator.platform)
+        // history.push('./org.liqteq.react.native.Whoson')
+
+
         if (localStorage.getItem('token') == null) {
             setAuthenticate(false)
         }
@@ -583,6 +594,14 @@ function Profile(props) {
 
     return (
         <div className="animation2 " >
+
+            <OpenApp
+                // href="https://mycoolappwebsite.com"
+                android="org.liqteq.react.native.Whoson"
+            // ios="whatever deep link you need on iOS"
+            >
+
+            </OpenApp>
 
             <Spin className="loader" spinning={loader} size="large" />
 

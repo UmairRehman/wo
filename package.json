@@ -23,6 +23,7 @@
     "react-image-crop": "9.0.5",
     "react-multi-carousel": "2.6.5",
     "react-onclickoutside": "6.12.1",
+    "react-open-app": "^1.0.3",
     "react-phone-number-input": "3.2.2",
     "react-redux": "7.2.3",
     "react-router": "6.1.1",
