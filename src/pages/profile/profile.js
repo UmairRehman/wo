@@ -600,7 +600,7 @@ function Profile(props) {
                 android="org.liqteq.react.native.Whoson"
             // ios="whatever deep link you need on iOS"
             >
-
+                app
             </OpenApp>
 
             <Spin className="loader" spinning={loader} size="large" />
