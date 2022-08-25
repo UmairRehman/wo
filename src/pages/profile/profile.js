@@ -448,13 +448,13 @@ function Profile(props) {
             })();
 
         }
-        // else if (window.navigator.platform == OS.android) {
-        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-        //     console.log("else")
-        // }
-        // else {
-        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-        // }
+        else if (window.navigator.platform == OS.android) {
+            window.location.replace(`whosonapp://userProfile/${params.id}`);
+            console.log("else")
+        }
+        else {
+            window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+        }
 
 
         if (localStorage.getItem('token') == null) {
