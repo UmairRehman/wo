@@ -452,9 +452,9 @@ function Profile(props) {
             window.location.replace(`whosonapp://userProfile/${params.id}`);
             console.log("else")
         }
-        else {
-            window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-        }
+        // else {
+        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+        // }
 
 
         if (localStorage.getItem('token') == null) {
