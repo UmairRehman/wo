@@ -429,8 +429,6 @@ function Profile(props) {
 
     useEffect(async () => {
 
-        alert(window.navigator.platform)
-
         if (window.navigator.platform == OS.iphone) {
             // window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
 
@@ -452,6 +450,8 @@ function Profile(props) {
         }
         else if (window.navigator.platform.match(OS.android)) {
             window.location.replace(`whosonapp://userProfile/${params.id}`);
+            alert(window.navigator.platform.match(OS.android))
+
             console.log("else")
         }
         // else {
