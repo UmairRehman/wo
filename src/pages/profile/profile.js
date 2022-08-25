@@ -25,8 +25,9 @@ import io from 'socket.io-client'
 import './profile.css'
 import imOff from "../../assets/images/logo-white.png"
 import imOn from "../../assets/images/imoff.png"
-
+import { useHistory } from "react-router-dom";
 import apiConfig from '../../Enviroment/enviroment'
+import { OS } from './OS';
 
 const {
     socketUrl
@@ -64,7 +65,12 @@ const validateMessagesFollow = (data) => {
 };
 
 
+
+
+
 function Profile(props) {
+
+    let history = useHistory();
 
     const { Content } = Layout;
 
@@ -423,6 +429,34 @@ function Profile(props) {
 
     useEffect(async () => {
 
+        if (window.navigator.platform == OS.iphone) {
+            // window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+
+            (function () {
+                var app = {
+                    launchApp: function () {
+                        window.location.replace("org.liqteq.react.native.Whoson://");
+                        this.timer = setTimeout(this.openWebApp, 1000);
+                    },
+
+                    openWebApp: function () {
+                        window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+                    }
+                };
+
+                app.launchApp();
+            })();
+
+        }
+        else if (window.navigator.platform == OS.android) {
+            window.location.replace(`whosonapp://userProfile/${params.id}`);
+            console.log("else")
+        }
+        else {
+            window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+        }
+
+
         if (localStorage.getItem('token') == null) {
             setAuthenticate(false)
         }
@@ -583,7 +617,6 @@ function Profile(props) {
 
     return (
         <div className="animation2 " >
-
             <Spin className="loader" spinning={loader} size="large" />
 
             <div className="test" >

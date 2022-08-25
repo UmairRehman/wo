@@ -3,5 +3,6 @@ export default {
     port: '',
     // route: 'api'
     route: 'api/api',
-    socketUrl : 'wss://api.whoson.co/',
+    socketUrl: 'wss://api.whoson.co/',
 };
+
