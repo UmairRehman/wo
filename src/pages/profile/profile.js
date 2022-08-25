@@ -630,7 +630,7 @@ function Profile(props) {
                     <Image preview={false} src={CoverImage} />
                 </Col>
             </Row>
-            {(exists && displayFlag) && <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
+            {(exists) && <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="" >
                     <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
