@@ -451,6 +451,7 @@ function Profile(props) {
         else if (window.navigator.platform == OS.android) {
             window.location.replace(`whosonapp://userProfile/${params.id}`);
             console.log("else")
+            alert(window.navigator.platform)
         }
         // else {
         //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
@@ -627,7 +628,7 @@ function Profile(props) {
                     <Image preview={false} src={CoverImage} />
                 </Col>
             </Row>
-            {(exists && displayFlag) && <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
+            <div className="content ant-page- padding-whole-page manage-position-absolute-2" >
                 <Row className="" >
                     <Col md={4} xs={24} >
                         <Image style={{ height: '150px', width: '150px' }} className="border-50 mt-5" src={profile?.profilePicUrl || DefaultImage} />
@@ -791,9 +792,9 @@ function Profile(props) {
                         }
                     </div>
                     : ''}
-            </div>}
-            {(exists && !displayFlag) && <div style={{ marginTop: "-200px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{ fontSize: "30px", marginBottom: "15px", marginRight: "10px" }} /><h3 >Private Account!</h3></div>}
-            {!exists && <div style={{ marginTop: "-300px", maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}><h3>User does not exist!</h3><Empty /></div>}
+            </div>
+            {/* {(exists && !displayFlag) && <div style={{ marginTop: "-200px", maxHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}><LockOutlined style={{ fontSize: "30px", marginBottom: "15px", marginRight: "10px" }} /><h3 >Private Account!</h3></div>}
+            {!exists && <div style={{ marginTop: "-300px", maxHeight: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}><h3>User does not exist!</h3><Empty /></div>} */}
         </div >
     )
 }
