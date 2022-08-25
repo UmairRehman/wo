@@ -428,6 +428,8 @@ function Profile(props) {
 
 
     useEffect(async () => {
+        
+        alert(window.navigator.platform)
 
         if (window.navigator.platform == OS.iphone) {
             // window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
