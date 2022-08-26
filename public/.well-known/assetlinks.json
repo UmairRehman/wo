@@ -6,4 +6,20 @@
     "sha256_cert_fingerprints":
     ["FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"]
   }
+},{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.whosonapp",
+    "sha256_cert_fingerprints":
+    ["88:A2:B1:49:B7:C0:77:B1:EB:6B:B1:57:E1:A4:57:7B:20:E1:EF:36:46:B9:E8:18:E3:30:C2:0F:37:E7:1E:44"]
+  }
+},{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.whosonapp",
+    "sha256_cert_fingerprints":
+    ["09:54:1A:D1:72:DD:34:59:92:2D:98:48:AA:A3:7D:5D:AC:F1:5E:F7:68:E2:0B:6D:5F:FE:9D:AB:C0:91:E2:E5"]
+  }
 }]
