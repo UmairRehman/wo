@@ -450,8 +450,6 @@ function Profile(props) {
         }
         else if (window.navigator.platform.match(OS.android)) {
             window.location.replace(`whosonapp://userProfile/${params.id}`);
-            alert(window.navigator.platform.match(OS.android))
-
             console.log("else")
         }
         // else {
