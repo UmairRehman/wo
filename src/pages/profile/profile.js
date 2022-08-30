@@ -430,22 +430,22 @@ function Profile(props) {
     useEffect(async () => {
 
         if (window.navigator.platform == OS.iphone) {
-            // window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+            window.location.replace(`whoson://profile/${params.id}`);
 
-            (function () {
-                var app = {
-                    launchApp: function () {
-                        window.location.replace("org.liqteq.react.native.Whoson://");
-                        this.timer = setTimeout(this.openWebApp, 1000);
-                    },
+            // (function () {
+            //     var app = {
+            //         launchApp: function () {
+            //             window.location.replace("org.liqteq.react.native.Whoson://");
+            //             this.timer = setTimeout(this.openWebApp, 1000);
+            //         },
 
-                    openWebApp: function () {
-                        window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-                    }
-                };
+            //         openWebApp: function () {
+            //             window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
+            //         }
+            //     };
 
-                app.launchApp();
-            })();
+            //     app.launchApp();
+            // })();
 
         }
         else if (window.navigator.platform.match(OS.android)) {
