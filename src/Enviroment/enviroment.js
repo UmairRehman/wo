@@ -1,5 +1,5 @@
 export default {
-    base: 'https://api.dev.whoson.co/',
+    base: 'https://api.whoson.co/',
     port: '',
     // route: 'api'
     route: 'api/api',
