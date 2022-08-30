@@ -430,8 +430,7 @@ function Profile(props) {
     useEffect(async () => {
 
         if (window.navigator.platform == OS.iphone) {
-            window.location.replace(`whoson://profile/${params.id}`);
-
+            window.location.href= `whoson://profile/${params.id}`;
             // (function () {
             //     var app = {
             //         launchApp: function () {
