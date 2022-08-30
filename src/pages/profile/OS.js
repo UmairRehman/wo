@@ -3,5 +3,4 @@ export const OS = {
     android: "Linux",
     mac: "MacIntel",
     iphone: "iPhone",
-
 }
