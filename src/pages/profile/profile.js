@@ -18,7 +18,7 @@ import { checkBlockStatus, checkFollow, GetProfileByID, StatusChange, unFollow, 
 import Services from '../../component/services/services';
 import { FollowReqest } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
-import { statusConstant } from '../../constant/status'
+import { notificationMessage, statusConstant } from '../../constant/status'
 import { useParams } from "react-router-dom";
 import CoverImage from '../../assets/images/coverImage.png'
 import io from 'socket.io-client'
@@ -429,7 +429,10 @@ function Profile(props) {
 
     useEffect(async () => {
 
-        if (window.navigator.platform == OS.iphone) {
+        window.alert(window.navigator.platform)
+        console.log("Here:",window.navigator)
+
+        if ( window.navigator.platform == OS.iphone) {
             window.location.href= `whoson://profile/${params.id}`;
             // (function () {
             //     var app = {
