@@ -18,7 +18,7 @@ import { checkBlockStatus, checkFollow, GetProfileByID, StatusChange, unFollow, 
 import Services from '../../component/services/services';
 import { FollowReqest } from '../../services/apiInteraction';
 import DefaultImage from '../../assets/images/default.png'
-import { statusConstant } from '../../constant/status'
+import { notificationMessage, statusConstant } from '../../constant/status'
 import { useParams } from "react-router-dom";
 import CoverImage from '../../assets/images/coverImage.png'
 import io from 'socket.io-client'
@@ -430,7 +430,7 @@ function Profile(props) {
     useEffect(async () => {
 
         if (window.navigator.platform == OS.iphone) {
-            window.location.href= `whoson://profile/${params.id}`;
+            window.location.href = `whoson://profile/profile/${params.id}`;
             // (function () {
             //     var app = {
             //         launchApp: function () {
@@ -448,13 +448,11 @@ function Profile(props) {
 
         }
         else if (window.navigator.platform.match(OS.android)) {
-            window.location.replace(`whosonapp://userProfile/${params.id}`);
-            console.log("else")
+        
+            window.location.replace(`https://play.google.com/store/apps/details?id=com.whosonapp`);
         }
-        // else {
-        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-        // }
-        window.location.replace(`whosonapp://userProfile/${params.id}`);
+
+        // window.location.replace(`whosonapp://userProfile/${params.id}`);
 
 
         if (localStorage.getItem('token') == null) {
