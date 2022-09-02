@@ -429,11 +429,8 @@ function Profile(props) {
 
     useEffect(async () => {
 
-        window.alert(window.navigator.platform)
-        console.log("Here:",window.navigator)
-
-        if ( window.navigator.platform == OS.iphone) {
-            window.location.href= `whoson://profile/${params.id}`;
+        if (window.navigator.platform == OS.iphone) {
+            window.location.href = `whoson://profile/profile/${params.id}`;
             // (function () {
             //     var app = {
             //         launchApp: function () {
@@ -451,13 +448,11 @@ function Profile(props) {
 
         }
         else if (window.navigator.platform.match(OS.android)) {
-            window.location.replace(`whosonapp://userProfile/${params.id}`);
-            console.log("else")
+        
+            window.location.replace(`https://play.google.com/store/apps/details?id=com.whosonapp`);
         }
-        // else {
-        //     window.location.replace("https://apps.apple.com/pk/app/whos-on/id1599268330");
-        // }
-        window.location.replace(`whosonapp://userProfile/${params.id}`);
+
+        // window.location.replace(`whosonapp://userProfile/${params.id}`);
 
 
         if (localStorage.getItem('token') == null) {
