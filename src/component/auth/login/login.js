@@ -47,13 +47,13 @@ function Login() {
 
     const firebaseToken = localStorage.getItem('firebaseToken');
 
-    useEffect(()=> {
+    useEffect(() => {
         const token = localStorage.getItem('user');
         if (token) history.push('/profile-1')
-    },[])
+    }, [])
 
     const responseFacebook = async (response) => {
-        
+
         setFacebookLogin(!facebookLogin)
         // setData(response);
         // setPicture(response.picture.data.url);
@@ -91,9 +91,9 @@ function Login() {
                 else {
                     validateMessages(
                         {
-                            message:'Allready have an account from other social app'
+                            message: 'Allready have an account from other social app'
                         }
-                        );
+                    );
                     setLoader(false)
                 }
 
@@ -119,6 +119,8 @@ function Login() {
     const responseGoogle = async (response) => {
 
         if (response.accessToken) {
+
+            console.log(response)
 
             let data = {
 
@@ -158,7 +160,7 @@ function Login() {
                 else {
                     validateMessages(
                         {
-                            message:'Allready have an account from other social app'
+                            message: 'Allready have an account from other social app'
                         }
                     );
                     setLoader(false)
@@ -289,6 +291,9 @@ function Login() {
                                         onFailure={responseGoogle}
                                         cookiePolicy={'single_host_origin'}
                                         className="gmail-button"
+                                        accessType="offline"
+                                        approvalPrompt="force"
+                                        prompt='consent'
                                     />
                                 </Row>
                             </Form.Item>
