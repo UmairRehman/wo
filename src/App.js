@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 
 function App() {
-
+// console.log("project env", process.env.REACT_APP_API_PATH, process.env.REACT_APP_envName)
 
   let history = useHistory();
 
