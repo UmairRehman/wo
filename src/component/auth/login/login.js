@@ -81,7 +81,7 @@ function Login() {
                     else if (resultHandle.message.login == true) {
 
                         setLoader(false)
-                        localStorage.setItem('token', response.accessToken)
+                        localStorage.setItem('token', resultHandle?.message?.authorization)
                         localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
                         localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
                         localStorage.setItem('provider', resultHandle.message.foundUser.provider)
