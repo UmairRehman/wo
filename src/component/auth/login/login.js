@@ -47,13 +47,13 @@ function Login() {
 
     const firebaseToken = localStorage.getItem('firebaseToken');
 
-    useEffect(()=> {
+    useEffect(() => {
         const token = localStorage.getItem('user');
         if (token) history.push('/profile-1')
-    },[])
+    }, [])
 
     const responseFacebook = async (response) => {
-        
+
         setFacebookLogin(!facebookLogin)
         // setData(response);
         // setPicture(response.picture.data.url);
@@ -91,9 +91,9 @@ function Login() {
                 else {
                     validateMessages(
                         {
-                            message:'Allready have an account from other social app'
+                            message: 'Allready have an account from other social app'
                         }
-                        );
+                    );
                     setLoader(false)
                 }
 
@@ -120,6 +120,8 @@ function Login() {
 
         if (response.accessToken) {
 
+            console.log(response)
+
             let data = {
 
                 provider: 'Google',
@@ -144,7 +146,7 @@ function Login() {
                     else if (resultHandle.message.login == true) {
 
                         setLoader(false)
-                        localStorage.setItem('token', response.accessToken)
+                        localStorage.setItem('token', resultHandle?.message?.authorization)
                         localStorage.setItem('user', JSON.stringify(resultHandle.message.foundUser))
                         localStorage.setItem('email', resultHandle.message.foundUser.emailAddress)
                         localStorage.setItem('provider', resultHandle.message.foundUser.provider)
@@ -158,7 +160,7 @@ function Login() {
                 else {
                     validateMessages(
                         {
-                            message:'Allready have an account from other social app'
+                            message: 'Allready have an account from other social app'
                         }
                     );
                     setLoader(false)
@@ -289,6 +291,9 @@ function Login() {
                                         onFailure={responseGoogle}
                                         cookiePolicy={'single_host_origin'}
                                         className="gmail-button"
+                                        accessType="offline"
+                                        approvalPrompt="force"
+                                        prompt='consent'
                                     />
                                 </Row>
                             </Form.Item>
