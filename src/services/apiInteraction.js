@@ -14,7 +14,7 @@ export async function CheckLogin(obj) {
   headers.append('Content-Type', 'application/json');
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/checkToken`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/checkToken`,
     {
       method: 'POST',
       headers: new Headers({
@@ -43,7 +43,7 @@ export async function SignupApi(obj) {
   headers.append('Content-Type', 'application/json');
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/signup`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/signup`,
     {
       method: 'POST',
       headers: new Headers({
@@ -57,6 +57,7 @@ export async function SignupApi(obj) {
       }),
     });
 
+console.log(`${process.env.REACT_APP_API_PATH}/users/signup`)
   return await ErrorHandling(result)
 
 };
@@ -70,7 +71,7 @@ export async function AddPhone(obj) {
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', localStorage.getItem('token'))
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/add/phonenumber`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/add/phonenumber`,
     {
       method: 'Put',
       headers,
@@ -96,7 +97,7 @@ export async function VarifyPhoneOTP(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/verify/otp`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/verify/otp`,
     {
       method: 'PUT',
       headers,
@@ -118,7 +119,7 @@ export async function ResendOTP(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/resend/otp`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/resend/otp`,
     {
       method: 'PUT',
       headers,
@@ -140,7 +141,7 @@ export async function ForgetResendOTP(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/resend/otp`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/reset/resend/otp`,
     {
       method: 'PUT',
       headers,
@@ -164,7 +165,7 @@ export async function UserNameAPI(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/check/username`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/check/username`,
     {
       method: 'POST',
       headers,
@@ -186,7 +187,7 @@ export async function SubmitSignup(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/complete/signup`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/complete/signup`,
     {
       method: 'PUT',
       headers,
@@ -207,7 +208,7 @@ export async function ForgetPhone(obj) {
   // headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/send/otp`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/reset/send/otp`,
     {
       method: 'POST',
       headers,
@@ -227,7 +228,7 @@ export async function ForgetEmail(obj) {
   // headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/send/otp`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/reset/send/otp`,
     {
       method: 'POST',
       headers,
@@ -248,7 +249,7 @@ export async function ForgetVarification(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/verify/otp`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/reset/verify/otp`,
     {
       method: 'POST',
       headers,
@@ -270,7 +271,7 @@ export async function ForgetConfirmPassword(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/reset/change/password`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/reset/change/password`,
     {
       method: 'POST',
       headers,
@@ -292,7 +293,7 @@ export async function Login(obj) {
   headers.append('Content-Type', 'application/json');
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/login`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/login`,
     {
       method: 'POST',
       headers: new Headers({
@@ -305,7 +306,7 @@ export async function Login(obj) {
         firebaseToken: localStorage.getItem('firebaseToken')
       }),
     });
-
+    console.log(`${process.env.REACT_APP_API_PATH}/users/login`)
   return await ErrorHandling(result)
 
 };
@@ -320,13 +321,13 @@ export async function CreateProfile(obj) {
   headers.append('Authorization', localStorage.getItem('token'))
   headers.append('provider', localStorage.getItem('provider'))
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/create/profile`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/create/profile`,
     {
       method: 'POST',
       headers,
       body: JSON.stringify(obj),
     });
-
+    console.log(`${process.env.REACT_APP_API_PATH}/users/create/profile`)
   return await ErrorHandling(result)
 
 };
@@ -343,7 +344,7 @@ export async function editProfile(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/profile`,
     {
       method: 'PUT',
       headers,
@@ -370,7 +371,7 @@ export async function GetProfession() {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/profession`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/profession`,
     {
       method: 'GET',
       headers,
@@ -391,7 +392,7 @@ export async function readAPI(id) {
   headers.append('Authorization', localStorage.getItem('token'))
   headers.append('provider', localStorage.getItem('provider'))
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification/${id}`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/notification/${id}`,
     {
       method: 'PUT',
       headers
@@ -410,7 +411,7 @@ export async function GetProfile() {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/profile`,
     {
       method: 'GET',
       headers,
@@ -434,7 +435,7 @@ export async function ChangeProfileImage(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/pic`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/profile/pic`,
     {
       method: 'PUT',
       headers,
@@ -464,7 +465,7 @@ export async function GetFollowers(offset) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/follower?offset=${offset}`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/follower?offset=${offset}`,
     {
       method: 'GET',
       headers,
@@ -486,7 +487,7 @@ export async function GetFollowing() {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/following`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/following`,
     {
       method: 'GET',
       headers,
@@ -510,7 +511,7 @@ export async function GetProfileByID(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/${obj.id}`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/profile/${obj.id}`,
     {
       method: 'GET',
       headers,
@@ -534,7 +535,7 @@ export async function userActions(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/follow/status`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/profile/follow/status`,
     {
       method: 'PUT',
       headers,
@@ -556,7 +557,7 @@ export async function SearchApi(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/search?${obj.offset}`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/search?${obj.offset}`,
     {
       method: 'POST',
       headers,
@@ -579,7 +580,7 @@ export async function FollowReqest(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow`,
     {
       method: 'POST',
       headers,
@@ -601,7 +602,7 @@ export async function IMON() {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/profile/status`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/profile/status`,
     {
       method: 'PUT',
       headers,
@@ -625,7 +626,7 @@ export async function checkFollow(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/check`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/check`,
     {
       method: 'POST',
       headers,
@@ -646,7 +647,7 @@ export async function GetSuggestion() {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/suggestion`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/suggestion`,
     {
       method: 'GET',
       headers,
@@ -669,7 +670,7 @@ export async function Favourite(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/favorite`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/favorite`,
     {
       method: 'PUT',
       headers,
@@ -690,7 +691,7 @@ export async function unFollow(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow`,
     {
       method: 'DELETE',
       headers,
@@ -711,7 +712,7 @@ export async function StatusChange(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/status`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/status`,
     {
       method: 'PUT',
       headers,
@@ -732,7 +733,7 @@ export async function GetNotification(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification?offset=${obj.offset}`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/notification?offset=${obj.offset}`,
     {
       method: 'GET',
       headers,
@@ -755,7 +756,7 @@ export async function DeleteNotificationApi(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/notification/${obj.id}`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/notification/${obj.id}`,
     {
       method: 'DELETE',
       headers,
@@ -778,7 +779,7 @@ export async function MuteNOtification(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/notification`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/notification`,
     {
       method: 'PUT',
       headers,
@@ -799,7 +800,7 @@ export async function Logout(obj) {
   headers.append('provider', localStorage.getItem('provider'))
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/logout`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/logout`,
     {
       method: 'POST',
       headers,
@@ -822,7 +823,7 @@ export async function checkBlockStatus(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/follow/checkFollower`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/checkFollower`,
     {
       method: 'POST',
       headers,
@@ -846,7 +847,7 @@ export async function DeleteUser(obj) {
 
 
 
-  let result = await fetch(`${apiConfig.base}${apiConfig.port}${apiConfig.route}/users/`,
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/users/`,
     {
       method: 'DELETE',
       headers,

@@ -40,9 +40,9 @@
   },
   "scripts": {
     "start:development": "env-cmd -f src/Enviroment/.env.development react-scripts start",
-    "build:development": "env-cmd -f src/Enviroment/.env.development npm run build",
+    "build:development": "env-cmd -f src/Enviroment/.env.development react-scripts build",
     "start:production": "env-cmd -f src/Enviroment/.env.production react-scripts start",
-    "build:production": "env-cmd -f src/Enviroment/.env.production npm run build"
+    "build:production": "env-cmd -f src/Enviroment/.env.production react-scripts build"
   },
   "eslintConfig": {
     "extends": [
