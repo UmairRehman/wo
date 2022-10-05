@@ -95,9 +95,8 @@ function Header(props) {
         let unReadNotifications = []
 
         getNotification.slice(0, 4).forEach((notification) => {
-            if ( !notification?.isRead )
-            {
-                unReadNotifications.push({_id: notification?._id})
+            if (!notification?.isRead) {
+                unReadNotifications.push({ _id: notification?._id })
             }
         })
 
@@ -106,22 +105,22 @@ function Header(props) {
             try {
 
                 setLoader(true)
-    
+
                 let resultHandle = await readAPI(notification?._id);
-    
+
                 if (resultHandle?.success == true) {
-    
+
                     setLoader(false)
                     props?.setNotificationFlag(!props?.notificationFlag)
                     message.info('Refreshing notifications. Please wait!')
 
                 }
-    
+
                 else {
                     validateMessages(resultHandle);
                     setLoader(false)
                 }
-    
+
             }
             catch (err) {
                 console.log(err)
@@ -131,7 +130,7 @@ function Header(props) {
 
 
         if (notificationID === 'view') history.push('../notification')
-    
+
     }
 
 
@@ -150,9 +149,8 @@ function Header(props) {
             offset: 0
 
         }
-
         try {
-
+            
             setLoader(true)
             let resultHandle = await GetNotification(data);
 
@@ -182,9 +180,10 @@ function Header(props) {
         }
 
 
-    }, [getNotification, props.notificationFlag])
+    }, [ getNotification, props.notificationFlag])
 
 
+    console.log(props.reload)
     const menu = (
         <Menu className='notification-menu'>
             <div>
@@ -218,7 +217,7 @@ function Header(props) {
                 )}
 
                 <Menu.Item className='no-padding-notification' key="4">
-                        <Row onClick={()=>handleRead('view')} className='view-all p-0 m-0' >View All</Row>
+                    <Row onClick={() => handleRead('view')} className='view-all p-0 m-0' >View All</Row>
                 </Menu.Item>
             </div>
 
@@ -226,7 +225,7 @@ function Header(props) {
 
     );
 
-   
+
 
     const [loader, setLoader] = useState(false)
 
@@ -256,7 +255,7 @@ function Header(props) {
                 setLoader(false)
 
                 setIsModalVisible(false)
-                props.setReloadFlag(!props.reloadFlag)
+                // props.setReloadFlag(!props.reloadFlag)
                 // window.location.reload(false);
             }
 
@@ -364,7 +363,7 @@ function Header(props) {
 
         localStorage.clear()
         history.push('/login')
-        
+
     }
 
     return (
@@ -425,11 +424,11 @@ function Header(props) {
             </div>
 
 
-            <Sider style={{zIndex: "99"}} width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
+            <Sider style={{ zIndex: "99" }} width={300} collapsedWidth={0} className="custom-sidebar position-relative" trigger={null} collapsible collapsed={collapsed}>
                 <Row style={{ position: 'relative' }} className="d-flex justify-content-center mt-5">
                     {/* {profile?.profilePicUrl?.length > 0 ? */}
-                        <Image preview={false} style={{ borderRadius: '50%' }} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
-                        {/* :
+                    <Image preview={false} style={{ borderRadius: '50%' }} width={150} height={150} src={profile?.profilePicUrl + "?" + Math.random() || DefaultImage} />
+                    {/* :
                         <Image preview={false} width={150} height={150} src={DefaultImage} /> */}
 
                     {/* } */}
@@ -442,17 +441,17 @@ function Header(props) {
                 {authenticate == true ?
                     <Row className="justify-content-center mt-3">
 
-                        <Link  style={{padding: "5px"}} to={`../profile-1`}
+                        <Link style={{ padding: "5px" }} to={`../profile-1`}
                         >
-                           <Button className='view-profile'> View Profile</Button>
+                            <Button className='view-profile'> View Profile</Button>
                         </Link>
                     </Row>
                     : ""}
-                <Menu  className="sidebar-menu" theme="light" mode="inline" defaultSelectedKeys={['1']}>
+                <Menu className="sidebar-menu" theme="light" mode="inline" defaultSelectedKeys={['1']}>
                     {authenticate == true ?
                         <div >
                             <Link to="../following" >
-                                <Menu.Item style={{zIndex: "3"}} icon={<HomeOutlined className="font-30" />} key="993" >
+                                <Menu.Item style={{ zIndex: "3" }} icon={<HomeOutlined className="font-30" />} key="993" >
                                     Home
                                 </Menu.Item>
                             </Link>

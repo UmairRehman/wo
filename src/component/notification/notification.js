@@ -190,12 +190,13 @@ function Notification(props) {
     </Menu>
   );
 
+  const [showLoadMore, setShowLoadMore] = useState()
 
   useEffect(async () => {
 
     try {
 
-      setComponentLoader(true) 
+      setComponentLoader(true)
 
       let data = {
 
@@ -207,11 +208,20 @@ function Notification(props) {
 
       if (resultHandle?.success == true) {
 
+        console.log({ resultHandle })
+        setShowLoadMore(true)
+
         if (countFlag === 0) {
           setGetNotification([...resultHandle?.message.notify])
           setComponentLoader(false)
         }
         if (countFlag === 1) {
+          
+          if (!resultHandle?.message.notify.length) {
+            setShowLoadMore(false)
+            setComponentLoader(false)
+            return
+          }
           setGetNotification([...getNotification, ...resultHandle?.message.notify])
           setComponentLoader(false)
 
@@ -259,7 +269,7 @@ function Notification(props) {
         setIsReload(() => !isReload)
         successNotification("Request Accepted!")
         setLoader(false)
-        
+
       }
 
       else {
@@ -398,9 +408,9 @@ function Notification(props) {
         }
 
 
-        <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
+        {showLoadMore && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
           <Button className='load-more-button' onClick={loadMore}>Load More</Button>
-        </Row>
+        </Row>}
       </div>
     </Spin>
 
