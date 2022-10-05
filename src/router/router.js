@@ -47,7 +47,7 @@ import AuthCheck from '../AuthCheck/authCheck.js';
 
 
 
-function router() {
+function router({ reload }) {
     return (
         <div>
             <Router>
@@ -151,7 +151,7 @@ function router() {
                         </Route>
 
                         <Route path='/header'>
-                            <Header />
+                            <Header reload={reload} />
                         </Route>
 
                         <AuthCheck path='/select'>

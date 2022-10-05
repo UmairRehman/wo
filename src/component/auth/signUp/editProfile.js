@@ -112,16 +112,19 @@ const EditProfile = (user) => {
 
 
 
-    const onFinish = async (values: any) => {
+    const onFinish = async (values) => {
         // setLoader(true)
+        let newServices;
         if (services.length) {
-            let services = [];
+            // let services = [];
 
-            values.service.forEach((key, i) => services[i] = {
-                name: values.service[i],
-                price: String(values.price[i])
-            });
-        
+            // values.service.forEach((key, i) => services[i] = {
+            //     name: values.service[i],
+            //     price: (values.price[i]).toString()
+            // });
+            newServices = services.map((service) => {
+                return { name: service.name, price: (service.price).toString() }
+            })
         }
 
         let data = {
@@ -135,7 +138,7 @@ const EditProfile = (user) => {
             emailAddress: userHistory?.emailAddress,
             professionId: profession == "" ? userHistory?.imOnProfile?.profession_data[0]?._id : profession,
             about: values.about == undefined ? userHistory?.imOnProfile?.about : values.about == '' ? ' ' : values.about,
-            services: services,
+            services: newServices,
             website: values?.website == '' ? ' ' : values.website
         }
 
@@ -402,7 +405,6 @@ const EditProfile = (user) => {
                                     <Form.Item
                                         name={['website']}
                                     >
-
                                         <Input placeholder={userHistory?.imOnProfile?.website} defaultValue={userHistory?.imOnProfile?.website} className="fancy-border" />
 
                                     </Form.Item>

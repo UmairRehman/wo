@@ -298,33 +298,29 @@ function MyProfile() {
 
     async function onClickDelete(values) {
 
-        if (values.input == 'delete') {
-            try {
-                setLoader(true)
-                let resultHandle = await DeleteUser();
+        try {
+            setLoader(true)
+            let resultHandle = await DeleteUser();
 
 
-                if (resultHandle?.success == true) {
+            if (resultHandle?.success == true) {
 
-                    setLoader(false)
-                    localStorage.clear()
-                    history.push('/login')
-
-                }
-
-                else {
-                    validateMessages(resultHandle);
-                    setLoader(false)
-                }
+                setLoader(false)
+                localStorage.clear()
+                history.push('/login')
 
             }
-            catch (err) {
-                console.log(err)
+
+            else {
+                validateMessages(resultHandle);
+                setLoader(false)
             }
-        }
-        else {
 
         }
+        catch (err) {
+            console.log(err)
+        }
+
 
     }
 
@@ -436,7 +432,7 @@ function MyProfile() {
 
                     <Title style={{ textAlign: 'center' }} level={3}>Do you want to delete your account?  </Title>
 
-                    <Paragraph style={{ textAlign: 'center', marginTop: '0' }} level={5}>Type 'delete' if you want to delete your account. This will wipe all data associated to your account   </Paragraph>
+                    {/* <Paragraph style={{ textAlign: 'center', marginTop: '0' }} level={5}>Type 'delete' if you want to delete your account. This will wipe all data associated to your account   </Paragraph> */}
 
                     <Form
                         name="normal_login"
@@ -444,19 +440,27 @@ function MyProfile() {
                         initialValues={{ remember: true }}
                         onFinish={onClickDelete}
                     >
-                        <Form.Item
+                        {/* <Form.Item
                             name="input"
                             rules={[{ required: true, message: 'Please type delete!' }]}
                         >
                             <Input className="login-field" placeholder="Delete" />
-                        </Form.Item>
-
-                        <Form.Item className="position-relative">
-                            <Button
-                                type="primary" htmlType="submit" className="button mt-5 w-100" >
-                                Delete
-                            </Button>
-                        </Form.Item>
+                        </Form.Item> */}
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <Form.Item style={{ margin: "0 5px" }} className="position-relative">
+                                <Button
+                                    type="primary" htmlType="submit" className="button mt-5" >
+                                    Yes
+                                </Button>
+                            </Form.Item>
+                            <Form.Item style={{ margin: "0 5px" }} className="position-relative">
+                                <Button
+                                    onClick={() => setDeleteModal(false)}
+                                    type="primary" className="button mt-5" >
+                                    No
+                                </Button>
+                            </Form.Item>
+                        </div>
                     </Form>
 
 

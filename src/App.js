@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 
 function App() {
-// console.log("project env", process.env.REACT_APP_API_PATH, process.env.REACT_APP_envName)
+  // console.log("project env", process.env.REACT_APP_API_PATH, process.env.REACT_APP_envName)
 
   let history = useHistory();
 
@@ -32,7 +32,7 @@ function App() {
 
   const [notify, setNotify] = useState({})
   const [loader, setLoader] = useState(false)
-
+  const [reloadNotifications, setReloadNotifications] = useState(false)
 
   useEffect(() => {
 
@@ -57,6 +57,9 @@ function App() {
       messaging.onMessage((payload) => {
 
         try {
+          console.log("Reload")
+          setReloadNotifications(!reloadNotifications)
+          localStorage.setItem('reload',reloadNotifications)
           setLoader(!loader)
           if (payload?.data?.type == "2" && payload?.data?.On == "1") {
             let notifyMessage = {
@@ -86,7 +89,7 @@ function App() {
 
             let notifyMessage = {
               name: payload?.data?.firstName,
-              message: "Accept your follow request"
+              message: "Accepted your follow request"
             }
             validateMessages(notifyMessage);
           }
@@ -108,7 +111,7 @@ function App() {
 
   return (
     <div className="App">
-      <Routers loader={loader} />
+      <Routers reload={reloadNotifications} loader={loader} />
 
     </div>
   );
