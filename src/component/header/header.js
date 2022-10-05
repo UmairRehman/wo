@@ -133,6 +133,7 @@ function Header(props) {
 
     }
 
+    let loadAgain = localStorage.getItem('reload')
 
     useEffect(async () => {
 
@@ -150,7 +151,7 @@ function Header(props) {
 
         }
         try {
-            
+
             setLoader(true)
             let resultHandle = await GetNotification(data);
 
@@ -180,10 +181,9 @@ function Header(props) {
         }
 
 
-    }, [ getNotification, props.notificationFlag])
+    }, [ loadAgain, props.notificationFlag])
 
 
-    console.log(props.reload)
     const menu = (
         <Menu className='notification-menu'>
             <div>
