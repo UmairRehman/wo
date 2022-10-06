@@ -465,13 +465,18 @@ function Header(props) {
                                     Notifications
                                 </Menu.Item>
                             </Link>
+                            <Link to="../pending-requests">
+                                <Menu.Item icon={<BellOutlined className="font-30" />} key="4" >
+                                    Pending Requests
+                                </Menu.Item>
+                            </Link>
                             <Link to="#" >
-                                <Menu.Item icon={<ProfileOutlined className="font-30" />} onClick={() => shareProfile()} key="4" >
+                                <Menu.Item icon={<ProfileOutlined className="font-30" />} onClick={() => shareProfile()} key="5" >
                                     Share profile link
                                 </Menu.Item>
                             </Link>
                             {/* <Link to="./login"> */}
-                            <Menu.Item onClick={signOut} icon={<LogoutOutlined className="font-30" />} key="5" >
+                            <Menu.Item onClick={signOut} icon={<LogoutOutlined className="font-30" />} key="6" >
                                 Sign out
                             </Menu.Item>
                             {/* </Link> */}

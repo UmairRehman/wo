@@ -44,6 +44,8 @@ import Search from '../pages/search/search.js';
 import EditProfile from '../component/auth/signUp/editProfile.js';
 import ScrollDown from '../component/scroolDown/scroolDown.js';
 import AuthCheck from '../AuthCheck/authCheck.js';
+import PendingRequests from '../component/notification/pendingRequests.js';
+import PendingPage from '../pages/notification/PendingPage.js';
 
 
 
@@ -164,6 +166,10 @@ function router({ reload }) {
 
                         <AuthCheck path='/notification'>
                             <Notification />
+                        </AuthCheck>
+
+                        <AuthCheck path='/pending-requests'>
+                            <PendingPage />
                         </AuthCheck>
 
                         <AuthCheck path='/following'>
