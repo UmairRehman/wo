@@ -546,3 +546,7 @@ animation: animateIn 1s alternate ease;
 .ant-switch-checked {
   background-color: #27B824 !important;
 }
+
+.bor{
+  border: 1px solid black !important;
+}

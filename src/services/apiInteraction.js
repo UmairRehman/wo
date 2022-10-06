@@ -745,6 +745,27 @@ export async function GetNotification(obj) {
 };
 
 
+export async function GetPending(obj) {
+
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', localStorage.getItem('token'))
+  headers.append('provider', localStorage.getItem('provider'))
+
+
+  let result = await fetch(`${process.env.REACT_APP_API_PATH}/follow/request?offset=${obj.offset}`,
+    {
+      method: 'GET',
+      headers,
+      // body: JSON.stringify(obj),
+    });
+
+  return await ErrorHandling(result)
+
+};
+
+
 // delete notification 
 export async function DeleteNotificationApi(obj) {
 

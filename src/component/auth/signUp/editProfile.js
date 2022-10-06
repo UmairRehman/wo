@@ -380,6 +380,26 @@ const EditProfile = (user) => {
                                 </Col>
                             }
                         </Row>
+                        <Row>
+                            <Col className="padding-20" md={12} xs={24} >
+                                <Paragraph className="font-18">Phone Number</Paragraph>
+                                <Form.Item
+                                    name={['phoneNumber']}
+                                >
+                                    <Input disabled placeholder={userHistory?.phoneNumber} defaultValue={userHistory?.phoneNumber}  className="fancy-border" />
+
+                                </Form.Item>
+                            </Col>
+                            <Col className="padding-20" md={12} xs={24} >
+                                <Paragraph className="font-18">Website URL</Paragraph>
+                                <Form.Item
+                                    name={['website']}
+                                >
+                                    <Input placeholder={userHistory?.imOnProfile?.website} defaultValue={userHistory?.imOnProfile?.website} className="fancy-border" />
+
+                                </Form.Item>
+                            </Col>
+                        </Row>
 
                         <Row>
                             <Col className="padding-20" md={12} xs={24} >
@@ -400,15 +420,6 @@ const EditProfile = (user) => {
                             </Col>
 
                             <Col className="padding-20" md={12} xs={24} >
-                                <Col className="padding-20" md={24} xs={24} >
-                                    <Paragraph className="font-18">Website URL</Paragraph>
-                                    <Form.Item
-                                        name={['website']}
-                                    >
-                                        <Input placeholder={userHistory?.imOnProfile?.website} defaultValue={userHistory?.imOnProfile?.website} className="fancy-border" />
-
-                                    </Form.Item>
-                                </Col>
 
                                 <Row>
                                     <Col className="padding-20" span={12}>
