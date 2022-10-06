@@ -774,7 +774,7 @@ function Profile(props) {
                                     className="w-100"
                                 >
                                     <Form.Item name={['message']} >
-                                        <Input.TextArea style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
+                                        <Input.TextArea maxLength={150} style={{ border: 'none', borderRadius: '10px', padding: '10px' }} rows={5} className="gray-background" placeholder="Type Text Here" />
                                     </Form.Item>
 
                                     <Form.Item >

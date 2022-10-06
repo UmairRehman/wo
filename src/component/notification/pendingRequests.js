@@ -345,21 +345,16 @@ function PendingRequests(props) {
                                 }
                             </Col>
 
-                            <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={11}>
-                                {data.type == 1 ?
+                            <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={12}>
+                                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center" }}>
                                     <Text style={{ padding: '20' }} >{`${data.followerDetail[0]?.firstName} wants to follow you`}</Text>
-
-                                    : data.type == 2 ?
-                                        <Text style={{ padding: '20' }} >{`${data.onOff == true ? `${data.followerDetail[0]?.firstName + " " + data.followerDetail[0]?.lastName} is now on` : `${data.followerDetail[0]?.firstName + " " + data.followerDetail[0]?.lastName} is now off`}`}</Text>
-
-                                        : data.type == 3 ?
-                                            <Text style={{ padding: '20' }} >{`${data.followerDetail[0]?.firstName} accepted your follow request`}</Text>
-                                            : null}
+                                    <Text style={{ padding: '20' , width: "90%" }} >{data?.message}</Text>
+                                </div>
                             </Col>
 
 
 
-                            <Col className="self-align-center" span={6}>
+                            <Col className="self-align-center" span={5}>
                                 <Row className='responsive-button-notification '>
 
                                     <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
@@ -414,7 +409,7 @@ function PendingRequests(props) {
                 {(!showLoadMore && !componentLoader) && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
                     <Paragraph style={{ fontSize: "20px" }}>No pending requests currently!</Paragraph>
                 </Row>}
-                
+
 
             </div>
         </Spin>
