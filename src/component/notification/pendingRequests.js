@@ -395,7 +395,7 @@ function PendingRequests(props) {
                 {showLoadMore && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
                     <Button className='load-more-button' onClick={loadMore}>Load More</Button>
                 </Row>}
-                {(!getNotification?.length) && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
+                {(!getNotification?.length && !componentLoader) && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
                     <Paragraph style={{ fontSize: "20px" }}>No pending requests currently!</Paragraph>
                 </Row>}
 
