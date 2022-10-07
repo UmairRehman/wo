@@ -112,6 +112,7 @@ function PendingRequests(props) {
 
             if (resultHandle?.success == true) {
 
+                console.log(resultHandle)
                 successNotification("Notification deleted!")
                 setIsReload(() => !isReload)
                 setLoader(false)
@@ -209,24 +210,15 @@ function PendingRequests(props) {
             if (resultHandle?.success == true) {
 
                 console.log({ resultHandle })
-                if (!resultHandle?.message?.followRequest?.length) return setComponentLoader(false)
-
-                setShowLoadMore(true)
+                if (resultHandle?.message?.followRequest.length >= 10) setShowLoadMore(true)
 
                 if (countFlag === 0) {
                     setGetNotification([...resultHandle?.message.followRequest])
                     setComponentLoader(false)
                 }
                 if (countFlag === 1) {
-
-                    if (!resultHandle?.message.notify.length) {
-                        setShowLoadMore(false)
-                        setComponentLoader(false)
-                        return
-                    }
-                    setGetNotification([...getNotification, ...resultHandle?.message.notify])
+                    setGetNotification([...getNotification, ...resultHandle?.message?.followRequest])
                     setComponentLoader(false)
-
                 }
 
             }
@@ -262,7 +254,7 @@ function PendingRequests(props) {
         }
 
         try {
-            setLoader(true)
+            // setLoader(true)
             let resultHandle = await StatusChange(obj);
 
             if (resultHandle?.success == true) {
@@ -270,13 +262,12 @@ function PendingRequests(props) {
                 deleteOnAccept(data?._id)
                 setIsReload(() => !isReload)
                 successNotification("Request Accepted!")
-                setLoader(false)
-
+                // setLoader(false)
             }
 
             else {
                 validateMessages(resultHandle);
-                setLoader(false)
+                // setLoader(false)
             }
 
         }
@@ -292,14 +283,14 @@ function PendingRequests(props) {
             status: 3
         }
         try {
-            setLoader(true)
+            // setLoader(true)
             let resultHandle = await StatusChange(obj);
 
             if (resultHandle?.success == true) {
 
                 setIsReload(() => !isReload)
                 successNotification("Request declined!")
-                setLoader(false)
+                // setLoader(false)
 
             }
 
@@ -345,21 +336,20 @@ function PendingRequests(props) {
                                 }
                             </Col>
 
-                            <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={12}>
+                            <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={15} >
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center" }}>
                                     <Text style={{ padding: '20' }} >{`${data.followerDetail[0]?.firstName} wants to follow you`}</Text>
-                                    <Text style={{ padding: '20' , width: "90%" }} >{data?.message}</Text>
+                                    {data?.message !== " " && 'Message:'}
+                                    {data?.message !== " " && <Text style={{ padding: '10px', width: "90%", border: "1px solid lightgrey", borderRadius: "10px" }} >{data?.message}</Text>}
                                 </div>
                             </Col>
 
-
-
-                            <Col className="self-align-center" span={5}>
+                            <Col className="self-align-center" span={4}>
                                 <Row className='responsive-button-notification '>
 
-                                    <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
+                                    <Button style={{ marginBottom: "10px" }} onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
 
-                                    <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button>
+                                    <Button style={{ marginBottom: "10px" }} onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button>
 
                                     {/* <Button onClick={() => acceptRequest(data)} className="small-button"><CheckOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button>
                 <Button onClick={() => rejectRequest(data)} className="small-button-decline"><CloseOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button> */}
@@ -370,19 +360,18 @@ function PendingRequests(props) {
 
 
                             <Col className="self-align-center" span={2}>
-                                <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
-                                    <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text>
+                                <Row  className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
+                                    <Text style={{ marginBottom: "10px"}}>{moment(data.updatedAt).format('ll')}</Text>
                                 </Row>
                             </Col>
 
-                            <Col className="self-align-center" span={2} >
+                            {/* <Col className="self-align-center" span={2} >
                                 <Row className="position-relative" style={{ display: 'flex', justifyContent: 'end' }}>
-                                    {/* <Text style={{ marginTop: '5px' }}>{moment(data.updatedAt).format('ll')}</Text> */}
                                     <Dropdown trigger={['click']} className='dropdown-button' style={{ border: 'none' }} overlay={menu} placement="bottomRight">
                                         <Button onClick={() => setID(data)} style={{ border: 'none', background: 'none' }} >  <Image style={{ width: 'inherit' }} preview={false} src={Option} /> </Button>
                                     </Dropdown>
                                 </Row>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </div>
 
@@ -406,7 +395,7 @@ function PendingRequests(props) {
                 {showLoadMore && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
                     <Button className='load-more-button' onClick={loadMore}>Load More</Button>
                 </Row>}
-                {(!showLoadMore && !componentLoader) && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
+                {(!getNotification?.length) && <Row style={{ justifyContent: 'center', marginTop: '30px', marginBottom: '50px' }}>
                     <Paragraph style={{ fontSize: "20px" }}>No pending requests currently!</Paragraph>
                 </Row>}
 
