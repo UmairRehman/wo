@@ -216,7 +216,7 @@ function Notification(props) {
           setComponentLoader(false)
         }
         if (countFlag === 1) {
-          
+
           if (!resultHandle?.message.notify.length) {
             setShowLoadMore(false)
             setComponentLoader(false)
@@ -316,6 +316,7 @@ function Notification(props) {
   function onClickNotification(data) {
 
 
+    if (data?.type == 1) return history.push({ pathname: 'pending-requests' })
     history.push({
       pathname: `/profile/${data.from_data[0].username}`,
     });
@@ -343,7 +344,7 @@ function Notification(props) {
                 }
               </Col>
 
-              <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={11}>
+              <Col onClick={() => onClickNotification(data)} className="position-relative self-align-center" span={17}>
                 {data.type == 1 ?
                   <Text style={{ padding: '20' }} >{`${data.from_data[0]?.firstName} wants to follow you`}</Text>
 
@@ -357,21 +358,21 @@ function Notification(props) {
 
 
 
-              <Col className="self-align-center" span={6}>
+              {/* <Col className="self-align-center" span={6}>
                 {data.type == 1 ?
                   <Row className='responsive-button-notification '>
 
                     <Button onClick={() => acceptRequest(data)} className="small-button">Accept</Button>
 
-                    <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button>
+                    <Button onClick={() => rejectRequest(data)} className="small-button-decline">Decline </Button> */}
 
-                    {/* <Button onClick={() => acceptRequest(data)} className="small-button"><CheckOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button>
+              {/* <Button onClick={() => acceptRequest(data)} className="small-button"><CheckOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button>
                 <Button onClick={() => rejectRequest(data)} className="small-button-decline"><CloseOutlined style={{fontWeight:'900', fontSize:'22px'}} /></Button> */}
 
 
-                  </Row>
+              {/* </Row>
                   : null}
-              </Col>
+              </Col> */}
 
 
               <Col className="self-align-center" span={2}>
