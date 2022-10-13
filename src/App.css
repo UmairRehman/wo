@@ -172,8 +172,9 @@ h5 {
 .font-12 {
   font-size: 12px;
 }
+
 .font-12-vw {
-  font-size:0.750vw !important;
+  font-size: 0.750vw !important;
 }
 
 .font-14 {
@@ -181,7 +182,7 @@ h5 {
 }
 
 .font-14-vw {
-  font-size: 0.875vw !important ;
+  font-size: 0.875vw !important;
 }
 
 .font-16 {
@@ -505,25 +506,29 @@ html {
 .cursor-pointer {
   cursor: pointer;
 }
-.padding-whole-page{
+
+.padding-whole-page {
   padding-right: 10%;
   padding-left: 10%;
 }
 
 @media only screen and (max-width: 600px) {
-  .padding-whole-page{
+  .padding-whole-page {
     padding-right: 5%;
     padding-left: 5%;
   }
 }
-.no-focus:focus{
+
+.no-focus:focus {
   background: none !important;
 }
-.facebook-button-span span{
+
+.facebook-button-span span {
   width: 100% !important;
 }
+
 .kep-login-facebook {
-  border-radius: 20px !important; 
+  border-radius: 20px !important;
   height: 50px !important;
   padding: 0 !important;
   padding-left: 10px !important;
@@ -532,21 +537,96 @@ html {
 }
 
 .animateIn-splash {
-animation: animateIn 1s alternate ease;
+  animation: animateIn 1s alternate ease;
 }
 
 @keyframes animateIn {
   form {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
+
 .ant-switch-checked {
   background-color: #27B824 !important;
 }
 
-.bor{
+.bor {
   border: 1px solid black !important;
+}
+
+.redirect_button {
+  background-color: whitesmoke;
+  border-radius: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 5px;
+  height: fit-content;
+  color: white;
+  transition: 0.3s;
+  /* border: 1px solid black; */
+  cursor: pointer;
+  margin: 10px 0px;
+  color: black;
+  font-size: 18px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.redirect_button:hover {
+  background-color: white;
+  color: black;
+}
+
+.redirect_button_image {
+  width: 100px;
+  height: 50px;
+}
+
+.redirect_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.redirect_bg {
+  background: url('../src/assets/images/redirectBG.png') !important;
+  background-position: center;
+  background-repeat: no-repeat !important;
+  background-size: contain;
+}
+
+.redirect_right {
+  display: flex;
+  align-items: center;
+}
+
+.phone_res {
+  margin-top: 20px;
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .phone_img {
+    display: none !important;
+  }
+
+  .phone_res {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .redirect_container{
+    margin-top: 100px !important;
+  }
+  .phone_res{
+    width: 240px !important;
+  }
 }

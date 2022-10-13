@@ -46,7 +46,7 @@ import ScrollDown from '../component/scroolDown/scroolDown.js';
 import AuthCheck from '../AuthCheck/authCheck.js';
 import PendingRequests from '../component/notification/pendingRequests.js';
 import PendingPage from '../pages/notification/PendingPage.js';
-
+import { RedirectPage } from '../pages/Redirect/RedirectPage.js';
 
 
 function router({ reload }) {
@@ -209,6 +209,10 @@ function router({ reload }) {
                             <UploadProfile />
                         </AuthCheck>
                         
+                        <Route path='/redirect'>
+                            <RedirectPage />
+                        </Route>
+
                         <Redirect to="/login" />
 
                         {/* import Component End  */}
